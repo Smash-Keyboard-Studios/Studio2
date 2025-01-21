@@ -25,4 +25,3 @@ jobs:
         ./ugs-linux-x64 config get project-id
         ./ugs-linux-x64 status
         ./ugs-linux-x64 env list
-        ./ugs-linux-x64 deploy <directory-with-service-configurations> -j
