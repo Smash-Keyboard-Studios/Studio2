@@ -1,0 +1,18 @@
+name: Acquire activation file
+on:
+  workflow_dispatch: {}
+jobs:
+  activation:
+    name: Request manual activation file
+    runs-on: ubuntu-latest
+    steps:
+      # request manual activation license
+      - name: Request manual activation license
+        id: getManualLicenseFile
+        uses: game-ci/unity-request-activation-file@v2
+      # Upload artifact (Unity XXXXaf fa eaf )
+      - name: Expose as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.getManualLicenseFile.outputs.filepath }}
+          path: ${{ steps.getManualLicenseFile.outputs.filepath }}
