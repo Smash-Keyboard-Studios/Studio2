@@ -1,0 +1,28 @@
+name: UGS CLI GitHub Actions Demo
+
+## Choose what triggers your workflow, here it is triggered for every push
+on: push
+
+## Setting environment variables
+env:
+  UGS_CLI_PROJECT_ID: "your-project-id"
+  UGS_CLI_SERVICE_KEY_ID: "your-service-key-id"
+  UGS_CLI_SERVICE_SECRET_KEY: "your-service-secret-key"
+
+## Setting the jobs
+jobs:
+  demo-cli:
+    ## You might want to change the runs-on depending on your needs
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download CLI
+      run: curl -OL https://github.com/Unity-Technologies/unity-gaming-services-cli/releases/latest/download/ugs-linux-x64
+
+    - name: Test CLI Commands
+      run: |
+        chmod +x ./ugs-linux-x64
+        ./ugs-linux-x64 --version
+        ./ugs-linux-x64 config get project-id
+        ./ugs-linux-x64 status
+        ./ugs-linux-x64 env list
+        ./ugs-linux-x64 deploy <directory-with-service-configurations> -j
