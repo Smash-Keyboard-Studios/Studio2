@@ -21,11 +21,14 @@ public class AIBase : MonoBehaviour, IDamagable
 	#region Public variables
 
 	[Header("Health")]
-	public float MaxHealth = 100f;
-	public float CurrentHealth;
+	[SerializeField]
+	protected float MaxHealth = 100f;
+	[SerializeField]
+	protected float CurrentHealth;
 
 	[Header("Movement Speed")]
-	public float Speed = 5f;
+	[SerializeField]
+	protected float Speed = 5f;
 
 
 	#endregion
@@ -56,7 +59,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// <summary>
 	/// The agent that is attached to this AI. It must have an agent attached.
 	/// </summary>
-	private NavMeshAgent Agent;
+	protected NavMeshAgent Agent;
 
 
 	#endregion
