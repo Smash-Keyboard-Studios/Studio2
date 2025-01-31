@@ -17,11 +17,26 @@ public class AICommonMeleeCombat : AIBase
 
 	protected NavMeshPath path;
 
+	protected override void Start()
+	{
+		base.Start();
+
+		path = new NavMeshPath();
+
+		InvokeRepeating(nameof(RunPathfinding), 0, 0.25f);
+	}
+
 	protected override void Update()
 	{
 		base.Update();
 
+
+	}
+
+	protected virtual void RunPathfinding()
+	{
 		if (NavMesh.CalculatePath(transform.position, GameObject.FindWithTag("Player").transform.position, NavMesh.AllAreas, path))
 			Agent.path = path;
+		// print("NAVING");
 	}
 }
