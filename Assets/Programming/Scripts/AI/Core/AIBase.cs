@@ -28,7 +28,9 @@ public class AIBase : MonoBehaviour, IDamagable
 
 	[Header("Movement Speed")]
 	[SerializeField]
-	protected float Speed = 5f;
+	protected float MaxSpeed = 5f;
+
+	protected float CurrentSpeed;
 
 
 	#endregion
@@ -73,6 +75,9 @@ public class AIBase : MonoBehaviour, IDamagable
 	protected virtual void Awake()
 	{
 		CurrentHealth = MaxHealth;
+
+		CurrentSpeed = MaxSpeed;
+
 		Agent = GetComponent<NavMeshAgent>();
 	}
 	#endregion
