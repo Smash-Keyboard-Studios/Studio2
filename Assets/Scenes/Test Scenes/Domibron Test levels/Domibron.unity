@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 82635013}
   - component: {fileID: 82635012}
   - component: {fileID: 82635011}
+  - component: {fileID: 82635015}
   m_Layer: 0
   m_Name: Player test
   m_TagString: Player
@@ -184,7 +185,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 10fe0d3cbc1b97f499528f27412aff61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -223,13 +224,25 @@ Transform:
   m_GameObject: {fileID: 82635010}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 3.16, z: -0.25}
+  m_LocalPosition: {x: 1, y: 1.9, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2096119037}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &82635015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82635010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2d10cacd42e42c46aabba094b816b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &138944990
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,8 +790,8 @@ GameObject:
   - component: {fileID: 815357369}
   - component: {fileID: 815357368}
   - component: {fileID: 815357367}
-  - component: {fileID: 815357366}
   - component: {fileID: 815357365}
+  - component: {fileID: 815357372}
   m_Layer: 0
   m_Name: Melee AI test
   m_TagString: Untagged
@@ -813,23 +826,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &815357366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815357364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c597c93a184ceeb439b7e99142843fd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 100
-  CurrentHealth: 0
-  Speed: 5
-  Damage: 10
-  AttackRate: 10
 --- !u!195 &815357367
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -895,7 +891,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 69a200814736e9b498f251fd925b1b0d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -934,12 +930,38 @@ Transform:
   m_GameObject: {fileID: 815357364}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.37, y: 4.42, z: -10.140761}
+  m_LocalPosition: {x: 5.37, y: 2.15, z: -10.140761}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &815357372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815357364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c597c93a184ceeb439b7e99142843fd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+  CurrentHealth: 0
+  Speed: 5
+  Damage: 10
+  AttackRate: 1
+  MinDistanceForAttack: 2
+  BoxCastThickness: 2
+  BoxCastLength: 3
+  BoxCastHeight: 1
+  BoxCastOffsetFromAI: {x: 0, y: 0, z: 1}
+  LayersToCheckFor:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  AttackDamage: 20
 --- !u!43 &1461016731
 Mesh:
   m_ObjectHideFlags: 0
