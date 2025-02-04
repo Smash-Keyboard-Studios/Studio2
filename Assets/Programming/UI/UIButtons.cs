@@ -18,9 +18,19 @@ public class UIButtons : MonoBehaviour
         UIManager.Instance.PressMainMenu();
     }
 
+    public void PressStartGame()
+    {
+        UIManager.Instance.PressStartGame();
+    }
+
     public void PressControls()
     {
         UIManager.Instance.PressControls();
+    }
+
+    public void PressCredits()
+    {
+        UIManager.Instance.PressCredits();
     }
 
     public void PressQuit()
