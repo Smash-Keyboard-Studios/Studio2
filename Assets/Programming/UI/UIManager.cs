@@ -11,15 +11,17 @@ public class UIManager : MonoBehaviour
     private static UIManager _instance;
 
 
-    [Header("Build Indexes for scenes - Please set to their indexes in the game build!!")]
+    [Header("Build Indexes for scenes")]
     public int MainMenuBuildIndex;
     public int ControlsBuildIndex;
     public int CreditsBuildIndex;
     public int StartingLevelBuildIndex;
+    [Header("Build Indexes for main menu and all levels")]
+    public int[] LevelBuildIndexes; //contains all the build indexes that are a game level
+    //^ this includes main menu as 0th
 
     [Header("UI Variables")]
     [SerializeField] private int CurrentLevelBuildIndex; //records whichever game level the player is currently in
-    private int[] NonLevelBuildIndexes; //contains all the build indexes that aren't a game level
 
 
     private void Awake()
@@ -39,7 +41,6 @@ public class UIManager : MonoBehaviour
         //i am counting the main menu as a level so that if the game hasn't started
         //then you will return to the main menu from other scenes instead of starting the game
         CurrentLevelBuildIndex = MainMenuBuildIndex; //build index is set to main menu when the game hasn't started
-        NonLevelBuildIndexes = new int[2] { ControlsBuildIndex, CreditsBuildIndex };
     }
 
     private void Update()
@@ -52,7 +53,7 @@ public class UIManager : MonoBehaviour
     public void OnSceneChange() //this should run whenever there is a scene change
     {
         int newScene = SceneManager.GetActiveScene().buildIndex;
-        if (!NonLevelBuildIndexes.Contains(newScene))
+        if (LevelBuildIndexes.Contains(newScene))
         {
             CurrentLevelBuildIndex = newScene;
         }
@@ -77,7 +78,7 @@ public class UIManager : MonoBehaviour
         EnterLevel();
 
         SceneManager.LoadScene(StartingLevelBuildIndex);
-        CurrentLevelBuildIndex = StartingLevelBuildIndex;
+        OnSceneChange();
     }
 
     public void PressControls()
@@ -103,7 +104,14 @@ public class UIManager : MonoBehaviour
     //game menu buttons
     public void PressReturnToLevel()
     {
-        EnterLevel();
+        if(CurrentLevelBuildIndex == MainMenuBuildIndex)
+        {
+            EnterMenu();
+        }
+        else
+        {
+            EnterLevel();
+        }
 
         SceneManager.LoadScene(CurrentLevelBuildIndex);
     }
@@ -113,6 +121,6 @@ public class UIManager : MonoBehaviour
         EnterMenu();
 
         SceneManager.LoadScene(MainMenuBuildIndex);
-        CurrentLevelBuildIndex = MainMenuBuildIndex; //build index is set to main menu when the game hasn't started
+        OnSceneChange(); //build index is set to main menu when the game hasn't started
     }
 }
