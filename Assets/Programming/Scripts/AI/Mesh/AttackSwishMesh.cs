@@ -14,7 +14,7 @@ using UnityEngine;
 /// </summary>
 public static class AttackSwishMesh
 {
-	public static Vector3[] Verticies =
+	public static Vector3[] verticies =
 	{
 		new (0,0.1f,0), // centre.
 		new (-0.5f, 0.1f, -0.5f),
@@ -36,7 +36,7 @@ public static class AttackSwishMesh
 		new (0.5f, -0.1f, -0.5f),
 	};
 
-	public static Vector3[] NormalsVectors =
+	public static Vector3[] normalsVectors =
 	{
 		new (0,1,0), // centre.
 		new (0, 1, 0),
@@ -59,7 +59,7 @@ public static class AttackSwishMesh
 	};
 
 
-	public static int[] Triangles =
+	public static int[] triangles =
 	{
 		// top faces
 		0,1,2,

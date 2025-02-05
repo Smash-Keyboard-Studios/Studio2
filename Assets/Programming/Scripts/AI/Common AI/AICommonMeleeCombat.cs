@@ -19,54 +19,54 @@ public class AICommonMeleeCombat : AIBase
 {
 	[Header("Attacking")]
 	[SerializeField]
-	protected float Damage = 10f;
+	protected float damage = 10f;
 	/// <summary>
 	/// How long before next attack.
 	/// </summary>
 	[Tooltip("How long before next attack.")]
 	[SerializeField]
-	protected float AttackRate = 1f;
+	protected float attackRate = 1f;
 
-	protected NavMeshPath Path;
+	protected NavMeshPath path;
 
-	protected Vector3 PathTarget;
+	protected Vector3 pathTarget;
 
-	protected Transform PlayerTarget;
+	protected Transform playerTarget;
 
 	[SerializeField]
-	protected float MinDistanceForAttack = 2f;
+	protected float minDistanceForAttack = 2f;
 
 	[Header("Box check for attacking")]
 	// box casst
 	[SerializeField]
-	protected float BoxCastThickness = 2f;
+	protected float boxCastThickness = 2f;
 
 	[SerializeField]
-	protected float BoxCastLength = 3;
+	protected float boxCastLength = 3;
 
 	[SerializeField]
-	protected float BoxCastHeight = 1;
+	protected float boxCastHeight = 1;
 
 	[SerializeField]
-	protected Vector3 BoxCastOffsetFromAI = Vector3.forward;
+	protected Vector3 boxCastOffsetFromAI = Vector3.forward;
 
 	[SerializeField]
-	LayerMask LayersToCheckFor = Physics.AllLayers;
+	LayerMask layersToCheckFor = Physics.AllLayers;
 
 	[SerializeField]
-	protected float AttackDamage = 20f;
+	protected float attackDamage = 20f;
 
-	protected float AttackCooldown = 0f;
+	protected float attackCooldown = 0f;
 
-	protected bool Attacking = false;
+	protected bool attacking = false;
 
 	protected override void Awake()
 	{
 		base.Awake();
 
-		Path = new NavMeshPath();
+		path = new NavMeshPath();
 
-		PlayerTarget = GameObject.FindWithTag("Player").transform;
+		playerTarget = GameObject.FindWithTag("Player").transform;
 
 
 
@@ -85,30 +85,30 @@ public class AICommonMeleeCombat : AIBase
 	{
 		base.Update();
 
-		Agent.speed = CurrentSpeed;
+		agent.speed = currentSpeed;
 
-		if (AttackCooldown > 0f) AttackCooldown -= Time.deltaTime;
+		if (attackCooldown > 0f) attackCooldown -= Time.deltaTime;
 
-		if (Vector3.Distance(PlayerTarget.position, transform.position) < MinDistanceForAttack)
+		if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack)
 		{
 			// attack
-			if (Vector3.Distance(PlayerTarget.position, transform.position) < 1.55f || Attacking) CurrentSpeed = 0.4f; // PathTarget = transform.position;
-			else CurrentSpeed = MaxSpeed; // PathTarget = PlayerTarget.position;
+			if (Vector3.Distance(playerTarget.position, transform.position) < 1.55f || attacking) currentSpeed = 0.4f; // PathTarget = transform.position;
+			else currentSpeed = maxSpeed; // PathTarget = PlayerTarget.position;
 
 
-			if (!Attacking && AttackCooldown <= 0f) StartCoroutine(Attack());
+			if (!attacking && attackCooldown <= 0f) StartCoroutine(Attack());
 		}
 
-		PathTarget = PlayerTarget.position;
+		pathTarget = playerTarget.position;
 	}
 
 	protected IEnumerator Attack()
 	{
-		Attacking = true;
-		AttackCooldown = AttackRate;
+		attacking = true;
+		attackCooldown = attackRate;
 
-		Collider[] HitObjects = Physics.OverlapBox(transform.position + BoxCastOffsetFromAI, new Vector3(BoxCastLength, BoxCastHeight, BoxCastThickness) / 2f,
-		 transform.rotation, LayersToCheckFor, QueryTriggerInteraction.Ignore);
+		Collider[] HitObjects = Physics.OverlapBox(transform.position + boxCastOffsetFromAI, new Vector3(boxCastLength, boxCastHeight, boxCastThickness) / 2f,
+		 transform.rotation, layersToCheckFor, QueryTriggerInteraction.Ignore);
 
 		if (HitObjects.Length > 0)
 		{
@@ -116,20 +116,20 @@ public class AICommonMeleeCombat : AIBase
 			{
 				if (hitObject.gameObject.CompareTag("Player"))
 				{
-					hitObject.GetComponent<IDamagable>()?.TakeDamage(AttackDamage);
+					hitObject.GetComponent<IDamagable>()?.TakeDamage(attackDamage);
 				}
 			}
 		}
 		yield return null;
 
-		Attacking = false;
+		attacking = false;
 	}
 
 
 	protected virtual void RunPathfinding()
 	{
-		if (NavMesh.CalculatePath(transform.position, PathTarget, NavMesh.AllAreas, Path))
-			Agent.path = Path;
+		if (NavMesh.CalculatePath(transform.position, pathTarget, NavMesh.AllAreas, path))
+			agent.path = path;
 
 		// print("NAVING");
 	}
