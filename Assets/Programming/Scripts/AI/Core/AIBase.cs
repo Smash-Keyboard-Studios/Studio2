@@ -22,15 +22,15 @@ public class AIBase : MonoBehaviour, IDamagable
 
 	[Header("Health")]
 	[SerializeField]
-	protected float MaxHealth = 100f;
+	protected float maxHealth = 100f;
 	[SerializeField]
-	protected float CurrentHealth;
+	protected float murrentHealth;
 
 	[Header("Movement Speed")]
 	[SerializeField]
-	protected float MaxSpeed = 5f;
+	protected float maxSpeed = 5f;
 
-	protected float CurrentSpeed;
+	protected float currentSpeed;
 
 
 	#endregion
@@ -46,12 +46,12 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// <summary>
 	/// Called when the AI dies.
 	/// </summary>
-	public event EntityEventHandler OnDeath;
+	public event EntityEventHandler onDeath;
 
 	/// <summary>
 	/// Called when the AI is spawned.
 	/// </summary>
-	public event EntityEventHandler OnSpawn;
+	public event EntityEventHandler onSpawn;
 
 
 	#endregion
@@ -61,7 +61,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// <summary>
 	/// The agent that is attached to this AI. It must have an agent attached.
 	/// </summary>
-	protected NavMeshAgent Agent;
+	protected NavMeshAgent agent;
 
 
 	#endregion
@@ -74,11 +74,11 @@ public class AIBase : MonoBehaviour, IDamagable
 	#region Awake
 	protected virtual void Awake()
 	{
-		CurrentHealth = MaxHealth;
+		murrentHealth = maxHealth;
 
-		CurrentSpeed = MaxSpeed;
+		currentSpeed = maxSpeed;
 
-		Agent = GetComponent<NavMeshAgent>();
+		agent = GetComponent<NavMeshAgent>();
 	}
 	#endregion
 
@@ -89,7 +89,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	// Also setting base values so inherited class does not need to.
 	protected virtual void Start()
 	{
-		OnSpawn?.Invoke(transform); // We call the AI on spawn if there are any listeners.
+		onSpawn?.Invoke(transform); // We call the AI on spawn if there are any listeners.
 	}
 	#endregion
 
@@ -98,7 +98,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	#region Update
 	protected virtual void Update()
 	{
-		if (CurrentHealth <= 0)
+		if (murrentHealth <= 0)
 		{
 			KillAI();
 		}
@@ -113,7 +113,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// </summary>
 	protected virtual void KillAI()
 	{
-		OnDeath?.Invoke(transform);
+		onDeath?.Invoke(transform);
 		gameObject.SetActive(false);
 	}
 	#endregion
@@ -121,9 +121,9 @@ public class AIBase : MonoBehaviour, IDamagable
 
 
 	#region IDamagable.TakeDamage
-	bool IDamagable.TakeDamage(float Ammount)
+	bool IDamagable.TakeDamage(float ammount)
 	{
-		return TakeDamage(Ammount);
+		return TakeDamage(ammount);
 	}
 	#endregion
 
@@ -131,11 +131,11 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// <summary>
 	/// Overridable method for taking damage. Will apply the damage to the AI.
 	/// </summary>
-	/// <param name="Ammount">The ammount to take.</param>
+	/// <param name="ammount">The ammount to take.</param>
 	/// <returns>If it was successful.</returns>
-	protected virtual bool TakeDamage(float Ammount)
+	protected virtual bool TakeDamage(float ammount)
 	{
-		CurrentHealth -= Ammount;
+		murrentHealth -= ammount;
 		return true;
 	}
 	#endregion
