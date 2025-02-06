@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,16 +11,16 @@ public class PlayerInputHandler : MonoBehaviour
 
     [Header("Action Name References")]
     [SerializeField] private string move = "Move";
-    [SerializeField] private string jump = "Jump";
     [SerializeField] private string sprint = "Sprint";
+    [SerializeField] private string interact = "Interaction";
 
     private InputAction moveAction;
-    private InputAction jumpAction;
     private InputAction sprintAction;
+    private InputAction interactAction;
 
     public Vector2 MoveInput { get; private set; }
-    public bool JumpTriggered { get; private set; }
     public float SprintValue { get; private set; }
+    public bool InteractionTriggered { get; private set; }
 
     public static PlayerInputHandler Instance { get; private set; }
 
@@ -40,8 +37,8 @@ public class PlayerInputHandler : MonoBehaviour
         }
 
         moveAction = PlayerControls.FindActionMap(actionMapName).FindAction(move);
-        jumpAction = PlayerControls.FindActionMap(actionMapName).FindAction(jump);
         sprintAction = PlayerControls.FindActionMap(actionMapName).FindAction(sprint);
+        interactAction = PlayerControls.FindActionMap(actionMapName).FindAction(interact);
         RegisterInputActions();
     }
 
@@ -50,25 +47,25 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction.performed += context => MoveInput = context.ReadValue<Vector2>();
         moveAction.canceled += context => MoveInput = Vector2.zero;
 
-        jumpAction.performed += context => JumpTriggered = true;
-        jumpAction.canceled += context => JumpTriggered = false;
-
         sprintAction.performed += context => SprintValue = context.ReadValue<float>();
         sprintAction.canceled += contect => SprintValue = 0f;
+
+        interactAction.performed += context => InteractionTriggered = true;
+        interactAction.canceled += context => InteractionTriggered = false;
     }
 
     private void OnEnable()
     {
         moveAction.Enable();
-        jumpAction.Enable();
         sprintAction.Enable();
+        interactAction.Enable();
     }
 
     private void OnDisable()
     {
         moveAction.Disable();
-        jumpAction.Disable();
         sprintAction.Disable();
+        interactAction.Disable();
     }
 
 }
