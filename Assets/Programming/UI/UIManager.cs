@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
 
     [Header("Build Indexes for scenes")]
     public int MainMenuBuildIndex;
+    public int LevelSelectBuildIndex;
+    public int OptionsBuildIndex;
     public int ControlsBuildIndex;
     public int CreditsBuildIndex;
     public int StartingLevelBuildIndex;
@@ -22,6 +24,7 @@ public class UIManager : MonoBehaviour
 
     [Header("UI Variables")]
     [SerializeField] private int CurrentLevelBuildIndex; //records whichever game level the player is currently in
+    [SerializeField] private Vector3 CurrentPlayerPosition; //records current position of player
 
 
     private void Awake()
@@ -41,6 +44,7 @@ public class UIManager : MonoBehaviour
         //i am counting the main menu as a level so that if the game hasn't started
         //then you will return to the main menu from other scenes instead of starting the game
         CurrentLevelBuildIndex = MainMenuBuildIndex; //build index is set to main menu when the game hasn't started
+        CurrentPlayerPosition = Vector3.zero;
     }
 
     private void Update()
@@ -63,6 +67,8 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
+
+        //////if can find a player in the scene, set current player position to players pos
     }
 
     private void EnterLevel()
@@ -79,6 +85,20 @@ public class UIManager : MonoBehaviour
 
         SceneManager.LoadScene(StartingLevelBuildIndex);
         OnSceneChange();
+    }
+
+    public void PressLevelSelect()
+    {
+        EnterMenu();
+
+        SceneManager.LoadScene(LevelSelectBuildIndex);
+    }
+
+    public void PressOptions()
+    {
+        EnterMenu();
+
+        SceneManager.LoadScene(OptionsBuildIndex);
     }
 
     public void PressControls()
@@ -114,6 +134,7 @@ public class UIManager : MonoBehaviour
         }
 
         SceneManager.LoadScene(CurrentLevelBuildIndex);
+        //////if can find a player in the scene, set players pos to current player position
     }
 
     public void PressMainMenu()
