@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
 
     [Header("UI Variables")]
     [SerializeField] private int CurrentLevelBuildIndex; //records whichever game level the player is currently in
+    [SerializeField] private GameObject PlayerObject; //playerobject in scene
     [SerializeField] private Vector3 CurrentPlayerPosition; //records current position of player
 
 
@@ -60,6 +61,12 @@ public class UIManager : MonoBehaviour
         if (LevelBuildIndexes.Contains(newScene))
         {
             CurrentLevelBuildIndex = newScene;
+
+            //set player object if ca find
+            if (GameObject.FindGameObjectWithTag("Player") != null)
+            {
+                PlayerObject = GameObject.FindGameObjectWithTag("Player");
+            }
         }
     }
 
@@ -68,7 +75,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
 
-        //////if can find a player in the scene, set current player position to players pos
+        if(PlayerObject != null ) { CurrentPlayerPosition = PlayerObject.transform.position; }
     }
 
     private void EnterLevel()
@@ -134,7 +141,7 @@ public class UIManager : MonoBehaviour
         }
 
         SceneManager.LoadScene(CurrentLevelBuildIndex);
-        //////if can find a player in the scene, set players pos to current player position
+        if (PlayerObject != null) { PlayerObject.transform.position = CurrentPlayerPosition; }
     }
 
     public void PressMainMenu()
