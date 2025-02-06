@@ -23,6 +23,16 @@ public class UIButtons : MonoBehaviour
         UIManager.Instance.PressStartGame();
     }
 
+    public void PressLevelSelect()
+    {
+        UIManager.Instance.PressLevelSelect();
+    }
+
+    public void PressOptions()
+    {
+        UIManager.Instance.PressOptions();
+    }
+
     public void PressControls()
     {
         UIManager.Instance.PressControls();
