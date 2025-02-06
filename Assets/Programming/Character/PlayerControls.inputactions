@@ -15,18 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "Sprint",
                     "type": "Button",
-                    "id": "23ba33d8-d07f-46c2-a9d6-ec199523dc21",
+                    "id": "dfc20322-fbbb-4e8a-bfa0-c0f366600022",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sprint",
+                    "name": "Interaction",
                     "type": "Button",
-                    "id": "dfc20322-fbbb-4e8a-bfa0-c0f366600022",
+                    "id": "dcbb0d62-8051-4070-b484-76e4e9b47da1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -102,28 +102,6 @@
                 },
                 {
                     "name": "",
-                    "id": "e2f1cc56-2869-4045-a558-9144af8bc58e",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f78c5740-b9b7-459d-95f1-61eea4114ce0",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4398c4ba-d692-41b4-93bf-736fac94028e",
                     "path": "<Gamepad>/rightStick/down",
                     "interactions": "",
@@ -141,6 +119,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "650f5ea0-9153-4615-9989-621bc241985e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interaction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7b5d306f-982c-4098-9449-96b17fc9fd70",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interaction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
