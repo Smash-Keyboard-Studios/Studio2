@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +59,9 @@ public class AICommonMeleeCombat : AIBase
 	/// </summary>
 	[SerializeField]
 	protected float minDistanceForAttack = 2f;
+
+
+	protected Coroutine AttackCoroutine;
 
 
 	/* Box check to detect and damage player */
@@ -132,10 +134,16 @@ public class AICommonMeleeCombat : AIBase
 	protected bool enableVisualDetectionRadius = false;
 
 	/// <summary>
-	/// 
+	/// Displays a line towards the player to see if the player can get detected, and to see if an onbject overlaps.
 	/// </summary>
 	[SerializeField]
 	protected bool enableVisualDetectionLine = false;
+
+
+	protected bool attackAnimationPlaying = false;
+
+	protected Animator animatorController;
+
 
 
 	/******************************************************************************/
@@ -153,8 +161,9 @@ public class AICommonMeleeCombat : AIBase
 
 		playerTarget = GameObject.FindWithTag("Player").transform;
 
-		pathTarget = transform.position;
+		animatorController = GetComponentInChildren<Animator>();
 
+		pathTarget = transform.position;
 	}
 
 
@@ -191,8 +200,12 @@ public class AICommonMeleeCombat : AIBase
 			AlertedThinking();
 		}
 
-	}
 
+
+
+		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
+
+	}
 
 
 	/// <summary>
@@ -222,12 +235,12 @@ public class AICommonMeleeCombat : AIBase
 	{
 		if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack)
 		{
-			// attack
+			// attack // TODO move somewhere else cos this breaks.
 			if (Vector3.Distance(playerTarget.position, transform.position) < 1.55f || attacking) currentSpeed = 0.4f; // PathTarget = transform.position;
 			else currentSpeed = maxSpeed; // PathTarget = PlayerTarget.position;
 
 
-			if (!attacking && attackCooldown <= 0f) StartCoroutine(Attack());
+			if (!attacking && attackCooldown <= 0f && AttackCoroutine == null) AttackCoroutine = StartCoroutine(Attack());
 		}
 
 		pathTarget = playerTarget.position;
@@ -243,8 +256,50 @@ public class AICommonMeleeCombat : AIBase
 		attacking = true;
 		attackCooldown = attackRate;
 
+		attackAnimationPlaying = true;
+
+
+		if (Random.Range(0f, 4f) < 1f)
+		{
+			animatorController.SetBool("IsHardAttack", true);
+		}
+		else
+		{
+			animatorController.SetBool("IsHardAttack", false);
+		}
+
+		animatorController.SetBool("IsAttacking", true);
+
+
+		// AttackAndDamage();
+		//yield return null;
+
+
+
+		while (attackAnimationPlaying) yield return null;
+
+		attacking = false;
+
+		currentSpeed = maxSpeed;
+
+		AttackCoroutine = null;
+	}
+
+	public virtual void AnimationAttackFinished()
+	{
+		animatorController.SetBool("IsHardAttack", false);
+		animatorController.SetBool("IsAttacking", false);
+		attackAnimationPlaying = false;
+
+	}
+
+	/// <summary>
+	/// Creates a boxcast and deals damage to the player if there is one in the boxcast.
+	/// </summary>
+	public virtual void AttackAndDamage()
+	{
 		Collider[] HitObjects = Physics.OverlapBox(transform.position + boxCastOffsetFromAI, new Vector3(boxCastLength, boxCastHeight, boxCastThickness) / 2f,
-		 transform.rotation, layersToCheckFor, QueryTriggerInteraction.Ignore);
+				 transform.rotation, layersToCheckFor, QueryTriggerInteraction.Ignore);
 
 		if (HitObjects.Length > 0)
 		{
@@ -256,9 +311,6 @@ public class AICommonMeleeCombat : AIBase
 				}
 			}
 		}
-		yield return null;
-
-		attacking = false;
 	}
 
 
