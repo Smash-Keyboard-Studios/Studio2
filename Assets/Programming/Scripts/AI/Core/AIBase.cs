@@ -23,7 +23,7 @@ public enum AIState
 /// <summary>
 /// The raity of the AI.
 /// </summary>
-[Obsolete("No reason for it to be used at the moment.", false)]
+//[Obsolete("No reason for it to be used at the moment.", false)]
 public enum AITier
 {
 	Common,
