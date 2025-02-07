@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,27 @@ using UnityEngine.AI;
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
 
+/// <summary>
+/// The AI States, should dictate thinking.
+/// </summary>
+public enum AIState
+{
+	Idle = 0,
+	Alerted = 1,
+}
 
+/// <summary>
+/// The raity of the AI.
+/// </summary>
+[Obsolete("No reason for it to be used at the moment.", false)]
+public enum AITier
+{
+	Common,
+	Uncommon,
+	Rare,
+	Epic,
+	Legendary,
+}
 
 /// <summary>
 /// Holds the core data of the AI.
@@ -19,6 +40,10 @@ using UnityEngine.AI;
 public class AIBase : MonoBehaviour, IDamagable
 {
 	#region Public variables
+
+	[Header("Tier and stat mult")]
+	[SerializeField]
+	protected AITier TierOfAI = AITier.Common;
 
 	[Header("Health")]
 	[SerializeField]
