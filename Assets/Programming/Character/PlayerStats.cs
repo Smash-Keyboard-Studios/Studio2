@@ -5,6 +5,11 @@ public class PlayerStats : MonoBehaviour, IDamagable
     [Header("Player Stats")]
     public float PlayerHealth = 100;
     public float PlayerStamina = 100;
+    public float PlayerMaxHealth = 100;
+    public float PlayerMinHealth = 0;
+    public float PlayerMaxStamina = 100;
+    public float PlayerMinStamina = 0;
+    public float PlayerHealAmount = 25;
 
     [Header("Interaction")]
     public GameObject InteractionUI;
@@ -23,8 +28,8 @@ public class PlayerStats : MonoBehaviour, IDamagable
 
     private void Update()
     {
-        PlayerStamina = Mathf.Clamp(PlayerStamina, 0, 100);
-        PlayerHealth = Mathf.Clamp(PlayerHealth, 0, 100);
+        PlayerStamina = Mathf.Clamp(PlayerStamina, PlayerMinStamina, PlayerMaxStamina);
+        PlayerHealth = Mathf.Clamp(PlayerHealth, PlayerMinHealth, PlayerMaxHealth);
     }
 
     private void OnTriggerStay(Collider other)
@@ -35,9 +40,9 @@ public class PlayerStats : MonoBehaviour, IDamagable
 
             if (inputHandler.InteractionTriggered)
             {
-                if (PlayerHealth < 100)
+                if (PlayerHealth < PlayerMaxHealth)
                 {
-                    PlayerHealth += 25f;
+                    PlayerHealth += PlayerHealAmount;
                     Destroy(other.gameObject);
                     InteractionUI.SetActive(false);
                 }
