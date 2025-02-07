@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour, IDamagable
@@ -23,7 +24,8 @@ public class PlayerStats : MonoBehaviour, IDamagable
 
     public bool TakeDamage(float Ammount)
     {
-        throw new System.NotImplementedException();
+        PlayerHealth -= Ammount;
+        return true;
     }
 
     private void Update()
