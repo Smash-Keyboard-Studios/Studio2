@@ -11,6 +11,8 @@ using UnityEngine.AI;
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
 
+
+#region AIState
 /// <summary>
 /// The AI States, should dictate thinking.
 /// </summary>
@@ -19,7 +21,10 @@ public enum AIState
 	Idle = 0,
 	Alerted = 1,
 }
+#endregion
 
+
+#region AITier
 /// <summary>
 /// The raity of the AI.
 /// </summary>
@@ -32,6 +37,7 @@ public enum AITier
 	Epic,
 	Legendary,
 }
+#endregion
 
 /// <summary>
 /// Holds the core data of the AI.
@@ -56,6 +62,9 @@ public class AIBase : MonoBehaviour, IDamagable
 	protected float maxSpeed = 5f;
 
 	protected float currentSpeed;
+
+	// for on death, only do it once.
+	protected bool KilledAI = false;
 
 
 	#endregion
@@ -92,9 +101,8 @@ public class AIBase : MonoBehaviour, IDamagable
 	#endregion
 	/******************************************************************************/
 	#region Functions
-	// adds spacing for VS scrol bar text.
-	#region 
 	#endregion
+
 
 	#region Awake
 	protected virtual void Awake()
@@ -102,6 +110,10 @@ public class AIBase : MonoBehaviour, IDamagable
 		murrentHealth = maxHealth;
 
 		currentSpeed = maxSpeed;
+
+		gameObject.tag = "Enemy";
+
+		KilledAI = false;
 
 		agent = GetComponent<NavMeshAgent>();
 	}
@@ -138,8 +150,12 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// </summary>
 	protected virtual void KillAI()
 	{
+		if (KilledAI) return;
+
 		onDeath?.Invoke(transform);
-		gameObject.SetActive(false);
+		Destroy(gameObject);
+
+		KilledAI = true;
 	}
 	#endregion
 
@@ -152,7 +168,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	}
 	#endregion
 
-	#region
+	#region TakeDamage
 	/// <summary>
 	/// Overridable method for taking damage. Will apply the damage to the AI.
 	/// </summary>
@@ -165,5 +181,4 @@ public class AIBase : MonoBehaviour, IDamagable
 	}
 	#endregion
 
-	#endregion
 }
