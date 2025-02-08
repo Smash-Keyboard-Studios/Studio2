@@ -17,7 +17,7 @@ public interface IDamagable
 	/// <summary>
 	/// Tells the entity to recive the damage provided.
 	/// </summary>
-	/// <param name="Ammount">Ammount of damage to give.</param>
+	/// <param name="ammount">Ammount of damage to give.</param>
 	/// <returns>True if it was successful.</returns>
-	public bool TakeDamage(float Ammount);
+	public bool TakeDamage(float ammount);
 }
