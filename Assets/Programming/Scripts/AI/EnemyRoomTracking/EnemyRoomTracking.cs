@@ -34,6 +34,11 @@ public class EnemyRoomTracking : MonoBehaviour
 		boxCollider.enabled = false;
 		boxCollider.isTrigger = true;
 
+
+	}
+
+	void Start()
+	{
 		Collider[] colliders = Physics.OverlapBox(transform.position + boxCollider.center, boxCollider.size / 2f,
 		transform.rotation, layerToCheckFor, QueryTriggerInteraction.Ignore);
 
