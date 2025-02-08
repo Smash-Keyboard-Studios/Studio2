@@ -18,8 +18,12 @@ using UnityEngine.AI;
 /// <summary>
 /// Common Melee AI behavior class. Controls movement, attacking and thinking.
 /// </summary>
-public class AICommonMeleeCombat : AIBase
+public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 {
+	#region Variables
+	#endregion
+
+	#region AI State Vars
 	/* AI State */
 	/// <summary>
 	/// The current state the AI is in, at the current time. This Dictates what thinking process it will do.
@@ -28,7 +32,10 @@ public class AICommonMeleeCombat : AIBase
 	[SerializeField]
 	protected AIState currentAIState = AIState.Alerted;
 
+	#endregion
 
+
+	#region Attacking Vars
 	/* Attacking */
 
 	/// <summary>
@@ -36,18 +43,18 @@ public class AICommonMeleeCombat : AIBase
 	/// </summary>
 	[Header("Attacking")]
 	[SerializeField]
-	protected float attackDamage = 20f;
+	protected float lightAttackDamage = 20f;
 
 	/// <summary>
 	/// Remaining time left before the AI can attack again.
 	/// </summary>
-	protected float attackCooldown = 0f;
+	protected float lightAttackCooldown = 0f;
 
 	/// <summary>
 	/// How long before next attack.
 	/// </summary>
 	[SerializeField, Tooltip("How long before next attack.")]
-	protected float attackRate = 1f;
+	protected float lightAttackRate = 1f;
 
 	/// <summary>
 	/// Weather the AI is currently attacking the player. Used by the IEnumerator.
@@ -61,15 +68,18 @@ public class AICommonMeleeCombat : AIBase
 	protected float minDistanceForAttack = 2f;
 
 
-	protected Coroutine AttackCoroutine;
+	protected Coroutine lightAttackCoroutine;
+
+	#endregion
 
 
+	#region Box Check Vars
 	/* Box check to detect and damage player */
 
 	/// <summary>
 	/// AI forward (local Z), how far this will stretch.
 	/// </summary>
-	[Header("Box check for attacking")]
+	[Header("Box check for light attack")]
 	[SerializeField]
 	protected float boxCastThickness = 2f;
 
@@ -97,7 +107,10 @@ public class AICommonMeleeCombat : AIBase
 	[SerializeField]
 	protected LayerMask layersToCheckFor = Physics.AllLayers;
 
+	#endregion
 
+
+	#region Detection Vars
 	/* The limits for detecting the player */
 
 	/// <summary>
@@ -124,6 +137,10 @@ public class AICommonMeleeCombat : AIBase
 	/// </summary>
 	protected Transform playerTarget;
 
+	#endregion
+
+
+	#region Debugging Vars
 	/* Debugging */
 
 	/// <summary>
@@ -139,20 +156,23 @@ public class AICommonMeleeCombat : AIBase
 	[SerializeField]
 	protected bool enableVisualDetectionLine = false;
 
+	#endregion
+
+	#region Animation Vars
 
 	protected bool attackAnimationPlaying = false;
 
 	protected Animator animatorController;
 
+	#endregion
 
 
 	/******************************************************************************/
 	#region Functions
-	// adds spacing for VS scrol bar text.
-	#region 
 	#endregion
 
 
+	#region Awake
 	protected override void Awake()
 	{
 		base.Awake();
@@ -165,9 +185,11 @@ public class AICommonMeleeCombat : AIBase
 
 		pathTarget = transform.position;
 	}
+	#endregion
 
 
 
+	#region Start
 	protected override void Start()
 	{
 		base.Start();
@@ -176,16 +198,18 @@ public class AICommonMeleeCombat : AIBase
 
 
 	}
+	#endregion
 
 
 
+	#region Update
 	protected override void Update()
 	{
 		base.Update();
 
 		// set values and deal with timers.
 		agent.speed = currentSpeed;
-		if (attackCooldown > 0f) attackCooldown -= Time.deltaTime;
+		if (lightAttackCooldown > 0f) lightAttackCooldown -= Time.deltaTime;
 
 
 		// thinking based on current state state.
@@ -206,8 +230,11 @@ public class AICommonMeleeCombat : AIBase
 		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
 
 	}
+	#endregion
 
 
+
+	#region IdleThinking
 	/// <summary>
 	/// How the AI acts when it's currently idle.
 	/// </summary>
@@ -225,41 +252,46 @@ public class AICommonMeleeCombat : AIBase
 				currentAIState = AIState.Alerted;
 		}
 	}
+	#endregion
 
 
 
+	#region AlertedThinking
 	/// <summary>
 	/// How the AI acts when it seen / detects the player.
 	/// </summary>
-	protected virtual private void AlertedThinking()
+	protected virtual void AlertedThinking()
 	{
 		if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack)
 		{
-			// attack // TODO move somewhere else cos this breaks.
+			// attack // TODO Speed needs to be handled elsewhere. It breaks now with animations
 			if (Vector3.Distance(playerTarget.position, transform.position) < 1.55f || attacking) currentSpeed = 0.4f; // PathTarget = transform.position;
 			else currentSpeed = maxSpeed; // PathTarget = PlayerTarget.position;
 
 
-			if (!attacking && attackCooldown <= 0f && AttackCoroutine == null) AttackCoroutine = StartCoroutine(Attack());
+			if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null) lightAttackCoroutine = StartCoroutine(LightAttack());
 		}
 
 		pathTarget = playerTarget.position;
 	}
+	#endregion
 
 
+
+	#region LightAttack
 	/// <summary>
 	/// Dealing with attacking the player and dealing damage.
 	/// </summary>
 	/// <returns></returns>
-	protected virtual IEnumerator Attack()
+	protected virtual IEnumerator LightAttack()
 	{
 		attacking = true;
-		attackCooldown = attackRate;
+		lightAttackCooldown = lightAttackRate;
 
 		attackAnimationPlaying = true;
 
 
-		if (Random.Range(0f, 4f) < 1f)
+		if (Random.Range(0f, 4f) < 1.5f)
 		{
 			animatorController.SetBool("IsHardAttack", true);
 		}
@@ -282,9 +314,13 @@ public class AICommonMeleeCombat : AIBase
 
 		currentSpeed = maxSpeed;
 
-		AttackCoroutine = null;
+		lightAttackCoroutine = null;
 	}
+	#endregion
 
+
+
+	#region AnimationAttackFinished
 	public virtual void AnimationAttackFinished()
 	{
 		animatorController.SetBool("IsHardAttack", false);
@@ -292,7 +328,11 @@ public class AICommonMeleeCombat : AIBase
 		attackAnimationPlaying = false;
 
 	}
+	#endregion
 
+
+
+	#region AttackAndDamage
 	/// <summary>
 	/// Creates a boxcast and deals damage to the player if there is one in the boxcast.
 	/// </summary>
@@ -307,14 +347,16 @@ public class AICommonMeleeCombat : AIBase
 			{
 				if (hitObject.gameObject.CompareTag("Player"))
 				{
-					hitObject.GetComponent<IDamagable>()?.TakeDamage(attackDamage);
+					hitObject.GetComponent<IDamagable>()?.TakeDamage(lightAttackDamage);
 				}
 			}
 		}
 	}
+	#endregion
 
 
 
+	#region RunPathfinding
 	/// <summary>
 	/// Calculate the path. This should be called in Start with InvokeRepeating to optimise path calculations.
 	/// </summary>
@@ -325,9 +367,11 @@ public class AICommonMeleeCombat : AIBase
 
 		// print("NAVING");
 	}
+	#endregion
 
 
 
+	#region OnDrawGizmos
 	protected virtual void OnDrawGizmos()
 	{
 		if (enableVisualDetectionRadius)
@@ -344,5 +388,19 @@ public class AICommonMeleeCombat : AIBase
 		}
 	}
 
+	void IAnimationStateUpdator.EndAttack()
+	{
+		AnimationAttackFinished();
+	}
+
+	void IAnimationStateUpdator.DealAttack()
+	{
+		AttackAndDamage();
+	}
+
+	void IAnimationStateUpdator.StartAttack()
+	{
+
+	}
 	#endregion
 }
