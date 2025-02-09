@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.AI.Navigation;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -192,10 +193,10 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 	#region Start
 	protected override void Start()
 	{
-		base.Start();
 
 		InvokeRepeating(nameof(RunPathfinding), 0, 0.25f);
 
+		base.Start();
 
 	}
 	#endregion
@@ -262,6 +263,9 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 	/// </summary>
 	protected virtual void AlertedThinking()
 	{
+		pathTarget = playerTarget.position;
+
+
 		if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack)
 		{
 			// attack // TODO Speed needs to be handled elsewhere. It breaks now with animations
@@ -272,7 +276,6 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 			if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null) lightAttackCoroutine = StartCoroutine(LightAttack());
 		}
 
-		pathTarget = playerTarget.position;
 	}
 	#endregion
 
@@ -336,7 +339,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 	/// <summary>
 	/// Creates a boxcast and deals damage to the player if there is one in the boxcast.
 	/// </summary>
-	public virtual void AttackAndDamage()
+	public virtual void LightAttackCheckAndDamage()
 	{
 		Collider[] HitObjects = Physics.OverlapBox(transform.position + boxCastOffsetFromAI, new Vector3(boxCastLength, boxCastHeight, boxCastThickness) / 2f,
 				 transform.rotation, layersToCheckFor, QueryTriggerInteraction.Ignore);
@@ -362,7 +365,14 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 	/// </summary>
 	protected virtual void RunPathfinding()
 	{
-		if (NavMesh.CalculatePath(transform.position, pathTarget, NavMesh.AllAreas, path))
+		NavMeshQueryFilter filter = new NavMeshQueryFilter();
+
+		filter.agentTypeID = agent.agentTypeID;
+
+		filter.areaMask = NavMesh.AllAreas;
+
+
+		if (NavMesh.CalculatePath(transform.position, pathTarget, filter, path))
 			agent.path = path;
 
 		// print("NAVING");
@@ -387,7 +397,11 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 
 		}
 	}
+	#endregion
 
+
+
+	#region IAnimationStateUpdator
 	void IAnimationStateUpdator.EndAttack()
 	{
 		AnimationAttackFinished();
@@ -395,7 +409,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 
 	void IAnimationStateUpdator.DealAttack()
 	{
-		AttackAndDamage();
+		LightAttackCheckAndDamage();
 	}
 
 	void IAnimationStateUpdator.StartAttack()

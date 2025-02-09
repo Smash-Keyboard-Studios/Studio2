@@ -16,48 +16,244 @@ using UnityEngine;
 /// <summary>
 /// Special Tank AI behavior class. Controls movement, attacking and thinking.
 /// </summary>
-public class AISpecialTank : AICommonMeleeCombat
+public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 {
 
+	[Header("Tank Slam Attack")]
+	protected Coroutine specialAttackCoroutine;
 
-	protected Coroutine heavyAttackCoroutine;
+	[SerializeField]
+	protected float specialAttackCooldown = 0f;
 
-
-
-
-
-
-
-
+	[SerializeField]
+	protected float specialAttackRate = 5f;
 
 
+
+	[Header("Wind up settings")]
+	[SerializeField]
+	protected float windUpTime = 1f;
+
+	protected float windUpTimer = 1f;
+
+	protected bool isWindingUp = false;
+
+	[Header("Slam size and damage")]
+
+	[SerializeField]
+	protected float slamMaxRadius = 8f;
+
+	[SerializeField]
+	protected float slamAttackDamageAtMaxRange = 15f;
+
+	[SerializeField]
+	protected float slamMinRadius = 5;
+
+	[SerializeField]
+	protected float slamAttackDamageAtMinRange = 55f;
+
+
+
+	[Header("Slam Requirements for activating")]
+	[SerializeField]
+	protected float minimumDistanceForForceSpecial = 5f;
+
+	protected float slamTimer = 0f;
+
+	[SerializeField]
+	protected float timeWithinRadiusBeforeSlam = 3f;
+
+
+
+	[Header("Delay between all attacks")]
+	[SerializeField]
+	protected float globalAttackDelay = 0.5f;
+
+	[SerializeField]
+	protected float globalAttackCooldown = 0f;
+
+
+
+	#region Awake
+	protected override void Awake()
+	{
+		slamTimer = timeWithinRadiusBeforeSlam;
+
+		base.Awake();
+	}
+	#endregion
+
+
+
+	#region Update
+	protected override void Update()
+	{
+		if (isWindingUp && windUpTimer > 0f)
+		{
+			windUpTimer -= Time.deltaTime;
+		}
+		else if (isWindingUp && windUpTimer <= 0f)
+		{
+			animatorController.SetBool("IsCharging", false);
+			isWindingUp = false;
+		}
+
+		if (globalAttackCooldown > 0) globalAttackCooldown -= Time.deltaTime;
+
+		base.Update();
+	}
+	#endregion
+
+
+
+	#region AlertedThinking
 	protected override void AlertedThinking()
 	{
-		// ! exact same as base.
+		if (Vector3.Distance(playerTarget.position, transform.position) < agent.radius + 0.1f || attacking) currentSpeed = 0.4f;
+		else currentSpeed = maxSpeed;
+
+
 
 		if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack)
 		{
-			// attack // TODO Speed needs to be handled elsewhere. It breaks with animations
-			if (Vector3.Distance(playerTarget.position, transform.position) < 1.55f || attacking) currentSpeed = 0.4f;
-			else currentSpeed = maxSpeed;
+			if (slamTimer > 0) slamTimer -= Time.deltaTime;
 
-
-			// we need to decide what attack to use. We want to use the powerful attack first.
-
+			// we need to decide what attack to use.
+			// Special attack.
+			if (!attacking && specialAttackCooldown <= 0f && specialAttackCoroutine == null && globalAttackCooldown <= 0f &&
+			(Vector3.Distance(playerTarget.position, transform.position) < minimumDistanceForForceSpecial || slamTimer <= 0f))
+			{
+				specialAttackCoroutine = StartCoroutine(SpecialAttack());
+			}
 
 
 			// light attack
+			else if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null && globalAttackCooldown <= 0f && slamTimer > 0f)
+			{
+				lightAttackCoroutine = StartCoroutine(LightAttack());
+			}
+		}
+		else
+		{
+			slamTimer = timeWithinRadiusBeforeSlam;
 
-
-			if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null) lightAttackCoroutine = StartCoroutine(LightAttack());
 		}
 
 		pathTarget = playerTarget.position;
 	}
+	#endregion
 
-	protected virtual IEnumerator HeavyAttack()
+
+
+	#region SpecialAttack
+	protected virtual IEnumerator SpecialAttack()
 	{
-		yield return null;
+		attacking = true;
+		specialAttackCooldown = specialAttackRate;
+
+		attackAnimationPlaying = true;
+
+
+
+		animatorController.SetBool("IsCharging", true);
+		animatorController.SetBool("IsAttacking", true);
+
+		windUpTimer = windUpTime;
+		isWindingUp = true;
+
+
+		while (isWindingUp) yield return null;
+
+
+		animatorController.SetBool("IsSpecialAttack", true);
+
+
+
+		while (attackAnimationPlaying) yield return null;
+
+		attacking = false;
+
+		currentSpeed = maxSpeed;
+
+		specialAttackCoroutine = null;
 
 	}
+	#endregion
+
+
+
+	#region AnimationAttackFinished
+	public override void AnimationAttackFinished()
+	{
+		animatorController.SetBool("IsCharging", false);
+		animatorController.SetBool("IsSpecialAttack", false);
+
+
+		// this has a end termination.
+		base.AnimationAttackFinished();
+	}
+	#endregion
+
+
+
+	#region SpecialAttackCheckAndDamage
+	protected virtual void SpecialAttackCheckAndDamage()
+	{
+		Collider[] HitObjects = Physics.OverlapSphere(transform.position, slamMaxRadius,
+			layersToCheckFor, QueryTriggerInteraction.Ignore);
+
+		if (HitObjects.Length > 0)
+		{
+			foreach (var hitObject in HitObjects)
+			{
+				if (hitObject.gameObject.CompareTag("Player"))
+				{
+					float distanceFromPlayer = Vector3.Distance(hitObject.transform.position, transform.position);
+
+					float percentageDistanceWithinOuterRing = (distanceFromPlayer - slamMinRadius) / (slamMaxRadius - slamMinRadius);
+
+					float calculatedDamage = Mathf.Lerp(slamAttackDamageAtMinRange, slamAttackDamageAtMaxRange, percentageDistanceWithinOuterRing);
+
+					hitObject.GetComponent<IDamagable>()?.TakeDamage(calculatedDamage);
+				}
+			}
+		}
+	}
+	#endregion
+
+
+
+	#region ITankAnimationStateUpdator
+	/* normal attack */
+	void ITankAnimationStateUpdator.EndAttack()
+	{
+		AnimationAttackFinished();
+	}
+	void ITankAnimationStateUpdator.DealAttack()
+	{
+		LightAttackCheckAndDamage();
+	}
+
+	void ITankAnimationStateUpdator.StartAttack()
+	{
+
+	}
+
+
+	/* special attack */
+	void ITankAnimationStateUpdator.EndSpecialAttack()
+	{
+		AnimationAttackFinished();
+	}
+
+	void ITankAnimationStateUpdator.DealSpecialAttack()
+	{
+		SpecialAttackCheckAndDamage();
+	}
+
+	void ITankAnimationStateUpdator.StartSpecialAttack()
+	{
+
+	}
+	#endregion
 }
