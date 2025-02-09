@@ -18,8 +18,9 @@ using UnityEngine.AI;
 /// </summary>
 public enum AIState
 {
-	Idle = 0,
-	Alerted = 1,
+	Idle,
+	Alerted,
+	Retreating,
 }
 #endregion
 
@@ -36,6 +37,7 @@ public enum AITier
 	Rare,
 	Epic,
 	Legendary,
+	Mythical,
 }
 #endregion
 
@@ -53,9 +55,9 @@ public class AIBase : MonoBehaviour, IDamagable
 
 	[Header("Health")]
 	[SerializeField]
-	protected float maxHealth = 100f;
+	public float maxHealth = 100f;
 	[SerializeField]
-	protected float murrentHealth;
+	public float currentHealth;
 
 	[Header("Movement Speed")]
 	[SerializeField]
@@ -107,7 +109,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	#region Awake
 	protected virtual void Awake()
 	{
-		murrentHealth = maxHealth;
+		currentHealth = maxHealth;
 
 		currentSpeed = maxSpeed;
 
@@ -135,7 +137,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	#region Update
 	protected virtual void Update()
 	{
-		if (murrentHealth <= 0)
+		if (currentHealth <= 0)
 		{
 			KillAI();
 		}
@@ -176,7 +178,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// <returns>If it was successful.</returns>
 	protected virtual bool TakeDamage(float ammount)
 	{
-		murrentHealth -= ammount;
+		currentHealth -= ammount;
 		return true;
 	}
 	#endregion

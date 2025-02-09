@@ -11,6 +11,9 @@ using UnityEngine.SceneManagement;
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
 
+/// <summary>
+/// Loads any scenes added to the array as additive on awake.
+/// </summary>
 public class LoadModularSceneSystem : MonoBehaviour
 {
 
