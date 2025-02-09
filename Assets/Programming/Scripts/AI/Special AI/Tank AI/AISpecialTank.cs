@@ -18,9 +18,8 @@ using UnityEngine;
 /// </summary>
 public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 {
-
+	#region Tank Slam Attack vars
 	[Header("Tank Slam Attack")]
-	protected Coroutine specialAttackCoroutine;
 
 	[SerializeField]
 	protected float specialAttackCooldown = 0f;
@@ -28,8 +27,13 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 	[SerializeField]
 	protected float specialAttackRate = 5f;
 
+	protected Coroutine specialAttackCoroutine;
+
+	#endregion
 
 
+
+	#region Wind up settings vars
 	[Header("Wind up settings")]
 	[SerializeField]
 	protected float windUpTime = 1f;
@@ -38,6 +42,11 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 	protected bool isWindingUp = false;
 
+	#endregion
+
+
+
+	#region Slam size and damage vars
 	[Header("Slam size and damage")]
 
 	[SerializeField]
@@ -46,14 +55,19 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 	[SerializeField]
 	protected float slamAttackDamageAtMaxRange = 15f;
 
+	[Space]
+
 	[SerializeField]
 	protected float slamMinRadius = 5;
 
 	[SerializeField]
 	protected float slamAttackDamageAtMinRange = 55f;
 
+	#endregion
 
 
+
+	#region Slam Requirements for activating vars
 	[Header("Slam Requirements for activating")]
 	[SerializeField]
 	protected float minimumDistanceForForceSpecial = 5f;
@@ -63,14 +77,24 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 	[SerializeField]
 	protected float timeWithinRadiusBeforeSlam = 3f;
 
+	#endregion
 
 
+
+	#region Global delay between all attacks vars
 	[Header("Delay between all attacks")]
 	[SerializeField]
 	protected float globalAttackDelay = 0.5f;
 
-	[SerializeField]
 	protected float globalAttackCooldown = 0f;
+
+	#endregion
+
+
+
+	/******************************************************************************/
+	#region Functions
+	#endregion
 
 
 
@@ -107,6 +131,9 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 
 	#region AlertedThinking
+	/// <summary>
+	/// How the tank AI thinks while alerted. Handles 2 attacks, light and special.
+	/// </summary>
 	protected override void AlertedThinking()
 	{
 		if (Vector3.Distance(playerTarget.position, transform.position) < agent.radius + 0.1f || attacking) currentSpeed = 0.4f;
@@ -146,6 +173,10 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 
 	#region SpecialAttack
+	/// <summary>
+	/// Corutine for dealing with the special attack, it just starts the animations and waits.
+	/// </summary>
+	/// <returns></returns>
 	protected virtual IEnumerator SpecialAttack()
 	{
 		attacking = true;
@@ -197,6 +228,9 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 
 	#region SpecialAttackCheckAndDamage
+	/// <summary>
+	/// Creates a check spere and deals the damage accordingly.
+	/// </summary>
 	protected virtual void SpecialAttackCheckAndDamage()
 	{
 		Collider[] HitObjects = Physics.OverlapSphere(transform.position, slamMaxRadius,
@@ -224,6 +258,8 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 
 	#region ITankAnimationStateUpdator
+	// this is used by a script imbetween the animations and this so animations can call functions.
+
 	/* normal attack */
 	void ITankAnimationStateUpdator.EndAttack()
 	{

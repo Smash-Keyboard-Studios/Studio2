@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.AI.Navigation;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -293,6 +290,8 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 
 		attackAnimationPlaying = true;
 
+		// this picks wither normal or rare light attack animations.
+		// this adds variaty to attacks.
 
 		if (Random.Range(0f, 4f) < 1.5f)
 		{
@@ -303,13 +302,11 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 			animatorController.SetBool("IsHardAttack", false);
 		}
 
+
+		// we start the attack.
 		animatorController.SetBool("IsAttacking", true);
 
-
-		// AttackAndDamage();
-		//yield return null;
-
-
+		// we wait for the animation to finish.
 
 		while (attackAnimationPlaying) yield return null;
 
@@ -324,6 +321,9 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 
 
 	#region AnimationAttackFinished
+	/// <summary>
+	/// Reset animation varibles once the attack is finished.
+	/// </summary>
 	public virtual void AnimationAttackFinished()
 	{
 		animatorController.SetBool("IsHardAttack", false);
@@ -402,6 +402,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 
 
 	#region IAnimationStateUpdator
+	// this is used by a script imbetween the animations and this so animations can call functions.
 	void IAnimationStateUpdator.EndAttack()
 	{
 		AnimationAttackFinished();

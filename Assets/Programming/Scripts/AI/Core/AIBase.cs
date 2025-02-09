@@ -18,8 +18,9 @@ using UnityEngine.AI;
 /// </summary>
 public enum AIState
 {
-	Idle = 0,
-	Alerted = 1,
+	Idle,
+	Alerted,
+	Retreating,
 }
 #endregion
 
@@ -36,6 +37,7 @@ public enum AITier
 	Rare,
 	Epic,
 	Legendary,
+	Mythical,
 }
 #endregion
 

@@ -75,10 +75,10 @@ MonoBehaviour:
   TierOfAI: 3
   maxHealth: 40
   currentHealth: 0
-  maxSpeed: 8
+  maxSpeed: 2.75
   currentAIState: 0
-  lightAttackDamage: 20
-  lightAttackRate: 1
+  lightAttackDamage: 15
+  lightAttackRate: 0.5
   minDistanceForAttack: 2.5
   boxCastThickness: 2
   boxCastLength: 3
@@ -93,14 +93,13 @@ MonoBehaviour:
   specialAttackCooldown: 0
   specialAttackRate: 5
   windUpTime: 1
-  minimumDistanceForForceSpecial: 5
-  globalAttackDelay: 0.5
-  globalAttackCooldown: 0
-  timeWithinRadiusBeforeSlam: 3
   slamMaxRadius: 8
   slamAttackDamageAtMaxRange: 15
   slamMinRadius: 3
   slamAttackDamageAtMinRange: 55
+  minimumDistanceForForceSpecial: 5
+  timeWithinRadiusBeforeSlam: 3
+  globalAttackDelay: 0.5
 --- !u!195 &5986573266199650273
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -12,7 +12,9 @@ using UnityEngine;
 
 
 
-
+/// <summary>
+/// Deals damage to anything inside the sphere.
+/// </summary>
 public class SphereDamager : MonoBehaviour
 {
 	[SerializeField]
