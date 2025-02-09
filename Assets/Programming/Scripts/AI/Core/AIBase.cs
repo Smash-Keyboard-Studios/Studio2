@@ -55,7 +55,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	[SerializeField]
 	protected float maxHealth = 100f;
 	[SerializeField]
-	protected float murrentHealth;
+	protected float currentHealth;
 
 	[Header("Movement Speed")]
 	[SerializeField]
@@ -107,7 +107,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	#region Awake
 	protected virtual void Awake()
 	{
-		murrentHealth = maxHealth;
+		currentHealth = maxHealth;
 
 		currentSpeed = maxSpeed;
 
@@ -135,7 +135,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	#region Update
 	protected virtual void Update()
 	{
-		if (murrentHealth <= 0)
+		if (currentHealth <= 0)
 		{
 			KillAI();
 		}
@@ -176,7 +176,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// <returns>If it was successful.</returns>
 	protected virtual bool TakeDamage(float ammount)
 	{
-		murrentHealth -= ammount;
+		currentHealth -= ammount;
 		return true;
 	}
 	#endregion
