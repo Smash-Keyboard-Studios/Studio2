@@ -55,9 +55,9 @@ public class AIBase : MonoBehaviour, IDamagable
 
 	[Header("Health")]
 	[SerializeField]
-	protected float maxHealth = 100f;
+	public float maxHealth = 100f;
 	[SerializeField]
-	protected float currentHealth;
+	public float currentHealth;
 
 	[Header("Movement Speed")]
 	[SerializeField]
