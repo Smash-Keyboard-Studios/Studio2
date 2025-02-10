@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class BaseEnemyProjectile : MonoBehaviour
 {
-    [SerializeField] private Rigidbody ProjectileRigidBody;
-    [SerializeField] private float ProjectileSpeed;
-    [SerializeField] private float ProjectileLifespan;
+    [SerializeField] private Rigidbody projectileRigidBody;
+    [SerializeField] private float projectileSpeed;
+    [SerializeField] private float projectileLifespan;
+    [SerializeField] public float projectileDamage;
     void Start()
     {
-        ProjectileRigidBody.velocity = transform.forward * ProjectileSpeed;
+        projectileRigidBody.velocity = transform.forward * projectileSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject, ProjectileLifespan);
+    
+        Destroy(gameObject, projectileLifespan);
+    }
+	private void OnCollisionEnter(Collision collision)
+	{
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<IDamagable>()?.TakeDamage(projectileDamage);
+        }
     }
 }
