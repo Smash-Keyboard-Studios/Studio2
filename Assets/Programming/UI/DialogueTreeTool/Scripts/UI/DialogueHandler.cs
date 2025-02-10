@@ -45,7 +45,10 @@ public class DialogueHandler : MonoBehaviour
         }
 
         //disable this if no more data
-        if(currentData == null) { 
+        if(currentData == null) {
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1;
+
             this.gameObject.SetActive(false); 
         }
         
