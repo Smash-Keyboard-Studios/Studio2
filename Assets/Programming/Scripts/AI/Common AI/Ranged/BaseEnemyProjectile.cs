@@ -9,19 +9,21 @@ using UnityEngine;
 // /_/   \_\_|\___/_/\_\ |_|\_\
 public class BaseEnemyProjectile : MonoBehaviour
 {
-    [SerializeField] private Rigidbody projectileRigidBody;
-    [SerializeField] private float projectileSpeed;
-    [SerializeField] private float projectileLifespan;
+    [Header("Variables")]
+    [SerializeField] private Rigidbody projectileRigidBody; 
+    [SerializeField] private float projectileSpeed; // How fast the object will be launched
+    [SerializeField] private float projectileLifespan; // How long the object will last
     [SerializeField] public float projectileDamage;
-    void Start()
+	private void Awake()
+	{
+        projectileRigidBody = GetComponent<Rigidbody>(); 
+    }
+    private void Start()
     {
         projectileRigidBody.velocity = transform.forward * projectileSpeed;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
         Destroy(gameObject, projectileLifespan);
     }
     private void OnCollisionEnter(Collision collision)
@@ -29,6 +31,7 @@ public class BaseEnemyProjectile : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<IDamagable>()?.TakeDamage(projectileDamage);
+            Destroy(gameObject, 0.05f); //Nearly instantly removes projectile to avoid player clipping
         }
     }
 }
