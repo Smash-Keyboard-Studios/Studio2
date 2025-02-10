@@ -21,20 +21,20 @@ public class LoadModularSceneSystem : MonoBehaviour
 	/// All the scene object to load. uses the name of the objects.
 	/// </summary>
 	[SerializeField]
-	public UnityEngine.Object[] additiveScenes;
+	public int[] additiveScenes;
 
-	void Awake()
+	void Start()
 	{
 		// iterate through all the objects in the array and attempts to load them additive.
-		foreach (UnityEngine.Object scene in additiveScenes)
+		foreach (int scene in additiveScenes)
 		{
 			try
 			{
-				SceneManager.LoadSceneAsync(scene.name, LoadSceneMode.Additive);
+				SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
 			}
 			catch (Exception ex)
 			{
-				Debug.LogWarning(ex.Message, scene);
+				Debug.LogWarning(ex.Message);
 			}
 
 		}
