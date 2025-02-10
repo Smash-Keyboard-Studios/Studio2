@@ -122,7 +122,8 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 			isWindingUp = false;
 		}
 
-		if (globalAttackCooldown > 0) globalAttackCooldown -= Time.deltaTime;
+		if (globalAttackCooldown >= 0) globalAttackCooldown -= Time.deltaTime;
+		if (specialAttackCooldown > 0) specialAttackCooldown -= Time.deltaTime;
 
 		base.Update();
 	}
@@ -145,19 +146,20 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 		{
 			if (slamTimer > 0) slamTimer -= Time.deltaTime;
 
+
 			// we need to decide what attack to use.
 			// Special attack.
 			if (!attacking && specialAttackCooldown <= 0f && specialAttackCoroutine == null && globalAttackCooldown <= 0f &&
 			(Vector3.Distance(playerTarget.position, transform.position) < minimumDistanceForForceSpecial || slamTimer <= 0f))
 			{
 				specialAttackCoroutine = StartCoroutine(SpecialAttack());
+				print("Attacking");
 			}
-
-
 			// light attack
 			else if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null && globalAttackCooldown <= 0f && slamTimer > 0f)
 			{
 				lightAttackCoroutine = StartCoroutine(LightAttack());
+				print("Attacking light");
 			}
 		}
 		else
@@ -180,7 +182,6 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 	protected virtual IEnumerator SpecialAttack()
 	{
 		attacking = true;
-		specialAttackCooldown = specialAttackRate;
 
 		attackAnimationPlaying = true;
 
@@ -198,9 +199,13 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 		animatorController.SetBool("IsSpecialAttack", true);
 
+		specialAttackCooldown = specialAttackRate;
 
 
 		while (attackAnimationPlaying) yield return null;
+
+		slamTimer = timeWithinRadiusBeforeSlam;
+
 
 		attacking = false;
 
