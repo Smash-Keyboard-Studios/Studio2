@@ -60,19 +60,17 @@ MonoBehaviour:
   lightAttackDamage: 20
   lightAttackRate: 1
   minDistanceForAttack: 20
-  layersToCheckFor:
-    serializedVersion: 2
-    m_Bits: 4294967295
   maxDetectionRange: 30
+  projectilePrefab: {fileID: 3761678875516936036, guid: 69c9cafc9d150514881727da3970eb67,
+    type: 3}
+  projectileSpawnPoint:
+  - {fileID: 8494952796967733763}
+  retreatDistance: 10
+  retreatCooldown: 6
+  chaseTimer: 8
   enableVisualDetectionRadius: 0
   enableVisualDetectionLine: 0
   distanceFromPlayer: 0
-  ProjectilePrefab: {fileID: 3761678875516936036, guid: 69c9cafc9d150514881727da3970eb67,
-    type: 3}
-  ProjectileSpawnPoint:
-  - {fileID: 8494952796967733763}
-  speedReduction: 0
-  retreatDistance: 10
 --- !u!114 &3222878168228818675
 MonoBehaviour:
   m_ObjectHideFlags: 0
