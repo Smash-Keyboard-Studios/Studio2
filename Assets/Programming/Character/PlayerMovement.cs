@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     {
         HandleMovement();
     }
-    
+
     void HandleMovement()
     {
         float speed = walkSpeed;
@@ -63,6 +63,6 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleGravity()
     {
-      currentMovement.y -= gravity * Time.deltaTime;   
+        currentMovement.y -= gravity * Time.deltaTime;
     }
 }
