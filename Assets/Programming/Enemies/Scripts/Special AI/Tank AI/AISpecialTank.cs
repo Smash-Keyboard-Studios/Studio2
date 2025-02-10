@@ -1,0 +1,300 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+//by    _                 _ _                     
+//     | |               (_) |                    
+//   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
+//  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
+// | (_| | (_) | | | | | | | |_) | | | (_) | | | |
+//  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+
+
+
+
+/// <summary>
+/// Special Tank AI behavior class. Controls movement, attacking and thinking.
+/// </summary>
+public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
+{
+	#region Tank Slam Attack vars
+	[Header("Tank Slam Attack")]
+
+	[SerializeField]
+	protected float specialAttackCooldown = 0f;
+
+	[SerializeField]
+	protected float specialAttackRate = 5f;
+
+	protected Coroutine specialAttackCoroutine;
+
+	#endregion
+
+
+
+	#region Wind up settings vars
+	[Header("Wind up settings")]
+	[SerializeField]
+	protected float windUpTime = 1f;
+
+	protected float windUpTimer = 1f;
+
+	protected bool isWindingUp = false;
+
+	#endregion
+
+
+
+	#region Slam size and damage vars
+	[Header("Slam size and damage")]
+
+	[SerializeField]
+	protected float slamMaxRadius = 8f;
+
+	[SerializeField]
+	protected float slamAttackDamageAtMaxRange = 15f;
+
+	[Space]
+
+	[SerializeField]
+	protected float slamMinRadius = 5;
+
+	[SerializeField]
+	protected float slamAttackDamageAtMinRange = 55f;
+
+	#endregion
+
+
+
+	#region Slam Requirements for activating vars
+	[Header("Slam Requirements for activating")]
+	[SerializeField]
+	protected float minimumDistanceForForceSpecial = 5f;
+
+	protected float slamTimer = 0f;
+
+	[SerializeField]
+	protected float timeWithinRadiusBeforeSlam = 3f;
+
+	#endregion
+
+
+
+	#region Global delay between all attacks vars
+	[Header("Delay between all attacks")]
+	[SerializeField]
+	protected float globalAttackDelay = 0.5f;
+
+	protected float globalAttackCooldown = 0f;
+
+	#endregion
+
+
+
+	/******************************************************************************/
+	#region Functions
+	#endregion
+
+
+
+	#region Awake
+	protected override void Awake()
+	{
+		slamTimer = timeWithinRadiusBeforeSlam;
+
+		base.Awake();
+	}
+	#endregion
+
+
+
+	#region Update
+	protected override void Update()
+	{
+		if (isWindingUp && windUpTimer > 0f)
+		{
+			windUpTimer -= Time.deltaTime;
+		}
+		else if (isWindingUp && windUpTimer <= 0f)
+		{
+			animatorController.SetBool("IsCharging", false);
+			isWindingUp = false;
+		}
+
+		if (globalAttackCooldown >= 0) globalAttackCooldown -= Time.deltaTime;
+		if (specialAttackCooldown > 0) specialAttackCooldown -= Time.deltaTime;
+
+		base.Update();
+	}
+	#endregion
+
+
+
+	#region AlertedThinking
+	/// <summary>
+	/// How the tank AI thinks while alerted. Handles 2 attacks, light and special.
+	/// </summary>
+	protected override void AlertedThinking()
+	{
+		if (Vector3.Distance(playerTarget.position, transform.position) < agent.radius + 0.1f || attacking) currentSpeed = 0.4f;
+		else currentSpeed = maxSpeed;
+
+
+
+		if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack)
+		{
+			if (slamTimer > 0) slamTimer -= Time.deltaTime;
+
+
+			// we need to decide what attack to use.
+			// Special attack.
+			if (!attacking && specialAttackCooldown <= 0f && specialAttackCoroutine == null && globalAttackCooldown <= 0f &&
+			(Vector3.Distance(playerTarget.position, transform.position) < minimumDistanceForForceSpecial || slamTimer <= 0f))
+			{
+				specialAttackCoroutine = StartCoroutine(SpecialAttack());
+				print("Attacking");
+			}
+			// light attack
+			else if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null && globalAttackCooldown <= 0f && slamTimer > 0f)
+			{
+				lightAttackCoroutine = StartCoroutine(LightAttack());
+				print("Attacking light");
+			}
+		}
+		else
+		{
+			slamTimer = timeWithinRadiusBeforeSlam;
+
+		}
+
+		pathTarget = playerTarget.position;
+	}
+	#endregion
+
+
+
+	#region SpecialAttack
+	/// <summary>
+	/// Corutine for dealing with the special attack, it just starts the animations and waits.
+	/// </summary>
+	/// <returns></returns>
+	protected virtual IEnumerator SpecialAttack()
+	{
+		attacking = true;
+
+		attackAnimationPlaying = true;
+
+
+
+		animatorController.SetBool("IsCharging", true);
+		animatorController.SetBool("IsAttacking", true);
+
+		windUpTimer = windUpTime;
+		isWindingUp = true;
+
+
+		while (isWindingUp) yield return null;
+
+
+		animatorController.SetBool("IsSpecialAttack", true);
+
+		specialAttackCooldown = specialAttackRate;
+
+
+		while (attackAnimationPlaying) yield return null;
+
+		slamTimer = timeWithinRadiusBeforeSlam;
+
+
+		attacking = false;
+
+		currentSpeed = maxSpeed;
+
+		specialAttackCoroutine = null;
+
+	}
+	#endregion
+
+
+
+	#region AnimationAttackFinished
+	public override void AnimationAttackFinished()
+	{
+		animatorController.SetBool("IsCharging", false);
+		animatorController.SetBool("IsSpecialAttack", false);
+
+
+		// this has a end termination.
+		base.AnimationAttackFinished();
+	}
+	#endregion
+
+
+
+	#region SpecialAttackCheckAndDamage
+	/// <summary>
+	/// Creates a check spere and deals the damage accordingly.
+	/// </summary>
+	protected virtual void SpecialAttackCheckAndDamage()
+	{
+		Collider[] HitObjects = Physics.OverlapSphere(transform.position, slamMaxRadius,
+			layersToCheckFor, QueryTriggerInteraction.Ignore);
+
+		if (HitObjects.Length > 0)
+		{
+			foreach (var hitObject in HitObjects)
+			{
+				if (hitObject.gameObject.CompareTag("Player"))
+				{
+					float distanceFromPlayer = Vector3.Distance(hitObject.transform.position, transform.position);
+
+					float percentageDistanceWithinOuterRing = (distanceFromPlayer - slamMinRadius) / (slamMaxRadius - slamMinRadius);
+
+					float calculatedDamage = Mathf.Lerp(slamAttackDamageAtMinRange, slamAttackDamageAtMaxRange, percentageDistanceWithinOuterRing);
+
+					hitObject.GetComponent<IDamagable>()?.TakeDamage(calculatedDamage);
+				}
+			}
+		}
+	}
+	#endregion
+
+
+
+	#region ITankAnimationStateUpdator
+	// this is used by a script imbetween the animations and this so animations can call functions.
+
+	/* normal attack */
+	void ITankAnimationStateUpdator.EndAttack()
+	{
+		AnimationAttackFinished();
+	}
+	void ITankAnimationStateUpdator.DealAttack()
+	{
+		LightAttackCheckAndDamage();
+	}
+
+	void ITankAnimationStateUpdator.StartAttack()
+	{
+
+	}
+
+
+	/* special attack */
+	void ITankAnimationStateUpdator.EndSpecialAttack()
+	{
+		AnimationAttackFinished();
+	}
+
+	void ITankAnimationStateUpdator.DealSpecialAttack()
+	{
+		SpecialAttackCheckAndDamage();
+	}
+
+	void ITankAnimationStateUpdator.StartSpecialAttack()
+	{
+
+	}
+	#endregion
+}
