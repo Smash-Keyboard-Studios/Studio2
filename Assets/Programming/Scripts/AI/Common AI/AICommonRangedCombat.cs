@@ -43,15 +43,15 @@ public class AICommonRangedCombat : AIBase
     {
         base.Update();
 
-        Agent.speed = CurrentSpeed;
+        agent.speed = currentSpeed;
 
         if (AttackCooldown > 0f) { AttackCooldown -= Time.deltaTime; }
 
         if (Vector3.Distance(PlayerTarget.position, transform.position) < MinDistanceForAttack)
         {
             // attack
-            if (Vector3.Distance(PlayerTarget.position, transform.position) < MinDistanceForAttack || Attacking) CurrentSpeed = -0.1f; // PathTarget = transform.position;
-            else CurrentSpeed = MaxSpeed; // PathTarget = PlayerTarget.position;
+            if (Vector3.Distance(PlayerTarget.position, transform.position) < MinDistanceForAttack || Attacking) currentSpeed = -0.1f; // PathTarget = transform.position;
+            else currentSpeed = maxSpeed; // PathTarget = PlayerTarget.position;
 
 
             if (!Attacking && AttackCooldown <= 0f) StartCoroutine(Attack());
@@ -64,10 +64,10 @@ public class AICommonRangedCombat : AIBase
         Attacking = true;
         AttackCooldown = AttackRate;
 
-        foreach(Transform SpawnPoint in ProjectileSpawnPoint)
-		{
+        foreach (Transform SpawnPoint in ProjectileSpawnPoint)
+        {
             Instantiate(ProjectilePrefab, SpawnPoint.position, transform.rotation);
-		}
+        }
         yield return null;
 
         Attacking = false;
@@ -75,7 +75,7 @@ public class AICommonRangedCombat : AIBase
     protected virtual void RunPathfinding()
     {
         if (NavMesh.CalculatePath(transform.position, PathTarget, NavMesh.AllAreas, Path))
-            Agent.path = Path;
+            agent.path = Path;
 
         // print("NAVING");
     }
