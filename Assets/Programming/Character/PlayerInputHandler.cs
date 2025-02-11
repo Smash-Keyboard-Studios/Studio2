@@ -1,22 +1,26 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//Script by Aaron Wing
+
+//HOW TO USE: In order to make the player use any action make sure you have both the Player and PlayerInputHandler prefabs in the scene. The scripts should already be attached to the individual game objects.
+//This script should be attached to the PlayerInputHandler Game Object.
 public class PlayerInputHandler : MonoBehaviour
 {
     [Header("Input Action Asset")]
     [SerializeField] private InputActionAsset PlayerControls;
 
     [Header("Action Map Name References")]
-    [SerializeField] private string actionMapName = "Player";
+    [SerializeField] private string ActionMapName = "Player";
 
     [Header("Action Name References")]
-    [SerializeField] private string move = "Move";
-    [SerializeField] private string sprint = "Sprint";
-    [SerializeField] private string interact = "Interaction";
+    [SerializeField] private string Move = "Move";
+    [SerializeField] private string Sprint = "Sprint";
+    [SerializeField] private string Interact = "Interaction";
 
-    private InputAction moveAction;
-    private InputAction sprintAction;
-    private InputAction interactAction;
+    private InputAction MoveAction;
+    private InputAction SprintAction;
+    private InputAction InteractAction;
 
     public Vector2 MoveInput { get; private set; }
     public float SprintValue { get; private set; }
@@ -36,36 +40,36 @@ public class PlayerInputHandler : MonoBehaviour
             Destroy(gameObject);
         }
 
-        moveAction = PlayerControls.FindActionMap(actionMapName).FindAction(move);
-        sprintAction = PlayerControls.FindActionMap(actionMapName).FindAction(sprint);
-        interactAction = PlayerControls.FindActionMap(actionMapName).FindAction(interact);
+        MoveAction = PlayerControls.FindActionMap(ActionMapName).FindAction(Move);
+        SprintAction = PlayerControls.FindActionMap(ActionMapName).FindAction(Sprint);
+        InteractAction = PlayerControls.FindActionMap(ActionMapName).FindAction(Interact);
         RegisterInputActions();
     }
 
     void RegisterInputActions()
     {
-        moveAction.performed += context => MoveInput = context.ReadValue<Vector2>();
-        moveAction.canceled += context => MoveInput = Vector2.zero;
+        MoveAction.performed += context => MoveInput = context.ReadValue<Vector2>();
+        MoveAction.canceled += context => MoveInput = Vector2.zero;
 
-        sprintAction.performed += context => SprintValue = context.ReadValue<float>();
-        sprintAction.canceled += contect => SprintValue = 0f;
+        SprintAction.performed += context => SprintValue = context.ReadValue<float>();
+        SprintAction.canceled += contect => SprintValue = 0f;
 
-        interactAction.performed += context => InteractionTriggered = true;
-        interactAction.canceled += context => InteractionTriggered = false;
+        InteractAction.performed += context => InteractionTriggered = true;
+        InteractAction.canceled += context => InteractionTriggered = false;
     }
 
     private void OnEnable()
     {
-        moveAction.Enable();
-        sprintAction.Enable();
-        interactAction.Enable();
+        MoveAction.Enable();
+        SprintAction.Enable();
+        InteractAction.Enable();
     }
 
     private void OnDisable()
     {
-        moveAction.Disable();
-        sprintAction.Disable();
-        interactAction.Disable();
+        MoveAction.Disable();
+        SprintAction.Disable();
+        InteractAction.Disable();
     }
 
 }
