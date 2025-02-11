@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 //by	_             	_ _                	 
 // 	| |           	(_) |               	 
@@ -84,6 +85,11 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 	[Header("Projectiles")]
 	[SerializeField] private GameObject projectilePrefab;
 	[SerializeField] private Transform[] projectileSpawnPoint;
+	[SerializeField] public float projectileDamage;
+	[SerializeField] private float projectileLifespan; // How long the object will last
+	[SerializeField] public float projectileSpeed;
+	[SerializeField] public bool projectileGravityUsage;
+
 	#endregion
 	#region Retreat Vars
 	[Header("Retreating")]
@@ -92,6 +98,9 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 	protected float retreatTimer = 0f; // Tracks current time between retreats
 	[SerializeField] private float chaseTimer = 6f; // Tracks how long the enemy is chased for
 	protected bool chaseFinished = false; // A bypass to avoid the enemy AI getting stuck/chased forever 
+	#endregion
+	#region Sound Effect Vars
+	public event Action sfxOnProjectileLaunch;
 	#endregion
 	#region Debugging Vars
 	/* Debugging */
@@ -283,8 +292,13 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 
 		foreach (Transform SpawnPoint in projectileSpawnPoint)
 		{
+			sfxOnProjectileLaunch?.Invoke();
 			SpawnPoint.LookAt(playerTarget.position);
-			Instantiate(projectilePrefab, SpawnPoint.position, SpawnPoint.rotation);
+			GameObject instance = Instantiate(projectilePrefab, SpawnPoint.position, SpawnPoint.rotation);
+			instance.GetComponent<BaseEnemyProjectile>().projectileDamage = projectileDamage;
+			instance.GetComponent<BaseEnemyProjectile>().projectileLifespan = projectileLifespan;
+			instance.GetComponent<BaseEnemyProjectile>().projectileSpeed = projectileSpeed;
+			instance.GetComponent<Rigidbody>().useGravity = projectileGravityUsage;
 		}
 	}
 	#endregion

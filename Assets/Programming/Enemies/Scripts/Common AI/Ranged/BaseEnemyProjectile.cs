@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 // by 
 //     _    _             _  __
 //    / \  | | _____  __ | |/ /
@@ -10,24 +11,27 @@ using UnityEngine;
 public class BaseEnemyProjectile : MonoBehaviour
 {
     [Header("Variables")]
-    [SerializeField] private Rigidbody projectileRigidBody; 
-    [SerializeField] private float projectileSpeed; // How fast the object will be launched
-    [SerializeField] private float projectileLifespan; // How long the object will last
+    [SerializeField] protected Rigidbody projectileRigidBody; 
+    [SerializeField] public float projectileSpeed; // How fast the object will be launched
+    [SerializeField] public float projectileLifespan; // How long the object will last
     [SerializeField] public float projectileDamage;
-	private void Awake()
+    public event Action sfxOnImpact;
+	protected virtual void Awake()
 	{
         projectileRigidBody = GetComponent<Rigidbody>(); 
     }
-    private void Start()
+	protected virtual void Start()
     {
         projectileRigidBody.velocity = transform.forward * projectileSpeed;
     }
-    private void Update()
+	protected virtual void Update()
     {
         Destroy(gameObject, projectileLifespan);
     }
-    private void OnCollisionEnter(Collision collision)
+	protected virtual void OnCollisionEnter(Collision collision)
     {
+
+        sfxOnImpact?.Invoke();
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<IDamagable>()?.TakeDamage(projectileDamage);
