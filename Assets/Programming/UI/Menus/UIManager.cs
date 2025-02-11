@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public int OptionsBuildIndex;
     public int ControlsBuildIndex;
     public int CreditsBuildIndex;
+    public int GameMenuBuildIndex;
     public int StartingLevelBuildIndex;
     [Header("Build Indexes for main menu and all levels")]
     public int[] LevelBuildIndexes; //contains all the build indexes that are a game level
@@ -125,6 +126,16 @@ public class UIManager : MonoBehaviour
     public void PressQuit()
     {
         Application.Quit();
+    }
+
+
+    //level select menu
+    public void SelectLevel(int BuildIndex)
+    {
+        EnterLevel();
+
+        SceneManager.LoadScene(BuildIndex);
+        OnSceneChange();
     }
 
 
