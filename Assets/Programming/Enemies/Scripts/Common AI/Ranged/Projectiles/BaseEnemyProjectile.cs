@@ -15,7 +15,7 @@ public class BaseEnemyProjectile : MonoBehaviour
     [SerializeField] public float projectileSpeed; // How fast the object will be launched
     [SerializeField] public float projectileLifespan; // How long the object will last
     [SerializeField] public float projectileDamage;
-    public event Action sfxOnImpact;
+    public event Action onSFXImpact;
 	protected virtual void Awake()
 	{
         projectileRigidBody = GetComponent<Rigidbody>(); 
@@ -31,7 +31,7 @@ public class BaseEnemyProjectile : MonoBehaviour
 	protected virtual void OnCollisionEnter(Collision collision)
     {
 
-        sfxOnImpact?.Invoke();
+        onSFXImpact?.Invoke();
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<IDamagable>()?.TakeDamage(projectileDamage);
