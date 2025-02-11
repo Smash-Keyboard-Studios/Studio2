@@ -100,7 +100,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 	protected bool chaseFinished = false; // A bypass to avoid the enemy AI getting stuck/chased forever 
 	#endregion
 	#region Sound Effect Vars
-	public event Action sfxOnProjectileLaunch;
+	public event Action onSFXProjectileLaunch;
 	#endregion
 	#region Debugging Vars
 	/* Debugging */
@@ -245,7 +245,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 		// this picks wither normal or rare light attack animations.
 		// this adds variaty to attacks.
 
-		if (Random.Range(0f, 4f) < 1.5f)
+		if (UnityEngine.Random.Range(0f, 4f) < 1.5f)
 		{
 			animatorController.SetBool("IsHardAttack", true);
 		}
@@ -292,7 +292,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 
 		foreach (Transform SpawnPoint in projectileSpawnPoint)
 		{
-			sfxOnProjectileLaunch?.Invoke();
+			onSFXProjectileLaunch?.Invoke();
 			SpawnPoint.LookAt(playerTarget.position);
 			GameObject instance = Instantiate(projectilePrefab, SpawnPoint.position, SpawnPoint.rotation);
 			instance.GetComponent<BaseEnemyProjectile>().projectileDamage = projectileDamage;
