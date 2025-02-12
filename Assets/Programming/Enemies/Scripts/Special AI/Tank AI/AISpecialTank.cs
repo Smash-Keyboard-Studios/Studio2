@@ -156,7 +156,7 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 				print("Attacking");
 			}
 			// light attack
-			else if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null && globalAttackCooldown <= 0f && slamTimer > 0f)
+			else if (!attacking && lightAttackCoolDown <= 0f && lightAttackCoroutine == null && globalAttackCooldown <= 0f && slamTimer > 0f)
 			{
 				lightAttackCoroutine = StartCoroutine(LightAttack());
 				print("Attacking light");
@@ -253,7 +253,7 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 					float calculatedDamage = Mathf.Lerp(slamAttackDamageAtMinRange, slamAttackDamageAtMaxRange, percentageDistanceWithinOuterRing);
 
-					hitObject.GetComponent<IDamagable>()?.TakeDamage(calculatedDamage);
+					hitObject.GetComponent<IDamageable>()?.TakeDamage(calculatedDamage);
 				}
 			}
 		}

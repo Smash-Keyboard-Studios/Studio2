@@ -18,11 +18,11 @@ using UnityEngine;
 
 public class MeleeAttackingStateUpdator : MonoBehaviour
 {
-	IAnimationStateUpdator animationStateUpdator;
+	IAnimationStateUpdater animationStateUpdator;
 
 	void Awake()
 	{
-		animationStateUpdator = GetComponentInParent<IAnimationStateUpdator>();
+		animationStateUpdator = GetComponentInParent<IAnimationStateUpdater>();
 	}
 
 	public void EndAttack()

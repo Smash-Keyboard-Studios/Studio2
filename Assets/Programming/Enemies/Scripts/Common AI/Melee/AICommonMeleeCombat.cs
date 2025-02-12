@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +17,16 @@ using UnityEngine.AI;
 /// <summary>
 /// Common Melee AI behavior class. Controls movement, attacking and thinking.
 /// </summary>
-public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
+public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 {
+	#region Events
+	/// <summary>
+	/// Called when using weapon, boolean parameter, false is normal, true is variant.
+	/// </summary>
+	public event Action<bool> onAttackSFXPlayOnce;
+
+	#endregion
+
 	#region Variables
 	#endregion
 
@@ -46,7 +55,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 	/// <summary>
 	/// Remaining time left before the AI can attack again.
 	/// </summary>
-	protected float lightAttackCooldown = 0f;
+	protected float lightAttackCoolDown = 0f;
 
 	/// <summary>
 	/// How long before next attack.
@@ -94,7 +103,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 	protected float boxCastHeight = 1;
 
 	/// <summary>
-	/// The offsect from the AI positon the box check will be.
+	/// The offset from the AI position the box check will be.
 	/// </summary>
 	[SerializeField]
 	protected Vector3 boxCastOffsetFromAI = Vector3.forward;
@@ -119,7 +128,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 	protected float maxDetectionRange = 30f;
 
 
-	/* Pathfinding */
+	/* Path finding */
 	/// <summary>
 	/// The path used for AI navigation and calculation.
 	/// </summary>
@@ -131,7 +140,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 	protected Vector3 pathTarget;
 
 	/// <summary>
-	/// Player referance to compare distances and such.
+	/// Player reference to compare distances and such.
 	/// </summary>
 	protected Transform playerTarget;
 
@@ -149,7 +158,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 	protected bool enableVisualDetectionRadius = false;
 
 	/// <summary>
-	/// Displays a line towards the player to see if the player can get detected, and to see if an onbject overlaps.
+	/// Displays a line towards the player to see if the player can get detected, and to see if an object overlaps.
 	/// </summary>
 	[SerializeField]
 	protected bool enableVisualDetectionLine = false;
@@ -191,7 +200,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 	protected override void Start()
 	{
 
-		InvokeRepeating(nameof(RunPathfinding), 0, 0.25f);
+		InvokeRepeating(nameof(RunPathFinding), 0, 0.25f);
 
 		base.Start();
 
@@ -207,7 +216,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 
 		// set values and deal with timers.
 		agent.speed = currentSpeed;
-		if (lightAttackCooldown > 0f) lightAttackCooldown -= Time.deltaTime;
+		if (lightAttackCoolDown > 0f) lightAttackCoolDown -= Time.deltaTime;
 
 
 		// thinking based on current state state.
@@ -270,7 +279,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 			else currentSpeed = maxSpeed; // PathTarget = PlayerTarget.position;
 
 
-			if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null) lightAttackCoroutine = StartCoroutine(LightAttack());
+			if (!attacking && lightAttackCoolDown <= 0f && lightAttackCoroutine == null) lightAttackCoroutine = StartCoroutine(LightAttack());
 		}
 
 	}
@@ -286,20 +295,22 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 	protected virtual IEnumerator LightAttack()
 	{
 		attacking = true;
-		lightAttackCooldown = lightAttackRate;
+		lightAttackCoolDown = lightAttackRate;
 
 		attackAnimationPlaying = true;
 
 		// this picks wither normal or rare light attack animations.
-		// this adds variaty to attacks.
+		// this adds variety to attacks.
 
-		if (Random.Range(0f, 4f) < 1.5f)
+		if (UnityEngine.Random.Range(0f, 4f) < 1.5f)
 		{
 			animatorController.SetBool("IsHardAttack", true);
+			onAttackSFXPlayOnce?.Invoke(true);
 		}
 		else
 		{
 			animatorController.SetBool("IsHardAttack", false);
+			onAttackSFXPlayOnce?.Invoke(false);
 		}
 
 
@@ -322,7 +333,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 
 	#region AnimationAttackFinished
 	/// <summary>
-	/// Reset animation varibles once the attack is finished.
+	/// Reset animation variables once the attack is finished.
 	/// </summary>
 	public virtual void AnimationAttackFinished()
 	{
@@ -337,7 +348,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 
 	#region AttackAndDamage
 	/// <summary>
-	/// Creates a boxcast and deals damage to the player if there is one in the boxcast.
+	/// Creates a boxcast and deals damage to the player if there is one in the box cast.
 	/// </summary>
 	public virtual void LightAttackCheckAndDamage()
 	{
@@ -350,7 +361,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 			{
 				if (hitObject.gameObject.CompareTag("Player"))
 				{
-					hitObject.GetComponent<IDamagable>()?.TakeDamage(lightAttackDamage);
+					hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackDamage);
 				}
 			}
 		}
@@ -359,11 +370,11 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 
 
 
-	#region RunPathfinding
+	#region RunPathFinding
 	/// <summary>
-	/// Calculate the path. This should be called in Start with InvokeRepeating to optimise path calculations.
+	/// Calculate the path. This should be called in Start with InvokeRepeating to optimize path calculations.
 	/// </summary>
-	protected virtual void RunPathfinding()
+	protected virtual void RunPathFinding()
 	{
 		NavMeshQueryFilter filter = new NavMeshQueryFilter();
 
@@ -375,7 +386,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 		if (NavMesh.CalculatePath(transform.position, pathTarget, filter, path))
 			agent.path = path;
 
-		// print("NAVING");
+		// print("NAV-ING");
 	}
 	#endregion
 
@@ -401,19 +412,19 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdator
 
 
 
-	#region IAnimationStateUpdator
-	// this is used by a script imbetween the animations and this so animations can call functions.
-	void IAnimationStateUpdator.EndAttack()
+	#region IAnimationStateUpdater
+	// this is used by a script im between the animations and this so animations can call functions.
+	void IAnimationStateUpdater.EndAttack()
 	{
 		AnimationAttackFinished();
 	}
 
-	void IAnimationStateUpdator.DealAttack()
+	void IAnimationStateUpdater.DealAttack()
 	{
 		LightAttackCheckAndDamage();
 	}
 
-	void IAnimationStateUpdator.StartAttack()
+	void IAnimationStateUpdater.StartAttack()
 	{
 
 	}

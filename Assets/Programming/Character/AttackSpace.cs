@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AttackSpace : MonoBehaviour
 {
-    public List<IDamagable> TakeDamageInRange = new List<IDamagable>();
+    public List<IDamageable> TakeDamageInRange = new List<IDamageable>();
 
     public void OnTriggerEnter(Collider other)
     {
-        var TakeDamage = other.GetComponent<IDamagable>();
+        var TakeDamage = other.GetComponent<IDamageable>();
         if (TakeDamage != null)
         {
             TakeDamageInRange.Add(TakeDamage);
@@ -16,8 +16,8 @@ public class AttackSpace : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        var TakeDamage = other.GetComponent <IDamagable>();
-        if (TakeDamage != null && TakeDamageInRange.Contains(TakeDamage)) 
+        var TakeDamage = other.GetComponent<IDamageable>();
+        if (TakeDamage != null && TakeDamageInRange.Contains(TakeDamage))
         {
             TakeDamageInRange.Remove(TakeDamage);
         }

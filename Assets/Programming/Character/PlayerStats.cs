@@ -5,7 +5,7 @@ using UnityEngine;
 
 //HOW TO USE: In order for the player to gain any of these stats the Player and PlayerInputHandler prefabs should be in the scene. The scripts themselves should already be attached to the indvivdual Game Object.
 //This script is attached to the player.
-public class PlayerStats : MonoBehaviour, IDamagable
+public class PlayerStats : MonoBehaviour, IDamageable
 {
     [Header("Player Stats")]
     public float PlayerHealth = 100;

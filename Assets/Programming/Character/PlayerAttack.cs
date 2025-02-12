@@ -22,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnAttack(InputValue input)
     {
-        foreach (var target in space.TakeDamageInRange.ToList<IDamagable>())
+        foreach (var target in space.TakeDamageInRange.ToList<IDamageable>())
         {
             target.TakeDamage(2);
         }
@@ -31,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnHeavyAttack(InputValue input)
     {
-        foreach (var target in space.TakeDamageInRange.ToList<IDamagable>())
+        foreach (var target in space.TakeDamageInRange.ToList<IDamageable>())
         {
             target.TakeDamage(5);
         }

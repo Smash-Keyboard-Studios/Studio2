@@ -27,7 +27,7 @@ public enum AIState
 
 #region AITier
 /// <summary>
-/// The raity of the AI.
+/// The rarity of the AI.
 /// </summary>
 //[Obsolete("No reason for it to be used at the moment.", false)]
 public enum AITier
@@ -45,13 +45,13 @@ public enum AITier
 /// Holds the core data of the AI.
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
-public class AIBase : MonoBehaviour, IDamagable
+public class AIBase : MonoBehaviour, IDamageable
 {
 	#region Public variables
 
-	[Header("Tier and stat mult")]
-	[SerializeField]
-	protected AITier TierOfAI = AITier.Common;
+	// [Header("Tier and stat multipliers")]
+	// [SerializeField]
+	// protected AITier TierOfAI = AITier.Common;
 
 	[Header("Health")]
 	[SerializeField]
@@ -71,7 +71,7 @@ public class AIBase : MonoBehaviour, IDamagable
 
 	#endregion
 	/********************************************************************/
-	#region Public Events
+	#region Public Events AI Events
 
 	/// <summary>
 	/// Delegate for the AI spawn and death events so we can pass in the transform.
@@ -89,7 +89,16 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// </summary>
 	public event EntityEventHandler onSpawn;
 
+	#endregion
+	/*********************************/
+	#region  Public Events SFX
 
+	public event Action<float> onWalkingSFXPlay;
+	public event Action onWalkingSFXStop;
+
+	public event Action onTakeDamageSFXPlayOnce;
+
+	public event Action onDeathSFXPlayOnce;
 	#endregion
 	/******************************************************************************/
 	#region Private variables.
@@ -154,6 +163,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	{
 		if (KilledAI) return;
 
+		onDeathSFXPlayOnce?.Invoke();
 		onDeath?.Invoke(transform);
 		Destroy(gameObject);
 
@@ -163,10 +173,10 @@ public class AIBase : MonoBehaviour, IDamagable
 
 
 
-	#region IDamagable.TakeDamage
-	bool IDamagable.TakeDamage(float ammount)
+	#region IDamageable.TakeDamage
+	bool IDamageable.TakeDamage(float amount)
 	{
-		return TakeDamage(ammount);
+		return TakeDamage(amount);
 	}
 	#endregion
 
@@ -174,11 +184,12 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// <summary>
 	/// Overridable method for taking damage. Will apply the damage to the AI.
 	/// </summary>
-	/// <param name="ammount">The ammount to take.</param>
+	/// <param name="amount">The amount to take.</param>
 	/// <returns>If it was successful.</returns>
-	protected virtual bool TakeDamage(float ammount)
+	protected virtual bool TakeDamage(float amount)
 	{
-		currentHealth -= ammount;
+		onTakeDamageSFXPlayOnce.Invoke();
+		currentHealth -= amount;
 		return true;
 	}
 	#endregion
