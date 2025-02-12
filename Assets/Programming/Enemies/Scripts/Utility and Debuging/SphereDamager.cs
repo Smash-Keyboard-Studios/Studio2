@@ -35,7 +35,7 @@ public class SphereDamager : MonoBehaviour
 		{
 			foreach (Collider collider in colliders)
 			{
-				collider.GetComponent<IDamagable>()?.TakeDamage(damage);
+				collider.GetComponent<IDamageable>()?.TakeDamage(damage);
 			}
 		}
 	}

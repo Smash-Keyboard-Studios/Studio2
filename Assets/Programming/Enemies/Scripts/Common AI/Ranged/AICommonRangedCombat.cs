@@ -23,7 +23,7 @@ using System;
 
 
 
-public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
+public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 {
 	#region Variables
 	#endregion
@@ -338,17 +338,17 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 	#endregion
 	#region IAnimationStateUpdator
 	// this is used by a script imbetween the animations and this so animations can call functions.
-	void IAnimationStateUpdator.EndAttack()
+	void IAnimationStateUpdater.EndAttack()
 	{
 		AnimationAttackFinished();
 	}
 
-	void IAnimationStateUpdator.DealAttack()
+	void IAnimationStateUpdater.DealAttack()
 	{
 		LightAttackCheckAndDamage();
 	}
 
-	void IAnimationStateUpdator.StartAttack()
+	void IAnimationStateUpdater.StartAttack()
 	{
 
 	}

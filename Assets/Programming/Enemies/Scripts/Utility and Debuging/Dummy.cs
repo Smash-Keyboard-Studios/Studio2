@@ -12,9 +12,9 @@ using UnityEngine;
 /// <summary>
 /// Allows this object to be damaged without actually taking damage.
 /// </summary>
-public class Dummy : MonoBehaviour, IDamagable
+public class Dummy : MonoBehaviour, IDamageable
 {
-	bool IDamagable.TakeDamage(float Ammount)
+	bool IDamageable.TakeDamage(float Ammount)
 	{
 		print($"{gameObject.name}: Taken {Ammount} damage!");
 		return true;

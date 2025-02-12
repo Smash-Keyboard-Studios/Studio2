@@ -16,7 +16,7 @@ using UnityEngine;
 /// <summary>
 /// Interface for basic AI attack animation events.
 /// </summary>
-public interface IAnimationStateUpdator
+public interface IAnimationStateUpdater
 {
 	public void EndAttack();
 
