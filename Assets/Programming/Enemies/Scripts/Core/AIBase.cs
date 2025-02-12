@@ -89,15 +89,33 @@ public class AIBase : MonoBehaviour, IDamageable
 	/// </summary>
 	public event EntityEventHandler onSpawn;
 
+	/// <summary>
+	/// Called when the AI state was changed.
+	/// </summary>
+	public event Action<AIState> onStateChanged;
+
 	#endregion
 	/*********************************/
 	#region  Public Events SFX
 
+	/// <summary>
+	/// Called when the AI moves, the value is velocity / speed.
+	/// </summary>
 	public event Action<float> onWalkingSFXPlay;
+
+	/// <summary>
+	/// Called when the AI stops moving.
+	/// </summary>
 	public event Action onWalkingSFXStop;
 
+	/// <summary>
+	/// Called when taking damage.
+	/// </summary>
 	public event Action onTakeDamageSFXPlayOnce;
 
+	/// <summary>
+	/// Called when the AI dies.
+	/// </summary>
 	public event Action onDeathSFXPlayOnce;
 	#endregion
 	/******************************************************************************/
@@ -163,7 +181,7 @@ public class AIBase : MonoBehaviour, IDamageable
 	{
 		if (KilledAI) return;
 
-		onDeathSFXPlayOnce?.Invoke();
+		onDeathSFXPlayOnce();
 		onDeath?.Invoke(transform);
 		Destroy(gameObject);
 
@@ -188,10 +206,49 @@ public class AIBase : MonoBehaviour, IDamageable
 	/// <returns>If it was successful.</returns>
 	protected virtual bool TakeDamage(float amount)
 	{
-		onTakeDamageSFXPlayOnce.Invoke();
+		OnTakeDamageSFXPlayOnce();
 		currentHealth -= amount;
 		return true;
 	}
 	#endregion
 
+
+
+	#region Event Invoke Functions
+	/* Needed as events cannot be inherited so base classes need to have a function
+	to invoke the event.*/
+
+	/// <summary>
+	/// Invokes the on walking play event and pass in speed of AI.
+	/// </summary>
+	/// <param name="value">The speed of the AI / Velocity</param>
+	protected virtual void OnWalkingSFXPlay(float value)
+	{
+		onWalkingSFXPlay.Invoke(value);
+	}
+
+	/// <summary>
+	/// Invokes the on walking stop event.
+	/// </summary>
+	protected virtual void OnWalkingSFXStop()
+	{
+		onWalkingSFXStop?.Invoke();
+	}
+
+	/// <summary>
+	/// Invokes the on take damage event.
+	/// </summary>
+	protected virtual void OnTakeDamageSFXPlayOnce()
+	{
+		onTakeDamageSFXPlayOnce?.Invoke();
+	}
+
+	/// <summary>
+	/// Invokes the on death event.
+	/// </summary>
+	protected virtual void OnDeathSFXPlayOnce()
+	{
+		onDeathSFXPlayOnce?.Invoke();
+	}
+	#endregion
 }

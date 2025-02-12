@@ -25,12 +25,13 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 	/// </summary>
 	public event Action<bool> onAttackSFXPlayOnce;
 
+
 	#endregion
 
 	#region Variables
 	#endregion
 
-	#region AI State Vars
+	#region AI State Variables
 	/* AI State */
 	/// <summary>
 	/// The current state the AI is in, at the current time. This Dictates what thinking process it will do.
@@ -42,7 +43,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 	#endregion
 
 
-	#region Attacking Vars
+	#region Attacking Variables
 	/* Attacking */
 
 	/// <summary>
@@ -80,7 +81,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 	#endregion
 
 
-	#region Box Check Vars
+	#region Box Check Variables
 	/* Box check to detect and damage player */
 
 	/// <summary>
@@ -117,7 +118,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 	#endregion
 
 
-	#region Detection Vars
+	#region Detection Variables
 	/* The limits for detecting the player */
 
 	/// <summary>
@@ -147,7 +148,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 	#endregion
 
 
-	#region Debugging Vars
+	#region Debugging Variables
 	/* Debugging */
 
 	/// <summary>
@@ -165,7 +166,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 
 	#endregion
 
-	#region Animation Vars
+	#region Animation Variables
 
 	protected bool attackAnimationPlaying = false;
 
@@ -232,7 +233,15 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 		}
 
 
+		if (agent.velocity.magnitude <= 0.1f)
+		{
+			OnWalkingSFXStop();
 
+		}
+		else
+		{
+			OnWalkingSFXPlay(agent.velocity.magnitude);
+		}
 
 		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
 
@@ -305,12 +314,12 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 		if (UnityEngine.Random.Range(0f, 4f) < 1.5f)
 		{
 			animatorController.SetBool("IsHardAttack", true);
-			onAttackSFXPlayOnce?.Invoke(true);
+			OnAttackSFXPlayOnce(true);
 		}
 		else
 		{
 			animatorController.SetBool("IsHardAttack", false);
-			onAttackSFXPlayOnce?.Invoke(false);
+			OnAttackSFXPlayOnce(false);
 		}
 
 
@@ -348,7 +357,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 
 	#region AttackAndDamage
 	/// <summary>
-	/// Creates a boxcast and deals damage to the player if there is one in the box cast.
+	/// Creates a box cast and deals damage to the player if there is one in the box cast.
 	/// </summary>
 	public virtual void LightAttackCheckAndDamage()
 	{
@@ -428,5 +437,17 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 	{
 
 	}
+	#endregion
+
+	#region Event Invoke Functions
+	/// <summary>
+	/// Invokes the on attack event.
+	/// </summary>
+	/// <param name="value">True if this is a variant of the normal attack.</param>
+	protected virtual void OnAttackSFXPlayOnce(bool value)
+	{
+		onAttackSFXPlayOnce?.Invoke(value);
+	}
+
 	#endregion
 }
