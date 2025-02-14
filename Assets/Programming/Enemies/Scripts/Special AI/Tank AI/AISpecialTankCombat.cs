@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,13 +17,13 @@ using UnityEngine;
 /// <summary>
 /// Special Tank AI behavior class. Controls movement, attacking and thinking.
 /// </summary>
-public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
+public class AISpecialTankCombat : AICommonMeleeCombat, ITankAnimationStateUpdater
 {
-	#region Tank Slam Attack vars
+	#region Tank Slam Attack variables
 	[Header("Tank Slam Attack")]
 
 	[SerializeField]
-	protected float specialAttackCooldown = 0f;
+	protected float specialAttackCoolDown = 0f;
 
 	[SerializeField]
 	protected float specialAttackRate = 5f;
@@ -33,7 +34,7 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 
 
-	#region Wind up settings vars
+	#region Wind up settings variables
 	[Header("Wind up settings")]
 	[SerializeField]
 	protected float windUpTime = 1f;
@@ -46,7 +47,7 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 
 
-	#region Slam size and damage vars
+	#region Slam size and damage variables
 	[Header("Slam size and damage")]
 
 	[SerializeField]
@@ -67,7 +68,7 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 
 
-	#region Slam Requirements for activating vars
+	#region Slam Requirements for activating variables
 	[Header("Slam Requirements for activating")]
 	[SerializeField]
 	protected float minimumDistanceForForceSpecial = 5f;
@@ -81,15 +82,21 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 
 
-	#region Global delay between all attacks vars
+	#region Global delay between all attacks variables
 	[Header("Delay between all attacks")]
 	[SerializeField]
 	protected float globalAttackDelay = 0.5f;
 
-	protected float globalAttackCooldown = 0f;
+	protected float globalAttackCoolDown = 0f;
 
 	#endregion
 
+	#region Audio Events
+
+	public event Action onSpecialAttackStartSFXPlayOnce;
+	public event Action onSpecialHitGroundSFXPlayOnce;
+
+	#endregion
 
 
 	/******************************************************************************/
@@ -122,8 +129,8 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 			isWindingUp = false;
 		}
 
-		if (globalAttackCooldown >= 0) globalAttackCooldown -= Time.deltaTime;
-		if (specialAttackCooldown > 0) specialAttackCooldown -= Time.deltaTime;
+		if (globalAttackCoolDown >= 0) globalAttackCoolDown -= Time.deltaTime;
+		if (specialAttackCoolDown > 0) specialAttackCoolDown -= Time.deltaTime;
 
 		base.Update();
 	}
@@ -149,14 +156,14 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 			// we need to decide what attack to use.
 			// Special attack.
-			if (!attacking && specialAttackCooldown <= 0f && specialAttackCoroutine == null && globalAttackCooldown <= 0f &&
+			if (!attacking && specialAttackCoolDown <= 0f && specialAttackCoroutine == null && globalAttackCoolDown <= 0f &&
 			(Vector3.Distance(playerTarget.position, transform.position) < minimumDistanceForForceSpecial || slamTimer <= 0f))
 			{
 				specialAttackCoroutine = StartCoroutine(SpecialAttack());
 				print("Attacking");
 			}
 			// light attack
-			else if (!attacking && lightAttackCoolDown <= 0f && lightAttackCoroutine == null && globalAttackCooldown <= 0f && slamTimer > 0f)
+			else if (!attacking && lightAttackCoolDown <= 0f && lightAttackCoroutine == null && globalAttackCoolDown <= 0f && slamTimer > 0f)
 			{
 				lightAttackCoroutine = StartCoroutine(LightAttack());
 				print("Attacking light");
@@ -176,7 +183,7 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 	#region SpecialAttack
 	/// <summary>
-	/// Corutine for dealing with the special attack, it just starts the animations and waits.
+	/// Coroutine for dealing with the special attack, it just starts the animations and waits.
 	/// </summary>
 	/// <returns></returns>
 	protected virtual IEnumerator SpecialAttack()
@@ -193,13 +200,14 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 		windUpTimer = windUpTime;
 		isWindingUp = true;
 
+		SpecialAttackStartSFXPlayOnce();
 
 		while (isWindingUp) yield return null;
 
 
 		animatorController.SetBool("IsSpecialAttack", true);
 
-		specialAttackCooldown = specialAttackRate;
+		specialAttackCoolDown = specialAttackRate;
 
 
 		while (attackAnimationPlaying) yield return null;
@@ -234,10 +242,12 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 	#region SpecialAttackCheckAndDamage
 	/// <summary>
-	/// Creates a check spere and deals the damage accordingly.
+	/// Creates a check sphere and deals the damage accordingly.
 	/// </summary>
 	protected virtual void SpecialAttackCheckAndDamage()
 	{
+		SpecialHitGroundSFXPlayOnce();
+
 		Collider[] HitObjects = Physics.OverlapSphere(transform.position, slamMaxRadius,
 			layersToCheckFor, QueryTriggerInteraction.Ignore);
 
@@ -262,39 +272,58 @@ public class AISpecialTank : AICommonMeleeCombat, ITankAnimationStateUpdator
 
 
 
-	#region ITankAnimationStateUpdator
-	// this is used by a script imbetween the animations and this so animations can call functions.
+	#region ITankAnimationStateUpdater
+	// this is used by a script im between the animations and this so animations can call functions.
 
 	/* normal attack */
-	void ITankAnimationStateUpdator.EndAttack()
+	void ITankAnimationStateUpdater.EndAttack()
 	{
 		AnimationAttackFinished();
 	}
-	void ITankAnimationStateUpdator.DealAttack()
+	void ITankAnimationStateUpdater.DealAttack()
 	{
 		LightAttackCheckAndDamage();
 	}
 
-	void ITankAnimationStateUpdator.StartAttack()
+	void ITankAnimationStateUpdater.StartAttack()
 	{
 
 	}
 
 
 	/* special attack */
-	void ITankAnimationStateUpdator.EndSpecialAttack()
+	void ITankAnimationStateUpdater.EndSpecialAttack()
 	{
 		AnimationAttackFinished();
 	}
 
-	void ITankAnimationStateUpdator.DealSpecialAttack()
+	void ITankAnimationStateUpdater.DealSpecialAttack()
 	{
 		SpecialAttackCheckAndDamage();
 	}
 
-	void ITankAnimationStateUpdator.StartSpecialAttack()
+	void ITankAnimationStateUpdater.StartSpecialAttack()
 	{
 
+	}
+	#endregion
+
+
+	#region Event Invoke Functions
+	/// <summary>
+	/// Invokes the onSpecialAttackStartSFXPlayOnce event;
+	/// </summary>
+	protected virtual void SpecialAttackStartSFXPlayOnce()
+	{
+		onSpecialAttackStartSFXPlayOnce?.Invoke();
+	}
+
+	/// <summary>
+	/// Invokes the onSpecialHitGroundSFXPlayOnce event;
+	/// </summary>
+	protected virtual void SpecialHitGroundSFXPlayOnce()
+	{
+		onSpecialHitGroundSFXPlayOnce?.Invoke();
 	}
 	#endregion
 }

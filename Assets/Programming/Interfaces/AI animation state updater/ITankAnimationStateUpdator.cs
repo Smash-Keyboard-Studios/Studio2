@@ -15,7 +15,7 @@ using UnityEngine;
 /// <summary>
 /// Donno if we can use this for the special enemies or it has to be unquie per.
 /// </summary>
-public interface ITankAnimationStateUpdator
+public interface ITankAnimationStateUpdater
 {
 	public void EndAttack();
 
