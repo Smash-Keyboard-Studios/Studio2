@@ -1,30 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+//Script by Aaron Wing
+
+//HOW TO USE: In order for the player to move make sure you have both the Player and PlayerInputHandler prefabs in the scene. The scripts should already be attached to the individual game objects.
+//This script should be attached to the Player.
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Speeds")]
-    [SerializeField] private float walkSpeed = 3.0f;
-    [SerializeField] private float sprintMultiplier = 2.0f;
-    [SerializeField] private float staminaDecrease = 5.0f;
-    [SerializeField] private float staminaIncrease = 2.5f;
-    [SerializeField] private float staminaChargeRate = 1.5f;
+    [SerializeField] private float WalkSpeed = 3.0f;
+    [SerializeField] private float SprintMultiplier = 2.0f;
+    [SerializeField] private float StaminaDecrease = 5.0f;
+    [SerializeField] private float StaminaIncrease = 2.5f;
+    [SerializeField] private float StaminaChargeRate = 1.5f;
 
     [Header("Gravity Parameters")]
-    [SerializeField] private float gravity = 9.81f;
+    [SerializeField] private float Gravity = 9.81f;
 
-    private CharacterController characterController;
-    private PlayerInputHandler inputHandler;
-    private PlayerStats stats;
-    private Vector3 currentMovement;
+    private CharacterController CharacterController;
+    private PlayerInputHandler InputHandler;
+    private PlayerStats Stats;
+    private Vector3 CurrentMovement;
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
-        inputHandler = PlayerInputHandler.Instance;
-        stats = GetComponent<PlayerStats>();
+        CharacterController = GetComponent<CharacterController>();
+        InputHandler = PlayerInputHandler.Instance;
+        Stats = GetComponent<PlayerStats>();
     }
 
     private void Update()
@@ -34,35 +37,35 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleMovement()
     {
-        float speed = walkSpeed;
+        float Speed = WalkSpeed;
 
-        if (stats.PlayerStamina > staminaDecrease)
+        if (Stats.PlayerStamina > StaminaDecrease)
         {
-            speed = walkSpeed * (inputHandler.SprintValue > 0 ? sprintMultiplier : 1f);
+            Speed = WalkSpeed * (InputHandler.SprintValue > 0 ? SprintMultiplier : 1f);
         }
 
-        if (inputHandler.SprintValue > 0)
+        if (InputHandler.SprintValue > 0)
         {
-            stats.PlayerStamina = stats.PlayerStamina - staminaDecrease * (staminaChargeRate * Time.deltaTime);
+            Stats.PlayerStamina = Stats.PlayerStamina - StaminaDecrease * (StaminaChargeRate * Time.deltaTime);
         }
-        else if (inputHandler.SprintValue <= 0)
+        else if (InputHandler.SprintValue <= 0)
         {
-            stats.PlayerStamina = stats.PlayerStamina + staminaIncrease * (staminaChargeRate * Time.deltaTime);
+            Stats.PlayerStamina = Stats.PlayerStamina + StaminaIncrease * (StaminaChargeRate * Time.deltaTime);
         }
 
-        Vector3 inputDirection = new Vector3(inputHandler.MoveInput.x, 0f, inputHandler.MoveInput.y);
-        Vector3 worldDirection = transform.TransformDirection(inputDirection);
-        worldDirection.Normalize();
+        Vector3 InputDirection = new Vector3(InputHandler.MoveInput.x, 0f, InputHandler.MoveInput.y);
+        Vector3 WorldDirection = transform.TransformDirection(InputDirection);
+        WorldDirection.Normalize();
 
-        currentMovement.x = worldDirection.x * speed;
-        currentMovement.z = worldDirection.z * speed;
+        CurrentMovement.x = WorldDirection.x * Speed;
+        CurrentMovement.z = WorldDirection.z * Speed;
 
         HandleGravity();
-        characterController.Move(currentMovement * Time.deltaTime);
+        CharacterController.Move(CurrentMovement * Time.deltaTime);
     }
 
     void HandleGravity()
     {
-        currentMovement.y -= gravity * Time.deltaTime;
+        CurrentMovement.y -= Gravity * Time.deltaTime;
     }
 }

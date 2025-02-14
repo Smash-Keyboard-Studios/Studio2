@@ -12,23 +12,23 @@ using UnityEngine;
 
 
 
-public class TankAttackingStateUpdator : MonoBehaviour
+public class TankAttackingStateUpdater : MonoBehaviour
 {
-	ITankAnimationStateUpdator animationStateUpdator;
+	ITankAnimationStateUpdater animationStateUpdater;
 
 	void Awake()
 	{
-		animationStateUpdator = GetComponentInParent<ITankAnimationStateUpdator>();
+		animationStateUpdater = GetComponentInParent<ITankAnimationStateUpdater>();
 	}
 
 	public void EndAttack()
 	{
-		animationStateUpdator.EndAttack();
+		animationStateUpdater.EndAttack();
 	}
 
 	public void DealAttack()
 	{
-		animationStateUpdator.DealAttack();
+		animationStateUpdater.DealAttack();
 	}
 
 	public void StartAttack()
@@ -38,12 +38,12 @@ public class TankAttackingStateUpdator : MonoBehaviour
 
 	public void EndSpecialAttack()
 	{
-		animationStateUpdator.EndSpecialAttack();
+		animationStateUpdater.EndSpecialAttack();
 	}
 
 	public void DealSpecialAttack()
 	{
-		animationStateUpdator.DealSpecialAttack();
+		animationStateUpdater.DealSpecialAttack();
 	}
 
 	public void StartSpecialAttack()

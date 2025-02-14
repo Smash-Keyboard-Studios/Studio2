@@ -1,7 +1,11 @@
 using System;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour, IDamagable
+//Script by Aaron Wing
+
+//HOW TO USE: In order for the player to gain any of these stats the Player and PlayerInputHandler prefabs should be in the scene. The scripts themselves should already be attached to the indvivdual Game Object.
+//This script is attached to the player.
+public class PlayerStats : MonoBehaviour, IDamageable
 {
     [Header("Player Stats")]
     public float PlayerHealth = 100;
@@ -15,11 +19,11 @@ public class PlayerStats : MonoBehaviour, IDamagable
     [Header("Interaction")]
     public GameObject InteractionUI;
 
-    private PlayerInputHandler inputHandler;
+    private PlayerInputHandler InputHandler;
 
     private void Awake()
     {
-        inputHandler = PlayerInputHandler.Instance;
+        InputHandler = PlayerInputHandler.Instance;
     }
 
     public bool TakeDamage(float Ammount)
@@ -40,7 +44,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
         {
             InteractionUI.SetActive(true);
 
-            if (inputHandler.InteractionTriggered)
+            if (InputHandler.InteractionTriggered)
             {
                 if (PlayerHealth < PlayerMaxHealth)
                 {

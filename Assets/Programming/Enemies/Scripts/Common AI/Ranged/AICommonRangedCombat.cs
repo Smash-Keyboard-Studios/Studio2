@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 //by	_             	_ _                	 
 // 	| |           	(_) |               	 
@@ -22,7 +23,7 @@ using UnityEngine.AI;
 
 
 
-public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
+public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 {
 	#region Variables
 	#endregion
@@ -84,6 +85,11 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 	[Header("Projectiles")]
 	[SerializeField] private GameObject projectilePrefab;
 	[SerializeField] private Transform[] projectileSpawnPoint;
+	[SerializeField] public float projectileDamage;
+	[SerializeField] private float projectileLifespan; // How long the object will last
+	[SerializeField] public float projectileSpeed;
+	[SerializeField] public bool projectileGravityUsage;
+
 	#endregion
 	#region Retreat Vars
 	[Header("Retreating")]
@@ -92,6 +98,9 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 	protected float retreatTimer = 0f; // Tracks current time between retreats
 	[SerializeField] private float chaseTimer = 6f; // Tracks how long the enemy is chased for
 	protected bool chaseFinished = false; // A bypass to avoid the enemy AI getting stuck/chased forever 
+	#endregion
+	#region Sound Effect Vars
+	public event Action onSFXProjectileLaunch;
 	#endregion
 	#region Debugging Vars
 	/* Debugging */
@@ -236,7 +245,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 		// this picks wither normal or rare light attack animations.
 		// this adds variaty to attacks.
 
-		if (Random.Range(0f, 4f) < 1.5f)
+		if (UnityEngine.Random.Range(0f, 4f) < 1.5f)
 		{
 			animatorController.SetBool("IsHardAttack", true);
 		}
@@ -283,8 +292,13 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 
 		foreach (Transform SpawnPoint in projectileSpawnPoint)
 		{
+			onSFXProjectileLaunch?.Invoke();
 			SpawnPoint.LookAt(playerTarget.position);
-			Instantiate(projectilePrefab, SpawnPoint.position, SpawnPoint.rotation);
+			GameObject instance = Instantiate(projectilePrefab, SpawnPoint.position, SpawnPoint.rotation);
+			instance.GetComponent<BaseEnemyProjectile>().projectileDamage = projectileDamage;
+			instance.GetComponent<BaseEnemyProjectile>().projectileLifespan = projectileLifespan;
+			instance.GetComponent<BaseEnemyProjectile>().projectileSpeed = projectileSpeed;
+			instance.GetComponent<Rigidbody>().useGravity = projectileGravityUsage;
 		}
 	}
 	#endregion
@@ -324,17 +338,17 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdator
 	#endregion
 	#region IAnimationStateUpdator
 	// this is used by a script imbetween the animations and this so animations can call functions.
-	void IAnimationStateUpdator.EndAttack()
+	void IAnimationStateUpdater.EndAttack()
 	{
 		AnimationAttackFinished();
 	}
 
-	void IAnimationStateUpdator.DealAttack()
+	void IAnimationStateUpdater.DealAttack()
 	{
 		LightAttackCheckAndDamage();
 	}
 
-	void IAnimationStateUpdator.StartAttack()
+	void IAnimationStateUpdater.StartAttack()
 	{
 
 	}

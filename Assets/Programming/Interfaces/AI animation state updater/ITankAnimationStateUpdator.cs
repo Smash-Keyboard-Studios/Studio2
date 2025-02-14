@@ -12,15 +12,20 @@ using UnityEngine;
 
 
 
-
 /// <summary>
-/// Interface for basic AI attack animation events.
+/// Donno if we can use this for the special enemies or it has to be unquie per.
 /// </summary>
-public interface IAnimationStateUpdator
+public interface ITankAnimationStateUpdater
 {
 	public void EndAttack();
 
 	public void DealAttack();
 
 	public void StartAttack();
+
+	public void EndSpecialAttack();
+
+	public void DealSpecialAttack();
+
+	public void StartSpecialAttack();
 }

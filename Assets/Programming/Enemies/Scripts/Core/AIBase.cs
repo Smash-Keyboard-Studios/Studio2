@@ -27,7 +27,7 @@ public enum AIState
 
 #region AITier
 /// <summary>
-/// The raity of the AI.
+/// The rarity of the AI.
 /// </summary>
 //[Obsolete("No reason for it to be used at the moment.", false)]
 public enum AITier
@@ -45,13 +45,13 @@ public enum AITier
 /// Holds the core data of the AI.
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
-public class AIBase : MonoBehaviour, IDamagable
+public class AIBase : MonoBehaviour, IDamageable
 {
 	#region Public variables
 
-	[Header("Tier and stat mult")]
-	[SerializeField]
-	protected AITier TierOfAI = AITier.Common;
+	// [Header("Tier and stat multipliers")]
+	// [SerializeField]
+	// protected AITier TierOfAI = AITier.Common;
 
 	[Header("Health")]
 	[SerializeField]
@@ -69,9 +69,17 @@ public class AIBase : MonoBehaviour, IDamagable
 	protected bool KilledAI = false;
 
 
+	/* AI State */
+	/// <summary>
+	/// The current state the AI is in, at the current time. This Dictates what thinking process it will do.
+	/// </summary>
+	[Header("AI State")]
+	[SerializeField]
+	protected AIState currentAIState = AIState.Alerted;
+
 	#endregion
 	/********************************************************************/
-	#region Public Events
+	#region Public Events AI Events
 
 	/// <summary>
 	/// Delegate for the AI spawn and death events so we can pass in the transform.
@@ -89,7 +97,34 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// </summary>
 	public event EntityEventHandler onSpawn;
 
+	/// <summary>
+	/// Called when the AI state was changed.
+	/// </summary>
+	public event Action<AIState> onStateChanged;
 
+	#endregion
+	/*********************************/
+	#region  Public Events SFX
+
+	/// <summary>
+	/// Called when the AI moves, the value is velocity / speed.
+	/// </summary>
+	public event Action<float> onWalkingSFXPlay;
+
+	/// <summary>
+	/// Called when the AI stops moving.
+	/// </summary>
+	public event Action onWalkingSFXStop;
+
+	/// <summary>
+	/// Called when taking damage.
+	/// </summary>
+	public event Action onTakeDamageSFXPlayOnce;
+
+	/// <summary>
+	/// Called when the AI dies.
+	/// </summary>
+	public event Action onDeathSFXPlayOnce;
 	#endregion
 	/******************************************************************************/
 	#region Private variables.
@@ -118,6 +153,8 @@ public class AIBase : MonoBehaviour, IDamagable
 		KilledAI = false;
 
 		agent = GetComponent<NavMeshAgent>();
+
+		onStateChanged += OnStateChanged;
 	}
 	#endregion
 
@@ -154,6 +191,7 @@ public class AIBase : MonoBehaviour, IDamagable
 	{
 		if (KilledAI) return;
 
+		onDeathSFXPlayOnce();
 		onDeath?.Invoke(transform);
 		Destroy(gameObject);
 
@@ -162,11 +200,16 @@ public class AIBase : MonoBehaviour, IDamagable
 	#endregion
 
 
-
-	#region IDamagable.TakeDamage
-	bool IDamagable.TakeDamage(float ammount)
+	protected virtual void OnStateChanged(AIState newState)
 	{
-		return TakeDamage(ammount);
+		currentAIState = newState;
+	}
+
+
+	#region IDamageable.TakeDamage
+	bool IDamageable.TakeDamage(float amount)
+	{
+		return TakeDamage(amount);
 	}
 	#endregion
 
@@ -174,13 +217,64 @@ public class AIBase : MonoBehaviour, IDamagable
 	/// <summary>
 	/// Overridable method for taking damage. Will apply the damage to the AI.
 	/// </summary>
-	/// <param name="ammount">The ammount to take.</param>
+	/// <param name="amount">The amount to take.</param>
 	/// <returns>If it was successful.</returns>
-	protected virtual bool TakeDamage(float ammount)
+	protected virtual bool TakeDamage(float amount)
 	{
-		currentHealth -= ammount;
+		TakeDamageSFXPlayOnce();
+		currentHealth -= amount;
 		return true;
 	}
 	#endregion
 
+
+
+	#region Event Invoke Functions
+	/* Needed as events cannot be inherited so base classes need to have a function
+	to invoke the event.*/
+
+	/// <summary>
+	/// Invokes the on walking play event and pass in speed of AI.
+	/// </summary>
+	/// <param name="value">The speed of the AI / Velocity</param>
+	protected virtual void WalkingSFXPlay(float value)
+	{
+		onWalkingSFXPlay.Invoke(value);
+	}
+
+	/// <summary>
+	/// Invokes the on walking stop event.
+	/// </summary>
+	protected virtual void WalkingSFXStop()
+	{
+		onWalkingSFXStop?.Invoke();
+	}
+
+	/// <summary>
+	/// Invokes the on take damage event.
+	/// </summary>
+	protected virtual void TakeDamageSFXPlayOnce()
+	{
+		onTakeDamageSFXPlayOnce?.Invoke();
+	}
+
+	/// <summary>
+	/// Invokes the on death event.
+	/// </summary>
+	protected virtual void DeathSFXPlayOnce()
+	{
+		onDeathSFXPlayOnce?.Invoke();
+	}
+
+
+	/// <summary>
+	/// Invokes the on state changed event.
+	/// </summary>
+	/// <param name="newState"></param>
+	protected virtual void ChangeState(AIState newState)
+	{
+		onStateChanged?.Invoke(newState);
+
+	}
+	#endregion
 }
