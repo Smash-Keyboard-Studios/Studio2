@@ -17,32 +17,32 @@ public class AICommonMeleeAudio : AIAudioBase
 
 	protected override void SubscribeToAudioEvents()
 	{
-		aiCommonMeleeCombat.onAttackSFXPlayOnce += AttackSFXPlayOnce;
+		aiCommonMeleeCombat.onAttackSFXPlayOnce += OnAttackSFXPlayOnce;
 
 		base.SubscribeToAudioEvents();
 	}
 
-	protected override void DeathSFXPlayOnce()
+	protected override void OnDeathSFXPlayOnce()
 	{
 		// Audio code here
 	}
 
-	protected override void TakeDamageSFXPlayOnce()
+	protected override void OnTakeDamageSFXPlayOnce()
 	{
 		// Audio code here
 	}
 
-	protected override void WalkingSFXPlay(float speed)
+	protected override void OnWalkingSFXPlay(float speed)
 	{
 		// Audio code here
 	}
 
-	protected override void WalkingSFXStop()
+	protected override void OnWalkingSFXStop()
 	{
 		// Audio code here
 	}
 
-	private void AttackSFXPlayOnce(bool obj)
+	protected virtual void OnAttackSFXPlayOnce(bool obj)
 	{
 		// Audio code here
 	}

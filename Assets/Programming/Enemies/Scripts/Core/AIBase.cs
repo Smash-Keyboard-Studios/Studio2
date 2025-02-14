@@ -69,6 +69,14 @@ public class AIBase : MonoBehaviour, IDamageable
 	protected bool KilledAI = false;
 
 
+	/* AI State */
+	/// <summary>
+	/// The current state the AI is in, at the current time. This Dictates what thinking process it will do.
+	/// </summary>
+	[Header("AI State")]
+	[SerializeField]
+	protected AIState currentAIState = AIState.Alerted;
+
 	#endregion
 	/********************************************************************/
 	#region Public Events AI Events
@@ -145,6 +153,8 @@ public class AIBase : MonoBehaviour, IDamageable
 		KilledAI = false;
 
 		agent = GetComponent<NavMeshAgent>();
+
+		onStateChanged += OnStateChanged;
 	}
 	#endregion
 
@@ -190,6 +200,11 @@ public class AIBase : MonoBehaviour, IDamageable
 	#endregion
 
 
+	protected virtual void OnStateChanged(AIState newState)
+	{
+		currentAIState = newState;
+	}
+
 
 	#region IDamageable.TakeDamage
 	bool IDamageable.TakeDamage(float amount)
@@ -206,7 +221,7 @@ public class AIBase : MonoBehaviour, IDamageable
 	/// <returns>If it was successful.</returns>
 	protected virtual bool TakeDamage(float amount)
 	{
-		OnTakeDamageSFXPlayOnce();
+		TakeDamageSFXPlayOnce();
 		currentHealth -= amount;
 		return true;
 	}
@@ -222,7 +237,7 @@ public class AIBase : MonoBehaviour, IDamageable
 	/// Invokes the on walking play event and pass in speed of AI.
 	/// </summary>
 	/// <param name="value">The speed of the AI / Velocity</param>
-	protected virtual void OnWalkingSFXPlay(float value)
+	protected virtual void WalkingSFXPlay(float value)
 	{
 		onWalkingSFXPlay.Invoke(value);
 	}
@@ -230,7 +245,7 @@ public class AIBase : MonoBehaviour, IDamageable
 	/// <summary>
 	/// Invokes the on walking stop event.
 	/// </summary>
-	protected virtual void OnWalkingSFXStop()
+	protected virtual void WalkingSFXStop()
 	{
 		onWalkingSFXStop?.Invoke();
 	}
@@ -238,7 +253,7 @@ public class AIBase : MonoBehaviour, IDamageable
 	/// <summary>
 	/// Invokes the on take damage event.
 	/// </summary>
-	protected virtual void OnTakeDamageSFXPlayOnce()
+	protected virtual void TakeDamageSFXPlayOnce()
 	{
 		onTakeDamageSFXPlayOnce?.Invoke();
 	}
@@ -246,9 +261,20 @@ public class AIBase : MonoBehaviour, IDamageable
 	/// <summary>
 	/// Invokes the on death event.
 	/// </summary>
-	protected virtual void OnDeathSFXPlayOnce()
+	protected virtual void DeathSFXPlayOnce()
 	{
 		onDeathSFXPlayOnce?.Invoke();
+	}
+
+
+	/// <summary>
+	/// Invokes the on state changed event.
+	/// </summary>
+	/// <param name="newState"></param>
+	protected virtual void ChangeState(AIState newState)
+	{
+		onStateChanged?.Invoke(newState);
+
 	}
 	#endregion
 }
