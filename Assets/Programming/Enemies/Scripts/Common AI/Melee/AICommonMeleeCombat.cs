@@ -31,17 +31,6 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 	#region Variables
 	#endregion
 
-	#region AI State Variables
-	/* AI State */
-	/// <summary>
-	/// The current state the AI is in, at the current time. This Dictates what thinking process it will do.
-	/// </summary>
-	[Header("AI State")]
-	[SerializeField]
-	protected AIState currentAIState = AIState.Alerted;
-
-	#endregion
-
 
 	#region Attacking Variables
 	/* Attacking */
@@ -235,12 +224,12 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 
 		if (agent.velocity.magnitude <= 0.1f)
 		{
-			OnWalkingSFXStop();
+			WalkingSFXStop();
 
 		}
 		else
 		{
-			OnWalkingSFXPlay(agent.velocity.magnitude);
+			WalkingSFXPlay(agent.velocity.magnitude);
 		}
 
 		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
@@ -265,7 +254,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 		{
 			// print(hit.transform.name);
 			if (hit.collider.gameObject.CompareTag("Player"))
-				currentAIState = AIState.Alerted;
+				ChangeState(AIState.Alerted);
 		}
 	}
 	#endregion

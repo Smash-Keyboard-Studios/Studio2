@@ -17,32 +17,32 @@ public class AIAudioBase : MonoBehaviour
 
 	protected virtual void SubscribeToAudioEvents()
 	{
-		aiBase.onDeathSFXPlayOnce += DeathSFXPlayOnce;
+		aiBase.onDeathSFXPlayOnce += OnDeathSFXPlayOnce;
 
-		aiBase.onTakeDamageSFXPlayOnce += TakeDamageSFXPlayOnce;
+		aiBase.onTakeDamageSFXPlayOnce += OnTakeDamageSFXPlayOnce;
 
-		aiBase.onWalkingSFXPlay += WalkingSFXPlay;
-		aiBase.onWalkingSFXStop += WalkingSFXStop;
+		aiBase.onWalkingSFXPlay += OnWalkingSFXPlay;
+		aiBase.onWalkingSFXStop += OnWalkingSFXStop;
 	}
 
 
-	protected virtual void DeathSFXPlayOnce()
+	protected virtual void OnDeathSFXPlayOnce()
 	{
 		// audio code here
 	}
 
-	protected virtual void TakeDamageSFXPlayOnce()
+	protected virtual void OnTakeDamageSFXPlayOnce()
 	{
 		// audio code here
 	}
 
-	protected virtual void WalkingSFXPlay(float speed)
+	protected virtual void OnWalkingSFXPlay(float speed)
 	{
 		// speed is the velocity magnitude of the AI.
 		// audio code here
 	}
 
-	protected virtual void WalkingSFXStop()
+	protected virtual void OnWalkingSFXStop()
 	{
 		// audio code here
 	}
