@@ -12,7 +12,8 @@ public class SliderBarFill : MonoBehaviour
     public enum SliderType
     {
         Health, 
-        Stamina
+        Stamina,
+        KillCount
     }
 
     [Header("Which slider bar is this for?")]
@@ -27,10 +28,13 @@ public class SliderBarFill : MonoBehaviour
         switch (whichSlider)
         {
             case SliderType.Health:
-                sliderBar.maxValue = 100; //change this to playerStats.maxHealth
+                sliderBar.maxValue = playerStats.PlayerMaxHealth;
                 break;
             case SliderType.Stamina:
-                sliderBar.maxValue = 100; //change this to playerStats.maxStamina
+                sliderBar.maxValue = playerStats.PlayerMaxStamina;
+                break;
+            case SliderType.KillCount:
+                sliderBar.maxValue = 20; //this is a goal for number of enemies to kill, might want to change this value depending on which level
                 break;
             default:
                 break;
@@ -47,6 +51,9 @@ public class SliderBarFill : MonoBehaviour
                 break;
             case SliderType.Stamina:
                 sliderBar.value = playerStats.PlayerStamina;
+                break;
+            case SliderType.KillCount:
+                sliderBar.value = 20; //change this to number of enemies the player has killed in scene
                 break;
             default:
                 break;
