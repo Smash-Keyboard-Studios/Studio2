@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 8983775168675799407}
   - component: {fileID: 3854924872114529646}
   - component: {fileID: 3222878168228818675}
-  - component: {fileID: 7444448901805668536}
+  - component: {fileID: 3620467990790583271}
   - component: {fileID: 4219887261251670066}
-  - component: {fileID: 3980049928495119797}
   - component: {fileID: 8950207567973540252}
+  - component: {fileID: 3980049928495119797}
+  - component: {fileID: 7444448901805668536}
   m_Layer: 0
   m_Name: Melee AI
   m_TagString: Enemy
@@ -51,7 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c597c93a184ceeb439b7e99142843fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TierOfAI: 0
   maxHealth: 4
   currentHealth: 0
   maxSpeed: 4
@@ -82,29 +82,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 2853591560227121268}
---- !u!136 &7444448901805668536
-CapsuleCollider:
+--- !u!114 &3620467990790583271
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66097493073879181}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369550582046ef54182aeceea3bc4bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &4219887261251670066
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -127,6 +116,25 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8950207567973540252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66097493073879181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!54 &3980049928495119797
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -154,25 +162,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &8950207567973540252
-MonoBehaviour:
+--- !u!136 &7444448901805668536
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66097493073879181}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 0
-  m_Area: 0
-  m_OverrideGenerateLinks: 0
-  m_GenerateLinks: 0
-  m_IgnoreFromBuild: 1
-  m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1058971686249467550
 GameObject:
   m_ObjectHideFlags: 0

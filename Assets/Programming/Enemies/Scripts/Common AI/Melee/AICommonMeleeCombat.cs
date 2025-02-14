@@ -303,12 +303,12 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 		if (UnityEngine.Random.Range(0f, 4f) < 1.5f)
 		{
 			animatorController.SetBool("IsHardAttack", true);
-			OnAttackSFXPlayOnce(true);
+			AttackSFXPlayOnce(true);
 		}
 		else
 		{
 			animatorController.SetBool("IsHardAttack", false);
-			OnAttackSFXPlayOnce(false);
+			AttackSFXPlayOnce(false);
 		}
 
 
@@ -433,7 +433,7 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 	/// Invokes the on attack event.
 	/// </summary>
 	/// <param name="value">True if this is a variant of the normal attack.</param>
-	protected virtual void OnAttackSFXPlayOnce(bool value)
+	protected virtual void AttackSFXPlayOnce(bool value)
 	{
 		onAttackSFXPlayOnce?.Invoke(value);
 	}
