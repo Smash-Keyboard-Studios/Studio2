@@ -10,13 +10,11 @@ public class NPCTextDisplay : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI NPCNameText;
     [SerializeField] private TextMeshProUGUI NPCSpeechText;
-    private Image NPCImage;
+    [SerializeField] private Image NPCImage;
 
     private void Awake()
     {
         dialogueHandler = GetComponentInParent<DialogueHandler>();
-
-        NPCImage = GetComponentInChildren<Image>();
     }
 
     private void Update()

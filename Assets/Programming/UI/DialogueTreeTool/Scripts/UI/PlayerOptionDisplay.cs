@@ -12,12 +12,17 @@ public class PlayerOptionDisplay : MonoBehaviour
     private TextMeshProUGUI PlayerSpeechText;
     [SerializeField] private Image PlayerImage;
 
-    private void Update()
+    private void Awake()
     {
         dialogueHandler = GetComponentInParent<DialogueHandler>();
 
         PlayerSpeechText = GetComponentInChildren<TextMeshProUGUI>();
 
+        PlayerImage = GameObject.FindGameObjectWithTag("DialoguePlayerImage").GetComponent<Image>();
+    }
+
+    private void Update()
+    {
         PlayerSpeechText.text = PlayerOption.dialogueItem.DialogueText;
         PlayerImage.sprite = PlayerOption.dialogueItem.IconRO;
     }
