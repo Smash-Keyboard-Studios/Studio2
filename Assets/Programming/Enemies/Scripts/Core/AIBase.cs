@@ -239,7 +239,7 @@ public class AIBase : MonoBehaviour, IDamageable
 	/// <param name="value">The speed of the AI / Velocity</param>
 	protected virtual void WalkingSFXPlay(float value)
 	{
-		onWalkingSFXPlay.Invoke(value);
+		onWalkingSFXPlay?.Invoke(value);
 	}
 
 	/// <summary>
@@ -271,7 +271,7 @@ public class AIBase : MonoBehaviour, IDamageable
 	/// Invokes the on state changed event.
 	/// </summary>
 	/// <param name="newState"></param>
-	protected virtual void ChangeState(AIState newState)
+	public virtual void ChangeState(AIState newState)
 	{
 		onStateChanged?.Invoke(newState);
 
