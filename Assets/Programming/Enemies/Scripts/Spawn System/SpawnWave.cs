@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 //by    _                 _ _                     
 //     | |               (_) |                    
 //   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
@@ -12,13 +10,12 @@ using UnityEngine;
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
 
 
-
-
 /// <summary>
-/// Spawns a wave of enemies on start with the given values.
+/// Has a function that when called, will spawn the wave. Used with unity events normally.
 /// </summary>
-public class SpawnWaveOnStart : MonoBehaviour
+public class SpawnWave : MonoBehaviour
 {
+
 	/// <summary>
 	/// The wave spawn parameters
 	/// </summary>
@@ -38,10 +35,13 @@ public class SpawnWaveOnStart : MonoBehaviour
 	[SerializeField, Range(0, 20), Tooltip("How random the sequence will be. Set to 0 to disable.")]
 	private int sequenceShuffleAmount = 2;
 
-	IEnumerator Start()
+	/// <summary>
+	/// Tells the spawn system to spawn this wave of enemies.
+	/// </summary>
+	public void SpawnTheWave()
 	{
-		yield return new WaitForSeconds(1);
 		if (AISpawnSystem.singleton != null)
 			AISpawnSystem.singleton.SpawnWave(waveData, timeBetweenSpawn, minSpawnRadius, maxSpawnRadius, sequenceShuffleAmount);
 	}
+
 }
