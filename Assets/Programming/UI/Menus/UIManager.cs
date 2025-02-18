@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
     private void EnterLevel()
     {
         Time.timeScale = 1;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
 
