@@ -21,7 +21,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     private PlayerInputHandler InputHandler;
 
-    private void Awake()
+    private void Start()
     {
         InputHandler = PlayerInputHandler.Instance;
     }

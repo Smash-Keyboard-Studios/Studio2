@@ -26,8 +26,12 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         CharacterController = GetComponent<CharacterController>();
-        InputHandler = PlayerInputHandler.Instance;
         Stats = GetComponent<PlayerStats>();
+    }
+
+    private void Start()
+    {
+        InputHandler = PlayerInputHandler.Instance;
     }
 
     private void Update()
