@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8983775168675799407}
   - component: {fileID: 8897304238968218981}
   - component: {fileID: 3222878168228818675}
+  - component: {fileID: 6754516033712081943}
   - component: {fileID: 7444448901805668536}
   - component: {fileID: 4219887261251670066}
   - component: {fileID: 3980049928495119797}
@@ -52,7 +53,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282f227a3cbd4ff409aa3870071a4fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TierOfAI: 0
   maxHealth: 100
   currentHealth: 0
   maxSpeed: 5
@@ -65,6 +65,10 @@ MonoBehaviour:
     type: 3}
   projectileSpawnPoint:
   - {fileID: 8494952796967733763}
+  projectileDamage: 0
+  projectileLifespan: 0
+  projectileSpeed: 0
+  projectileGravityUsage: 0
   retreatDistance: 10
   retreatCooldown: 6
   chaseTimer: 8
@@ -84,6 +88,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 2853591560227121268}
+--- !u!114 &6754516033712081943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66097493073879181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5e88ed2003887341974acc7ef16b535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &7444448901805668536
 CapsuleCollider:
   m_ObjectHideFlags: 0
