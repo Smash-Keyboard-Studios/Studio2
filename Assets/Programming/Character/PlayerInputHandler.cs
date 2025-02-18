@@ -30,6 +30,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Awake()
     {
+        //if instance is null it creates a instance in the scene otherwise it destroys that gameobject instance.
         if (Instance == null)
         {
             Instance = this;
