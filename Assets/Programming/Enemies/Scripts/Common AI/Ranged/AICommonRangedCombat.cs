@@ -6,8 +6,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 
-//by	_             	_ _                	 
-// 	| |           	(_) |               	 
+//by	_             	  _ _                	 
+// 	   | |           	 (_) |               	 
 //   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
 //  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
@@ -25,15 +25,17 @@ using System;
 
 public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 {
+	#region Events
+	/// <summary>
+	/// Called when using weapon, boolean parameter, false is normal, true is variant.
+	/// </summary>
+	public event Action<bool> onAttackSFXPlayOnce;
+
+
+	#endregion
 	#region Variables
 	#endregion
 
-	#region AI State Vars
-	/* AI State */
-	/// <summary> /// The current state the AI is in, at the current time. This Dictates what thinking process it will do. /// </summary>
-	[Header("AI State")]
-	[SerializeField] protected AIState currentAIState = AIState.Alerted;
-	#endregion
 	#region Attacking Vars
 	/* Attacking */
 
@@ -168,6 +170,12 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 
 		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
 
+		if (agent.velocity.magnitude <= 0.1f) { WalkingSFXStop();}
+		else {WalkingSFXPlay(agent.velocity.magnitude);}
+
+		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
+
+
 	}
 	#endregion
 	#region IdleThinking
@@ -181,7 +189,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 		if (Physics.Linecast(transform.position, playerTarget.position, out RaycastHit hit) && Vector3.Distance(transform.position, playerTarget.position) <= maxDetectionRange)
 		{
 			if (hit.collider.gameObject.CompareTag("Player"))
-				currentAIState = AIState.Alerted;
+				ChangeState(AIState.Alerted);
 		}
 	}
 	#endregion
@@ -197,7 +205,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 
 		if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack)
 		{
-			if ((Vector3.Distance(playerTarget.position, transform.position) < retreatDistance) && retreatTimer <= 0f && !chaseFinished) { currentAIState = AIState.Retreating; }
+			if ((Vector3.Distance(playerTarget.position, transform.position) < retreatDistance) && retreatTimer <= 0f && !chaseFinished) { ChangeState(AIState.Retreating); }
 			else
 			{
 				if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack || attacking) currentSpeed = speedReduction; // PathTarget = transform.position;
@@ -227,7 +235,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 		if (Vector3.Distance(playerTarget.position, transform.position) >= minDistanceForAttack || chaseFinished)
 		{
 			chaseTimer = retreatCooldown; // Resets the chase timer 
-			currentAIState = AIState.Alerted;
+			ChangeState(AIState.Alerted);
 		}
 	}
 	#endregion
@@ -352,5 +360,16 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 	{
 
 	}
+	#endregion
+	#region Event Invoke Functions
+	/// <summary>
+	/// Invokes the on attack event.
+	/// </summary>
+	/// <param name="value">True if this is a variant of the normal attack.</param>
+	protected virtual void AttackSFXPlayOnce(bool value)
+	{
+		onAttackSFXPlayOnce?.Invoke(value);
+	}
+
 	#endregion
 }

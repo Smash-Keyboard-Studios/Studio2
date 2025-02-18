@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileSFXPlayer : MonoBehaviour
+public class ProjectileAudio : MonoBehaviour
 {
+	//by
+	//     _    _             _  __
+	//    / \  | | _____  __ | |/ /
+	//   / _ \ | |/ _ \ \/ / | ' / 
+	//  / ___ \| | __ />  <  | . \ 
+	// /_/   \_\_|\___/_/\_\ |_|\_\
 	BaseEnemyProjectile referencedProjectile;
 	void Start()
 	{
