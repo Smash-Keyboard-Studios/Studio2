@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TriggerDialogue : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class TriggerDialogue : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            other.GetComponent<PlayerInput>().enabled = false;
+
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
 
