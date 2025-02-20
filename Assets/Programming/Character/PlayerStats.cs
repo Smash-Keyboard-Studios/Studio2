@@ -7,6 +7,7 @@ using UnityEngine;
 //This script is attached to the player.
 public class PlayerStats : MonoBehaviour, IDamageable
 {
+    //Player stats value such as current stamina/health and max/min stamina/health
     [Header("Player Stats")]
     public float PlayerHealth = 100;
     public float PlayerStamina = 100;
@@ -21,9 +22,9 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     private PlayerInputHandler InputHandler;
 
-    private void Awake()
+    private void Start()
     {
-        InputHandler = PlayerInputHandler.Instance;
+        InputHandler = PlayerInputHandler.Instance; //Gets the InputHandler from the PlayerInputHandler instance
     }
 
     public bool TakeDamage(float Ammount)
@@ -34,8 +35,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        PlayerStamina = Mathf.Clamp(PlayerStamina, PlayerMinStamina, PlayerMaxStamina);
-        PlayerHealth = Mathf.Clamp(PlayerHealth, PlayerMinHealth, PlayerMaxHealth);
+        PlayerStamina = Mathf.Clamp(PlayerStamina, PlayerMinStamina, PlayerMaxStamina); //Clamps the PlayerStamina between the min and max stamina values
+        PlayerHealth = Mathf.Clamp(PlayerHealth, PlayerMinHealth, PlayerMaxHealth); //Clamps the PlayerHealth between the min and max health values
     }
 
     private void OnTriggerStay(Collider other)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DialogueHandler : MonoBehaviour
 {
@@ -46,7 +47,9 @@ public class DialogueHandler : MonoBehaviour
 
         //disable this if no more data
         if(currentData == null) {
-            Cursor.lockState = CursorLockMode.Locked;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true;
+
+            Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 1;
 
             this.gameObject.SetActive(false); 
