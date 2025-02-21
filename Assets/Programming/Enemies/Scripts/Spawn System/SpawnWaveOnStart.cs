@@ -38,10 +38,13 @@ public class SpawnWaveOnStart : MonoBehaviour
 	[SerializeField, Range(0, 20), Tooltip("How random the sequence will be. Set to 0 to disable.")]
 	private int sequenceShuffleAmount = 2;
 
+	[SerializeField, Tooltip("All the spawn locations the AI are allow to spawn at")]
+	private List<GameObject> spawnPoints;
+
 	IEnumerator Start()
 	{
 		yield return new WaitForSeconds(1);
 		if (AISpawnSystem.singleton != null)
-			AISpawnSystem.singleton.SpawnWave(waveData, timeBetweenSpawn, minSpawnRadius, maxSpawnRadius, sequenceShuffleAmount);
+			AISpawnSystem.singleton.SpawnWave(waveData, spawnPoints, timeBetweenSpawn, minSpawnRadius, maxSpawnRadius, sequenceShuffleAmount);
 	}
 }
