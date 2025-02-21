@@ -9,11 +9,17 @@ public class TriggerText : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private string[] dialogue;
 
+    private bool inDialogue;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            StartCoroutine("ShowDialogue");
+            if (!inDialogue)
+            {
+                StartCoroutine("ShowDialogue");
+                inDialogue = true;
+            }
         }
     }
 
