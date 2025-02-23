@@ -9,14 +9,11 @@ public class PlayerRotation : MonoBehaviour
         HandleRotationInput();
     }
 
-    void HandleRotationInput()
+    void HandleRotationInput() //Rotate player to face mouse.
     {
-        RaycastHit Hit;
-        Ray Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(Ray, out Hit))
-        {
-            transform.LookAt(new Vector3(Hit.point.x, transform.position.y, Hit.point.z));
-        }
+        Vector3 MouseScreenToCameraSpace = new Vector3(Input.mousePosition.x, 0f, Input.mousePosition.y);
+        Vector3 PlayerScreenToCameraSpace = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, 0f, Camera.main.WorldToScreenPoint(transform.position).y);
+        Vector3 PlayerToMouse = MouseScreenToCameraSpace - PlayerScreenToCameraSpace;
+        transform.LookAt(PlayerToMouse);
     }
 }
