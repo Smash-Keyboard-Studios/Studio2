@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //Script by Aaron Wing
 
@@ -22,9 +23,12 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     private PlayerInputHandler InputHandler;
 
+    public GameObject deathText;
+
     private void Start()
     {
         InputHandler = PlayerInputHandler.Instance; //Gets the InputHandler from the PlayerInputHandler instance
+        deathText.SetActive(false);
     }
 
     public bool TakeDamage(float Ammount)
@@ -37,6 +41,13 @@ public class PlayerStats : MonoBehaviour, IDamageable
     {
         PlayerStamina = Mathf.Clamp(PlayerStamina, PlayerMinStamina, PlayerMaxStamina); //Clamps the PlayerStamina between the min and max stamina values
         PlayerHealth = Mathf.Clamp(PlayerHealth, PlayerMinHealth, PlayerMaxHealth); //Clamps the PlayerHealth between the min and max health values
+
+        //When the player loses all of their Health they will die.
+        if (PlayerHealth <= 0)
+        {
+            deathText.SetActive(true);
+            SceneManager.LoadScene(0);
+        }
     }
 
     private void OnTriggerStay(Collider other)
