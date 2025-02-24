@@ -93,6 +93,8 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 	[SerializeField] public bool projectileGravityUsage;
 
 	#endregion
+	[SerializeField] public bool beamIsEnabled;
+	[SerializeField] GameObject beamPrefab;
 	#region Retreat Vars
 	[Header("Retreating")]
 	[SerializeField] private float retreatDistance = 10f; // The distance from the player to the enemy to trigger a retreat
@@ -208,14 +210,20 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 			if ((Vector3.Distance(playerTarget.position, transform.position) < retreatDistance) && retreatTimer <= 0f && !chaseFinished) { ChangeState(AIState.Retreating); }
 			else
 			{
-				if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack || attacking) currentSpeed = speedReduction; // PathTarget = transform.position;
-				else currentSpeed = maxSpeed; // PathTarget = PlayerTarget.position;
-
-
-				if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null) lightAttackCoroutine = StartCoroutine(LightAttack());
+				if (Physics.Linecast(transform.position, playerTarget.position, out RaycastHit hit) && Vector3.Distance(transform.position, playerTarget.position) <= maxDetectionRange) //Checks if the player is still in Line of Sight
+				{
+					if (hit.collider.gameObject.CompareTag("Player"))
+					{
+						if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack || attacking) currentSpeed = speedReduction; // PathTarget = transform.position;
+						if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null) { lightAttackCoroutine = StartCoroutine(LightAttack()); }
+					}
+				}
+				else
+				{
+					currentSpeed = maxSpeed;// PathTarget = PlayerTarget.position;
+				}
 			}
 		}
-
 	}
 	#endregion
 	#region RetreatingThinking
@@ -298,15 +306,30 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 	public virtual void LightAttackCheckAndDamage()
 	{
 
-		foreach (Transform SpawnPoint in projectileSpawnPoint)
+		if (beamIsEnabled)
 		{
-			onSFXProjectileLaunch?.Invoke();
-			SpawnPoint.LookAt(playerTarget.position);
-			GameObject instance = Instantiate(projectilePrefab, SpawnPoint.position, SpawnPoint.rotation);
-			instance.GetComponent<BaseEnemyProjectile>().projectileDamage = projectileDamage;
-			instance.GetComponent<BaseEnemyProjectile>().projectileLifespan = projectileLifespan;
-			instance.GetComponent<BaseEnemyProjectile>().projectileSpeed = projectileSpeed;
-			instance.GetComponent<Rigidbody>().useGravity = projectileGravityUsage;
+			foreach (Transform SpawnPoint in projectileSpawnPoint)
+			{
+				SpawnPoint.LookAt(playerTarget.position);
+				GameObject instanceBeam = Instantiate(beamPrefab, SpawnPoint.position, SpawnPoint.rotation);
+				instanceBeam.GetComponent<BaseEnemyBeam>().projectileDamage = projectileDamage;
+				instanceBeam.GetComponent<BaseEnemyBeam>().projectileLifespan = projectileLifespan;
+				instanceBeam.GetComponent<BaseEnemyBeam>().projectileSpeed = projectileSpeed;
+			}
+		}
+		else
+		{
+			foreach (Transform SpawnPoint in projectileSpawnPoint)
+			{
+				onSFXProjectileLaunch?.Invoke();
+				SpawnPoint.LookAt(playerTarget.position);
+				GameObject instance = Instantiate(projectilePrefab, SpawnPoint.position, SpawnPoint.rotation);
+				instance.GetComponent<BaseEnemyProjectile>().projectileDamage = projectileDamage;
+				instance.GetComponent<BaseEnemyProjectile>().projectileLifespan = projectileLifespan;
+				instance.GetComponent<BaseEnemyProjectile>().projectileSpeed = projectileSpeed;
+				instance.GetComponent<Rigidbody>().useGravity = projectileGravityUsage;
+
+			}
 		}
 	}
 	#endregion
@@ -334,6 +357,8 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 		{
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawSphere(transform.position, maxDetectionRange);
+			Gizmos.color = Color.green;
+			Gizmos.DrawSphere(pathTarget, 1);
 		}
 
 		if (enableVisualDetectionLine && GameObject.FindWithTag("Player") != null)
