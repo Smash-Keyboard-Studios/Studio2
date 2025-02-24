@@ -53,22 +53,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282f227a3cbd4ff409aa3870071a4fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 2
   currentHealth: 0
-  maxSpeed: 5
-  currentAIState: 1
+  maxSpeed: 2.5
+  currentAIState: 0
   lightAttackDamage: 20
-  lightAttackRate: 1
+  lightAttackRate: 0.75
   minDistanceForAttack: 20
   maxDetectionRange: 30
   projectilePrefab: {fileID: 3761678875516936036, guid: 69c9cafc9d150514881727da3970eb67,
     type: 3}
   projectileSpawnPoint:
   - {fileID: 8494952796967733763}
-  projectileDamage: 0
+  projectileDamage: 10
   projectileLifespan: 0
-  projectileSpeed: 0
+  projectileSpeed: 10
   projectileGravityUsage: 0
+  beamIsEnabled: 0
+  beamPrefab: {fileID: 7622524606344581348, guid: 6bcf02acef9fb324fbdc53d1ed8be185,
+    type: 3}
   retreatDistance: 10
   retreatCooldown: 6
   chaseTimer: 8
