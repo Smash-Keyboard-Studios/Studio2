@@ -13,7 +13,7 @@ public class SliderBarFill : MonoBehaviour
     {
         Health, 
         Stamina,
-        KillCount
+        ChargedButtonTimeHeld
     }
 
     [Header("Which slider bar is this for?")]
@@ -33,8 +33,8 @@ public class SliderBarFill : MonoBehaviour
             case SliderType.Stamina:
                 sliderBar.maxValue = playerStats.PlayerMaxStamina;
                 break;
-            case SliderType.KillCount:
-                sliderBar.maxValue = 20; //this is a goal for number of enemies to kill, might want to change this value depending on which level
+            case SliderType.ChargedButtonTimeHeld:
+                sliderBar.maxValue = 20; //set this to the max charge value
                 break;
             default:
                 break;
@@ -52,8 +52,8 @@ public class SliderBarFill : MonoBehaviour
             case SliderType.Stamina:
                 sliderBar.value = playerStats.PlayerStamina;
                 break;
-            case SliderType.KillCount:
-                sliderBar.value = 20; //change this to number of enemies the player has killed in scene
+            case SliderType.ChargedButtonTimeHeld:
+                sliderBar.value = 20; //set this to the time that the charge button has been held for
                 break;
             default:
                 break;
