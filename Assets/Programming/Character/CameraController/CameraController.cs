@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     const float fastLerpSpeed = 1000f;
-    const float slowLerpSpeed = 0.5f;
+    const float slowLerpSpeed = 0.05f;
 
     private float lerpSpeed = slowLerpSpeed;
 
