@@ -61,11 +61,13 @@ public class AudioManager : MonoBehaviour
             //check if looping
             if (looping)
             {
+                audioSource.loop = true;
                 audioSource.clip = clipToPlay;
                 audioSource.Play(0);
             }
             else
             {
+                audioSource.loop = true;
                 audioSource.PlayOneShot(clipToPlay); //play the clip!!
             }
         }
