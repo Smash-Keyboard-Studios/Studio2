@@ -16,7 +16,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Sets the healthbar on the AI to match the current health.
 /// </summary>
-public class UpdateAIHealthbars : MonoBehaviour
+public class AIHealthbar : MonoBehaviour
 {
 	private AIBase aiBase;
 
