@@ -14,7 +14,7 @@ using UnityEngine;
 
 
 
-public class AIShieldMeleeCombat : AICommonMeleeCombat
+public class AIShieldMeleeCombat : GruntAI
 {
 
 

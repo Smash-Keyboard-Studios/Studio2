@@ -15,14 +15,14 @@ using UnityEngine;
 /// <summary>
 /// Audio event system for the tank AI.
 /// </summary>
-public class AISpecialTankAudio : AICommonMeleeAudio
+public class KnightAIAudio : GruntAIAudio
 {
-	protected AISpecialTankCombat aiSpecialTank;
+	protected KnightAI aiSpecialTank;
 
 	// Start is called before the first frame update
 	protected override void Start()
 	{
-		aiSpecialTank = GetComponent<AISpecialTankCombat>();
+		aiSpecialTank = GetComponent<KnightAI>();
 
 		base.Start();
 	}
