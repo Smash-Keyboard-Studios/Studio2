@@ -15,7 +15,7 @@ using UnityEngine;
 /// <summary>
 /// Makes the object this is attached to, point to the camera.
 /// </summary>
-public class AIHealbarBillboard : MonoBehaviour
+public class Billboard : MonoBehaviour
 {
 	Transform camTransform;
 
