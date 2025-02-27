@@ -18,42 +18,42 @@ public class AIShieldObject : MonoBehaviour, IShieldObject
 	private GameObject shieldObject;
 
 	[SerializeField]
-	private float shieldMaxHealth = 10f;
+	private float maxHealth = 10f;
 
-	private float shieldCurrentHealth;
-
-	[SerializeField]
-	private float shieldCoolDown = 5f;
-
-	private float shieldCurrentCoolDownTime;
+	private float currentHealth;
 
 	[SerializeField]
-	private float shieldActivationDuration = 5f;
+	private float coolDown = 5f;
 
-	private float shieldCurrentUseTimer = 0;
+	private float currentCoolDownTime;
+
+	[SerializeField]
+	private float activationDuration = 5f;
+
+	private float currentUseTimer = 0;
 
 	private bool shieldActive = false;
 
 	void Start()
 	{
-		shieldCurrentHealth = shieldMaxHealth;
+		currentHealth = maxHealth;
 	}
 
 	void Update()
 	{
-		if (shieldCurrentHealth <= 0)
+		if (currentHealth <= 0)
 		{
 			BreakShield();
 		}
 
-		if (shieldCurrentCoolDownTime > 0)
+		if (currentCoolDownTime > 0)
 		{
-			shieldCurrentCoolDownTime -= Time.deltaTime;
+			currentCoolDownTime -= Time.deltaTime;
 		}
 
-		if (shieldActive && shieldCurrentUseTimer < shieldActivationDuration)
+		if (shieldActive && currentUseTimer < activationDuration)
 		{
-			shieldCurrentUseTimer += Time.deltaTime;
+			currentUseTimer += Time.deltaTime;
 		}
 		else if (shieldActive)
 		{
@@ -64,20 +64,20 @@ public class AIShieldObject : MonoBehaviour, IShieldObject
 
 	public void ActivateShield()
 	{
-		if (shieldCurrentCoolDownTime > 0) return;
+		if (currentCoolDownTime > 0) return;
 
-		shieldCurrentHealth = shieldMaxHealth;
+		currentHealth = maxHealth;
 
-		shieldCurrentUseTimer = 0;
+		currentUseTimer = 0;
 
 		shieldActive = true;
 	}
 
 	public void BreakShield()
 	{
-		shieldCurrentCoolDownTime = shieldActivationDuration;
+		currentCoolDownTime = coolDown;
 
-		shieldCurrentUseTimer = 0;
+		currentUseTimer = 0;
 
 		shieldActive = false;
 
@@ -87,7 +87,7 @@ public class AIShieldObject : MonoBehaviour, IShieldObject
 
 	public bool CanUseShield()
 	{
-		if (shieldCurrentCoolDownTime > 0) return false;
+		if (currentCoolDownTime > 0) return false;
 		if (shieldActive) return false;
 
 		return true;

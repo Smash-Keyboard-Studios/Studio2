@@ -55,30 +55,6 @@ public class AISpawnSystem : MonoBehaviour
 	[Header("AI spawn list"), SerializeField]
 	public Enemy[] aISpawnList;
 
-	#region Spawn location settings
-	/// <summary>
-	/// All possible spawn locations for the AI.
-	/// </summary>
-	[Header("Spawn location settings")]
-	public List<GameObject> spawnLocations;
-
-	[SerializeField]
-	private bool useGlobalSpawnPoints = false;
-
-	/// <summary>
-	/// Collect all the spawn points 
-	/// </summary>
-	[SerializeField]
-	private bool collectSpawnPointsAutomatically = true;
-
-	/// <summary>
-	/// If true, will attempt to update the spawn point array with any new spawn points. Intensive.
-	/// </summary>
-	[SerializeField]
-	private bool constantlyCollectSpawnPointsAutomatically = false;
-
-	private Coroutine collectSpawnLocationsCoroutine;
-	#endregion
 
 
 	private GameObject playerObject;
@@ -106,61 +82,6 @@ public class AISpawnSystem : MonoBehaviour
 		}
 
 		playerObject = GameObject.Find("Player");
-	}
-	#endregion
-
-
-
-	#region Start
-	// Start is called before the first frame update
-	void Start()
-	{
-		if (collectSpawnPointsAutomatically && collectSpawnLocationsCoroutine == null)
-		{
-			collectSpawnLocationsCoroutine = StartCoroutine(CollectSpawnLocations());
-		}
-	}
-	#endregion
-
-
-
-	#region FixedUpdate
-	void FixedUpdate()
-	{
-		// so we don't run at 300 times per second.
-		// we use fixed update to run 50 times per seconds.
-		if (collectSpawnPointsAutomatically && constantlyCollectSpawnPointsAutomatically && collectSpawnLocationsCoroutine == null)
-		{
-			collectSpawnLocationsCoroutine = StartCoroutine(CollectSpawnLocations());
-		}
-	}
-	#endregion
-
-
-
-	#region CollectSpawnLocations
-	/// <summary>
-	/// Get all possible spawn locations with tag Spawn Point and add them to the collection.
-	/// </summary>
-	/// <returns>Coroutine</returns>
-	IEnumerator CollectSpawnLocations()
-	{
-		GameObject[] possibleSpawnLocations = GameObject.FindGameObjectsWithTag("Spawn Point");
-
-		foreach (GameObject possibleSpawnLocation in possibleSpawnLocations)
-		{
-			yield return null;
-			if (spawnLocations.Contains(possibleSpawnLocation))
-			{
-				continue;
-			}
-			else
-			{
-				spawnLocations.Add(possibleSpawnLocation);
-			}
-		}
-
-		collectSpawnLocationsCoroutine = null;
 	}
 	#endregion
 

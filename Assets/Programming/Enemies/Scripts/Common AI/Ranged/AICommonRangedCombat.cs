@@ -142,9 +142,8 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 	}
 	#endregion
 	#region Update
-	protected override void Update()
+	protected virtual void Update()
 	{
-		base.Update();
 		distanceFromPlayer = Vector3.Distance(playerTarget.position, transform.position);
 		// set values and deal with timers.
 		agent.speed = currentSpeed;
@@ -172,8 +171,8 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 
 		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
 
-		if (agent.velocity.magnitude <= 0.1f) { WalkingSFXStop();}
-		else {WalkingSFXPlay(agent.velocity.magnitude);}
+		if (agent.velocity.magnitude <= 0.1f) { WalkingSFXStop(); }
+		else { WalkingSFXPlay(agent.velocity.magnitude); }
 
 		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
 
