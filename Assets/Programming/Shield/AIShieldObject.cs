@@ -14,83 +14,87 @@ using UnityEngine;
 
 public class AIShieldObject : MonoBehaviour, IShieldObject
 {
-    [SerializeField]
-    private GameObject shieldObject;
+	[SerializeField]
+	private GameObject shieldObject;
 
-    [SerializeField]
-    private float shieldMaxHealth = 10f;
+	[SerializeField]
+	private float shieldMaxHealth = 10f;
 
-    private float shieldCurrentHealth;
+	private float shieldCurrentHealth;
 
-    [SerializeField]
-    private float shieldCoolDown = 5f;
+	[SerializeField]
+	private float shieldCoolDown = 5f;
 
-    private float shieldCurrentCoolDownTime;
+	private float shieldCurrentCoolDownTime;
 
-    [SerializeField]
-    private float shieldActivationDuration = 5f;
+	[SerializeField]
+	private float shieldActivationDuration = 5f;
 
-    private float shieldCurrentUseTimer = 0;
+	private float shieldCurrentUseTimer = 0;
 
-    private bool shieldActive = false;
+	private bool shieldActive = false;
 
-    void Start()
-    {
-        shieldCurrentHealth = shieldMaxHealth;
-    }
+	void Start()
+	{
+		shieldCurrentHealth = shieldMaxHealth;
+	}
 
-    void Update()
-    {
-        if (shieldCurrentHealth <= 0)
-        {
-            BreakShield();
-        }
+	void Update()
+	{
+		if (shieldCurrentHealth <= 0)
+		{
+			BreakShield();
+		}
 
-        if (shieldCurrentCoolDownTime > 0)
-        {
-            shieldCurrentCoolDownTime -= Time.deltaTime;
-        }
+		if (shieldCurrentCoolDownTime > 0)
+		{
+			shieldCurrentCoolDownTime -= Time.deltaTime;
+		}
 
-        if (shieldActive && shieldCurrentUseTimer < shieldActivationDuration)
-        {
-            shieldCurrentUseTimer += Time.deltaTime;
-        }
-        else if (shieldActive)
-        {
-            BreakShield();
-        }
-        else if (!shieldActive)
-        {
-            shieldCurrentUseTimer = 0;
-        }
-    }
+		if (shieldActive && shieldCurrentUseTimer < shieldActivationDuration)
+		{
+			shieldCurrentUseTimer += Time.deltaTime;
+		}
+		else if (shieldActive)
+		{
+			BreakShield();
+		}
+	}
 
 
-    public void ActivateShield()
-    {
-        if (shieldCurrentCoolDownTime > 0) return;
+	public void ActivateShield()
+	{
+		if (shieldCurrentCoolDownTime > 0) return;
 
-        shieldCurrentHealth = shieldMaxHealth;
+		shieldCurrentHealth = shieldMaxHealth;
 
-        shieldCurrentUseTimer = 0;
+		shieldCurrentUseTimer = 0;
 
-        shieldActive = true;
-    }
+		shieldActive = true;
+	}
 
-    public void BreakShield()
-    {
-        shieldCurrentCoolDownTime = shieldActivationDuration;
+	public void BreakShield()
+	{
+		shieldCurrentCoolDownTime = shieldActivationDuration;
 
-        shieldActive = false;
+		shieldCurrentUseTimer = 0;
 
-    }
+		shieldActive = false;
+
+	}
 
 
 
-    public bool CanUseShield()
-    {
-        if (shieldCurrentCoolDownTime > 0) return false;
+	public bool CanUseShield()
+	{
+		if (shieldCurrentCoolDownTime > 0) return false;
+		if (shieldActive) return false;
 
-        return true;
-    }
+		return true;
+	}
+
+	public bool IsUsingShield()
+	{
+		return shieldActive;
+	}
 }
