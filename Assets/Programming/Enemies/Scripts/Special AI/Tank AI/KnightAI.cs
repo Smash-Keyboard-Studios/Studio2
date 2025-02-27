@@ -17,7 +17,7 @@ using UnityEngine;
 /// <summary>
 /// Special Tank AI behavior class. Controls movement, attacking and thinking.
 /// </summary>
-public class AISpecialTankCombat : AICommonMeleeCombat, ITankAnimationStateUpdater
+public class KnightAI : GruntAI
 {
 	#region Tank Slam Attack variables
 	[Header("Tank Slam Attack")]
@@ -276,35 +276,25 @@ public class AISpecialTankCombat : AICommonMeleeCombat, ITankAnimationStateUpdat
 	// this is used by a script im between the animations and this so animations can call functions.
 
 	/* normal attack */
-	void ITankAnimationStateUpdater.EndAttack()
+	public override void EndAttack()
 	{
 		AnimationAttackFinished();
 	}
-	void ITankAnimationStateUpdater.DealAttack()
+	public override void DealAttack()
 	{
 		LightAttackCheckAndDamage();
 	}
 
-	void ITankAnimationStateUpdater.StartAttack()
-	{
-
-	}
-
 
 	/* special attack */
-	void ITankAnimationStateUpdater.EndSpecialAttack()
+	public virtual void EndSpecialAttack()
 	{
 		AnimationAttackFinished();
 	}
 
-	void ITankAnimationStateUpdater.DealSpecialAttack()
+	public virtual void DealSpecialAttack()
 	{
 		SpecialAttackCheckAndDamage();
-	}
-
-	void ITankAnimationStateUpdater.StartSpecialAttack()
-	{
-
 	}
 	#endregion
 

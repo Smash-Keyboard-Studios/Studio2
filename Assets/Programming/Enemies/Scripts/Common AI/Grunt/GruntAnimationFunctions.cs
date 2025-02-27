@@ -16,27 +16,22 @@ using UnityEngine;
 
 
 
-public class MeleeAttackingStateUpdator : MonoBehaviour
+public class GruntAnimationFunctions : MonoBehaviour
 {
-	IAnimationStateUpdater animationStateUpdator;
+	GruntAI gruntAI;
 
 	void Awake()
 	{
-		animationStateUpdator = GetComponentInParent<IAnimationStateUpdater>();
+		gruntAI = GetComponentInParent<GruntAI>();
 	}
 
 	public void EndAttack()
 	{
-		animationStateUpdator.EndAttack();
+		gruntAI.EndAttack();
 	}
 
 	public void DealAttack()
 	{
-		animationStateUpdator.DealAttack();
-	}
-
-	public void StartAttack()
-	{
-
+		gruntAI.DealAttack();
 	}
 }

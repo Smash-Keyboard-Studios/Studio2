@@ -12,42 +12,32 @@ using UnityEngine;
 
 
 
-public class TankAttackingStateUpdater : MonoBehaviour
+public class KnightAnimationFunctions : MonoBehaviour
 {
-	ITankAnimationStateUpdater animationStateUpdater;
+	KnightAI knightAI;
 
 	void Awake()
 	{
-		animationStateUpdater = GetComponentInParent<ITankAnimationStateUpdater>();
+		knightAI = GetComponentInParent<KnightAI>();
 	}
 
 	public void EndAttack()
 	{
-		animationStateUpdater.EndAttack();
+		knightAI.EndAttack();
 	}
 
 	public void DealAttack()
 	{
-		animationStateUpdater.DealAttack();
-	}
-
-	public void StartAttack()
-	{
-
+		knightAI.DealAttack();
 	}
 
 	public void EndSpecialAttack()
 	{
-		animationStateUpdater.EndSpecialAttack();
+		knightAI.EndSpecialAttack();
 	}
 
 	public void DealSpecialAttack()
 	{
-		animationStateUpdater.DealSpecialAttack();
-	}
-
-	public void StartSpecialAttack()
-	{
-
+		knightAI.DealSpecialAttack();
 	}
 }

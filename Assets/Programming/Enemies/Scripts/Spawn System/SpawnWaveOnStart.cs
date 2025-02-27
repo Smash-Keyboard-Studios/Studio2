@@ -44,7 +44,7 @@ public class SpawnWaveOnStart : MonoBehaviour
 	IEnumerator Start()
 	{
 		yield return new WaitForSeconds(1);
-		if (AISpawnSystem.singleton != null)
-			AISpawnSystem.singleton.SpawnWave(waveData, spawnPoints, timeBetweenSpawn, minSpawnRadius, maxSpawnRadius, sequenceShuffleAmount);
+		if (AISpawnSystem.instance != null)
+			AISpawnSystem.instance.SpawnWave(waveData, spawnPoints, timeBetweenSpawn, minSpawnRadius, maxSpawnRadius, sequenceShuffleAmount);
 	}
 }

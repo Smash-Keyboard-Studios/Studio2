@@ -17,21 +17,21 @@ using UnityEngine;
 /// <summary>
 /// Audio event system for the common melee AI.
 /// </summary>
-public class AICommonMeleeAudio : AIAudioBase
+public class GruntAIAudio : AIAudioBase
 {
-	protected AICommonMeleeCombat aiCommonMeleeCombat;
+	protected GruntAI gruntAI;
 
 	// Start is called before the first frame update
 	protected override void Start()
 	{
-		aiCommonMeleeCombat = GetComponent<AICommonMeleeCombat>();
+		gruntAI = GetComponent<GruntAI>();
 
 		base.Start();
 	}
 
 	protected override void SubscribeToAudioEvents()
 	{
-		aiCommonMeleeCombat.onAttackSFXPlayOnce += OnAttackSFXPlayOnce;
+		gruntAI.onAttackSFXPlayOnce += OnAttackSFXPlayOnce;
 
 		base.SubscribeToAudioEvents();
 	}

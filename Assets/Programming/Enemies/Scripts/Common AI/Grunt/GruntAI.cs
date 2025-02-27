@@ -17,7 +17,7 @@ using UnityEngine.AI;
 /// <summary>
 /// Common Melee AI behavior class. Controls movement, attacking and thinking.
 /// </summary>
-public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
+public class GruntAI : AIBase
 {
 	#region Events
 	/// <summary>
@@ -410,21 +410,16 @@ public class AICommonMeleeCombat : AIBase, IAnimationStateUpdater
 
 
 
-	#region IAnimationStateUpdater
+	#region Animation functions
 	// this is used by a script im between the animations and this so animations can call functions.
-	void IAnimationStateUpdater.EndAttack()
+	public virtual void EndAttack()
 	{
 		AnimationAttackFinished();
 	}
 
-	void IAnimationStateUpdater.DealAttack()
+	public virtual void DealAttack()
 	{
 		LightAttackCheckAndDamage();
-	}
-
-	void IAnimationStateUpdater.StartAttack()
-	{
-
 	}
 	#endregion
 
