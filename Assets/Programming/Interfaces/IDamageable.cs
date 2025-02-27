@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ using UnityEngine;
 /// <summary>
 /// The interface for receiving damage.
 /// </summary>
+
+[Obsolete("Please use the Health component instead.", false)]
 public interface IDamageable
 {
 	/// <summary>

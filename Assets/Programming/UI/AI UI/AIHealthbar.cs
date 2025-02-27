@@ -14,23 +14,23 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// Sets the healthbar on the AI to match the current health.
+/// Sets the health bar on the AI to match the current health.
 /// </summary>
-public class AIHealthbar : MonoBehaviour
+public class AIHealthBar : MonoBehaviour
 {
-	private AIBase aiBase;
+	private Health aIHealth;
 
 	public Slider healthBar;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		aiBase = GetComponent<AIBase>();
+		aIHealth = GetComponent<Health>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		healthBar.value = (aiBase.currentHealth / aiBase.maxHealth);
+		healthBar.value = (aIHealth.currentHealth / aIHealth.maxHealth);
 	}
 }

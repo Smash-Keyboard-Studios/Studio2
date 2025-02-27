@@ -200,9 +200,8 @@ public class GruntAI : AIBase
 
 
 	#region Update
-	protected override void Update()
+	protected virtual void Update()
 	{
-		base.Update();
 
 		// set values and deal with timers.
 		agent.speed = currentSpeed;
@@ -359,7 +358,7 @@ public class GruntAI : AIBase
 			{
 				if (hitObject.gameObject.CompareTag("Player"))
 				{
-					hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackDamage);
+					hitObject.GetComponent<Health>()?.AddToHealth(-lightAttackDamage);
 				}
 			}
 		}
