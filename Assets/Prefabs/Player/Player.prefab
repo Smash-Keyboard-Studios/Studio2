@@ -141,6 +141,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 178120660104152868}
+  - {fileID: 2169762620763144485}
   m_Father: {fileID: 6586798735416910705}
   m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
 --- !u!1 &5005257603024285522
@@ -368,8 +369,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LightDmg: 2
   HeavyDmg: 5
-  LightAtkDelay: 0
-  HeavyAtkDelay: 0
+  LightAtkDelay: 1
+  HeavyAtkDelay: 3
   isAttacking: 0
 --- !u!95 &801336184962160247
 Animator:
@@ -404,6 +405,7 @@ GameObject:
   - component: {fileID: 7594030017994700758}
   - component: {fileID: 4681674389107739281}
   - component: {fileID: 1589304455187089003}
+  - component: {fileID: 8214548674609911540}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -529,6 +531,50 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &8214548674609911540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6343384960528026655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 667fdf0f216fe7249865e8c345f9bfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToFollow: {fileID: 0}
+--- !u!1 &8619092761253086058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2169762620763144485}
+  m_Layer: 0
+  m_Name: CameraHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2169762620763144485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8619092761253086058}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6124624632797496000}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7547639045179469213
 PrefabInstance:
   m_ObjectHideFlags: 0
