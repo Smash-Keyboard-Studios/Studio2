@@ -19,5 +19,7 @@ public interface IShieldObject
 
     public void ActivateShield();
 
+    public bool IsUsingShield();
+
     public bool CanUseShield();
 }
