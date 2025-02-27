@@ -6,8 +6,8 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     //stuff ensuring there is a single instance of the Audio Manager
-    [HideInInspector] public static AudioManager Instance { get { return _instance; } }
-    private static AudioManager _instance;
+    [HideInInspector] public static AudioManager Instance { get { return instance; } }
+    private static AudioManager instance;
 
     //audio clips as separate class so its got a name and then all the audio clips associated with that
     [System.Serializable] public class AudioLibrary
@@ -22,13 +22,13 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         //makes sure there is only one Audio Manager and that it is set to this
-        if (_instance != null && _instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            _instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject); // prevents this from being destroyed between scenes
         }
     }
