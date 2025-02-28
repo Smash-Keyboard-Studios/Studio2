@@ -14,7 +14,7 @@ using UnityEngine;
 /// The interface for receiving damage.
 /// </summary>
 
-[Obsolete("Please use the Health component instead.", false)]
+//[Obsolete("Please use the Health component instead.", false)]
 public interface IDamageable
 {
 	/// <summary>
