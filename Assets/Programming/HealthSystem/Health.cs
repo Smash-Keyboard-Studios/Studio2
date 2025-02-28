@@ -16,7 +16,8 @@ using UnityEngine;
 /// <summary>
 /// The health class to give objects health.
 /// </summary>
-public class Health : MonoBehaviour
+
+public class Health : MonoBehaviour, IDamageable
 {
     public float maxHealth = 100;
 
@@ -62,5 +63,11 @@ public class Health : MonoBehaviour
         currentHealth += amount;
 
         if (currentHealth > maxHealth) currentHealth = maxHealth;
+    }
+
+    public bool TakeDamage(float amount)
+    {
+        AddToHealth(-amount);
+        return true;
     }
 }
