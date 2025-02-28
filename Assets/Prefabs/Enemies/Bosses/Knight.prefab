@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 1339921657510950557}
   - component: {fileID: 4008232596138588678}
   - component: {fileID: 424587004156832933}
+  - component: {fileID: 8387557709120075677}
   - component: {fileID: 5986573266199650273}
   - component: {fileID: 6855098570431426246}
   - component: {fileID: 701209151835227062}
@@ -554,8 +555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7de78690f7549c4ab062340fcf01189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 40
-  currentHealth: 0
   maxSpeed: 2.75
   currentAIState: 0
   lightAttackDamage: 15
@@ -606,6 +605,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cfdf3da1d81d574189cde664e179f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8387557709120075677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9086637893552779497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c369e918ef61bcb418ac140dab0f87e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 40
 --- !u!195 &5986573266199650273
 NavMeshAgent:
   m_ObjectHideFlags: 0
