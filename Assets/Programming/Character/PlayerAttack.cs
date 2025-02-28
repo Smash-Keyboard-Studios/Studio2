@@ -19,12 +19,14 @@ public class PlayerAttack : MonoBehaviour
     {
         space = GetComponentInChildren<AttackSpace>(); // the area of where you attack (the attack space)
     }
-    //private Animator animator;
 
-    //private void Awake()
-    //{
-    //    animator = GetComponent<Animator>();
-    //}
+    private Animator MyAnim;
+    public GameObject MainCharacter;
+
+    private void Start()
+    {
+        MyAnim = MainCharacter.GetComponent<Animator>();
+    }
 
     public void OnAttack(InputValue input)
     {
@@ -41,6 +43,7 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator LightAtk()
     {
         isAttacking = true; 
+        MyAnim.SetBool("Attacking", isAttacking);
 
         foreach (var target in space.TakeDamageInRange.ToList<IDamageable>())
         {
@@ -50,11 +53,13 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(LightAtkDelay);
 
         isAttacking = false;
+        MyAnim.SetBool("Attacking", isAttacking);
     }
 
     IEnumerator HeavyAtk()
     {
         isAttacking = true;
+        MyAnim.SetBool("Attacking", isAttacking);
 
         foreach (var target in space.TakeDamageInRange.ToList<IDamageable>())
         {
@@ -64,6 +69,7 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(HeavyAtkDelay);
 
         isAttacking = false;
+        MyAnim.SetBool("Attacking", isAttacking);
     }
 }
 
