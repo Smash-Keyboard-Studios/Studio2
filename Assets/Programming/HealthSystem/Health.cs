@@ -19,9 +19,10 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
 {
-    public float maxHealth = 100;
+    [SerializeField]
+    private float maxHealth = 100;
 
-    public float currentHealth;
+    private float currentHealth;
 
 
 
@@ -36,14 +37,6 @@ public class Health : MonoBehaviour, IDamageable
         Reset();
     }
 
-    void Update()
-    {
-        if (currentHealth <= 0 && !calledOnDeathEvent)
-        {
-            onNoHealthLeft?.Invoke();
-            calledOnDeathEvent = true;
-        }
-    }
 
     /// <summary>
     /// Resets the health and on death event. Used for re-spawning.
@@ -63,11 +56,25 @@ public class Health : MonoBehaviour, IDamageable
         currentHealth += amount;
 
         if (currentHealth > maxHealth) currentHealth = maxHealth;
+
+        if (currentHealth <= 0)
+        {
+            onNoHealthLeft?.Invoke();
+        }
     }
 
     public bool TakeDamage(float amount)
     {
         AddToHealth(-amount);
         return true;
+    }
+
+    /// <summary>
+    /// Gets a normalized version of the health aka as a percentage from 0 to 1.
+    /// </summary>
+    /// <returns>The percentage from 0 to 1.</returns>
+    public float GetHealthNormalized()
+    {
+        return currentHealth / maxHealth;
     }
 }

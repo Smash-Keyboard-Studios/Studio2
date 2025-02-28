@@ -18,19 +18,19 @@ using UnityEngine.UI;
 /// </summary>
 public class AIHealthBar : MonoBehaviour
 {
-	private Health aIHealth;
+	private Health health;
 
 	public Slider healthBar;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		aIHealth = GetComponent<Health>();
+		health = GetComponent<Health>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		healthBar.value = (aIHealth.currentHealth / aIHealth.maxHealth);
+		healthBar.value = health.GetHealthNormalized();
 	}
 }
