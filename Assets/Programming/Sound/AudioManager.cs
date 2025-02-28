@@ -33,6 +33,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+
+
+
     private AudioClip[] FindAudioFromClipName(string clipName)
     {
         //finds which clips to play from the list of dictionaries
@@ -46,7 +49,32 @@ public class AudioManager : MonoBehaviour
         return null; //if clip no found
     }
 
-    public void PlayAudio(bool looping, AudioSource audioSource, string clipName)
+    private void PlayAudioClip(bool looping, bool loopFromStart, AudioSource audioSource, AudioClip clipToPlay) //plays an audio clip
+    {
+        //check if looping
+        if (looping)
+        {
+            int currentAudioTime = loopFromStart? 0 : audioSource.timeSamples; //gets current point where music is playing at if not looping from the start of the song
+
+            StopAudio(audioSource); //stops what is currently playing if its a looping audio
+            audioSource.loop = true;
+            audioSource.clip = clipToPlay;
+
+            audioSource.Play(); //play the clip!!
+            audioSource.timeSamples = currentAudioTime;
+        }
+        else
+        {
+            audioSource.PlayOneShot(clipToPlay); //play the clip oneshot!!
+        }
+    }
+
+
+
+
+    //THE AUDIO BELOW IS FOR OTHER SCRIPTS TO USE FROM THE AUDIOMANAGER
+
+    public void PlayAudio(bool looping, bool loopFromStart, AudioSource audioSource, string clipName) //plays random audio associated with the string name param
     {
         //this will be the selection of clips associated with the clipname,
         //of which a random clip will be selected to play
@@ -58,23 +86,11 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Playing " + clipName); //we found the clips to play
             AudioClip clipToPlay = clipsToPlay[UnityEngine.Random.Range(0, clipsToPlay.Length)]; //choose a random clip from the selection of audio clips
 
-            //check if looping
-            if (looping)
-            {
-                audioSource.loop = true;
-                audioSource.clip = clipToPlay;
-                audioSource.Play(0);
-            }
-            else
-            {
-                audioSource.loop = true;
-                audioSource.PlayOneShot(clipToPlay); //play the clip!!
-            }
+            PlayAudioClip(looping, loopFromStart, audioSource, clipToPlay);
         }
     }
 
-    //version with specific clip index to reference
-    public void PlayAudio(bool looping, AudioSource audioSource, string clipName, int ClipIndex)
+    public void PlayAudio(bool looping, bool loopFromStart, AudioSource audioSource, string clipName, int ClipIndex) //version with specific clip index to reference
     {
         //this will be the selection of clips associated with the clipname,
         //of which a random clip will be selected to play
@@ -86,16 +102,7 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Playing " + clipName); //we found the clips to play
             AudioClip clipToPlay = clipsToPlay[ClipIndex]; //choose clipindex from the selection of audio clips
 
-            //check if looping
-            if (looping)
-            {
-                audioSource.clip = clipToPlay;
-                audioSource.Play(0);
-            }
-            else
-            {
-                audioSource.PlayOneShot(clipToPlay); //play the clip!!
-            }
+            PlayAudioClip(looping, loopFromStart, audioSource, clipToPlay);
         }
     }
 

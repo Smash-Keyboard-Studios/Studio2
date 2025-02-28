@@ -7,6 +7,7 @@ public class PlayAudioTest : MonoBehaviour
     AudioSource audioSource;
     public string clipName;
     public bool isLooping;
+    public bool loopFromStartOfClip;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -16,7 +17,7 @@ public class PlayAudioTest : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            AudioManager.Instance.PlayAudio(isLooping, audioSource, clipName);
+            AudioManager.Instance.PlayAudio(isLooping, loopFromStartOfClip, audioSource, clipName);
         }
     }
 }
