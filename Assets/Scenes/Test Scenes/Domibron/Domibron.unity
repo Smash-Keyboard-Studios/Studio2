@@ -1329,6 +1329,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 561015756801147020, guid: d110e1c34e83ce247a08b9455a2744c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4183672919623993217, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
       propertyPath: m_Enabled
@@ -2197,6 +2202,7 @@ MonoBehaviour:
   PlayerHealAmount: 25
   InteractionUI: {fileID: 0}
   deathText: {fileID: 0}
+  MainCharacter: {fileID: 0}
 --- !u!114 &678838554469139855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2655,6 +2661,7 @@ MonoBehaviour:
   StaminaIncrease: 2.5
   StaminaChargeRate: 1.5
   Gravity: 9.81
+  MainCharacter: {fileID: 0}
 --- !u!224 &2724158880823648226
 RectTransform:
   m_ObjectHideFlags: 0
