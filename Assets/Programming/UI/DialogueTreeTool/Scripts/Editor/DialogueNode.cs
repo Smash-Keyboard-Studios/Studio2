@@ -14,6 +14,7 @@ public class DialogueNode : Node
     internal DialogueItem dialogueItem;
     Image icon;
     TextField speechText;
+    ObjectField audioClip;
 
     public DialogueNode(Vector2 position)
     {
@@ -56,14 +57,27 @@ public class DialogueNode : Node
         speechContainer.Add(SOField);
         SOField.RegisterValueChangedCallback(evt => ChangeDialogueItem(evt));
 
-        //create and update icon and speech text before drawing them
+        //create icon and speech text before updating
         icon = new Image();
         speechText = new TextField();
-        UpdateIconAndSpeech();
 
         //icon image
         speechContainer.Add(icon);
+
+        //event to modify speech text
         speechText.RegisterValueChangedCallback(evt => ChangeSpeech(evt));
+
+        //create audio clip and draw it and its callback event
+        audioClip = new ObjectField()
+        {
+            objectType = typeof(AudioClip),
+            value = dialogueItem ? dialogueItem.SoundToPlay : null,
+        };
+        speechContainer.Add(audioClip);
+        audioClip.RegisterValueChangedCallback(evt => ChangeSound(evt));
+
+        //update icon/speech/audio
+        UpdateIconAndSpeech();
 
         //speech text in foldout
         Foldout textFoldout = new Foldout()
@@ -122,11 +136,18 @@ public class DialogueNode : Node
 
         //speech update
         speechText.value = dialogueItem != null ? dialogueItem.DialogueText : "Empty";
+
+        audioClip.value = dialogueItem != null ? dialogueItem.SoundToPlay : null;
     }
 
     private void ChangeSpeech(ChangeEvent<string> evt)
     {
         if(dialogueItem != null) { dialogueItem.DialogueText = speechText.value; }
+    }
+
+    private void ChangeSound(ChangeEvent<UnityEngine.Object> evt)
+    {
+        if (dialogueItem != null) { dialogueItem.SoundToPlay = (AudioClip)audioClip.value; }
     }
 
     private void ChangeDialogueItem(ChangeEvent<UnityEngine.Object> evt)
