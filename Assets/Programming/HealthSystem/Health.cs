@@ -19,6 +19,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
 {
+    [Header("Health Settings")]
     [SerializeField]
     private float maxHealth = 100;
 
@@ -32,7 +33,7 @@ public class Health : MonoBehaviour, IDamageable
 
 
 
-    void Start()
+    protected virtual void Start()
     {
         Reset();
     }
@@ -41,7 +42,7 @@ public class Health : MonoBehaviour, IDamageable
     /// <summary>
     /// Resets the health and on death event. Used for re-spawning.
     /// </summary>
-    public void Reset()
+    public virtual void Reset()
     {
         currentHealth = maxHealth;
         calledOnDeathEvent = false;
@@ -51,7 +52,7 @@ public class Health : MonoBehaviour, IDamageable
     /// Use this to add to or remove from the health.
     /// </summary>
     /// <param name="amount">The value to add to the health.</param>
-    public void AddToHealth(float amount)
+    public virtual void AddToHealth(float amount)
     {
         currentHealth += amount;
 
@@ -63,7 +64,7 @@ public class Health : MonoBehaviour, IDamageable
         }
     }
 
-    public bool TakeDamage(float amount)
+    public virtual bool TakeDamage(float amount)
     {
         AddToHealth(-amount);
         return true;
@@ -73,7 +74,7 @@ public class Health : MonoBehaviour, IDamageable
     /// Gets a normalized version of the health aka as a percentage from 0 to 1.
     /// </summary>
     /// <returns>The percentage from 0 to 1.</returns>
-    public float GetHealthNormalized()
+    public virtual float GetHealthNormalized()
     {
         return currentHealth / maxHealth;
     }
