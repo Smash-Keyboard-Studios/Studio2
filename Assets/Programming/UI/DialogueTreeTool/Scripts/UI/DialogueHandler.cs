@@ -13,8 +13,13 @@ public class DialogueHandler : MonoBehaviour
     [SerializeField] private GameObject PlayerTextContainer;
     public string ConversationAsset;
 
+    //for playing audio
+    private AudioSource audioSource;
+
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+
         GetTreeData();
     }
 
@@ -41,7 +46,11 @@ public class DialogueHandler : MonoBehaviour
         {
             if (dialogueData.previousguids.Contains(playerOption.guid) && !dialogueData.dialogueItem.IsPlayerTextOptionRO)
             {
+                //set new npc dialogue data
                 currentData = dialogueData;
+
+                //play the npc dialogue sound for the new data
+                audioSource.PlayOneShot(currentData.dialogueItem.SoundToPlay);
             }
         }
 

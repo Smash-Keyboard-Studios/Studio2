@@ -18,6 +18,7 @@ public class DialogueItem : ScriptableObject
     public Sprite IconRO { get { return Icon; } }
     public bool IsPlayerTextOptionRO { get { return IsPlayerTextOption; } }
 
-    //dialogue text is modifiable
+    //vars that are modifiable in tool
     public string DialogueText = "You can modify this text within the Dialogue Item or in the Dialogue Tree Graph!";
+    public AudioClip SoundToPlay = null;
 }
