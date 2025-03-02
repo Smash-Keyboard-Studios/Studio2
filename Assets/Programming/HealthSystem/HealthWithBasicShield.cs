@@ -12,29 +12,19 @@ using UnityEngine;
 
 
 
-public class AIHealthWithBasicShield : Health, IShieldObject
+public class HealthWithBasicShield : Health, IShieldObject
 {
 	[Header("Shield Settings")]
 	[SerializeField]
 	private GameObject shieldObject;
 
-	[SerializeField]
-	private float maxShieldHealth = 10f;
-
-	private float currentShieldHealth;
-
 	private bool shieldActive = true;
-
-	protected override void Start()
-	{
-		base.Start();
-		currentShieldHealth = maxShieldHealth;
-	}
 
 	public override void Reset()
 	{
 		base.Reset();
 
+		shieldActive = true;
 		shieldObject.SetActive(shieldActive);
 	}
 
@@ -53,17 +43,5 @@ public class AIHealthWithBasicShield : Health, IShieldObject
 		}
 
 		return base.TakeDamage(amount);
-	}
-
-	public virtual bool CanUseShield()
-	{
-		if (shieldActive) return false;
-
-		return true;
-	}
-
-	public virtual bool IsUsingShield()
-	{
-		return shieldActive;
 	}
 }
