@@ -263,7 +263,7 @@ public class KnightAI : GruntAI
 
 					float calculatedDamage = Mathf.Lerp(slamAttackDamageAtMinRange, slamAttackDamageAtMaxRange, percentageDistanceWithinOuterRing);
 
-					hitObject.GetComponent<Health>()?.AddToHealth(-calculatedDamage);
+					hitObject.GetComponent<IDamageable>()?.TakeDamage(calculatedDamage);
 				}
 			}
 		}
