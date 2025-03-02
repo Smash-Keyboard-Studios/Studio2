@@ -358,7 +358,7 @@ public class GruntAI : AIBase
 			{
 				if (hitObject.gameObject.CompareTag("Player"))
 				{
-					hitObject.GetComponent<Health>()?.AddToHealth(-lightAttackDamage);
+					hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackDamage);
 				}
 			}
 		}
