@@ -163,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clipName: audiotest
   isLooping: 1
+  loopFromStartOfClip: 0
 --- !u!65 &200971012
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -724,8 +725,8 @@ MonoBehaviour:
   audioClips:
   - clipName: audiotest
     audioClips:
-    - {fileID: 8300000, guid: e50c46a2241d2cd4b968a0b6e6552223, type: 3}
-    - {fileID: 8300000, guid: 25129d7ec7690714386a1c70a444acfb, type: 3}
+    - {fileID: 8300000, guid: 4c5fd86059f255a4b94f5934caca04e8, type: 3}
+    - {fileID: 8300000, guid: 8d8abb7ef9274f54e88f133f6d62da65, type: 3}
 --- !u!114 &750549012 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7482692109120159563, guid: 241e51dc5a7fac6479e5c6ac305908b2,

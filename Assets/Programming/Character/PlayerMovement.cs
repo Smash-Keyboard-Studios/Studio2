@@ -27,6 +27,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 CurrentMovement;
     private bool CanSprint;
 
+    private Animator MyAnim;
+    public GameObject MainCharacter;
+
     private void Awake()
     {
         CharacterController = GetComponent<CharacterController>(); //Gets the CharacterController from the component
@@ -37,11 +40,13 @@ public class PlayerMovement : MonoBehaviour
     {
         InputHandler = PlayerInputHandler.Instance; //Gets the InputHandler from the PlayerInputHandler instance
         CanSprint = false; //Sets the bool to false when the game starts
+        MyAnim = MainCharacter.GetComponent<Animator>();
     }
 
     private void Update()
     {
         HandleMovement(); //Updates the HandleMovement by every frame
+        CharacterAnimations(); //This is for animating the character
     }
 
     //This handles anything movement related
@@ -65,11 +70,13 @@ public class PlayerMovement : MonoBehaviour
         if (InputHandler.SprintValue > 0 && CanSprint)
         {
             Stats.PlayerStamina = Stats.PlayerStamina - StaminaDecrease * (StaminaChargeRate * Time.deltaTime); //Player stamina is decreased by the StaminaDecrease value over the course of StaminaChargeRate times by Time.deltaTime
+            MyAnim.SetBool("Running", CanSprint);
         }
         else if (InputHandler.SprintValue <= 0) //When the player is not sprinting and if the sprint value is bigger or equal to 0 then the sprint value will recharge.
         {
             Stats.PlayerStamina = Stats.PlayerStamina + StaminaIncrease * (StaminaChargeRate * Time.deltaTime); //Player stamina is increased by the StaminaIncrease value over the course of StaminaChargeRate times by Time.deltaTime
             CanSprint = false; //Sets the bool to false
+            MyAnim.SetBool("Running", CanSprint);
         }
 
         Vector3 InputDirection = new Vector3(InputHandler.MoveInput.x, 0f, InputHandler.MoveInput.y);
@@ -87,5 +94,12 @@ public class PlayerMovement : MonoBehaviour
     void HandleGravity()
     {
         CurrentMovement.y -= Gravity * Time.deltaTime; 
+    }
+
+    void CharacterAnimations()
+    {
+        MyAnim.SetFloat("Horiz", CurrentMovement.x);
+        MyAnim.SetFloat("Vert", CurrentMovement.z);
+        MyAnim.SetFloat("MoveSpeed", Mathf.Max(Mathf.Abs(CurrentMovement.z), Mathf.Abs(CurrentMovement.x)));
     }
 }

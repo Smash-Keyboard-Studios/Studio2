@@ -44,8 +44,8 @@ public enum AITier
 /// <summary>
 /// Holds the core data of the AI.
 /// </summary>
-[RequireComponent(typeof(NavMeshAgent))]
-public class AIBase : MonoBehaviour, IDamageable
+[RequireComponent(typeof(NavMeshAgent), typeof(Health))]
+public class AIBase : MonoBehaviour
 {
 	#region Public variables
 
@@ -53,20 +53,17 @@ public class AIBase : MonoBehaviour, IDamageable
 	// [SerializeField]
 	// protected AITier TierOfAI = AITier.Common;
 
-	[Header("Health")]
-	[SerializeField]
-	public float maxHealth = 100f;
-	[SerializeField]
-	public float currentHealth;
+	// [Header("Health")]
+	// [SerializeField]
+	// public float maxHealth = 100f;
+	// [SerializeField]
+	// public float currentHealth;
 
 	[Header("Movement Speed")]
 	[SerializeField]
 	protected float maxSpeed = 5f;
 
 	protected float currentSpeed;
-
-	// for on death, only do it once.
-	protected bool KilledAI = false;
 
 
 	/* AI State */
@@ -144,17 +141,16 @@ public class AIBase : MonoBehaviour, IDamageable
 	#region Awake
 	protected virtual void Awake()
 	{
-		currentHealth = maxHealth;
 
 		currentSpeed = maxSpeed;
 
 		gameObject.tag = "Enemy";
 
-		KilledAI = false;
-
 		agent = GetComponent<NavMeshAgent>();
 
 		onStateChanged += OnStateChanged;
+
+		GetComponent<Health>().onNoHealthLeft += KillAI;
 	}
 	#endregion
 
@@ -171,15 +167,15 @@ public class AIBase : MonoBehaviour, IDamageable
 
 
 
-	#region Update
-	protected virtual void Update()
-	{
-		if (currentHealth <= 0)
-		{
-			KillAI();
-		}
-	}
-	#endregion
+	// #region Update
+	// protected virtual void Update()
+	// {
+	// 	if (currentHealth <= 0)
+	// 	{
+	// 		KillAI();
+	// 	}
+	// }
+	// #endregion
 
 
 
@@ -189,13 +185,10 @@ public class AIBase : MonoBehaviour, IDamageable
 	/// </summary>
 	protected virtual void KillAI()
 	{
-		if (KilledAI) return;
 
 		onDeathSFXPlayOnce();
 		onDeath?.Invoke(transform);
 		Destroy(gameObject);
-
-		KilledAI = true;
 	}
 	#endregion
 
@@ -206,26 +199,26 @@ public class AIBase : MonoBehaviour, IDamageable
 	}
 
 
-	#region IDamageable.TakeDamage
-	bool IDamageable.TakeDamage(float amount)
-	{
-		return TakeDamage(amount);
-	}
-	#endregion
+	// #region IDamageable.TakeDamage
+	// bool IDamageable.TakeDamage(float amount)
+	// {
+	// 	return TakeDamage(amount);
+	// }
+	// #endregion
 
-	#region TakeDamage
-	/// <summary>
-	/// Overridable method for taking damage. Will apply the damage to the AI.
-	/// </summary>
-	/// <param name="amount">The amount to take.</param>
-	/// <returns>If it was successful.</returns>
-	protected virtual bool TakeDamage(float amount)
-	{
-		TakeDamageSFXPlayOnce();
-		currentHealth -= amount;
-		return true;
-	}
-	#endregion
+	// #region TakeDamage
+	// /// <summary>
+	// /// Overridable method for taking damage. Will apply the damage to the AI.
+	// /// </summary>
+	// /// <param name="amount">The amount to take.</param>
+	// /// <returns>If it was successful.</returns>
+	// protected virtual bool TakeDamage(float amount)
+	// {
+	// 	TakeDamageSFXPlayOnce();
+	// 	currentHealth -= amount;
+	// 	return true;
+	// }
+	// #endregion
 
 
 

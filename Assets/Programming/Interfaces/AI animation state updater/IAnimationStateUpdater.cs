@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ using UnityEngine;
 /// <summary>
 /// Interface for basic AI attack animation events.
 /// </summary>
+[Obsolete("Please remove this from code and just directly reference the AI script", false)]
 public interface IAnimationStateUpdater
 {
 	public void EndAttack();

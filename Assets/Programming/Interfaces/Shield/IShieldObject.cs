@@ -16,10 +16,4 @@ using UnityEngine;
 public interface IShieldObject
 {
     public void BreakShield();
-
-    public void ActivateShield();
-
-    public bool IsUsingShield();
-
-    public bool CanUseShield();
 }

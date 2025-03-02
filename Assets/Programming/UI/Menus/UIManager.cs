@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     //stuff ensuring there is a single instance of the UI Manager
-    [HideInInspector] public static UIManager Instance { get { return _instance; } }
-    private static UIManager _instance;
+    [HideInInspector] public static UIManager Instance { get { return instance; } }
+    private static UIManager instance;
 
 
     [Header("Build Indexes for scenes")]
@@ -32,13 +32,13 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         //makes sure there is only one UI Manager and that it is set to this
-        if (_instance != null && _instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            _instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject); // prevents this from being destroyed between scenes
         }
 

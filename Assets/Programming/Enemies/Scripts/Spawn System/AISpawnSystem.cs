@@ -45,7 +45,7 @@ public class AISpawnSystem : MonoBehaviour
 
 
 	#region Singleton
-	public static AISpawnSystem singleton;
+	public static AISpawnSystem instance;
 	#endregion
 
 
@@ -55,30 +55,6 @@ public class AISpawnSystem : MonoBehaviour
 	[Header("AI spawn list"), SerializeField]
 	public Enemy[] aISpawnList;
 
-	#region Spawn location settings
-	/// <summary>
-	/// All possible spawn locations for the AI.
-	/// </summary>
-	[Header("Spawn location settings")]
-	public List<GameObject> spawnLocations;
-
-	[SerializeField]
-	private bool useGlobalSpawnPoints = false;
-
-	/// <summary>
-	/// Collect all the spawn points 
-	/// </summary>
-	[SerializeField]
-	private bool collectSpawnPointsAutomatically = true;
-
-	/// <summary>
-	/// If true, will attempt to update the spawn point array with any new spawn points. Intensive.
-	/// </summary>
-	[SerializeField]
-	private bool constantlyCollectSpawnPointsAutomatically = false;
-
-	private Coroutine collectSpawnLocationsCoroutine;
-	#endregion
 
 
 	private GameObject playerObject;
@@ -96,89 +72,16 @@ public class AISpawnSystem : MonoBehaviour
 	#region Awake
 	void Awake()
 	{
-		if (singleton != null && singleton != this)
+		if (instance != null && instance != this)
 		{
 			Destroy(this.gameObject);
 		}
 		else
 		{
-			singleton = this;
+			instance = this;
 		}
 
 		playerObject = GameObject.Find("Player");
-	}
-	#endregion
-
-
-
-	#region Start
-	// Start is called before the first frame update
-	void Start()
-	{
-		if (collectSpawnPointsAutomatically && collectSpawnLocationsCoroutine == null)
-		{
-			collectSpawnLocationsCoroutine = StartCoroutine(CollectSpawnLocations());
-		}
-	}
-	#endregion
-
-
-
-	#region FixedUpdate
-	void FixedUpdate()
-	{
-		// so we don't run at 300 times per second.
-		// we use fixed update to run 50 times per seconds.
-		if (collectSpawnPointsAutomatically && constantlyCollectSpawnPointsAutomatically && collectSpawnLocationsCoroutine == null)
-		{
-			collectSpawnLocationsCoroutine = StartCoroutine(CollectSpawnLocations());
-		}
-	}
-	#endregion
-
-
-
-	#region CollectSpawnLocations
-	/// <summary>
-	/// Get all possible spawn locations with tag Spawn Point and add them to the collection.
-	/// </summary>
-	/// <returns>Coroutine</returns>
-	IEnumerator CollectSpawnLocations()
-	{
-		GameObject[] possibleSpawnLocations = GameObject.FindGameObjectsWithTag("Spawn Point");
-
-		foreach (GameObject possibleSpawnLocation in possibleSpawnLocations)
-		{
-			yield return null;
-			if (spawnLocations.Contains(possibleSpawnLocation))
-			{
-				continue;
-			}
-			else
-			{
-				spawnLocations.Add(possibleSpawnLocation);
-			}
-		}
-
-		collectSpawnLocationsCoroutine = null;
-	}
-	#endregion
-
-
-
-	#region SpawnWave (1)
-	/// <summary>
-	/// Spawns a wave with the dictionary as spawn sequence. 
-	/// The key is the type of ai and the value is the amount.
-	/// </summary>
-	/// <param name="waveData">Wave spawn parameters. {{0, 4}, {1, 2}} will spawn 4 melee and 2 ranged for example.</param>
-	/// <param name="timeBetweenSpawn">How long to wait before spawning the next enemy.</param>
-	/// <param name="minRadius">How close the AI can spawn.</param>
-	/// <param name="maxRadius">How far the AI can spawn.</param>
-	/// <param name="randomCycleAmount">How many times to shuffle the list. (Randomises the list) 0 will disable.</param>
-	public void SpawnWave(Dictionary<int, int> waveData, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2)
-	{
-		StartCoroutine(SpawnWaveCoroutine(waveData, timeBetweenSpawn, minRadius, maxRadius, randomCycleAmount));
 	}
 	#endregion
 
@@ -212,88 +115,12 @@ public class AISpawnSystem : MonoBehaviour
 	/// <param name="minRadius">How close the AI can spawn.</param>
 	/// <param name="maxRadius">How far the AI can spawn.</param>
 	/// <param name="randomCycleAmount">How many times to shuffle the list. (Randomises the list) 0 will disable.</param>
-	public void SpawnWave(int[] waveData, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2)
-	{
-		StartCoroutine(SpawnWaveCoroutine(waveData.ToList(), timeBetweenSpawn, minRadius, maxRadius, randomCycleAmount));
-	}
-	#endregion
-
-
-
-	#region SpawnWave (2)
-	/// <summary>
-	/// Spawns a wave of enemies with the given spawn sequence.
-	/// So {0,0,0,0,1,1} will spawn 4 melee and 2 ranged for example.
-	/// </summary>
-	/// <param name="waveData">Wave spawn parameters. {0,0,0,0,1,1} will spawn 4 melee and 2 ranged for example.</param>
-	/// <param name="timeBetweenSpawn">How long to wait before spawning the next enemy.</param>
-	/// <param name="minRadius">How close the AI can spawn.</param>
-	/// <param name="maxRadius">How far the AI can spawn.</param>
-	/// <param name="randomCycleAmount">How many times to shuffle the list. (Randomises the list) 0 will disable.</param>
 	public void SpawnWave(int[] waveData, List<GameObject> spawnLocationsToUse, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2)
 	{
 		StartCoroutine(SpawnWaveCoroutine(waveData.ToList(), spawnLocationsToUse, timeBetweenSpawn, minRadius, maxRadius, randomCycleAmount));
 	}
 	#endregion
 
-
-
-	#region SpawnWave (3)
-	/// <summary>
-	/// Spawns a wave of enemies with the given spawn sequence as a list.
-	/// So {0,0,0,0,1,1} will spawn 4 melee and 2 ranged for example.
-	/// </summary>
-	/// <param name="waveData">Wave spawn parameters. {0,0,0,0,1,1} will spawn 4 melee and 2 ranged for example.</param>
-	/// <param name="timeBetweenSpawn">How long to wait before spawning the next enemy.</param>
-	/// <param name="minRadius">How close the AI can spawn.</param>
-	/// <param name="maxRadius">How far the AI can spawn.</param>
-	public void SpawnWave(List<int> waveData, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2)
-	{
-		StartCoroutine(SpawnWaveCoroutine(waveData, timeBetweenSpawn, minRadius, maxRadius, randomCycleAmount));
-	}
-	#endregion
-
-
-
-	#region SpawnWave (3)
-	/// <summary>
-	/// Spawns a wave of enemies with the given spawn sequence as a list.
-	/// So {0,0,0,0,1,1} will spawn 4 melee and 2 ranged for example.
-	/// </summary>
-	/// <param name="waveData">Wave spawn parameters. {0,0,0,0,1,1} will spawn 4 melee and 2 ranged for example.</param>
-	/// <param name="timeBetweenSpawn">How long to wait before spawning the next enemy.</param>
-	/// <param name="minRadius">How close the AI can spawn.</param>
-	/// <param name="maxRadius">How far the AI can spawn.</param>
-	public void SpawnWave(List<int> waveData, List<GameObject> spawnLocationsToUse, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2)
-	{
-		StartCoroutine(SpawnWaveCoroutine(waveData, spawnLocationsToUse, timeBetweenSpawn, minRadius, maxRadius, randomCycleAmount));
-	}
-	#endregion
-
-
-
-
-	#region SpawnWave (4)
-	/// <summary>
-	/// Spawns a wave of enemies with the given spawn sequence of an array of EnemyWaveData.
-	/// EnemyWaveData contains the id and amount, index is ignored.
-	/// </summary>
-	/// <param name="waveData">The spawn sequence.</param>
-	/// <param name="timeBetweenSpawn">How long to wait before spawning the next enemy.</param>
-	/// <param name="minRadius">How close the AI can spawn.</param>
-	/// <param name="maxRadius">How far the AI can spawn.</param>
-	public void SpawnWave(EnemyWaveData[] waveData, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2)
-	{
-		Dictionary<int, int> converted = new Dictionary<int, int>();
-
-		for (int i = 0; i < waveData.Length; i++)
-		{
-			converted.Add(waveData[i].id, waveData[i].amount);
-		}
-
-		StartCoroutine(SpawnWaveCoroutine(converted, timeBetweenSpawn, minRadius, maxRadius, randomCycleAmount));
-	}
-	#endregion
 
 
 
@@ -316,60 +143,6 @@ public class AISpawnSystem : MonoBehaviour
 		}
 
 		StartCoroutine(SpawnWaveCoroutine(converted, spawnLocationsToUse, timeBetweenSpawn, minRadius, maxRadius, randomCycleAmount));
-	}
-	#endregion
-
-
-
-
-	#region SpawnWaveCoroutine
-	/// <summary>
-	/// Spawns a wave of enemies with the given spawn sequence. Using aiSpawnList, it gets the AI prefab to spawn.
-	/// This is dictionary based so {{0, 4}, {1, 2}} will spawn 4 melee and 2 ranged for example. check aiSpawnList for AI id's.
-	/// </summary>
-	/// <param name="waveData">The spawn sequence for the wave. {{0, 4}, {1, 2}} will spawn 4 melee and 2 ranged for example.</param>
-	/// <param name="timeBetweenSpawn">How long to wait before spawning the next enemy.</param>
-	/// <param name="minRadius">How close the AI can spawn.</param>
-	/// <param name="maxRadius">How far the AI can spawn.</param>
-	/// <param name="randomCycleAmount">How many times to shuffle the list. (Randomises the list) 0 will disable.</param>
-	/// <returns>Coroutine</returns>
-	private IEnumerator SpawnWaveCoroutine(Dictionary<int, int> waveData, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2)
-	{
-		// convert dictionary into a spawn sequence. This is for randomness.
-		// I still want a dictionary for simplicity sake. {0, 30} is 30 melee enemies.
-		List<int> spawnSequence = new List<int>();
-
-		foreach (var id in waveData.Keys.ToArray())
-		{
-			for (int x = 0; x < waveData[id]; x++)
-			{
-				spawnSequence.Add(id);
-			}
-		}
-
-		// randomises the list with the given randomCycleAmount, more cycles means the more random the list is.
-		for (int i = 0; i < randomCycleAmount; i++)
-		{
-			RandomiseList(ref spawnSequence);
-			yield return null;
-		}
-
-		// cycles through the list and spawns the AI with matching id in aISpawnList.
-		foreach (int id in spawnSequence.ToList())
-		{
-			bool successfulSpawn = SpawnAI(id, minRadius, maxRadius);
-
-			if (!successfulSpawn)
-			{
-				continue;
-			}
-
-			yield return new WaitForSeconds(timeBetweenSpawn);
-
-
-		}
-
-		yield return null;
 	}
 	#endregion
 
@@ -428,47 +201,6 @@ public class AISpawnSystem : MonoBehaviour
 
 
 
-
-	#region SpawnWaveCoroutine
-	/// <summary>
-	/// Spawns a wave of enemies with the given spawn sequence. Using aiSpawnList, it gets the AI prefab to spawn.
-	/// This is list based so {0,0,0,0,1,1} will spawn 4 melee and 2 ranged for example. check aiSpawnList for AI id's.
-	/// </summary>
-	/// <param name="waveData">The spawn sequence for the wave. {0,0,0,0,1,1} will spawn 4 melee and 2 ranged for example.</param>
-	/// <param name="timeBetweenSpawn">How long to wait before spawning the next enemy.</param>
-	/// <param name="minRadius">How close the AI can spawn.</param>
-	/// <param name="maxRadius">How far the AI can spawn.</param>
-	/// <param name="randomCycleAmount">How many times to shuffle the list. (Randomises the list) 0 will disable.</param>
-	/// <returns>Coroutine</returns>
-	private IEnumerator SpawnWaveCoroutine(List<int> waveData, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2)
-	{
-		// randomises the list with the given randomCycleAmount, more cycles means the more random the list is.
-		for (int i = 0; i < randomCycleAmount; i++)
-		{
-			RandomiseList(ref waveData);
-			yield return null;
-		}
-
-
-		// cycles through the list and spawns the AI with matching id in aISpawnList.
-		foreach (int id in waveData.ToList())
-		{
-			bool successfulSpawn = SpawnAI(id, minRadius, maxRadius);
-
-			if (!successfulSpawn)
-			{
-				continue;
-			}
-
-			yield return new WaitForSeconds(timeBetweenSpawn);
-		}
-
-		yield return null;
-	}
-	#endregion
-
-
-
 	#region SpawnWaveCoroutine
 	/// <summary>
 	/// Spawns a wave of enemies with the given spawn sequence. Using aiSpawnList, it gets the AI prefab to spawn.
@@ -518,43 +250,6 @@ public class AISpawnSystem : MonoBehaviour
 	/// <param name="minRadius">How close the AI can spawn.</param>
 	/// <param name="maxRadius">How far the AI can spawn.</param>
 	/// <returns>True if spawning was successful.</returns>
-	private bool SpawnAI(int id, float minRadius, float maxRadius)
-	{
-		// get the AI prefab from the id given.
-		GameObject aiPrefab = GetEnemyPrefabFromID(id);
-
-		if (aiPrefab == null)
-		{
-			Debug.LogWarning($"Prefab missing for ai id of {id}");
-			return false;
-		}
-
-		// get a random spawn location that is suitable.
-		Vector3? spawnLocation = GetRandomSpawnLocation(minRadius, maxRadius);
-
-		if (!spawnLocation.HasValue)
-		{
-			Debug.LogWarning($"Cannot find a suitable location to spawn the AI");
-			return false;
-		}
-
-		// spawn the AI and set state to alerted. This is not proc gen. this is wave gen.
-		GameObject ai = Instantiate(aiPrefab, spawnLocation.Value, Quaternion.identity, null);
-		ai.GetComponent<AIBase>()?.ChangeState(AIState.Alerted);
-		return true;
-	}
-	#endregion
-
-
-
-	#region SpawnAI
-	/// <summary>
-	/// Spawn the AI with the given id, min radius to spawn and maxRadius.
-	/// </summary>
-	/// <param name="id">The id of the ai to look for in aiSpawnList.</param>
-	/// <param name="minRadius">How close the AI can spawn.</param>
-	/// <param name="maxRadius">How far the AI can spawn.</param>
-	/// <returns>True if spawning was successful.</returns>
 	private bool SpawnAI(int id, List<GameObject> spawnLocationToUse, float minRadius, float maxRadius)
 	{
 		// get the AI prefab from the id given.
@@ -579,41 +274,6 @@ public class AISpawnSystem : MonoBehaviour
 		GameObject ai = Instantiate(aiPrefab, spawnLocation.Value, Quaternion.identity, null);
 		ai.GetComponent<AIBase>()?.ChangeState(AIState.Alerted);
 		return true;
-	}
-	#endregion
-
-
-
-	#region GetRandomSpawnLocation
-	/// <summary>
-	/// Searches through the spawnLocations for points that are within min and max distances from the player and returns a random point.
-	/// </summary>
-	/// <param name="minRadius">How close the point can be to the player.</param>
-	/// <param name="maxRadius">How far the point can be from the player.</param>
-	/// <returns>A point as Vector3 if successful, null if not.</returns>
-	private Vector3? GetRandomSpawnLocation(float minRadius = 30f, float maxRadius = 100f)
-	{
-		List<GameObject> viableSpawnLocations = new List<GameObject>();
-
-		// we sore all possible spawn locations.
-		foreach (GameObject possibleSpawnLocation in spawnLocations.ToList())
-		{
-			if (Vector3.Distance(possibleSpawnLocation.transform.position, playerObject.transform.position) > minRadius &&
-				Vector3.Distance(possibleSpawnLocation.transform.position, playerObject.transform.position) < maxRadius)
-			{
-				viableSpawnLocations.Add(possibleSpawnLocation);
-			}
-			else
-			{
-				continue;
-			}
-		}
-
-		// if we have none, then we return null.
-		if (viableSpawnLocations.Count <= 0) return null;
-
-		// pick a random point from the collection.
-		return viableSpawnLocations[UnityEngine.Random.Range(0, viableSpawnLocations.Count)].transform.position;
 	}
 	#endregion
 
@@ -669,33 +329,6 @@ public class AISpawnSystem : MonoBehaviour
 
 		return null;
 
-	}
-	#endregion
-
-
-
-	#region RandomiseList (1)
-	/// <summary>
-	/// Util function to randomise a given list.
-	/// </summary>
-	/// <param name="list">The list to randomise.</param>
-	/// <param name="cycleTimes">How many times to run it.</param>
-	private void RandomiseList(ref List<int> list, int cycleTimes = 1)
-	{
-		//List<int> returnedList = new List<int>();
-		for (int c = 0; c < cycleTimes; c++)
-		{
-			for (int i = 0; i < list.Count; i++)
-			{
-				int itemA = list[i];
-				int randomLocation = UnityEngine.Random.Range(0, list.Count);
-
-				int itemB = list[randomLocation];
-				list[randomLocation] = itemA;
-
-				list[i] = itemB;
-			}
-		}
 	}
 	#endregion
 
