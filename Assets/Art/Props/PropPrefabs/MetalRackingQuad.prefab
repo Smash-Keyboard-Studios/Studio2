@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 235965905153683156}
+  - component: {fileID: 5463926357857989566}
   m_Layer: 0
   m_Name: MetalRackingQuad
   m_TagString: Untagged
@@ -49,6 +50,27 @@ Transform:
   - {fileID: 2959313116684936520}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5463926357857989566
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5167600195780806859}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3, y: 3.9211173, z: 15.244019}
+  m_Center: {x: 0, y: 0.13944119, z: 0.12200928}
 --- !u!1001 &50994530712097679
 PrefabInstance:
   m_ObjectHideFlags: 0
