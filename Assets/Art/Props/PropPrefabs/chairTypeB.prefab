@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8148988406553074830}
   - component: {fileID: 5096067424643470123}
   - component: {fileID: 7015527517612189665}
+  - component: {fileID: 5507305015131522498}
   m_Layer: 0
   m_Name: chairTypeB
   m_TagString: Untagged
@@ -84,3 +85,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5507305015131522498
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8817156827263206964}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8221116795304269603, guid: d0541621603014347b86ead07460d46c, type: 3}
