@@ -188,7 +188,9 @@ public class AIBase : MonoBehaviour
 
 		onDeathSFXPlayOnce();
 		onDeath?.Invoke(transform);
-		Destroy(gameObject);
+
+
+        Destroy(gameObject);
 	}
 	#endregion
 
