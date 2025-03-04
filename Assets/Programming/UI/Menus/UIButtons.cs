@@ -8,9 +8,9 @@ public class UIButtons : MonoBehaviour
     //gooby ahh script for buttons that arent in the main menu so i can still reference uimanager
     //in stuff that doesnt contain the initial uimanager script its confusing but like dont question it
 
-    public void PressReturnToLevel()
+    public void PressReturn()
     {
-        UIManager.Instance.PressReturnToLevel();
+        UIManager.Instance.PressReturn();
     }
 
     public void PressMainMenu()
@@ -18,14 +18,9 @@ public class UIButtons : MonoBehaviour
         UIManager.Instance.PressMainMenu();
     }
 
-    public void PressStartGame()
+    public void PressPlay()
     {
-        UIManager.Instance.PressStartGame();
-    }
-
-    public void PressLevelSelect()
-    {
-        UIManager.Instance.PressLevelSelect();
+        UIManager.Instance.PressPlay();
     }
 
     public void PressOptions()
