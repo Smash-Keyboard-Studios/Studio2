@@ -14,9 +14,6 @@ public class TriggerDialogue : MonoBehaviour
         {
             other.GetComponent<PlayerInput>().enabled = false;
 
-            Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.None;
-
             dialogueHandler.GetComponent<DialogueHandler>().ConversationAsset = conversationAsset;
             dialogueHandler.SetActive(true);
             Destroy(gameObject);

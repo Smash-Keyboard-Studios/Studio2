@@ -58,9 +58,6 @@ public class DialogueHandler : MonoBehaviour
         if(currentData == null) {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true;
 
-            Cursor.lockState = CursorLockMode.Confined;
-            Time.timeScale = 1;
-
             this.gameObject.SetActive(false); 
         }
         
