@@ -266,7 +266,7 @@ public class GruntAI : AIBase
 	/// </summary>
 	protected virtual void AlertedThinking()
 	{
-		pathTarget = playerTarget.position;
+		pathTarget = playerTarget.position + playerTarget.GetComponent<CharacterController>().velocity;
 
 
 		if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack)
@@ -278,6 +278,11 @@ public class GruntAI : AIBase
 
 			if (!attacking && lightAttackCoolDown <= 0f && lightAttackCoroutine == null) lightAttackCoroutine = StartCoroutine(LightAttack());
 		}
+
+
+
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), 0.1f);
+
 
 	}
 	#endregion
