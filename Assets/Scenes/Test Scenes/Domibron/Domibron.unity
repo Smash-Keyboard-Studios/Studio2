@@ -1103,32 +1103,37 @@ PrefabInstance:
     - target: {fileID: 5818033291192347271, guid: f7c3722b2d96f5645b6bc924b044709b,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5818033291192347271, guid: f7c3722b2d96f5645b6bc924b044709b,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8125751699762043485, guid: f7c3722b2d96f5645b6bc924b044709b,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8125751699762043485, guid: f7c3722b2d96f5645b6bc924b044709b,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8125751699762043485, guid: f7c3722b2d96f5645b6bc924b044709b,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9086637893552779497, guid: f7c3722b2d96f5645b6bc924b044709b,
         type: 3}
       propertyPath: m_Name
       value: Tank AI (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086637893552779497, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2037,17 +2042,37 @@ PrefabInstance:
     - target: {fileID: 5818033291192347271, guid: f7c3722b2d96f5645b6bc924b044709b,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5818033291192347271, guid: f7c3722b2d96f5645b6bc924b044709b,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125751699762043485, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125751699762043485, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125751699762043485, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9086637893552779497, guid: f7c3722b2d96f5645b6bc924b044709b,
         type: 3}
       propertyPath: m_Name
       value: Tank AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086637893552779497, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2176,17 +2201,37 @@ PrefabInstance:
     - target: {fileID: 5372485306077236231, guid: c518e1c9bb5d615448a69112f6f7b5ea,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.454
       objectReference: {fileID: 0}
     - target: {fileID: 5372485306077236231, guid: c518e1c9bb5d615448a69112f6f7b5ea,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6083788038602741258, guid: c518e1c9bb5d615448a69112f6f7b5ea,
         type: 3}
       propertyPath: m_Name
       value: Melee Shield
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083788038602741258, guid: c518e1c9bb5d615448a69112f6f7b5ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448379942658031105, guid: c518e1c9bb5d615448a69112f6f7b5ea,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.454
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448379942658031105, guid: c518e1c9bb5d615448a69112f6f7b5ea,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448379942658031105, guid: c518e1c9bb5d615448a69112f6f7b5ea,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.454
       objectReference: {fileID: 0}
     - target: {fileID: 8741055469795689473, guid: c518e1c9bb5d615448a69112f6f7b5ea,
         type: 3}
