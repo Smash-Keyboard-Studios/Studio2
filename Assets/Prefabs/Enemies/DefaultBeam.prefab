@@ -48,10 +48,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileRigidBody: {fileID: 6589352633647226769}
   projectileSpeed: 0
-  projectileLifespan: 0
+  projectileLifespan: 2
   projectileDamage: 0
   increment: 0
   lineRenderer: {fileID: 1765822508714897069}
+  rangeLimiter: 100000
+  raycastMask:
+    serializedVersion: 2
+    m_Bits: 55
+  boxCastMask:
+    serializedVersion: 2
+    m_Bits: 64
+  boxCastThickness: 1
+  midPoint: {x: 5.5, y: 2.1850622, z: 45}
+  distanceForBoxLength: 100
+  beamWindUp: 1
+  boxCastHeight: 5
+  boxHitColliders: []
 --- !u!120 &1765822508714897069
 LineRenderer:
   serializedVersion: 2
@@ -99,7 +112,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 2
     widthCurve:
       serializedVersion: 2
       m_Curve:
