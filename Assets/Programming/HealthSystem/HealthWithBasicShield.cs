@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,23 +17,27 @@ public class HealthWithBasicShield : Health, IShieldObject
 {
 	[Header("Shield Settings")]
 	[SerializeField]
-	private GameObject shieldObject;
+	protected GameObject shieldObject;
 
 	private bool shieldActive = true;
+
+	public event Action onShieldBreak;
+
 
 	public override void Reset()
 	{
 		base.Reset();
 
-		shieldActive = true;
-		shieldObject.SetActive(shieldActive);
+		ActivateShield();
 	}
 
-	public void BreakShield()
+	public virtual void BreakShield()
 	{
 		shieldActive = false;
 
-		shieldObject.SetActive(shieldActive);
+		shieldObject.SetActive(false);
+
+		InvokeShieldBreak();
 	}
 
 	public override bool TakeDamage(float amount)
@@ -43,5 +48,16 @@ public class HealthWithBasicShield : Health, IShieldObject
 		}
 
 		return base.TakeDamage(amount);
+	}
+
+	protected virtual void ActivateShield()
+	{
+		shieldActive = true;
+		shieldObject.SetActive(true);
+	}
+
+	protected void InvokeShieldBreak()
+	{
+		onShieldBreak?.Invoke();
 	}
 }
