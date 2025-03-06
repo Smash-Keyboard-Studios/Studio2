@@ -15,6 +15,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private int mainMenuBuildIndex;
     [SerializeField] private int creditsBuildIndex;
 
+    [Header("Build Indexes for the first scene of each Level")]
+    public int Level1BuildIndex;
+    public int Level2BuildIndex;
 
     [Header("Menu GameObject Prefabs")]
     [SerializeField] private GameObject levelSelectObj;
@@ -40,7 +43,7 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(levelSelectObj);
         DontDestroyOnLoad(gameMenuObj);
         DontDestroyOnLoad(optionsObj);
-        DontDestroyOnLoad(controlsObj);
+        DontDestroyOnLoad(controlsObj); //none of these are working rn :(
 
         //set all menu objects to false initially through press return button
         PressReturn();
@@ -60,26 +63,25 @@ public class UIManager : MonoBehaviour
 
 
     //main menu buttons
-
     public void PressPlay()
     {
         EnterMenu();
 
-        //open level select prefab
+        levelSelectObj.SetActive(true);
     }
 
     public void PressOptions()
     {
         EnterMenu();
 
-        //open options prefab
+        optionsObj.SetActive(true);
     }
 
     public void PressControls()
     {
         EnterMenu();
 
-        //open controls prefab
+        controlsObj.SetActive(true);
     }
 
     public void PressCredits()
@@ -109,14 +111,14 @@ public class UIManager : MonoBehaviour
     {
         EnterMenu();
 
-        //open game menu prefab
+        gameMenuObj.SetActive(true);
     }
 
     public void PressReturn()
     {
         //store whether in controls rn so can keep options open
         bool wasInControls = controlsObj.activeSelf;
-        //store whether in options from gamemenu rn so can keep game menu open
+        //store whether in options (from gamemenu) rn so can keep game menu open
         bool wasInOptions = optionsObj.activeSelf && gameMenuObj.activeSelf;
 
         levelSelectObj.SetActive(false);

@@ -5,9 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UIButtons : MonoBehaviour
 {
-    //gooby ahh script for buttons that arent in the main menu so i can still reference uimanager
-    //in stuff that doesnt contain the initial uimanager script its confusing but like dont question it
-
+    //public functions that reference UI manager for the buttons in scenes to use
     public void PressReturn()
     {
         UIManager.Instance.PressReturn();
