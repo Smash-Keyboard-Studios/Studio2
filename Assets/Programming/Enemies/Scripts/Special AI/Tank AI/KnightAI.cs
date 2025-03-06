@@ -99,6 +99,8 @@ public class KnightAI : GruntAI
 	#endregion
 
 
+	protected DamageRingIndicator damageRingIndicator;
+
 	/******************************************************************************/
 	#region Functions
 	#endregion
@@ -109,6 +111,9 @@ public class KnightAI : GruntAI
 	protected override void Awake()
 	{
 		slamTimer = timeWithinRadiusBeforeSlam;
+
+		damageRingIndicator = GetComponent<DamageRingIndicator>();
+
 
 		base.Awake();
 	}
@@ -192,7 +197,7 @@ public class KnightAI : GruntAI
 
 		attackAnimationPlaying = true;
 
-
+		damageRingIndicator.ShowRing(windUpTime, slamMaxRadius);
 
 		animatorController.SetBool("IsCharging", true);
 		animatorController.SetBool("IsAttacking", true);
@@ -267,6 +272,8 @@ public class KnightAI : GruntAI
 				}
 			}
 		}
+
+		damageRingIndicator.HideRing();
 	}
 	#endregion
 
