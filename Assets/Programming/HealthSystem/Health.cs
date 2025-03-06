@@ -58,8 +58,9 @@ public class Health : MonoBehaviour, IDamageable
 
         if (currentHealth > maxHealth) currentHealth = maxHealth;
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !calledOnDeathEvent)
         {
+            calledOnDeathEvent = true;
             onNoHealthLeft?.Invoke();
         }
     }
