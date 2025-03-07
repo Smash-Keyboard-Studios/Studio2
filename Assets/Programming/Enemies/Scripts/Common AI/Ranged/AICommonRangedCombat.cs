@@ -42,13 +42,6 @@ public class AICommonRangedCombat : AIBase
 
 	#region Attacking Vars
 	/* Attacking */
-
-	/// <summary>
-	/// The damage the AI will inflict onto the player.
-	/// </summary>
-	[Header("Attacking")]
-	[SerializeField] protected float lightAttackDamage = 20f;
-
 	/// <summary> /// Remaining time left before the AI can attack again. /// </summary>
 	protected float lightAttackCooldown = 0f;
 
@@ -87,19 +80,25 @@ public class AICommonRangedCombat : AIBase
 
 	protected Animator animatorController;
 	#endregion
+	#region Ranged Vars
+	[Header("Ranged Specific")]
+	[SerializeField] public float rangedDamage;
+	[SerializeField] private float rangedLifespan; // How long the object will last
+	[SerializeField] public float rangedSpeed;
+	[SerializeField] public bool isBeam;
+	#endregion
 	#region Projectile Vars
 	[Header("Projectiles")]
 	[SerializeField] private GameObject projectilePrefab;
 	[SerializeField] private Transform[] projectileSpawnPoint;
-	[SerializeField] public float projectileDamage;
-	[SerializeField] private float projectileLifespan; // How long the object will last
-	[SerializeField] public float projectileSpeed;
-	[SerializeField] public bool projectileGravityUsage;
+
 
 	#endregion
-	[SerializeField] public bool beamIsEnabled;
+	#region Beam Variant
+	[Header("Beam Specific")]
 	[SerializeField] GameObject beamPrefab;
 	[SerializeField] private Transform[] beamSpawnPoint;
+	#endregion	
 	#region Retreat Vars
 	[Header("Retreating")]
 	[SerializeField] private float retreatDistance = 10f; // The distance from the player to the enemy to trigger a retreat
@@ -310,25 +309,25 @@ public class AICommonRangedCombat : AIBase
 	/// </summary>
 	public virtual void LightAttackCheckAndDamage()
 	{
-		Transform[] usedSpawn = beamIsEnabled ? beamSpawnPoint : projectileSpawnPoint;
-		Action usedSFXAction = beamIsEnabled ? onSFXBeamStart : onSFXProjectileLaunch;
-		GameObject usedpreFab = beamIsEnabled ? beamPrefab : projectilePrefab;
+		Transform[] usedSpawn = isBeam ? beamSpawnPoint : projectileSpawnPoint;
+		Action usedSFXAction = isBeam ? onSFXBeamStart : onSFXProjectileLaunch;
+		GameObject usedpreFab = isBeam ? beamPrefab : projectilePrefab;
 		foreach (Transform SpawnPoint in usedSpawn)
 		{
 			usedSFXAction?.Invoke();
 			SpawnPoint.LookAt(playerTarget.position);
 			GameObject instance = Instantiate(usedpreFab, SpawnPoint.position, SpawnPoint.rotation);
-			if (beamIsEnabled)
+			if (isBeam)
 			{
-				instance.GetComponent<BaseEnemyBeam>().projectileDamage = projectileDamage;
-				instance.GetComponent<BaseEnemyBeam>().projectileLifespan = projectileLifespan;
-				instance.GetComponent<BaseEnemyBeam>().projectileSpeed = projectileSpeed;
+				instance.GetComponent<BaseEnemyBeam>().rangedDamage = rangedDamage;
+				instance.GetComponent<BaseEnemyBeam>().rangedLifespan = rangedLifespan;
+				instance.GetComponent<BaseEnemyBeam>().rangedSpeed = rangedSpeed;
 			}
 			else
 			{
-				instance.GetComponent<BaseEnemyProjectile>().projectileDamage = projectileDamage;
-				instance.GetComponent<BaseEnemyProjectile>().projectileLifespan = projectileLifespan;
-				instance.GetComponent<BaseEnemyProjectile>().projectileSpeed = projectileSpeed;
+				instance.GetComponent<BaseEnemyProjectile>().rangedDamage = rangedDamage;
+				instance.GetComponent<BaseEnemyProjectile>().rangedLifespan = rangedLifespan;
+				instance.GetComponent<BaseEnemyProjectile>().rangedSpeed = rangedSpeed;
 			}
 		}
 	}

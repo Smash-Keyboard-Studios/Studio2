@@ -11,36 +11,55 @@ using UnityEngine.Rendering;
 //   / _ \ | |/ _ \ \/ / | ' /
 //  / ___ \| | __ />  <  | . \
 // /_/   \_\_|\___/_/\_\ |_|\_\
+// With help from Dom & Dan.
 
 
 public class BaseEnemyBeam : BaseEnemyProjectile
 {
-	[SerializeField] private float increment;
-	[SerializeField] LineRenderer lineRenderer;
-	[SerializeField] private float rangeLimiter;
-	//[SerializeField] private RaycastHit wallTargetRaycast;
-	[SerializeField] private LayerMask raycastMask;
-	[SerializeField] private LayerMask boxCastMask;
-	[Header("Box check for light attack")]
-	[SerializeField] protected float boxCastThickness = 2f;
-	[SerializeField] private Vector3 midPoint;
-	[SerializeField] private float distanceForBoxLength;
+	#region Timers
+	[Header("Timer controls.")]
+	[SerializeField] private float damageTick;
 	[SerializeField] private float beamWindUp;
+	protected float widthTimer = 0, damageTimer = 0;
+	#endregion
+	[Header("Do not touch these.")]
+	/// <summary> 	Layermask that ignores only the player to find where the beam actually hits.  </summary>
+	[SerializeField] private LayerMask raycastMask;
+	/// <summary> 	For the Overlapbox to grab only the player. </summary>
+	[SerializeField] private LayerMask boxCastMask;
+	private float rangeLimiter = 999f; 
+	#region BoxCollider
+	[Header("Values for box collider check.")]
 	/// <summary> 	AI up (local Y), how tall this check box is.  </summary>
-	[SerializeField] protected float boxCastHeight = 1;
-	[SerializeField] protected Collider[] boxHitColliders;
-
-	float timer = 0;
+	[SerializeField] protected float boxCastHeight = 5;
+	/// <summary> 	How wide this check box is.  </summary>
+	[SerializeField] protected float boxCastThickness = 2f;
+	/// <summary> 	How long this check box is.  </summary>
+	private float distanceForBoxLength;
+	/// <summary> 	The actual world position for the box collider.  </summary>
+	private Vector3 midPoint;
+	/// <summary> 	How wide this check box is.  </summary>
+	private Quaternion boxRotation;
+	protected Collider[] boxHitColliders;
+	#endregion
+	#region Line Renderer Specifics
+	[Header("Visuals.")]
+	[SerializeField] private LineRenderer lineRenderer;
+	[SerializeField] public Material beamMaterialStart, beamMaterialEnd;
+	#endregion
 
 	private Coroutine AttackCoroutine = null;
 
 	protected override void Awake()
 	{
+		lineRenderer = GetComponent<LineRenderer>();
+		lineRenderer.material = beamMaterialStart;
 	}
 	protected override void Start()
 	{
-		Destroy(gameObject, projectileLifespan);
-
+		Destroy(gameObject, rangedLifespan+beamWindUp);
+		widthTimer = beamWindUp;
+		damageTimer = damageTick;
 		RaycastHit wallTargetRaycast;
 		if (Physics.Raycast(transform.position, transform.forward, out wallTargetRaycast, rangeLimiter, raycastMask, QueryTriggerInteraction.Ignore))
 		{
@@ -48,35 +67,34 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 			lineRenderer.SetPosition(1, wallTargetRaycast.point);
 
 			AttackCoroutine = StartCoroutine(WaitForSeconds(beamWindUp, wallTargetRaycast.point));
-			timer = beamWindUp;
-
-			//StartCoroutine(waitForSeconds(beamWindUp));
-			//CheckForPlayer();
 		}
 		else
 		{
 			lineRenderer.SetPosition(0, transform.position);
-			lineRenderer.SetPosition(1, transform.position + transform.forward * 999f);
+			lineRenderer.SetPosition(1, transform.position + transform.forward * rangeLimiter);
 
-			AttackCoroutine = StartCoroutine(WaitForSeconds(beamWindUp, wallTargetRaycast.point));
-			//makeABox(transform.position, transform.position + transform.forward * 999f);
+			AttackCoroutine = StartCoroutine(WaitForSeconds(beamWindUp, transform.forward * rangeLimiter));
 		}
 	}
 	protected override void Update()
 	{
-		if (timer > 0) timer -= Time.deltaTime;
-
-		var width = Mathf.Lerp(boxCastThickness, 00.01f, timer / beamWindUp);
+		if (widthTimer > 0) widthTimer -= Time.deltaTime; // Timer that manages the beam's width.
+		if (damageTimer > 0) damageTimer -= Time.deltaTime;
+		var width = Mathf.Lerp(boxCastThickness, 0.01f, widthTimer / beamWindUp);
 		lineRenderer.startWidth = width;
 		lineRenderer.endWidth = width;
-
-		if (AttackCoroutine != null) return;
-
-		increment = increment + Time.deltaTime;
-		if (increment <= (projectileLifespan + beamWindUp))
-		{
-			
+		if (width == boxCastThickness) 
+		{ 
+			lineRenderer.material = beamMaterialEnd;
+			// This checks if the player reenters the beam when after it's done charging, and damages them for it.
+			Collider[] boxColliders = (Physics.OverlapBox(midPoint, new Vector3(boxCastThickness, boxCastHeight, distanceForBoxLength * 2), boxRotation, boxCastMask, QueryTriggerInteraction.Ignore)); 
+			if (damageTimer <= 0)
+			{
+				CheckForPlayer(boxColliders);
+			}
 		}
+		
+		if (AttackCoroutine != null) return;
 	}
 	void CheckForPlayer(Collider[] boxHitColliders)
 	{
@@ -87,7 +105,6 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 				if (hitObject.gameObject.CompareTag("Player"))
 				{
 					DealDamage(hitObject);
-					//boxHitColliders. 
 				}
 			}
 		}
@@ -96,30 +113,9 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 	{
 		midPoint = new Vector3(startLocation.x + (hitPoint.x - startLocation.x) / 2, startLocation.y + (hitPoint.y - startLocation.y) / 2, startLocation.z + (hitPoint.z - startLocation.z) / 2);
 		distanceForBoxLength = Vector3.Distance(startLocation, hitPoint);
-		Quaternion boxRotation = Quaternion.LookRotation((hitPoint - startLocation), Vector3.up);
-		Collider[] colliders = ( Physics.OverlapBox(midPoint, new Vector3(boxCastThickness, boxCastHeight, distanceForBoxLength * 2), boxRotation, boxCastMask, QueryTriggerInteraction.Ignore));
-		
-		foreach(Collider collider in colliders)
-		{
-			if (collider.gameObject.CompareTag("Player"))
-			collider.GetComponent<IDamageable>()?.TakeDamage(1f);
-		}
-
-	}
-
-	private void OnDrawGizmos()
-	{
-		var startLocation = transform.position;
-		Vector3 wallTargetRaycast = transform.position + transform.forward * 100f;
-
-		//Physics.Raycast(transform.position, transform.forward,  out wallTargetRaycast, rangeLimiter, raycastMask, QueryTriggerInteraction.Ignore);
-		midPoint = new Vector3(startLocation.x + (wallTargetRaycast.x - startLocation.x) / 2, startLocation.y + (wallTargetRaycast.y - startLocation.y) / 2, startLocation.z + (wallTargetRaycast.z - startLocation.z) / 2);
-		distanceForBoxLength = Vector3.Distance(startLocation, wallTargetRaycast);
-		Quaternion boxRotation = Quaternion.LookRotation((wallTargetRaycast - startLocation), Vector3.up);
-
-		
-		Gizmos.matrix = Matrix4x4.TRS(Vector3.zero, boxRotation, Vector3.one);
-		Gizmos.DrawWireCube(midPoint, new Vector3(boxCastThickness, boxCastHeight, distanceForBoxLength * 2));
+		boxRotation = Quaternion.LookRotation((hitPoint - startLocation), Vector3.up);
+		Collider[] boxColliders = ( Physics.OverlapBox(midPoint, new Vector3(boxCastThickness, boxCastHeight, distanceForBoxLength * 2), boxRotation, boxCastMask, QueryTriggerInteraction.Ignore));
+		CheckForPlayer(boxColliders);
 	}
 
 	protected IEnumerator WaitForSeconds(float waitTime, Vector3 targetPoint)
@@ -134,8 +130,8 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 	}
 	protected void DealDamage(Collider collidedObject)
 	{
-		//yield return new WaitForSeconds(beamWindUp);
 		//Debug.Log("Player hit for: " + projectileDamage);
-		collidedObject.gameObject.GetComponent<IDamageable>()?.TakeDamage(projectileDamage);
-    }
+		collidedObject.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
+		damageTimer = damageTick; // Damage has been taken so cooldown reset.
+	}
 }
