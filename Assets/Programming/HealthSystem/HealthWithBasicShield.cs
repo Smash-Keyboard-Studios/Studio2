@@ -19,7 +19,7 @@ public class HealthWithBasicShield : Health, IShieldObject
 	[SerializeField]
 	protected GameObject shieldObject;
 
-	private bool shieldActive = true;
+	protected bool shieldActive = true;
 
 	public event Action onShieldBreak;
 
