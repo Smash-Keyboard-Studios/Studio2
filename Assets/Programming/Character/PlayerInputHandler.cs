@@ -17,14 +17,17 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string Move = "Move";
     [SerializeField] private string Sprint = "Sprint";
     [SerializeField] private string Interact = "Interaction";
+    [SerializeField] private string Block = "Block";
 
     private InputAction MoveAction;
     private InputAction SprintAction;
     private InputAction InteractAction;
+    private InputAction BlockAction;
 
     public Vector2 MoveInput { get; private set; }
     public float SprintValue { get; private set; }
     public bool InteractionTriggered { get; private set; }
+    public bool BlockTriggered { get; private set; }
 
     public static PlayerInputHandler Instance { get; private set; }
 
@@ -44,6 +47,7 @@ public class PlayerInputHandler : MonoBehaviour
         MoveAction = PlayerControls.FindActionMap(ActionMapName).FindAction(Move);
         SprintAction = PlayerControls.FindActionMap(ActionMapName).FindAction(Sprint);
         InteractAction = PlayerControls.FindActionMap(ActionMapName).FindAction(Interact);
+        BlockAction = PlayerControls.FindActionMap(ActionMapName).FindAction(Block);
         RegisterInputActions();
     }
 
@@ -57,6 +61,9 @@ public class PlayerInputHandler : MonoBehaviour
 
         InteractAction.performed += context => InteractionTriggered = true;
         InteractAction.canceled += context => InteractionTriggered = false;
+
+        BlockAction.performed += context => BlockTriggered = true;
+        BlockAction.canceled += context => BlockTriggered = false;
     }
 
     private void OnEnable()
@@ -64,6 +71,7 @@ public class PlayerInputHandler : MonoBehaviour
         MoveAction.Enable();
         SprintAction.Enable();
         InteractAction.Enable();
+        BlockAction.Enable();
     }
 
     private void OnDisable()
@@ -71,6 +79,7 @@ public class PlayerInputHandler : MonoBehaviour
         MoveAction.Disable();
         SprintAction.Disable();
         InteractAction.Disable();
+        BlockAction.Disable();
     }
 
 }

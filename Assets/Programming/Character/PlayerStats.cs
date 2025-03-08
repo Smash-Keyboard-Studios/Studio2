@@ -23,21 +23,25 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     private PlayerInputHandler InputHandler;
 
-    public GameObject deathText;
+    //public GameObject deathText;
     protected Animator MyAnim;
     public GameObject MainCharacter;
 
     private void Start()
     {
         InputHandler = PlayerInputHandler.Instance; //Gets the InputHandler from the PlayerInputHandler instance
-        deathText.SetActive(false);
+        //deathText.SetActive(false);
         MyAnim = MainCharacter.GetComponent<Animator>();
     }
 
     public bool TakeDamage(float Ammount)
     {
-        PlayerHealth -= Ammount;
-        return true;
+        if (!InputHandler.BlockTriggered)
+        {
+            PlayerHealth -= Ammount;
+            return true;
+        }
+        return false;
     }
 
     private void Update()
@@ -48,7 +52,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         //When the player loses all of their Health they will die.
         if (PlayerHealth <= 0)
         {
-            deathText.SetActive(true);
+            //deathText.SetActive(true);
             MyAnim.SetTrigger("Dead");
         }
     }
