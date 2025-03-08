@@ -82,6 +82,23 @@ public class KnightAI : GruntAI
 
 
 
+	#region Serrated Slash
+	[Header("Serrated Slash Settings")]
+	[SerializeField]
+	protected float serratedSlashRadius = 5f;
+
+	[SerializeField]
+	protected float serratedSlashDamage = 2f;
+
+	[SerializeField]
+	protected float serratedSlashTickLength = 0.25f;
+
+	[SerializeField]
+	protected float serratedSlashAttackDuration = 1f;
+	#endregion
+
+
+
 	#region Global delay between all attacks variables
 	[Header("Delay between all attacks")]
 	[SerializeField]
@@ -164,7 +181,7 @@ public class KnightAI : GruntAI
 			if (!attacking && specialAttackCoolDown <= 0f && specialAttackCoroutine == null && globalAttackCoolDown <= 0f &&
 			(Vector3.Distance(playerTarget.position, transform.position) < minimumDistanceForForceSpecial || slamTimer <= 0f))
 			{
-				specialAttackCoroutine = StartCoroutine(SpecialAttack());
+				specialAttackCoroutine = StartCoroutine(SlamAttack());
 				print("Attacking");
 			}
 			// light attack
@@ -191,7 +208,7 @@ public class KnightAI : GruntAI
 	/// Coroutine for dealing with the special attack, it just starts the animations and waits.
 	/// </summary>
 	/// <returns></returns>
-	protected virtual IEnumerator SpecialAttack()
+	protected virtual IEnumerator SlamAttack()
 	{
 		attacking = true;
 
@@ -237,7 +254,7 @@ public class KnightAI : GruntAI
 		animatorController.SetBool("IsCharging", false);
 		animatorController.SetBool("IsSpecialAttack", false);
 
-
+		damageRingIndicator.HideRing();
 		// this has a end termination.
 		base.AnimationAttackFinished();
 	}
@@ -249,12 +266,12 @@ public class KnightAI : GruntAI
 	/// <summary>
 	/// Creates a check sphere and deals the damage accordingly.
 	/// </summary>
-	protected virtual void SpecialAttackCheckAndDamage()
+	protected virtual void SlamAttackCheckAndDamage()
 	{
 		SpecialHitGroundSFXPlayOnce();
 
 		Collider[] HitObjects = Physics.OverlapSphere(transform.position, slamMaxRadius,
-			layersToCheckFor, QueryTriggerInteraction.Ignore);
+					layersToCheckFor, QueryTriggerInteraction.Ignore);
 
 		if (HitObjects.Length > 0)
 		{
@@ -273,13 +290,61 @@ public class KnightAI : GruntAI
 			}
 		}
 
-		damageRingIndicator.HideRing();
+	}
+
+	#endregion
+
+
+	#region DamageInRadius
+	private void DamageInRadius(float radius, float damage)
+	{
+		Collider[] HitObjects = Physics.OverlapSphere(transform.position, radius,
+					layersToCheckFor, QueryTriggerInteraction.Ignore);
+
+		if (HitObjects.Length > 0)
+		{
+			foreach (var hitObject in HitObjects)
+			{
+				if (hitObject.gameObject.CompareTag("Player"))
+				{
+					float distanceFromPlayer = Vector3.Distance(hitObject.transform.position, transform.position);
+
+					hitObject.GetComponent<IDamageable>()?.TakeDamage(damage);
+				}
+			}
+		}
 	}
 	#endregion
 
 
+	/*
+	Activates if it's chosen at the beginning of the boss’ attack phase. 
+	Performs an AoE slash attack around the boss, 
+	doing tick-based damage (every 0.25s) while in the hurt box, 
+	dealing high damage, up to 4 times.
+	*/
 
-	#region ITankAnimationStateUpdater
+	#region SerratedSlashAttack
+	protected virtual IEnumerator SerratedSlashAttack()
+	{
+		damageRingIndicator.ShowRing(0.5f, serratedSlashRadius);
+		yield return new WaitForSeconds(0.5f);
+
+
+		float localTimer = 0f;
+		while (localTimer < serratedSlashAttackDuration)
+		{
+			DamageInRadius(serratedSlashRadius, serratedSlashDamage);
+			yield return new WaitForSeconds(serratedSlashTickLength);
+			localTimer += 0.25f;
+		}
+	}
+
+	#endregion
+
+
+
+	#region Animation State Updater
 	// this is used by a script im between the animations and this so animations can call functions.
 
 	/* normal attack */
@@ -301,7 +366,7 @@ public class KnightAI : GruntAI
 
 	public virtual void DealSpecialAttack()
 	{
-		SpecialAttackCheckAndDamage();
+		SlamAttackCheckAndDamage();
 	}
 	#endregion
 
