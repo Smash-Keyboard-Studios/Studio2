@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameMenuObj;
     [SerializeField] private GameObject optionsObj;
     [SerializeField] private GameObject controlsObj;
+    //^ all these menu prefabs need to be dontdestroyonload to work properly
 
 
     private void Awake()
@@ -38,15 +39,13 @@ public class UIManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject); // prevents this from being destroyed between scenes
         }
+    }
 
-        //make sure all the menu prefabs are dontdestroyonload
-        DontDestroyOnLoad(levelSelectObj);
-        DontDestroyOnLoad(gameMenuObj);
-        DontDestroyOnLoad(optionsObj);
-        DontDestroyOnLoad(controlsObj); //none of these are working rn :(
-
+    private void Start()
+    {
         //set all menu objects to false initially through press return button
-        PressReturn();
+        //this is in the start function so that the menu objects can run their awake functions before being disabled
+        DisableAllMenus();
     }
 
 
@@ -54,11 +53,23 @@ public class UIManager : MonoBehaviour
     private void EnterMenu()
     {
         Cursor.lockState = CursorLockMode.None;
+
+        DisableAllMenus(); //makes sure the menus are all disabled after changin a scene
     }
 
     private void EnterLevel()
     {
         Cursor.lockState = CursorLockMode.Confined;
+
+        DisableAllMenus(); //makes sure the menus are all disabled after changin a scene
+    }
+
+    private void DisableAllMenus()
+    {
+        levelSelectObj.SetActive(false);
+        gameMenuObj.SetActive(false);
+        optionsObj.SetActive(false);
+        controlsObj.SetActive(false);
     }
 
 
@@ -121,10 +132,7 @@ public class UIManager : MonoBehaviour
         //store whether in options (from gamemenu) rn so can keep game menu open
         bool wasInOptions = optionsObj.activeSelf && gameMenuObj.activeSelf;
 
-        levelSelectObj.SetActive(false);
-        gameMenuObj.SetActive(false);
-        optionsObj.SetActive(false);
-        controlsObj.SetActive(false);
+        DisableAllMenus();
 
         if(wasInControls) { PressOptions(); } //reopen options if was in controls before
 
