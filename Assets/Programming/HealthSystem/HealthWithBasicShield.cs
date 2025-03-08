@@ -60,4 +60,11 @@ public class HealthWithBasicShield : Health, IShieldObject
 	{
 		onShieldBreak?.Invoke();
 	}
+
+	public virtual float GetShieldNormalized()
+	{
+		return (shieldActive ? 1 : 0);
+	}
+
+
 }

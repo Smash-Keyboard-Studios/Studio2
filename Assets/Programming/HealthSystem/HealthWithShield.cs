@@ -17,10 +17,6 @@ using UnityEngine;
 public class HealthWithShield : HealthWithBasicShield
 {
     [SerializeField]
-    private float maxShieldHealth = 30f;
-    private float currentShieldHealth;
-
-    [SerializeField]
     private float coolDownTime = 10f;
     private float currentCoolDownTime = 0;
 
@@ -34,7 +30,7 @@ public class HealthWithShield : HealthWithBasicShield
 
     public override void Reset()
     {
-        currentShieldHealth = maxShieldHealth;
+        //currentShieldHealth = maxShieldHealth;
 
 
         base.Reset();
@@ -51,7 +47,6 @@ public class HealthWithShield : HealthWithBasicShield
     {
         if (shieldActive)
         {
-            DamageShield(amount);
             return false;
         }
 
@@ -59,26 +54,16 @@ public class HealthWithShield : HealthWithBasicShield
         return true;
     }
 
-    protected virtual void DamageShield(float amount)
-    {
-        currentShieldHealth -= amount;
-
-        if (currentShieldHealth <= 0)
-        {
-            BreakShield();
-        }
-    }
-
     protected override void ActivateShield()
     {
-        currentShieldHealth = maxShieldHealth;
+        //currentShieldHealth = maxShieldHealth;
         resetShield = false;
         base.ActivateShield();
     }
 
     public override void BreakShield()
     {
-
+        ShieldDeactivate();
         base.BreakShield();
     }
 
@@ -87,5 +72,7 @@ public class HealthWithShield : HealthWithBasicShield
         currentCoolDownTime = coolDownTime;
         resetShield = true;
     }
+
+
 
 }
