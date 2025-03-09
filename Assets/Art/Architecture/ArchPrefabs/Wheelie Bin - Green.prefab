@@ -69,7 +69,43 @@ PrefabInstance:
       value: Wheelie Bin - Green
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -9145780657412726388, guid: a3a9b7ac7d41a63468855382eb274166, type: 3}
+    - {fileID: -7877312682337757456, guid: a3a9b7ac7d41a63468855382eb274166, type: 3}
+    - {fileID: 7242944475213164239, guid: a3a9b7ac7d41a63468855382eb274166, type: 3}
+    - {fileID: -7074681897062545621, guid: a3a9b7ac7d41a63468855382eb274166, type: 3}
+    - {fileID: -8513424388201257645, guid: a3a9b7ac7d41a63468855382eb274166, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -8181712612116556150, guid: a3a9b7ac7d41a63468855382eb274166,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2913668915409919707}
   m_SourcePrefab: {fileID: 100100000, guid: a3a9b7ac7d41a63468855382eb274166, type: 3}
+--- !u!1 &7723290854309060708 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8181712612116556150, guid: a3a9b7ac7d41a63468855382eb274166,
+    type: 3}
+  m_PrefabInstance: {fileID: 7303171353319372526}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2913668915409919707
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7723290854309060708}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.1279216, y: 1.6201319, z: 1.4096732}
+  m_Center: {x: 0.86399204, y: 0.8126363, z: -0.4918624}
