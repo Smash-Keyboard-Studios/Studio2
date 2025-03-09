@@ -6,7 +6,7 @@ public class ESCReturns : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
             UIManager.Instance.PressReturn();
         }
