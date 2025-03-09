@@ -12,9 +12,9 @@ public class BaseEnemyProjectile : MonoBehaviour
 {
     [Header("Variables")]
     [SerializeField] protected Rigidbody projectileRigidBody;
-    [SerializeField] public float projectileSpeed; // How fast the object will be launched
-    [SerializeField] public float projectileLifespan; // How long the object will last
-    [SerializeField] public float projectileDamage;
+    [SerializeField] public float rangedSpeed; // How fast the object will be launched
+    [SerializeField] public float rangedLifespan; // How long the object will last
+    [SerializeField] public float rangedDamage;
     public event Action onSFXImpact;
     protected virtual void Awake()
     {
@@ -22,11 +22,11 @@ public class BaseEnemyProjectile : MonoBehaviour
     }
     protected virtual void Start()
     {
-        projectileRigidBody.velocity = transform.forward * projectileSpeed;
+        projectileRigidBody.velocity = transform.forward * rangedSpeed;
     }
     protected virtual void Update()
     {
-        Destroy(gameObject, projectileLifespan);
+        Destroy(gameObject, rangedLifespan);
     }
     protected virtual void OnCollisionEnter(Collision collision)
     {
@@ -34,7 +34,7 @@ public class BaseEnemyProjectile : MonoBehaviour
         onSFXImpact?.Invoke();
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(projectileDamage);
+            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
             Destroy(gameObject, 0.05f); //Nearly instantly removes projectile to avoid player clipping
         }
     }

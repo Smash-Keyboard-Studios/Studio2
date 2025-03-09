@@ -1,3 +1,7 @@
+
+
+
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,24 +10,24 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 
-//by	_             	  _ _                	 
-// 	   | |           	 (_) |               	 
+//by	_               	_ _                	 
+//    	| |            	(_) |               	 
 //   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
 //  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
 // And a few adjustments by
-//     _    _             _  __
-//    / \  | | _____  __ | |/ /
-//   / _ \ | |/ _ \ \/ / | ' / 
-//  / ___ \| | __ />  <  | . \ 
+// 	_	_         	_  __
+//	/ \  | | _____  __ | |/ /
+//   / _ \ | |/ _ \ \/ / | ' /
+//  / ___ \| | __ />  <  | . \
 // /_/   \_\_|\___/_/\_\ |_|\_\
 
 
 
 
 
-public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
+public class AICommonRangedCombat : AIBase
 {
 	#region Events
 	/// <summary>
@@ -38,13 +42,6 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 
 	#region Attacking Vars
 	/* Attacking */
-
-	/// <summary>
-	/// The damage the AI will inflict onto the player.
-	/// </summary>
-	[Header("Attacking")]
-	[SerializeField] protected float lightAttackDamage = 20f;
-
 	/// <summary> /// Remaining time left before the AI can attack again. /// </summary>
 	protected float lightAttackCooldown = 0f;
 
@@ -61,7 +58,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 	private float speedReduction = -0.1f; // Reducing enemy movement for ranged attacks
 	#endregion
 
-	#region Detection Vars 
+	#region Detection Vars
 	/* The limits for detecting the player */
 
 	/// <summary> /// The max range the player can be to be detected. /// </summary>
@@ -83,28 +80,36 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 
 	protected Animator animatorController;
 	#endregion
+	#region Ranged Vars
+	[Header("Ranged Specific")]
+	[SerializeField] public float rangedDamage;
+	[SerializeField] private float rangedLifespan; // How long the object will last
+	[SerializeField] public float rangedSpeed;
+	[SerializeField] public bool isBeam;
+	#endregion
 	#region Projectile Vars
 	[Header("Projectiles")]
 	[SerializeField] private GameObject projectilePrefab;
 	[SerializeField] private Transform[] projectileSpawnPoint;
-	[SerializeField] public float projectileDamage;
-	[SerializeField] private float projectileLifespan; // How long the object will last
-	[SerializeField] public float projectileSpeed;
-	[SerializeField] public bool projectileGravityUsage;
+
 
 	#endregion
-	[SerializeField] public bool beamIsEnabled;
+	#region Beam Variant
+	[Header("Beam Specific")]
 	[SerializeField] GameObject beamPrefab;
+	[SerializeField] private Transform[] beamSpawnPoint;
+	#endregion	
 	#region Retreat Vars
 	[Header("Retreating")]
 	[SerializeField] private float retreatDistance = 10f; // The distance from the player to the enemy to trigger a retreat
 	[SerializeField] protected float retreatCooldown = 6f; // Time between retreats
 	protected float retreatTimer = 0f; // Tracks current time between retreats
 	[SerializeField] private float chaseTimer = 6f; // Tracks how long the enemy is chased for
-	protected bool chaseFinished = false; // A bypass to avoid the enemy AI getting stuck/chased forever 
+	protected bool chaseFinished = false; // A bypass to avoid the enemy AI getting stuck/chased forever
 	#endregion
 	#region Sound Effect Vars
 	public event Action onSFXProjectileLaunch;
+	public event Action onSFXBeamStart;
 	#endregion
 	#region Debugging Vars
 	/* Debugging */
@@ -180,7 +185,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 	}
 	#endregion
 	#region IdleThinking
-	/// <summary>    /// How the AI acts when it's currently idle.    /// </summary>
+	/// <summary>	/// How the AI acts when it's currently idle.	/// </summary>
 	protected virtual void IdleThinking()
 	{
 		pathTarget = transform.position;
@@ -198,7 +203,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 
 
 	#region AlertedThinking
-	/// <summary>    /// How the AI acts when it seen / detects the player. /// </summary>
+	/// <summary>	/// How the AI acts when it seen / detects the player. /// </summary>
 	protected virtual void AlertedThinking()
 	{
 		pathTarget = playerTarget.position;
@@ -229,7 +234,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 	///<summary> /// How the AI acts when retreating. /// </summary>
 	protected virtual void RetreatingThinking()
 	{
-		if (chaseTimer <= 0) { chaseFinished = true; }//If enemy isn't able to retreat to safe distance or the player keeps chasing, bypass back to attacking. 
+		if (chaseTimer <= 0) { chaseFinished = true; }//If enemy isn't able to retreat to safe distance or the player keeps chasing, bypass back to attacking.
 		if (!chaseFinished)
 		{
 			retreatTimer = retreatCooldown;
@@ -241,13 +246,13 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 
 		if (Vector3.Distance(playerTarget.position, transform.position) >= minDistanceForAttack || chaseFinished)
 		{
-			chaseTimer = retreatCooldown; // Resets the chase timer 
+			chaseTimer = retreatCooldown; // Resets the chase timer
 			ChangeState(AIState.Alerted);
 		}
 	}
 	#endregion
 	#region LightAttack
-	/// <summary>    /// Dealing with attacking the player and dealing damage. /// </summary>
+	/// <summary>	/// Dealing with attacking the player and dealing damage. /// </summary>
 	/// <returns></returns>
 	protected virtual IEnumerator LightAttack()
 	{
@@ -286,7 +291,7 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 
 
 	#region AnimationAttackFinished
-	/// <summary>    /// Reset animation varibles once the attack is finished. /// </summary>
+	/// <summary>	/// Reset animation varibles once the attack is finished. /// </summary>
 	public virtual void AnimationAttackFinished()
 	{
 		animatorController.SetBool("IsHardAttack", false);
@@ -300,40 +305,35 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 
 	#region AttackAndDamage
 	/// <summary>
-	/// Creates a launches a projectile using instantiate, and projectile prefab itself holds the stats, and damage triggering.
+	/// Creates a launches a projectile or a beam using instantiate, and prefabs for both hold the stats, logic and damage triggering.
 	/// </summary>
 	public virtual void LightAttackCheckAndDamage()
 	{
-
-		if (beamIsEnabled)
+		Transform[] usedSpawn = isBeam ? beamSpawnPoint : projectileSpawnPoint;
+		Action usedSFXAction = isBeam ? onSFXBeamStart : onSFXProjectileLaunch;
+		GameObject usedpreFab = isBeam ? beamPrefab : projectilePrefab;
+		foreach (Transform SpawnPoint in usedSpawn)
 		{
-			foreach (Transform SpawnPoint in projectileSpawnPoint)
+			usedSFXAction?.Invoke();
+			SpawnPoint.LookAt(playerTarget.position);
+			GameObject instance = Instantiate(usedpreFab, SpawnPoint.position, SpawnPoint.rotation);
+			if (isBeam)
 			{
-				SpawnPoint.LookAt(playerTarget.position);
-				GameObject instanceBeam = Instantiate(beamPrefab, SpawnPoint.position, SpawnPoint.rotation);
-				instanceBeam.GetComponent<BaseEnemyBeam>().projectileDamage = projectileDamage;
-				instanceBeam.GetComponent<BaseEnemyBeam>().projectileLifespan = projectileLifespan;
-				instanceBeam.GetComponent<BaseEnemyBeam>().projectileSpeed = projectileSpeed;
+				instance.GetComponent<BaseEnemyBeam>().rangedDamage = rangedDamage;
+				instance.GetComponent<BaseEnemyBeam>().rangedLifespan = rangedLifespan;
+				instance.GetComponent<BaseEnemyBeam>().rangedSpeed = rangedSpeed;
 			}
-		}
-		else
-		{
-			foreach (Transform SpawnPoint in projectileSpawnPoint)
+			else
 			{
-				onSFXProjectileLaunch?.Invoke();
-				SpawnPoint.LookAt(playerTarget.position);
-				GameObject instance = Instantiate(projectilePrefab, SpawnPoint.position, SpawnPoint.rotation);
-				instance.GetComponent<BaseEnemyProjectile>().projectileDamage = projectileDamage;
-				instance.GetComponent<BaseEnemyProjectile>().projectileLifespan = projectileLifespan;
-				instance.GetComponent<BaseEnemyProjectile>().projectileSpeed = projectileSpeed;
-				instance.GetComponent<Rigidbody>().useGravity = projectileGravityUsage;
-
+				instance.GetComponent<BaseEnemyProjectile>().rangedDamage = rangedDamage;
+				instance.GetComponent<BaseEnemyProjectile>().rangedLifespan = rangedLifespan;
+				instance.GetComponent<BaseEnemyProjectile>().rangedSpeed = rangedSpeed;
 			}
 		}
 	}
 	#endregion
 	#region RunPathfinding
-	/// <summary>     /// Calculate the path. This should be called in Start with InvokeRepeating to optimise path calculations.    /// </summary>
+	/// <summary> 	/// Calculate the path. This should be called in Start with InvokeRepeating to optimise path calculations.	/// </summary>
 	protected virtual void RunPathfinding()
 	{
 		NavMeshQueryFilter filter = new NavMeshQueryFilter();
@@ -368,21 +368,15 @@ public class AICommonRangedCombat : AIBase, IAnimationStateUpdater
 		}
 	}
 	#endregion
-	#region IAnimationStateUpdator
-	// this is used by a script imbetween the animations and this so animations can call functions.
-	void IAnimationStateUpdater.EndAttack()
+	#region Animation functions
+	public virtual void EndAttack()
 	{
 		AnimationAttackFinished();
 	}
 
-	void IAnimationStateUpdater.DealAttack()
+	public virtual void DealAttack()
 	{
 		LightAttackCheckAndDamage();
-	}
-
-	void IAnimationStateUpdater.StartAttack()
-	{
-
 	}
 	#endregion
 	#region Event Invoke Functions

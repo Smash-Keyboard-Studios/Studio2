@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4984637909554519789}
   - component: {fileID: 7621870240699013689}
   - component: {fileID: 1202244625580736160}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DefaultProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ Rigidbody:
     m_Bits: 128
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -149,9 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileRigidBody: {fileID: 4984637909554519789}
-  projectileSpeed: 20
-  projectileLifespan: 3
-  projectileDamage: 10
+  rangedSpeed: 0
+  rangedLifespan: 0
+  rangedDamage: 0
 --- !u!114 &1202244625580736160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 1923106764896067715}
   - component: {fileID: 7021326811576402667}
   - component: {fileID: 5521452773117134564}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DefaultVFXProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

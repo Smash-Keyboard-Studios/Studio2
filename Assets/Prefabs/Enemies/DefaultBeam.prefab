@@ -47,11 +47,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileRigidBody: {fileID: 6589352633647226769}
-  projectileSpeed: 0
-  projectileLifespan: 0
-  projectileDamage: 0
-  increment: 0
+  rangedSpeed: 0
+  rangedLifespan: 0
+  rangedDamage: 0
+  damageTick: 1
+  beamWindUp: 1
+  raycastMask:
+    serializedVersion: 2
+    m_Bits: 51
+  boxCastMask:
+    serializedVersion: 2
+    m_Bits: 64
+  boxCastHeight: 5
+  boxCastThickness: 2
   lineRenderer: {fileID: 1765822508714897069}
+  beamMaterialStart: {fileID: 2100000, guid: 04a70a91424c9b14ca8b07eee0cdb937, type: 2}
+  beamMaterialEnd: {fileID: 2100000, guid: 10fe0d3cbc1b97f499528f27412aff61, type: 2}
 --- !u!120 &1765822508714897069
 LineRenderer:
   serializedVersion: 2
@@ -72,8 +83,7 @@ LineRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 04a70a91424c9b14ca8b07eee0cdb937, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,13 +109,13 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 2
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0

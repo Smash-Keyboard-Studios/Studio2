@@ -1,12 +1,44 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5408640646922693505
+--- !u!1 &7749712717679166950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1737433162444861109}
+  m_Layer: 0
+  m_Name: chairTypeA
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1737433162444861109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7749712717679166950}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5689225807124917561}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &5295821703620266706
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1737433162444861109}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 41b5e7744a638124b9783f41fd7d0d39,
         type: 3}
@@ -26,17 +58,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 41b5e7744a638124b9783f41fd7d0d39,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.405
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 41b5e7744a638124b9783f41fd7d0d39,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.257
+      value: 0.566
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 41b5e7744a638124b9783f41fd7d0d39,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.77
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 41b5e7744a638124b9783f41fd7d0d39,
         type: 3}
@@ -46,7 +78,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 41b5e7744a638124b9783f41fd7d0d39,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 41b5e7744a638124b9783f41fd7d0d39,
         type: 3}
@@ -100,21 +132,21 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41b5e7744a638124b9783f41fd7d0d39,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3138742018821463281}
+      addedObject: {fileID: 6432657098889488916}
   m_SourcePrefab: {fileID: 100100000, guid: 41b5e7744a638124b9783f41fd7d0d39, type: 3}
---- !u!1 &5174130003119298256 stripped
+--- !u!1 &5025982094432155523 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 41b5e7744a638124b9783f41fd7d0d39,
     type: 3}
-  m_PrefabInstance: {fileID: 5408640646922693505}
+  m_PrefabInstance: {fileID: 5295821703620266706}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &3138742018821463281
+--- !u!64 &6432657098889488916
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5174130003119298256}
+  m_GameObject: {fileID: 5025982094432155523}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -130,3 +162,9 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8221116795304269603, guid: 41b5e7744a638124b9783f41fd7d0d39, type: 3}
+--- !u!4 &5689225807124917561 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 41b5e7744a638124b9783f41fd7d0d39,
+    type: 3}
+  m_PrefabInstance: {fileID: 5295821703620266706}
+  m_PrefabAsset: {fileID: 0}

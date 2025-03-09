@@ -18,11 +18,11 @@ using UnityEngine;
 
 public class RangedAttackingStateUpdator : MonoBehaviour
 {
-	IAnimationStateUpdater animationStateUpdator;
+	AICommonRangedCombat animationStateUpdator;
 
 	void Awake()
 	{
-		animationStateUpdator = GetComponentInParent<IAnimationStateUpdater>();
+		animationStateUpdator = GetComponentInParent<AICommonRangedCombat>();
 	}
 
 	public void EndAttack()
