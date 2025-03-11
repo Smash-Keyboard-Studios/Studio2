@@ -58,6 +58,7 @@ MonoBehaviour:
   currentAIState: 0
   lightAttackRate: 0.75
   minDistanceForAttack: 20
+  globalAttackCoolDown: 0
   maxDetectionRange: 30
   rangedDamage: 10
   rangedLifespan: 3
@@ -754,7 +755,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9eee19dc0b9fa05469d5a1cd857ca35f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9eee19dc0b9fa05469d5a1cd857ca35f,
         type: 3}
