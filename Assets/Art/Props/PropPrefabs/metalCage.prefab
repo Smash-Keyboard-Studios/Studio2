@@ -1,58 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &648006616627244021
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2980473293926629687}
-  - component: {fileID: 1331376938038699324}
-  m_Layer: 0
-  m_Name: DoorCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2980473293926629687
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 648006616627244021}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.5150381, z: 0, w: 0.85716736}
-  m_LocalPosition: {x: 0, y: 1.5484117, z: -0.255}
-  m_LocalScale: {x: 1.152664, y: 1.152664, z: 1.152664}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8539861145928621460}
-  m_LocalEulerAnglesHint: {x: 0, y: 62, z: 0}
---- !u!65 &1331376938038699324
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 648006616627244021}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.19715467, y: 2.0538454, z: 1.111886}
-  m_Center: {x: 0.6556231, y: 0.2989486, z: -0.257539}
 --- !u!1 &5276594157179027641
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +11,7 @@ GameObject:
   - component: {fileID: 114062828150003410}
   - component: {fileID: 2955693771264830786}
   - component: {fileID: 2157805977056364528}
-  - component: {fileID: 2506057157471170659}
+  - component: {fileID: 6396232689997814084}
   m_Layer: 0
   m_Name: metalCageModel
   m_TagString: Untagged
@@ -138,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2506057157471170659
-BoxCollider:
+--- !u!64 &6396232689997814084
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -156,9 +103,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3394622, y: 2.658962, z: 1.5364774}
-  m_Center: {x: 0, y: -0.0000005298191, z: 0.2785434}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7137711867588235235, guid: 701a0430e3af3cf4eafd9a14e45229dd, type: 3}
 --- !u!1 &7466827782819105927
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8539861145928621460}
   m_Layer: 0
-  m_Name: MetalCage
+  m_Name: metalCage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,6 +137,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 114062828150003410}
-  - {fileID: 2980473293926629687}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
