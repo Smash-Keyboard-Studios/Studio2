@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,6 +27,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject optionsObj;
     [SerializeField] private GameObject controlsObj;
     //^ all these menu prefabs need to be dontdestroyonload to work properly
+
+    [Header("Tootips")]
+    [SerializeField] private TextMeshProUGUI toolTipName;
+    public string[] ToolTipNames; //The name of the tooltips. For example this would be: "How to Sprint!"
+    [SerializeField] private TextMeshProUGUI toolTipText;
+    public string[] ToolTipText;//The text of the tooltips. For example this would be: "Press shift!"
+                                // now change the tooltips to the ones in the array.?// 
+                                //on game menu press get random number between 0 and length of tooltipnames-1 (the -1 is because array indexing starts at 0)
+                                //set tooltip name to tooltipnames(randomnumber)
+                                //set tooltip text to tooltiptexts(randomnumber)
 
 
     private void Awake()
@@ -83,15 +95,11 @@ public class UIManager : MonoBehaviour
 
     public void PressOptions()
     {
-        EnterMenu();
-
         optionsObj.SetActive(true);
     }
 
     public void PressControls()
     {
-        EnterMenu();
-
         controlsObj.SetActive(true);
     }
 
@@ -143,21 +151,24 @@ public class UIManager : MonoBehaviour
     //game menu buttons
     public void PressGameMenu()
     {
-        EnterMenu();
+        if (!controlsObj.activeInHierarchy && !optionsObj.activeInHierarchy)
+        {
+            EnterMenu();
 
-        gameMenuObj.SetActive(true);
+            gameMenuObj.SetActive(true);
+        }
     }
 
     public void PressReturn()
     {
         //store whether in controls rn so can keep options open
-        bool wasInControls = controlsObj.activeSelf;
+        bool wasInControls = controlsObj.activeInHierarchy;
         //store whether in options (from gamemenu) rn so can keep game menu open
-        bool wasInOptions = optionsObj.activeSelf && gameMenuObj.activeSelf;
+        bool wasInOptions = !controlsObj.activeInHierarchy && optionsObj.activeInHierarchy && gameMenuObj.activeInHierarchy;
 
         DisableAllMenus();
 
-        if(wasInControls) { PressOptions(); } //reopen options if was in controls before
+        if(wasInControls) { PressGameMenu(); PressOptions(); } //reopen options if was in controls before
 
         if(wasInOptions) { PressGameMenu(); } //reopen game menu if was in options from game menu before
     }
