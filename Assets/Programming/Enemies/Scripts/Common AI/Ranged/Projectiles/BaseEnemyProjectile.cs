@@ -32,10 +32,7 @@ public class BaseEnemyProjectile : MonoBehaviour
     {
 
         onSFXImpact?.Invoke();
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
-            Destroy(gameObject, 0.05f); //Nearly instantly removes projectile to avoid player clipping
-        }
+        collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
+        Destroy(gameObject, 0.05f); //Nearly instantly removes projectile to avoid player clipping
     }
 }
