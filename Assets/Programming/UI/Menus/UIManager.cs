@@ -15,9 +15,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private int mainMenuBuildIndex;
     [SerializeField] private int creditsBuildIndex;
 
-    [Header("Build Indexes for the first scene of each Level")]
-    public int Level1BuildIndex;
-    public int Level2BuildIndex;
+    [Header("Build Indexes for each Level")]
+    public int[] Level1BuildIndexes;
+    public int[] Level2BuildIndexes;
 
     [Header("Menu GameObject Prefabs")]
     [SerializeField] private GameObject levelSelectObj;
@@ -108,7 +108,30 @@ public class UIManager : MonoBehaviour
     }
 
 
-    //level selection function
+    //level selection functions
+    public void RestartLevel()
+    {
+        int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+
+        foreach(int index in Level1BuildIndexes)
+        {
+            if(index == currentBuildIndex) //if currently in level 1 scene
+            {
+                SelectLevel(Level1BuildIndexes[0]); //go to start of level 1
+                return;
+            }
+        }
+
+        foreach (int index in Level2BuildIndexes)
+        {
+            if (index == currentBuildIndex) //if currently in level 2 scene
+            {
+                SelectLevel(Level2BuildIndexes[0]); //go to start of level 2
+                return;
+            }
+        }
+    }
+
     public void SelectLevel(int BuildIndex)
     {
         EnterLevel();
