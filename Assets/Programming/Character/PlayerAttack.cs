@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -10,14 +11,17 @@ public class PlayerAttack : MonoBehaviour
     [Header("DamageNumbers")]
     public int LightDmg = 2;
     public int HeavyDmg = 5;
+
     public float LightAtkDelay;
     public float HeavyAtkDelay;
+
     public bool isAttacking = false;
+
+    public bool lightAttacking = false;
+    public bool heavyAttacking = false;
 
     private Animator MyAnim;
     public GameObject MainCharacter;
-
-    public BoxCollider LightAtkBoxCollider;
 
     public float heavyAttackRadius = 5f;
 
@@ -51,19 +55,22 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator LightAtk()
     {
         isAttacking = true; 
+        lightAttacking = true;
         MyAnim.SetBool("Attacking", isAttacking);
 
-        DamageEnemy(Physics.OverlapBox(this.transform.position + LightAtkBoxCollider.center, LightAtkBoxCollider.size / 2, this.transform.rotation), AtkType.Light);
+        DamageEnemy(Physics.OverlapBox(transform.position + MainCharacter.transform.forward, Vector3.one, MainCharacter.transform.rotation), AtkType.Light);
        
         yield return new WaitForSeconds(LightAtkDelay);
 
         isAttacking = false;
+        lightAttacking= false;
         MyAnim.SetBool("Attacking", isAttacking);
     }
 
     IEnumerator HeavyAtk()
     {
         isAttacking = true;
+        heavyAttacking = true;
         MyAnim.SetBool("Attacking", isAttacking);
 
         DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AtkType.Heavy);
@@ -71,6 +78,7 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(HeavyAtkDelay);
 
         isAttacking = false;
+        heavyAttacking = false;
         MyAnim.SetBool("Attacking", isAttacking);
     }
 
@@ -108,6 +116,11 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.matrix = Matrix4x4.TRS(transform.position + MainCharacter.transform.forward, MainCharacter.transform.rotation, Vector3.one);
+        // Then use it one a default cube which is not translated nor scaled
+        Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
+
+
         if (showHeavyRadius)
         {
             Gizmos.DrawSphere(transform.position, heavyAttackRadius);

@@ -11,10 +11,21 @@ public class AbilityCooldownUI : MonoBehaviour
     private Slider cooldownBar;
     private TextMeshProUGUI cooldownText;
 
-    public bool abilityInUse;
     [SerializeField] private float cooldownTime;
 
+    private bool abilityInUse;
     private bool inCooldown;
+
+    private enum AbilityType
+    {
+        LightAttack,
+        HeavyAttack,
+        Shield
+    }
+
+    [SerializeField] private AbilityType abilityType;
+
+    private GameObject playerObject;
 
     // Start is called before the first frame update
     void Start()
@@ -32,12 +43,34 @@ public class AbilityCooldownUI : MonoBehaviour
         //set initial values for vars
         abilityInUse = false;
         inCooldown = false;
+
+        playerObject = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (abilityInUse && !inCooldown) { StartCoroutine("TriggerCooldown"); }
+        if (playerObject != null) //if weve found player object then set ability in use to the correct ability type
+        {
+            switch (abilityType)
+            {
+                case AbilityType.LightAttack:
+                    abilityInUse = playerObject.GetComponent<PlayerAttack>().lightAttacking;
+                    break;
+                case AbilityType.HeavyAttack:
+                    abilityInUse = playerObject.GetComponent<PlayerAttack>().heavyAttacking;
+                    break;
+                case AbilityType.Shield:
+                    abilityInUse = false;
+                    break;
+            }
+        }
+        else //otherwise try to find playerobject
+        {
+            playerObject = GameObject.FindGameObjectWithTag("Player");
+        }
+
+        if (abilityInUse && !inCooldown) { StartCoroutine("TriggerCooldown"); } //trgger cooldown is ability is in use
     }
 
     private IEnumerator TriggerCooldown()
