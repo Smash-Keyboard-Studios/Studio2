@@ -11,22 +11,20 @@ public class UIManager : MonoBehaviour
     private static UIManager instance;
 
 
-    [Header("Build Indexes for scenes")]
-    public int MainMenuBuildIndex;
-    public int LevelSelectBuildIndex;
-    public int OptionsBuildIndex;
-    public int ControlsBuildIndex;
-    public int CreditsBuildIndex;
-    public int GameMenuBuildIndex;
-    public int StartingLevelBuildIndex;
-    [Header("Build Indexes for main menu and all levels")]
-    public int[] LevelBuildIndexes; //contains all the build indexes that are a game level
-    //^ this includes main menu as 0th
+    [Header("Build Indexes for menu scenes")]
+    [SerializeField] private int mainMenuBuildIndex;
+    [SerializeField] private int creditsBuildIndex;
 
-    [Header("UI Variables")]
-    [SerializeField] private int CurrentLevelBuildIndex; //records whichever game level the player is currently in
-    [SerializeField] private GameObject PlayerObject; //playerobject in scene
-    [SerializeField] private Vector3 CurrentPlayerPosition; //records current position of player
+    [Header("Build Indexes for the first scene of each Level")]
+    public int Level1BuildIndex;
+    public int Level2BuildIndex;
+
+    [Header("Menu GameObject Prefabs")]
+    [SerializeField] private GameObject levelSelectObj;
+    [SerializeField] private GameObject gameMenuObj;
+    [SerializeField] private GameObject optionsObj;
+    [SerializeField] private GameObject controlsObj;
+    //^ all these menu prefabs need to be dontdestroyonload to work properly
 
 
     private void Awake()
@@ -41,86 +39,67 @@ public class UIManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject); // prevents this from being destroyed between scenes
         }
-
-        //set tha variables
-        //i am counting the main menu as a level so that if the game hasn't started
-        //then you will return to the main menu from other scenes instead of starting the game
-        CurrentLevelBuildIndex = MainMenuBuildIndex; //build index is set to main menu when the game hasn't started
-        CurrentPlayerPosition = Vector3.zero;
     }
 
-    private void Update()
+    private void Start()
     {
-        OnSceneChange();
+        //set all menu objects to false initially through press return button
+        //this is in the start function so that the menu objects can run their awake functions before being disabled
+        DisableAllMenus();
     }
 
 
     //subroutines that aren't button presses
-    public void OnSceneChange() //this should run whenever there is a scene change
-    {
-        int newScene = SceneManager.GetActiveScene().buildIndex;
-        if (LevelBuildIndexes.Contains(newScene))
-        {
-            CurrentLevelBuildIndex = newScene;
-
-            //set player object if ca find
-            if (GameObject.FindGameObjectWithTag("Player") != null)
-            {
-                PlayerObject = GameObject.FindGameObjectWithTag("Player");
-            }
-        }
-    }
-
     private void EnterMenu()
     {
-        Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
 
-        if(PlayerObject != null ) { CurrentPlayerPosition = PlayerObject.transform.position; }
+        DisableAllMenus(); //makes sure the menus are all disabled after changin a scene
     }
 
     private void EnterLevel()
     {
-        Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Confined;
+
+        DisableAllMenus(); //makes sure the menus are all disabled after changin a scene
+    }
+
+    private void DisableAllMenus()
+    {
+        levelSelectObj.SetActive(false);
+        gameMenuObj.SetActive(false);
+        optionsObj.SetActive(false);
+        controlsObj.SetActive(false);
     }
 
 
     //main menu buttons
-    public void PressStartGame()
-    {
-        EnterLevel();
-
-        SceneManager.LoadScene(StartingLevelBuildIndex);
-        OnSceneChange();
-    }
-
-    public void PressLevelSelect()
+    public void PressPlay()
     {
         EnterMenu();
 
-        SceneManager.LoadScene(LevelSelectBuildIndex);
+        levelSelectObj.SetActive(true);
     }
 
     public void PressOptions()
     {
         EnterMenu();
 
-        SceneManager.LoadScene(OptionsBuildIndex);
+        optionsObj.SetActive(true);
     }
 
     public void PressControls()
     {
         EnterMenu();
 
-        SceneManager.LoadScene(ControlsBuildIndex);
+        controlsObj.SetActive(true);
     }
 
     public void PressCredits()
     {
         EnterMenu();
 
-        SceneManager.LoadScene(CreditsBuildIndex);
+        SceneManager.LoadScene(creditsBuildIndex);
     }
 
     public void PressQuit()
@@ -129,37 +108,41 @@ public class UIManager : MonoBehaviour
     }
 
 
-    //level select menu
+    //level selection function
     public void SelectLevel(int BuildIndex)
     {
         EnterLevel();
 
         SceneManager.LoadScene(BuildIndex);
-        OnSceneChange();
     }
 
 
     //game menu buttons
-    public void PressReturnToLevel()
+    public void PressGameMenu()
     {
-        if(CurrentLevelBuildIndex == MainMenuBuildIndex)
-        {
-            EnterMenu();
-        }
-        else
-        {
-            EnterLevel();
-        }
+        EnterMenu();
 
-        SceneManager.LoadScene(CurrentLevelBuildIndex);
-        if (PlayerObject != null) { PlayerObject.transform.position = CurrentPlayerPosition; }
+        gameMenuObj.SetActive(true);
+    }
+
+    public void PressReturn()
+    {
+        //store whether in controls rn so can keep options open
+        bool wasInControls = controlsObj.activeSelf;
+        //store whether in options (from gamemenu) rn so can keep game menu open
+        bool wasInOptions = optionsObj.activeSelf && gameMenuObj.activeSelf;
+
+        DisableAllMenus();
+
+        if(wasInControls) { PressOptions(); } //reopen options if was in controls before
+
+        if(wasInOptions) { PressGameMenu(); } //reopen game menu if was in options from game menu before
     }
 
     public void PressMainMenu()
     {
         EnterMenu();
 
-        SceneManager.LoadScene(MainMenuBuildIndex);
-        OnSceneChange(); //build index is set to main menu when the game hasn't started
+        SceneManager.LoadScene(mainMenuBuildIndex);
     }
 }
