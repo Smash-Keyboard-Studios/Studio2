@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 444573198739547883}
-  - component: {fileID: 613491931690445091}
+  - component: {fileID: 1706641721546783030}
   m_Layer: 6
   m_Name: newestcharacterrigged25.02
   m_TagString: Untagged
@@ -38,7 +38,7 @@ Transform:
   - {fileID: 1897657784345238385}
   m_Father: {fileID: 1469664648306775198}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &613491931690445091
+--- !u!95 &1706641721546783030
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -2369,6 +2369,7 @@ MonoBehaviour:
   StaminaChargeRate: 1.5
   Gravity: 9.81
   MainCharacter: {fileID: 27083249097777768}
+  rotation: {fileID: 1469664648306775198}
 --- !u!114 &533977030738716872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2389,7 +2390,11 @@ MonoBehaviour:
   PlayerMinStamina: 0
   PlayerHealAmount: 25
   InteractionUI: {fileID: 0}
+<<<<<<< Updated upstream
   MainCharacter: {fileID: 0}
+=======
+  MainCharacter: {fileID: 27083249097777768}
+>>>>>>> Stashed changes
 --- !u!114 &8236928788153488819
 MonoBehaviour:
   m_ObjectHideFlags: 0
