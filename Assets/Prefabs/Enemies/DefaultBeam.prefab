@@ -50,7 +50,7 @@ MonoBehaviour:
   rangedSpeed: 0
   rangedLifespan: 0
   rangedDamage: 0
-  damageTick: 1
+  damageTick: 0.25
   beamWindUp: 1
   raycastMask:
     serializedVersion: 2
@@ -59,7 +59,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   boxCastHeight: 5
-  boxCastThickness: 2
+  boxCastThickness: 1.5
   lineRenderer: {fileID: 1765822508714897069}
   beamMaterialStart: {fileID: 2100000, guid: 04a70a91424c9b14ca8b07eee0cdb937, type: 2}
   beamMaterialEnd: {fileID: 2100000, guid: 10fe0d3cbc1b97f499528f27412aff61, type: 2}

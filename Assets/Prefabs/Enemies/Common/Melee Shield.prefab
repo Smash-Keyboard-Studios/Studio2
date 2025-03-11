@@ -475,12 +475,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 4
   currentAIState: 0
-  lightAttackDamage: 8
-  lightAttackRate: 0.5
-  minDistanceForAttack: 2
-  boxCastThickness: 2
-  boxCastLength: 3
-  boxCastHeight: 1
+  lightAttackDamage: 18
+  lightAttackRate: 1.25
+  minDistanceForAttack: 4
+  boxCastThickness: 4
+  boxCastLength: 6
+  boxCastHeight: 2
   boxCastOffsetFromAI: {x: 0, y: 0, z: 1}
   layersToCheckFor:
     serializedVersion: 2
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75afc6843d2c0e7488b9f3b039df49f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
+  maxHealth: 10
   shieldObject: {fileID: 2969950179643449159}
 --- !u!195 &6926050681425062596
 NavMeshAgent:
