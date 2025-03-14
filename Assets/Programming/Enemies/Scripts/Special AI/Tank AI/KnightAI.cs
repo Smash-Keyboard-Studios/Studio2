@@ -22,26 +22,24 @@ public class KnightAI : GruntAI
 	#region Tank Slam Attack variables
 	[Header("Tank Slam Attack")]
 
-	[SerializeField]
-	protected float specialAttackCoolDown = 0f;
+
+	protected float slamAttackCoolDownTimer = 0f;
 
 	[SerializeField]
-	protected float specialAttackRate = 5f;
-
-	protected Coroutine specialAttackCoroutine;
+	protected float slamAttackRateCoolDown = 5f;
 
 	#endregion
 
 
 
 	#region Wind up settings variables
-	[Header("Wind up settings")]
+	[Header("Slam wind up settings")]
 	[SerializeField]
-	protected float windUpTime = 1f;
+	protected float slamWindUpTime = 1f;
 
-	protected float windUpTimer = 1f;
+	protected float slamWindUpTimer = 1f;
 
-	protected bool isWindingUp = false;
+	protected bool isSlamWindingUp = false;
 
 	#endregion
 
@@ -71,7 +69,7 @@ public class KnightAI : GruntAI
 	#region Slam Requirements for activating variables
 	[Header("Slam Requirements for activating")]
 	[SerializeField]
-	protected float minimumDistanceForForceSpecial = 5f;
+	protected float minimumDistanceForForceSlam = 5f;
 
 	protected float slamTimer = 0f;
 
@@ -84,6 +82,22 @@ public class KnightAI : GruntAI
 
 	#region Serrated Slash
 	[Header("Serrated Slash Settings")]
+
+	// cool down
+	[SerializeField]
+	protected float serratedSlashCoolDown = 10f;
+
+	protected float serratedSlashCoolDownTimer;
+
+	// activation requirements
+	[SerializeField]
+	protected float minimumDistanceForSerratedSlash = 4f;
+
+	// wind up
+	[SerializeField]
+	protected float serratedSlashWindUpTime = 0.5f;
+
+	// damage and radius
 	[SerializeField]
 	protected float serratedSlashRadius = 5f;
 
@@ -141,18 +155,18 @@ public class KnightAI : GruntAI
 	#region Update
 	protected override void Update()
 	{
-		if (isWindingUp && windUpTimer > 0f)
+		if (isSlamWindingUp && slamWindUpTimer > 0f)
 		{
-			windUpTimer -= Time.deltaTime;
+			slamWindUpTimer -= Time.deltaTime;
 		}
-		else if (isWindingUp && windUpTimer <= 0f)
+		else if (isSlamWindingUp && slamWindUpTimer <= 0f)
 		{
 			animatorController.SetBool("IsCharging", false);
-			isWindingUp = false;
+			isSlamWindingUp = false;
 		}
 
 		if (globalAttackCoolDown >= 0) globalAttackCoolDown -= Time.deltaTime;
-		if (specialAttackCoolDown > 0) specialAttackCoolDown -= Time.deltaTime;
+		if (slamAttackCoolDownTimer > 0) slamAttackCoolDownTimer -= Time.deltaTime;
 
 		base.Update();
 	}
@@ -175,20 +189,27 @@ public class KnightAI : GruntAI
 		{
 			if (slamTimer > 0) slamTimer -= Time.deltaTime;
 
+			if (attacking) return;
+
+			if (globalAttackCoolDown > 0f) return;
 
 			// we need to decide what attack to use.
-			// Special attack.
-			if (!attacking && specialAttackCoolDown <= 0f && specialAttackCoroutine == null && globalAttackCoolDown <= 0f &&
-			(Vector3.Distance(playerTarget.position, transform.position) < minimumDistanceForForceSpecial || slamTimer <= 0f))
+			// Slam attack if the player stays too close or gets really close.
+			if (serratedSlashCoolDownTimer <= 0f && Vector3.Distance(playerTarget.position, transform.position) < minimumDistanceForSerratedSlash)
 			{
-				specialAttackCoroutine = StartCoroutine(SlamAttack());
-				print("Attacking");
+				StartCoroutine(SerratedSlashAttack());
+				print(gameObject.name + " is attacking with serrated slash");
+			}
+			else if (slamAttackCoolDownTimer <= 0f && (Vector3.Distance(playerTarget.position, transform.position) < minimumDistanceForForceSlam || slamTimer <= 0f))
+			{
+				StartCoroutine(SlamAttack());
+				print(gameObject.name + " is attacking with slam");
 			}
 			// light attack
-			else if (!attacking && lightAttackCoolDown <= 0f && lightAttackCoroutine == null && globalAttackCoolDown <= 0f && slamTimer > 0f)
+			else if (lightAttackCoolDown <= 0f && globalAttackCoolDown <= 0f && slamTimer > 0f)
 			{
-				lightAttackCoroutine = StartCoroutine(LightAttack());
-				print("Attacking light");
+				StartCoroutine(LightAttack());
+				print(gameObject.name + " is attacking light");
 			}
 		}
 		else
@@ -203,7 +224,7 @@ public class KnightAI : GruntAI
 
 
 
-	#region SpecialAttack
+	#region SlamAttack
 	/// <summary>
 	/// Coroutine for dealing with the special attack, it just starts the animations and waits.
 	/// </summary>
@@ -214,22 +235,22 @@ public class KnightAI : GruntAI
 
 		attackAnimationPlaying = true;
 
-		damageRingIndicator.ShowRing(windUpTime, slamMaxRadius);
+		damageRingIndicator.ShowRing(slamWindUpTime, slamMaxRadius);
 
 		animatorController.SetBool("IsCharging", true);
 		animatorController.SetBool("IsAttacking", true);
 
-		windUpTimer = windUpTime;
-		isWindingUp = true;
+		slamWindUpTimer = slamWindUpTime;
+		isSlamWindingUp = true;
 
 		SpecialAttackStartSFXPlayOnce();
 
-		while (isWindingUp) yield return null;
+		while (isSlamWindingUp) yield return null;
 
 
 		animatorController.SetBool("IsSpecialAttack", true);
 
-		specialAttackCoolDown = specialAttackRate;
+		slamAttackCoolDownTimer = slamAttackRateCoolDown;
 
 
 		while (attackAnimationPlaying) yield return null;
@@ -240,8 +261,6 @@ public class KnightAI : GruntAI
 		attacking = false;
 
 		currentSpeed = maxSpeed;
-
-		specialAttackCoroutine = null;
 
 	}
 	#endregion
@@ -262,7 +281,7 @@ public class KnightAI : GruntAI
 
 
 
-	#region SpecialAttackCheckAndDamage
+	#region SlamAttackCheckAndDamage
 	/// <summary>
 	/// Creates a check sphere and deals the damage accordingly.
 	/// </summary>
@@ -327,8 +346,8 @@ public class KnightAI : GruntAI
 	#region SerratedSlashAttack
 	protected virtual IEnumerator SerratedSlashAttack()
 	{
-		damageRingIndicator.ShowRing(0.5f, serratedSlashRadius);
-		yield return new WaitForSeconds(0.5f);
+		damageRingIndicator.ShowRing(serratedSlashWindUpTime, serratedSlashRadius);
+		yield return new WaitForSeconds(serratedSlashWindUpTime);
 
 
 		float localTimer = 0f;
@@ -336,8 +355,11 @@ public class KnightAI : GruntAI
 		{
 			DamageInRadius(serratedSlashRadius, serratedSlashDamage);
 			yield return new WaitForSeconds(serratedSlashTickLength);
-			localTimer += 0.25f;
+			localTimer += serratedSlashTickLength;
 		}
+
+		damageRingIndicator.HideRing();
+
 	}
 
 	#endregion
