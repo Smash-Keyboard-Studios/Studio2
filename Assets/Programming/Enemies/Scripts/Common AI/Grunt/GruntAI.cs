@@ -65,7 +65,7 @@ public class GruntAI : AIBase
 	protected float minDistanceForAttack = 2f;
 
 
-	protected Coroutine lightAttackCoroutine;
+	//protected Coroutine lightAttackCoroutine;
 
 	#endregion
 
@@ -176,7 +176,14 @@ public class GruntAI : AIBase
 
 		path = new NavMeshPath();
 
-		playerTarget = GameObject.FindWithTag("Player").transform;
+		try
+		{
+			playerTarget = GameObject.FindWithTag("Player").transform;
+		}
+		catch (NullReferenceException)
+		{
+			Debug.LogError("Cannot find the player!", this);
+		}
 
 		animatorController = GetComponentInChildren<Animator>();
 
@@ -276,7 +283,7 @@ public class GruntAI : AIBase
 			else currentSpeed = maxSpeed; // PathTarget = PlayerTarget.position;
 
 
-			if (!attacking && lightAttackCoolDown <= 0f && lightAttackCoroutine == null) lightAttackCoroutine = StartCoroutine(LightAttack());
+			if (!attacking && lightAttackCoolDown <= 0f) StartCoroutine(LightAttack());
 		}
 
 
@@ -326,8 +333,6 @@ public class GruntAI : AIBase
 		attacking = false;
 
 		currentSpeed = maxSpeed;
-
-		lightAttackCoroutine = null;
 	}
 	#endregion
 
