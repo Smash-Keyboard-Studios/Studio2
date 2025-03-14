@@ -33,7 +33,7 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 	/// <summary> 	AI up (local Y), how tall this check box is.  </summary>
 	[SerializeField] protected float boxCastHeight = 5;
 	/// <summary> 	How wide this check box is.  </summary>
-	[SerializeField] protected float boxCastThickness = 2f;
+	[SerializeField] protected float boxCastWidth = 2f;
 	/// <summary> 	How long this check box is.  </summary>
 	private float distanceForBoxLength;
 	/// <summary> 	The actual world position for the box collider.  </summary>
@@ -80,14 +80,14 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 	{
 		if (widthTimer > 0) widthTimer -= Time.deltaTime; // Timer that manages the beam's width.
 		if (damageTimer > 0) damageTimer -= Time.deltaTime;
-		var width = Mathf.Lerp(boxCastThickness, 0.01f, widthTimer / beamWindUp);
+		var width = Mathf.Lerp(boxCastWidth, 0.01f, widthTimer / beamWindUp);
 		lineRenderer.startWidth = width;
 		lineRenderer.endWidth = width;
-		if (width == boxCastThickness) 
+		if (width == boxCastWidth) 
 		{ 
 			lineRenderer.material = beamMaterialEnd;
 			// This checks if the player reenters the beam when after it's done charging, and damages them for it.
-			Collider[] boxColliders = (Physics.OverlapBox(midPoint, new Vector3(boxCastThickness, boxCastHeight, distanceForBoxLength * 2), boxRotation, boxCastMask, QueryTriggerInteraction.Ignore)); 
+			Collider[] boxColliders = (Physics.OverlapBox(midPoint, new Vector3(boxCastWidth, boxCastHeight, distanceForBoxLength * 2), boxRotation, boxCastMask, QueryTriggerInteraction.Ignore)); 
 			if (damageTimer <= 0)
 			{
 				CheckForPlayer(boxColliders);
@@ -114,7 +114,7 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 		midPoint = new Vector3(startLocation.x + (hitPoint.x - startLocation.x) / 2, startLocation.y + (hitPoint.y - startLocation.y) / 2, startLocation.z + (hitPoint.z - startLocation.z) / 2);
 		distanceForBoxLength = Vector3.Distance(startLocation, hitPoint);
 		boxRotation = Quaternion.LookRotation((hitPoint - startLocation), Vector3.up);
-		Collider[] boxColliders = ( Physics.OverlapBox(midPoint, new Vector3(boxCastThickness, boxCastHeight, distanceForBoxLength * 2), boxRotation, boxCastMask, QueryTriggerInteraction.Ignore));
+		Collider[] boxColliders = ( Physics.OverlapBox(midPoint, new Vector3(boxCastWidth, boxCastHeight, distanceForBoxLength * 2), boxRotation, boxCastMask, QueryTriggerInteraction.Ignore));
 		CheckForPlayer(boxColliders);
 	}
 

@@ -475,13 +475,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuBuildIndex: 0
   creditsBuildIndex: 1
-  Level1BuildIndex: 2
-  Level2BuildIndex: 4
+  Level1BuildIndexes: 0200000003000000
+  Level2BuildIndexes: 0400000005000000
   levelSelectObj: {fileID: 1650768219}
   gameMenuObj: {fileID: 1100860468}
   optionsObj: {fileID: 1760917194}
   controlsObj: {fileID: 1348372535}
-  inGameMenu: 0
+  toolTipName: {fileID: 1603101295871846502}
+  ToolTipNames:
+  - How to Sprint
+  - How to Light Attack
+  - How to Heavy Attack
+  toolTipText: {fileID: 1603101295871846501}
+  ToolTipText:
+  - Press Shift
+  - Left Click
+  - Right Click
 --- !u!4 &191495902
 Transform:
   m_ObjectHideFlags: 0
@@ -2970,6 +2979,30 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df16c0b73a2f95445a8892e6925216ac, type: 3}
+--- !u!114 &1603101295871846501 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7802934577894052326, guid: df16c0b73a2f95445a8892e6925216ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1603101295871846500}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1603101295871846502 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5242557805404014815, guid: df16c0b73a2f95445a8892e6925216ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1603101295871846500}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6499982306299544030
 PrefabInstance:
   m_ObjectHideFlags: 0

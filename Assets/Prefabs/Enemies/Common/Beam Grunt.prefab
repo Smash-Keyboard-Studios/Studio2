@@ -56,7 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 2.5
   currentAIState: 0
-  lightAttackRate: 0.75
+  lightAttackRate: 4
   minDistanceForAttack: 20
   maxDetectionRange: 30
   rangedDamage: 10
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c369e918ef61bcb418ac140dab0f87e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 12
 --- !u!136 &7444448901805668536
 CapsuleCollider:
   m_ObjectHideFlags: 0

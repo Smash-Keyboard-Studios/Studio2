@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,9 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private int mainMenuBuildIndex;
     [SerializeField] private int creditsBuildIndex;
 
-    [Header("Build Indexes for the first scene of each Level")]
-    public int Level1BuildIndex;
-    public int Level2BuildIndex;
+    [Header("Build Indexes for each Level")]
+    public int[] Level1BuildIndexes;
+    public int[] Level2BuildIndexes;
 
     [Header("Menu GameObject Prefabs")]
     [SerializeField] private GameObject levelSelectObj;
@@ -25,6 +27,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject optionsObj;
     [SerializeField] private GameObject controlsObj;
     //^ all these menu prefabs need to be dontdestroyonload to work properly
+
+    [Header("Tootips")]
+    [SerializeField] private TextMeshProUGUI toolTipName;
+    public string[] ToolTipNames; //The name of the tooltips. For example this would be: "How to Sprint!"
+    [SerializeField] private TextMeshProUGUI toolTipText;
+    public string[] ToolTipText;//The text of the tooltips. For example this would be: "Press shift!"
+                                // now change the tooltips to the ones in the array.?// 
+                                //on game menu press get random number between 0 and length of tooltipnames-1 (the -1 is because array indexing starts at 0)
+                                //set tooltip name to tooltipnames(randomnumber)
+                                //set tooltip text to tooltiptexts(randomnumber)
 
 
     private void Awake()
@@ -83,15 +95,11 @@ public class UIManager : MonoBehaviour
 
     public void PressOptions()
     {
-        EnterMenu();
-
         optionsObj.SetActive(true);
     }
 
     public void PressControls()
     {
-        EnterMenu();
-
         controlsObj.SetActive(true);
     }
 
@@ -108,7 +116,30 @@ public class UIManager : MonoBehaviour
     }
 
 
-    //level selection function
+    //level selection functions
+    public void RestartLevel()
+    {
+        int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+
+        foreach(int index in Level1BuildIndexes)
+        {
+            if(index == currentBuildIndex) //if currently in level 1 scene
+            {
+                SelectLevel(Level1BuildIndexes[0]); //go to start of level 1
+                return;
+            }
+        }
+
+        foreach (int index in Level2BuildIndexes)
+        {
+            if (index == currentBuildIndex) //if currently in level 2 scene
+            {
+                SelectLevel(Level2BuildIndexes[0]); //go to start of level 2
+                return;
+            }
+        }
+    }
+
     public void SelectLevel(int BuildIndex)
     {
         EnterLevel();
@@ -120,21 +151,24 @@ public class UIManager : MonoBehaviour
     //game menu buttons
     public void PressGameMenu()
     {
-        EnterMenu();
+        if (!controlsObj.activeInHierarchy && !optionsObj.activeInHierarchy)
+        {
+            EnterMenu();
 
-        gameMenuObj.SetActive(true);
+            gameMenuObj.SetActive(true);
+        }
     }
 
     public void PressReturn()
     {
         //store whether in controls rn so can keep options open
-        bool wasInControls = controlsObj.activeSelf;
+        bool wasInControls = controlsObj.activeInHierarchy;
         //store whether in options (from gamemenu) rn so can keep game menu open
-        bool wasInOptions = optionsObj.activeSelf && gameMenuObj.activeSelf;
+        bool wasInOptions = !controlsObj.activeInHierarchy && optionsObj.activeInHierarchy && gameMenuObj.activeInHierarchy;
 
         DisableAllMenus();
 
-        if(wasInControls) { PressOptions(); } //reopen options if was in controls before
+        if(wasInControls) { PressGameMenu(); PressOptions(); } //reopen options if was in controls before
 
         if(wasInOptions) { PressGameMenu(); } //reopen game menu if was in options from game menu before
     }
