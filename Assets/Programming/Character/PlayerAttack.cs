@@ -9,14 +9,21 @@ using static UnityEditor.LightingExplorerTableColumn;
 public class PlayerAttack : MonoBehaviour
 {
     [Header("Damage Numbers")]
-    public int LightDmg = 2;
-    public int HeavyDmg = 5;
-    public int ChargedHeavyDmg = 0;
+    [SerializeField] private int LightDmg = 1;
+    [SerializeField] private int HeavyDmg = 2;
+    //Adds this amount of damage to the charged heavy attack for every 0.5 secs it is held down
+    [SerializeField] private int ChargedHeavyDmgAddition = 1;
+    //max damage for charged heavy attack
+    [SerializeField] private int MaxChargedHeavyDmg = 5;
+
+    //for the charged heavy
+    private int ChargedHeavyDmg = 0;
+    private bool isChargingChargedHeavyAttack = false;
 
     [Header("Cooldown Delays")]
-    public float LightAttackDelay;
-    public float HeavyAttackDelay;
-    public float ChargedHeavyAttackDelay;
+    public float LightAttackDelay = 0.2f;
+    public float HeavyAttackDelay = 1f;
+    public float ChargedHeavyAttackDelay = 2f;
 
     [Header("Attacks being carried out")]
     public bool isAttacking = false;
@@ -28,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
     private Animator MyAnim;
     [Header("Player Model")] public GameObject MainCharacter;
 
-    [SerializeField] private float heavyAttackRadius = 5f;
+    [SerializeField] private float heavyAttackRadius = 1.5f;
     [SerializeField] private float chargedHeavyAttackRadius = 2f;
 
     [Header("Debug")]
@@ -64,7 +71,9 @@ public class PlayerAttack : MonoBehaviour
     public void OnChargedHeavyAttack(InputValue input)
     {
         if (isAttacking) return;
-        StartCoroutine(ChargedHeavyAttack());
+
+        if (input.isPressed) { StartCoroutine("ChargeChargedHeavyAttack"); } //if pressed then start charging
+        else { StartCoroutine(ChargedHeavyAttack()); } //if released then stop charging and do attack
     }
 
 
@@ -93,6 +102,10 @@ public class PlayerAttack : MonoBehaviour
 
         yield return new WaitForSeconds(HeavyAttackDelay);
 
+        //charged heavy attack press gets triggered when heavy attack happens
+        //so this is resetting the charging which starts on RMB press
+        ChargedHeavyDmg = 0; //reset charged heavy damage
+
         isAttacking = false;
         heavyAttacking = false;
         MyAnim.SetBool("Attacking", isAttacking);
@@ -100,17 +113,35 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator ChargedHeavyAttack()
     {
+        isChargingChargedHeavyAttack = false; //stop charging the attack
+
         isAttacking = true;
-        heavyAttacking = true;
+        chargedHeavyAttacking = true;
         MyAnim.SetBool("Attacking", isAttacking);
+
 
         DamageEnemy(Physics.OverlapSphere(transform.position, chargedHeavyAttackRadius), AttackType.ChargedHeavy);
 
         yield return new WaitForSeconds(ChargedHeavyAttackDelay);
 
+
+        ChargedHeavyDmg = 0; //reset charged heavy damage
+
         isAttacking = false;
-        heavyAttacking = false;
+        chargedHeavyAttacking = false;
         MyAnim.SetBool("Attacking", isAttacking);
+    }
+
+
+    IEnumerator ChargeChargedHeavyAttack()
+    {
+        isChargingChargedHeavyAttack = true;
+
+        while (isChargingChargedHeavyAttack && ChargedHeavyDmg < MaxChargedHeavyDmg)
+        {
+            yield return new WaitForSeconds(0.5f);
+            ChargedHeavyDmg += ChargedHeavyDmgAddition;
+        }
     }
 
 
@@ -134,6 +165,8 @@ public class PlayerAttack : MonoBehaviour
                             hitObject.transform.GetComponent<IShieldObject>()?.BreakShield();
                             break;
                         case AttackType.ChargedHeavy:
+                            DamageComp.TakeDamage(ChargedHeavyDmg);
+                            hitObject.transform.GetComponent<IShieldObject>()?.BreakShield();
                             break;
                     }
                 }
