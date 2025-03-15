@@ -4,90 +4,118 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using static UnityEditor.LightingExplorerTableColumn;
 
 public class PlayerAttack : MonoBehaviour
 {
-
-    [Header("DamageNumbers")]
+    [Header("Damage Numbers")]
     public int LightDmg = 2;
     public int HeavyDmg = 5;
+    public int ChargedHeavyDmg = 0;
 
-    public float LightAtkDelay;
-    public float HeavyAtkDelay;
+    [Header("Cooldown Delays")]
+    public float LightAttackDelay;
+    public float HeavyAttackDelay;
+    public float ChargedHeavyAttackDelay;
 
+    [Header("Attacks being carried out")]
     public bool isAttacking = false;
 
     public bool lightAttacking = false;
     public bool heavyAttacking = false;
+    public bool chargedHeavyAttacking = false;
 
     private Animator MyAnim;
-    public GameObject MainCharacter;
+    [Header("Player Model")] public GameObject MainCharacter;
 
-    public float heavyAttackRadius = 5f;
+    [SerializeField] private float heavyAttackRadius = 5f;
+    [SerializeField] private float chargedHeavyAttackRadius = 2f;
 
     [Header("Debug")]
-    public bool showHeavyRadius = false;
+    [SerializeField] private bool showLightRadius = false;
+    [SerializeField] private bool showHeavyRadius = false;
 
-    private enum AtkType
+    private enum AttackType
     {
         Light,
         Heavy,
-        HeavyCharged
+        ChargedHeavy
     }
 
-    private void Start()
+
+    private void Awake()
     {
         MyAnim = MainCharacter.GetComponent<Animator>();
     }
 
+
     public void OnAttack(InputValue input)
     {
         if (isAttacking) return;
-        StartCoroutine(LightAtk());
+        StartCoroutine(LightAttack());
     }
 
     public void OnHeavyAttack(InputValue input)
     {
         if (isAttacking) return;
-        StartCoroutine (HeavyAtk());
+        StartCoroutine (HeavyAttack());
     }
 
-    IEnumerator LightAtk()
+    public void OnChargedHeavyAttack(InputValue input)
+    {
+        if (isAttacking) return;
+        StartCoroutine(ChargedHeavyAttack());
+    }
+
+
+    IEnumerator LightAttack()
     {
         isAttacking = true; 
         lightAttacking = true;
         MyAnim.SetBool("Attacking", isAttacking);
 
-        DamageEnemy(Physics.OverlapBox(transform.position + MainCharacter.transform.forward, Vector3.one, MainCharacter.transform.rotation), AtkType.Light);
+        DamageEnemy(Physics.OverlapBox(transform.position + MainCharacter.transform.forward, Vector3.one, MainCharacter.transform.rotation), AttackType.Light);
        
-        yield return new WaitForSeconds(LightAtkDelay);
+        yield return new WaitForSeconds(LightAttackDelay);
 
         isAttacking = false;
         lightAttacking= false;
         MyAnim.SetBool("Attacking", isAttacking);
     }
 
-    IEnumerator HeavyAtk()
+    IEnumerator HeavyAttack()
     {
         isAttacking = true;
         heavyAttacking = true;
         MyAnim.SetBool("Attacking", isAttacking);
 
-        DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AtkType.Heavy);
+        DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AttackType.Heavy);
 
-        yield return new WaitForSeconds(HeavyAtkDelay);
+        yield return new WaitForSeconds(HeavyAttackDelay);
 
         isAttacking = false;
         heavyAttacking = false;
         MyAnim.SetBool("Attacking", isAttacking);
     }
 
-    private void DamageEnemy(Collider[] enemiesToAttack, AtkType atkType)
+    IEnumerator ChargedHeavyAttack()
     {
-        
+        isAttacking = true;
+        heavyAttacking = true;
+        MyAnim.SetBool("Attacking", isAttacking);
 
-        //Collider[] HitObjects = Physics.OverlapBox(this.transform.position + LightAtkBoxCollider.center, LightAtkBoxCollider.size / 2, this.transform.rotation);
+        DamageEnemy(Physics.OverlapSphere(transform.position, chargedHeavyAttackRadius), AttackType.ChargedHeavy);
 
+        yield return new WaitForSeconds(ChargedHeavyAttackDelay);
+
+        isAttacking = false;
+        heavyAttacking = false;
+        MyAnim.SetBool("Attacking", isAttacking);
+    }
+
+
+    private void DamageEnemy(Collider[] enemiesToAttack, AttackType atkType)
+    {
         if (enemiesToAttack.Length > 1)
         {
             foreach (var hitObject in enemiesToAttack)
@@ -98,14 +126,14 @@ public class PlayerAttack : MonoBehaviour
                 {
                     switch (atkType)
                     {
-                        case AtkType.Light:
+                        case AttackType.Light:
                             DamageComp.TakeDamage(LightDmg);
                             break;
-                        case AtkType.Heavy:
+                        case AttackType.Heavy:
                             DamageComp.TakeDamage(HeavyDmg);
                             hitObject.transform.GetComponent<IShieldObject>()?.BreakShield();
                             break;
-                        case AtkType.HeavyCharged:
+                        case AttackType.ChargedHeavy:
                             break;
                     }
                 }
@@ -114,12 +142,14 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+
     private void OnDrawGizmos()
     {
-        Gizmos.matrix = Matrix4x4.TRS(transform.position + MainCharacter.transform.forward, MainCharacter.transform.rotation, Vector3.one);
-        // Then use it one a default cube which is not translated nor scaled
-        Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
-
+        if (showLightRadius)
+        {
+            Gizmos.matrix = Matrix4x4.TRS(transform.position + MainCharacter.transform.forward, MainCharacter.transform.rotation, Vector3.one);
+            Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
+        }
 
         if (showHeavyRadius)
         {
