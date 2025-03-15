@@ -20,6 +20,7 @@ public class AbilityCooldownUI : MonoBehaviour
     {
         LightAttack,
         HeavyAttack,
+        ChargedHeavyAttack,
         Shield
     }
 
@@ -48,7 +49,7 @@ public class AbilityCooldownUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (playerObject != null) //if weve found player object then set ability in use to the correct ability type
         {
@@ -59,6 +60,9 @@ public class AbilityCooldownUI : MonoBehaviour
                     break;
                 case AbilityType.HeavyAttack:
                     abilityInUse = playerObject.GetComponent<PlayerAttack>().heavyAttacking;
+                    break;
+                case AbilityType.ChargedHeavyAttack:
+                    abilityInUse = playerObject.GetComponent<PlayerAttack>().chargedHeavyAttacking;
                     break;
                 case AbilityType.Shield:
                     abilityInUse = false;
