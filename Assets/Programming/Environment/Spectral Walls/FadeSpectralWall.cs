@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+// Script by Vince
+
 public class FadeSpectralWall : MonoBehaviour
 {
     Renderer renderer;
