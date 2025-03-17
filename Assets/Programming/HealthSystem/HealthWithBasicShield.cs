@@ -23,6 +23,7 @@ public class HealthWithBasicShield : Health, IShieldObject
 	public bool shieldActive = true;
 
 	public event Action onShieldBreak;
+	public event Action onShieldActivate;
 
 
 	public override void Reset()
@@ -60,6 +61,11 @@ public class HealthWithBasicShield : Health, IShieldObject
 	protected void InvokeShieldBreak()
 	{
 		onShieldBreak?.Invoke();
+	}
+
+	protected void InvokeShieldActivate()
+	{
+		onShieldActivate?.Invoke();
 	}
 
 	public virtual float GetShieldNormalized()

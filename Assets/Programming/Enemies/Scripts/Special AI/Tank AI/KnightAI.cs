@@ -17,6 +17,7 @@ using UnityEngine;
 /// <summary>
 /// Special Tank AI behavior class. Controls movement, attacking and thinking.
 /// </summary>
+[RequireComponent(typeof(HealthWithShield))]
 public class KnightAI : GruntAI
 {
 	#region Tank Slam Attack variables
@@ -145,6 +146,10 @@ public class KnightAI : GruntAI
 
 		damageRingIndicator = GetComponent<DamageRingIndicator>();
 
+		HealthWithShield healthWithShield = GetComponent<HealthWithShield>();
+
+		healthWithShield.onShieldBreak += OnShieldBreak;
+		healthWithShield.onShieldActivate += OnShieldActivate;
 
 		base.Awake();
 	}
@@ -171,6 +176,18 @@ public class KnightAI : GruntAI
 		base.Update();
 	}
 	#endregion
+
+
+
+	private void OnShieldBreak()
+	{
+		throw new NotImplementedException();
+	}
+
+	private void OnShieldActivate()
+	{
+		throw new NotImplementedException();
+	}
 
 
 
