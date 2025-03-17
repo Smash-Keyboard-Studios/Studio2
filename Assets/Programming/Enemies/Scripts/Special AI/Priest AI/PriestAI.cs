@@ -3,7 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
+public class TeleportLocation
+{
+	public Transform teleportReference;
+	public float teleportDistance;
+	public TeleportLocation(Transform _teleportReference, float _teleportDistance)
+	{
+		teleportReference = _teleportReference;
+		teleportDistance = _teleportDistance;
+	}
+}
 public class PriestAI : AICommonRangedCombat
 {
 	// by
@@ -13,13 +24,15 @@ public class PriestAI : AICommonRangedCombat
 	//  / ___ \| | __ />  <  | . \
 	// /_/   \_\_|\___/_/\_\ |_|\_\
 	PriestAI priestAI;
-
-
+	[SerializeField] float furtherestTeleportPoint;
+	[SerializeField] protected Transform[] retreatLocations;
+	[SerializeField] List<TeleportLocation> teleportLocations;
+	[SerializeField] protected float beamAttackCooldown;
+	float beamAttackTimer;
 	#region Awake
 	protected override void Awake()
 	{
 		base.Awake();
-
 		path = new NavMeshPath();
 		playerTarget = GameObject.FindWithTag("Player").transform;
 
@@ -34,7 +47,7 @@ public class PriestAI : AICommonRangedCombat
 	{
 
 		InvokeRepeating(nameof(RunPathfinding), 0, 0.25f);
-
+		foreach (Transform assignedTransform in retreatLocations) { teleportLocations.Add(new TeleportLocation(assignedTransform, 0f)); }
 		base.Start();
 
 	}
@@ -47,6 +60,8 @@ public class PriestAI : AICommonRangedCombat
 		agent.speed = currentSpeed;
 		if (lightAttackCooldown > 0f) lightAttackCooldown -= Time.deltaTime;
 		if (retreatTimer > 0f) retreatTimer -= Time.deltaTime;
+		if (beamAttackTimer > 0f) beamAttackTimer -= Time.deltaTime;
+
 
 
 		// thinking based on current state state.
@@ -104,7 +119,9 @@ public class PriestAI : AICommonRangedCombat
 
 		if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack)
 		{
-			if ((Vector3.Distance(playerTarget.position, transform.position) < retreatDistance) && retreatTimer <= 0f && !chaseFinished) { ChangeState(AIState.Retreating); }
+			if ((Vector3.Distance(playerTarget.position, transform.position) < retreatDistance) && retreatTimer <= 0f && !chaseFinished)
+			{ //ChangeState(AIState.Retreating);
+			}
 			else
 			{
 				if (Physics.Linecast(transform.position, playerTarget.position, out RaycastHit hit) && Vector3.Distance(transform.position, playerTarget.position) <= maxDetectionRange) //Checks if the player is still in Line of Sight
@@ -112,6 +129,7 @@ public class PriestAI : AICommonRangedCombat
 					if (hit.collider.gameObject.CompareTag("Player"))
 					{
 						if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack || attacking) currentSpeed = speedReduction; // PathTarget = transform.position;
+						if (beamAttackTimer <= 0f) { isBeam = true; } else { isBeam = false; };
 						if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null) { lightAttackCoroutine = StartCoroutine(LightAttack()); }
 					}
 				}
@@ -127,21 +145,38 @@ public class PriestAI : AICommonRangedCombat
 	///<summary> /// How the AI acts when retreating. /// </summary>
 	protected override void RetreatingThinking()
 	{
-		if (chaseTimer <= 0) { chaseFinished = true; }//If enemy isn't able to retreat to safe distance or the player keeps chasing, bypass back to attacking.
-		if (!chaseFinished)
+		//Transform chosenRetreat;teleportReference
+		List<float> distanceArray = new List<float>();
+		//int transformListIncrem = 0;
+		foreach (TeleportLocation chosenLocation in teleportLocations)
 		{
-			retreatTimer = retreatCooldown;
-			Vector3 directionToPlayer = playerTarget.position - transform.position; // Calculates the direction towards the player
-			Vector3 oppositeDirection = transform.position - directionToPlayer; // Calcualates the direction away from the player
-			pathTarget = oppositeDirection;
-			chaseTimer -= Time.deltaTime;
+			chosenLocation.teleportDistance = Vector3.Distance(playerTarget.position, chosenLocation.teleportReference.position);
+			//Debug.Log(teleportLocations);
 		}
+		Debug.Log(teleportLocations);
+		furtherestTeleportPoint = teleportLocations.Max(x => x.teleportDistance);
+		Debug.Log(furtherestTeleportPoint);
+		//foreach (Transform optionalRetreat in teleportPoints)
+		//{
+		//	transformListIncrem = transformListIncrem + 1;
+		//	distanceArray[transformListIncrem] = Vector3.Distance(playerTarget.position, optionalRetreat.position);
+		//}
+		//transform.position = chosenRetreat;
+		//if (chaseTimer <= 0) { chaseFinished = true; }//If enemy isn't able to retreat to safe distance or the player keeps chasing, bypass back to attacking.
+		//if (!chaseFinished)
+		//{
+		//	retreatTimer = retreatCooldown;
+		//	Vector3 directionToPlayer = playerTarget.position - transform.position; // Calculates the direction towards the player
+		//	Vector3 oppositeDirection = transform.position - directionToPlayer; // Calcualates the direction away from the player
+		//	pathTarget = oppositeDirection;
+		//	chaseTimer -= Time.deltaTime;
+		//}
 
-		if (Vector3.Distance(playerTarget.position, transform.position) >= minDistanceForAttack || chaseFinished)
-		{
-			chaseTimer = retreatCooldown; // Resets the chase timer
-			ChangeState(AIState.Alerted);
-		}
+		//if (Vector3.Distance(playerTarget.position, transform.position) >= minDistanceForAttack || chaseFinished)
+		//{
+		//	chaseTimer = retreatCooldown; // Resets the chase timer
+		//	ChangeState(AIState.Alerted);
+		//}
 	}
 	#endregion
 	#region LightAttack
@@ -205,6 +240,7 @@ public class PriestAI : AICommonRangedCombat
 		Transform[] usedSpawn = isBeam ? beamSpawnPoint : projectileSpawnPoint;
 		//Action usedSFXAction = isBeam ? onSFXBeamStart : onSFXProjectileLaunch;
 		GameObject usedpreFab = isBeam ? beamPrefab : projectilePrefab;
+		if (isBeam) { beamAttackTimer = beamAttackCooldown; }
 		foreach (Transform SpawnPoint in usedSpawn)
 		{
 			//usedSFXAction?.Invoke();
