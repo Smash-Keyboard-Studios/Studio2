@@ -70,7 +70,8 @@ public class DamageRingIndicator : MonoBehaviour
 
     public void HideRing()
     {
-        currentShrinkTime = shrinkTime;
+        if (showRing)
+            currentShrinkTime = shrinkTime;
 
         showRing = false;
         //ringDiameter = 1f;

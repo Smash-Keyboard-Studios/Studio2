@@ -29,9 +29,9 @@ public class KnightAIAudio : GruntAIAudio
 
 	protected override void SubscribeToAudioEvents()
 	{
-		aiSpecialTank.onSpecialAttackStartSFXPlayOnce += OnSpecialAttackStartSFXPlayOnce;
+		aiSpecialTank.onSlamAttackStartSFXPlayOnce += OnSpecialAttackStartSFXPlayOnce;
 
-		aiSpecialTank.onSpecialHitGroundSFXPlayOnce += OnSpecialHitGroundSFXPlayOnce;
+		aiSpecialTank.onSlamHitGroundSFXPlayOnce += OnSpecialHitGroundSFXPlayOnce;
 
 		base.SubscribeToAudioEvents();
 	}

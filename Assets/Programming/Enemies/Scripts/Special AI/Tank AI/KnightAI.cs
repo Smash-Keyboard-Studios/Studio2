@@ -108,7 +108,7 @@ public class KnightAI : GruntAI
 	[SerializeField]
 	protected SerratedAttackSlash serratedSlashAttackClass;
 
-	protected float serratedSlashCoolDownTimer;
+	protected float serratedSlashCoolDownTimer = 0f;
 	#endregion
 
 
@@ -124,8 +124,8 @@ public class KnightAI : GruntAI
 
 	#region Audio Events
 
-	public event Action onSpecialAttackStartSFXPlayOnce;
-	public event Action onSpecialHitGroundSFXPlayOnce;
+	public event Action onSlamAttackStartSFXPlayOnce;
+	public event Action onSlamHitGroundSFXPlayOnce;
 
 	#endregion
 
@@ -169,8 +169,9 @@ public class KnightAI : GruntAI
 			isSlamWindingUp = false;
 		}
 
-		if (globalAttackCoolDown >= 0) globalAttackCoolDown -= Time.deltaTime;
+		if (globalAttackCoolDown > 0) globalAttackCoolDown -= Time.deltaTime;
 		if (slamAttackCoolDownTimer > 0) slamAttackCoolDownTimer -= Time.deltaTime;
+		if (serratedSlashCoolDownTimer > 0) serratedSlashCoolDownTimer -= Time.deltaTime;
 
 		base.Update();
 	}
@@ -201,7 +202,7 @@ public class KnightAI : GruntAI
 		if (Vector3.Distance(playerTarget.position, transform.position) < agent.radius + 0.1f || attacking) currentSpeed = 0.4f;
 		else currentSpeed = maxSpeed;
 
-
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), maxTurningDegreesDelta);
 
 		if (Vector3.Distance(playerTarget.position, transform.position) < lightAttackClass.minDistanceForAttack)
 		{
@@ -236,7 +237,12 @@ public class KnightAI : GruntAI
 
 		}
 
-		pathTarget = playerTarget.position;
+
+		Vector3 lead = Vector3.Distance(playerTarget.position, transform.position) < 3.5f ? Vector3.zero : playerTarget.GetComponent<CharacterController>().velocity.normalized * 2f;
+
+		pathTarget = playerTarget.position + lead;
+
+
 	}
 	#endregion
 
@@ -268,13 +274,13 @@ public class KnightAI : GruntAI
 		animatorController.SetBool("IsCharging", false);
 
 
-		slamAttackCoolDownTimer = slamAttackClass.slamAttackRateCoolDown;
 
-		globalAttackCoolDown = globalAttackDelay;
 
 		while (attackAnimationPlaying) yield return null;
 
+		slamAttackCoolDownTimer = slamAttackClass.slamAttackRateCoolDown;
 
+		globalAttackCoolDown = globalAttackDelay;
 
 		slamTimer = slamAttackClass.timeWithinRadiusBeforeSlam;
 
@@ -394,15 +400,15 @@ public class KnightAI : GruntAI
 
 		animatorController.SetBool("IsSlashAttack", false);
 
-		serratedSlashCoolDownTimer = serratedSlashAttackClass.serratedSlashCoolDown;
 
-		globalAttackCoolDown = globalAttackDelay;
 
 		while (attackAnimationPlaying) yield return null;
 
 		//AnimationAttackFinished();
 
+		serratedSlashCoolDownTimer = serratedSlashAttackClass.serratedSlashCoolDown;
 
+		globalAttackCoolDown = globalAttackDelay;
 
 		attacking = false;
 
@@ -448,7 +454,7 @@ public class KnightAI : GruntAI
 	/// </summary>
 	protected virtual void SpecialAttackStartSFXPlayOnce()
 	{
-		onSpecialAttackStartSFXPlayOnce?.Invoke();
+		onSlamAttackStartSFXPlayOnce?.Invoke();
 	}
 
 	/// <summary>
@@ -456,7 +462,7 @@ public class KnightAI : GruntAI
 	/// </summary>
 	protected virtual void SpecialHitGroundSFXPlayOnce()
 	{
-		onSpecialHitGroundSFXPlayOnce?.Invoke();
+		onSlamHitGroundSFXPlayOnce?.Invoke();
 	}
 	#endregion
 }

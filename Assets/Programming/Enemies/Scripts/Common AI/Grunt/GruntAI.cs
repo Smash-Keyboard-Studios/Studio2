@@ -143,6 +143,15 @@ public class GruntAI : AIBase
 	#endregion
 
 
+
+	#region Turning Variables 
+	[Header("Turning Variables"), SerializeField]
+	protected float maxTurningDegreesDelta = 0.5f;
+
+	#endregion
+
+
+
 	#region Debugging Variables
 	/* Debugging */
 
@@ -294,7 +303,7 @@ public class GruntAI : AIBase
 
 
 
-		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), 0.5f);
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), maxTurningDegreesDelta);
 
 
 	}
