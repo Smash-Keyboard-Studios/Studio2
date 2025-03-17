@@ -12,6 +12,12 @@ public class DamageRingIndicator : MonoBehaviour
 
     private float ringDiameter = 1;
 
+
+    private float shrinkTime = 1f;
+
+    private float currentShrinkTime = 1f;
+
+
     private bool showRing = false;
 
     void Update()
@@ -19,17 +25,25 @@ public class DamageRingIndicator : MonoBehaviour
         if (currentRingGrowTime < ringGrowTime)
             currentRingGrowTime += Time.deltaTime;
 
+        if (currentShrinkTime > 0)
+            currentShrinkTime -= Time.deltaTime;
+
         damageRingGameObject.SetActive(showRing);
 
         // stop divide by zero error.
-        if (!showRing) return;
-
-        damageRingGameObject.transform.localScale = Vector3.one * ringDiameter * EaseOutBack(currentRingGrowTime / ringGrowTime);
-
+        if (showRing)
+        {
+            damageRingGameObject.transform.localScale = Vector3.one * ringDiameter * EaseOutBack(currentRingGrowTime / ringGrowTime);
+        }
+        else
+        {
+            damageRingGameObject.transform.localScale = Vector3.one * ringDiameter * EaseInOutCubic(currentShrinkTime / shrinkTime);
+        }
 
 
     }
 
+    // TODO these should be in a static function on a tween class
     float EaseOutBack(float x)
     {
 
@@ -39,6 +53,10 @@ public class DamageRingIndicator : MonoBehaviour
         return 1 + c3 * Mathf.Pow(x - 1, 3) + c1 * Mathf.Pow(x - 1, 2);
     }
 
+    float EaseInOutCubic(float x)
+    {
+        return x < 0.5 ? 4 * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;
+    }
 
     public void ShowRing(float chargeTime, float radius)
     {
@@ -52,6 +70,8 @@ public class DamageRingIndicator : MonoBehaviour
 
     public void HideRing()
     {
+        currentShrinkTime = shrinkTime;
+
         showRing = false;
         ringDiameter = 1f;
     }

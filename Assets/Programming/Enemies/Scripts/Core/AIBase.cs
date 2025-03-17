@@ -190,7 +190,7 @@ public class AIBase : MonoBehaviour
 		onDeath?.Invoke(transform);
 
 
-        Destroy(gameObject);
+		Destroy(gameObject);
 	}
 	#endregion
 
