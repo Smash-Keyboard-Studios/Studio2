@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
 
         MyAnim.SetFloat("Horiz", Vector3.Dot(playerRight, movementWithoutGravity));
         MyAnim.SetFloat("Vert", Vector3.Dot(playerForward, movementWithoutGravity));
-        Debug.Log(CurrentMovement);
+        //Debug.Log(CurrentMovement);
         MyAnim.SetFloat("MoveSpeed", Mathf.Max(Mathf.Abs(CurrentMovement.z), Mathf.Abs(CurrentMovement.x)));
     }
 }

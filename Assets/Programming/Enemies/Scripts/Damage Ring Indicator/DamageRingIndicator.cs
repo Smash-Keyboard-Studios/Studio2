@@ -26,16 +26,16 @@ public class DamageRingIndicator : MonoBehaviour
             currentRingGrowTime += Time.deltaTime;
 
         if (currentShrinkTime > 0)
-            currentShrinkTime -= Time.deltaTime;
+            currentShrinkTime -= Time.deltaTime * 2f;
 
-        damageRingGameObject.SetActive(showRing);
+        damageRingGameObject.SetActive(showRing || (currentShrinkTime / shrinkTime) > 0);
 
         // stop divide by zero error.
         if (showRing)
         {
             damageRingGameObject.transform.localScale = Vector3.one * ringDiameter * EaseOutBack(currentRingGrowTime / ringGrowTime);
         }
-        else
+        else if ((currentShrinkTime / shrinkTime) > 0)
         {
             damageRingGameObject.transform.localScale = Vector3.one * ringDiameter * EaseInOutCubic(currentShrinkTime / shrinkTime);
         }
@@ -73,6 +73,6 @@ public class DamageRingIndicator : MonoBehaviour
         currentShrinkTime = shrinkTime;
 
         showRing = false;
-        ringDiameter = 1f;
+        //ringDiameter = 1f;
     }
 }
