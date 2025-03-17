@@ -3,83 +3,150 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using static UnityEditor.LightingExplorerTableColumn;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [Header("Damage Numbers")]
+    [SerializeField] private int LightDmg = 1;
+    [SerializeField] private int HeavyDmg = 2;
+    //Adds this amount of damage to the charged heavy attack for every 0.5 secs it is held down
+    [SerializeField] private int ChargedHeavyDmgAddition = 1;
+    //max damage for charged heavy attack
+    [SerializeField] private int MaxChargedHeavyDmg = 5;
 
-    [Header("DamageNumbers")]
-    public int LightDmg = 2;
-    public int HeavyDmg = 5;
-    public float LightAtkDelay;
-    public float HeavyAtkDelay;
+    //for the charged heavy
+    private int ChargedHeavyDmg = 0;
+    private bool isChargingChargedHeavyAttack = false;
+
+    [Header("Cooldown Delays")]
+    public float LightAttackDelay = 0.2f;
+    public float HeavyAttackDelay = 1f;
+    public float ChargedHeavyAttackDelay = 2f;
+
+    [Header("Attacks being carried out")]
     public bool isAttacking = false;
 
+    public bool lightAttacking = false;
+    public bool heavyAttacking = false;
+    public bool chargedHeavyAttacking = false;
+
     private Animator MyAnim;
-    public GameObject MainCharacter;
+    [Header("Player Model")] public GameObject MainCharacter;
 
-    public BoxCollider LightAtkBoxCollider;
-
-    public float heavyAttackRadius = 5f;
+    [SerializeField] private float heavyAttackRadius = 1.5f;
+    [SerializeField] private float chargedHeavyAttackRadius = 2f;
 
     [Header("Debug")]
-    public bool showHeavyRadius = false;
+    [SerializeField] private bool showLightRadius = false;
+    [SerializeField] private bool showHeavyRadius = false;
 
-    private enum AtkType
+    private enum AttackType
     {
         Light,
         Heavy,
-        HeavyCharged
+        ChargedHeavy
     }
 
-    private void Start()
+
+    private void Awake()
     {
         MyAnim = MainCharacter.GetComponent<Animator>();
     }
 
+
     public void OnAttack(InputValue input)
     {
         if (isAttacking) return;
-        StartCoroutine(LightAtk());
+        StartCoroutine(LightAttack());
     }
 
     public void OnHeavyAttack(InputValue input)
     {
         if (isAttacking) return;
-        StartCoroutine (HeavyAtk());
+        StartCoroutine (HeavyAttack());
     }
 
-    IEnumerator LightAtk()
+    public void OnChargedHeavyAttack(InputValue input)
+    {
+        if (isAttacking) return;
+
+        if (input.isPressed) { StartCoroutine("ChargeChargedHeavyAttack"); } //if pressed then start charging
+        else { StartCoroutine(ChargedHeavyAttack()); } //if released then stop charging and do attack
+    }
+
+
+    IEnumerator LightAttack()
     {
         isAttacking = true; 
+        lightAttacking = true;
         MyAnim.SetBool("Attacking", isAttacking);
 
-        DamageEnemy(Physics.OverlapBox(this.transform.position + LightAtkBoxCollider.center, LightAtkBoxCollider.size / 2, this.transform.rotation), AtkType.Light);
+        DamageEnemy(Physics.OverlapBox(transform.position + MainCharacter.transform.forward, Vector3.one, MainCharacter.transform.rotation), AttackType.Light);
        
-        yield return new WaitForSeconds(LightAtkDelay);
+        yield return new WaitForSeconds(LightAttackDelay);
 
         isAttacking = false;
+        lightAttacking= false;
         MyAnim.SetBool("Attacking", isAttacking);
     }
 
-    IEnumerator HeavyAtk()
+    IEnumerator HeavyAttack()
     {
         isAttacking = true;
+        heavyAttacking = true;
         MyAnim.SetBool("Attacking", isAttacking);
 
-        DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AtkType.Heavy);
+        DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AttackType.Heavy);
 
-        yield return new WaitForSeconds(HeavyAtkDelay);
+        yield return new WaitForSeconds(HeavyAttackDelay);
+
+        //charged heavy attack press gets triggered when heavy attack happens
+        //so this is resetting the charging which starts on RMB press
+        ChargedHeavyDmg = 0; //reset charged heavy damage
 
         isAttacking = false;
+        heavyAttacking = false;
         MyAnim.SetBool("Attacking", isAttacking);
     }
 
-    private void DamageEnemy(Collider[] enemiesToAttack, AtkType atkType)
+    IEnumerator ChargedHeavyAttack()
     {
-        
+        isChargingChargedHeavyAttack = false; //stop charging the attack
 
-        //Collider[] HitObjects = Physics.OverlapBox(this.transform.position + LightAtkBoxCollider.center, LightAtkBoxCollider.size / 2, this.transform.rotation);
+        isAttacking = true;
+        chargedHeavyAttacking = true;
+        MyAnim.SetBool("Attacking", isAttacking);
 
+
+        DamageEnemy(Physics.OverlapSphere(transform.position, chargedHeavyAttackRadius), AttackType.ChargedHeavy);
+
+        yield return new WaitForSeconds(ChargedHeavyAttackDelay);
+
+
+        ChargedHeavyDmg = 0; //reset charged heavy damage
+
+        isAttacking = false;
+        chargedHeavyAttacking = false;
+        MyAnim.SetBool("Attacking", isAttacking);
+    }
+
+
+    IEnumerator ChargeChargedHeavyAttack()
+    {
+        isChargingChargedHeavyAttack = true;
+
+        while (isChargingChargedHeavyAttack && ChargedHeavyDmg < MaxChargedHeavyDmg)
+        {
+            yield return new WaitForSeconds(0.5f);
+            ChargedHeavyDmg += ChargedHeavyDmgAddition;
+        }
+    }
+
+
+    private void DamageEnemy(Collider[] enemiesToAttack, AttackType atkType)
+    {
         if (enemiesToAttack.Length > 1)
         {
             foreach (var hitObject in enemiesToAttack)
@@ -90,14 +157,16 @@ public class PlayerAttack : MonoBehaviour
                 {
                     switch (atkType)
                     {
-                        case AtkType.Light:
+                        case AttackType.Light:
                             DamageComp.TakeDamage(LightDmg);
                             break;
-                        case AtkType.Heavy:
+                        case AttackType.Heavy:
                             DamageComp.TakeDamage(HeavyDmg);
                             hitObject.transform.GetComponent<IShieldObject>()?.BreakShield();
                             break;
-                        case AtkType.HeavyCharged:
+                        case AttackType.ChargedHeavy:
+                            DamageComp.TakeDamage(ChargedHeavyDmg);
+                            hitObject.transform.GetComponent<IShieldObject>()?.BreakShield();
                             break;
                     }
                 }
@@ -106,8 +175,15 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+
     private void OnDrawGizmos()
     {
+        if (showLightRadius)
+        {
+            Gizmos.matrix = Matrix4x4.TRS(transform.position + MainCharacter.transform.forward, MainCharacter.transform.rotation, Vector3.one);
+            Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
+        }
+
         if (showHeavyRadius)
         {
             Gizmos.DrawSphere(transform.position, heavyAttackRadius);
