@@ -38,6 +38,6 @@ public class KnightAnimationFunctions : MonoBehaviour
 
 	public void DealSpecialAttack()
 	{
-		knightAI.DealSpecialAttack();
+		knightAI.DealSlamAttack();
 	}
 }
