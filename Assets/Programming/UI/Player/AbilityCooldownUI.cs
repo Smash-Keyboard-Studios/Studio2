@@ -11,8 +11,7 @@ public class AbilityCooldownUI : MonoBehaviour
     private Slider cooldownBar;
     private TextMeshProUGUI cooldownText;
 
-    [SerializeField] private float cooldownTime;
-
+    private float cooldownTime;
     private bool abilityInUse;
     private bool inCooldown;
 
@@ -57,15 +56,15 @@ public class AbilityCooldownUI : MonoBehaviour
             {
                 case AbilityType.LightAttack:
                     abilityInUse = playerObject.GetComponent<PlayerAttack>().lightAttacking;
+                    cooldownTime = playerObject.GetComponent<PlayerAttack>().LightAttackDelay;
                     break;
                 case AbilityType.HeavyAttack:
                     abilityInUse = playerObject.GetComponent<PlayerAttack>().heavyAttacking;
-                    break;
-                case AbilityType.ChargedHeavyAttack:
-                    abilityInUse = playerObject.GetComponent<PlayerAttack>().chargedHeavyAttacking;
+                    cooldownTime = playerObject.GetComponent<PlayerAttack>().HeavyAttackDelay;
                     break;
                 case AbilityType.Shield:
                     abilityInUse = false;
+                    cooldownTime = 0;
                     break;
             }
         }
@@ -90,13 +89,15 @@ public class AbilityCooldownUI : MonoBehaviour
         cooldownText.text = currentTime.ToString();
 
         //loop for cooldown happening
-        while (currentTime > 0.01)
+        while (currentTime > 0)
         {
             currentTime -= timeIncrements; //update current time
 
             //update UI
             cooldownBar.value = currentTime;
-            cooldownText.text = currentTime.ToString().Substring(0, 3); //set text to first few chars of current time
+            cooldownText.text = currentTime.ToString(); //set text to string of current time
+            //cut text to first few chars if longer than 3 chars
+            if (cooldownText.text.Length > 3) { cooldownText.text = cooldownText.text.Substring(0, 3); }
 
             yield return new WaitForSeconds(timeIncrements); //delay
         }

@@ -58,6 +58,8 @@ public class DialogueHandler : MonoBehaviour
         if(currentData == null) {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true;
 
+            UIManager.Instance.inDialogueMenu = false;
+
             this.gameObject.SetActive(false); 
         }
         
