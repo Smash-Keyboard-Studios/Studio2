@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject controlsObj;
     //^ all these menu prefabs need to be dontdestroyonload to work properly
     public bool inGameMenu;
+    public bool inDialogueMenu;
 
     [Header("Tootips")]
     [SerializeField] private TextMeshProUGUI toolTipName;
@@ -63,6 +64,7 @@ public class UIManager : MonoBehaviour
         //set all menu objects to false initially through press return button
         //this is in the start function so that the menu objects can run their awake functions before being disabled
         DisableAllMenus();
+        inDialogueMenu = false;
     }
 
 
@@ -89,6 +91,7 @@ public class UIManager : MonoBehaviour
         optionsObj.SetActive(false);
         controlsObj.SetActive(false);
 
+        
         inGameMenu = false;
     }
 
