@@ -145,9 +145,11 @@ public class GruntAI : AIBase
 
 
 	#region Turning Variables 
-	[Header("Turning Variables"), SerializeField]
+	[Header("Turning Variables and movement"), SerializeField]
 	protected float maxTurningDegreesDelta = 0.5f;
 
+	[SerializeField]
+	protected float speedWhileNextToPlayer = 0.4f;
 	#endregion
 
 
@@ -299,7 +301,7 @@ public class GruntAI : AIBase
 		if (Vector3.Distance(playerTarget.position, transform.position) < lightAttackClass.minDistanceForAttack)
 		{
 			// attack // TODO Speed needs to be handled elsewhere. It breaks now with animations
-			if (Vector3.Distance(playerTarget.position, transform.position) < 1.55f || attacking) currentSpeed = 0.4f; // PathTarget = transform.position;
+			if (Vector3.Distance(playerTarget.position, transform.position) < 1.55f || attacking) currentSpeed = speedWhileNextToPlayer; // PathTarget = transform.position;
 			else currentSpeed = maxSpeed; // PathTarget = PlayerTarget.position;
 
 

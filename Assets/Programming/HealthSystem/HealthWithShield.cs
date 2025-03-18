@@ -59,6 +59,7 @@ public class HealthWithShield : HealthWithBasicShield
         //currentShieldHealth = maxShieldHealth;
         resetShield = false;
         base.ActivateShield();
+        InvokeShieldActivate();
     }
 
     public override void BreakShield()
