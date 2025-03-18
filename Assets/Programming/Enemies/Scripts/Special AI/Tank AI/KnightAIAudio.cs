@@ -33,8 +33,8 @@ public class KnightAIAudio : GruntAIAudio
 
 		knightAI.onSlamHitGroundSFXPlayOnce += OnSlamHitGroundSFXPlayOnce;
 
-		knightAI.onSlashAttackSFXPlay += OnSlashAttackStartSFXPlay;
-		knightAI.onSlashAttackSFXStop += OnSlashAttackStartSFXStop;
+		knightAI.onSlashAttackSFXPlay += OnSlashAttackSFXPlay;
+		knightAI.onSlashAttackSFXStop += OnSlashAttackSFXStop;
 
 		base.SubscribeToAudioEvents();
 	}
@@ -76,12 +76,12 @@ public class KnightAIAudio : GruntAIAudio
 		// audio code here
 	}
 
-	protected virtual void OnSlashAttackStartSFXPlay()
+	protected virtual void OnSlashAttackSFXPlay()
 	{
 		// audio code here
 	}
 
-	protected virtual void OnSlashAttackStartSFXStop()
+	protected virtual void OnSlashAttackSFXStop()
 	{
 		// audio code here
 	}
