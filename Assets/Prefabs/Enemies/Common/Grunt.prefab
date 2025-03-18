@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8950207567973540252}
   - component: {fileID: 3980049928495119797}
   - component: {fileID: 7444448901805668536}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Grunt
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -68,6 +68,7 @@ MonoBehaviour:
     m_Bits: 64
   maxDetectionRange: 3
   maxTurningDegreesDelta: 5
+  speedWhileNextToPlayer: 0.4
   enableVisualDetectionRadius: 0
   enableVisualDetectionLine: 0
 --- !u!114 &3222878168228818675
@@ -209,7 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1346702387623867242}
   - component: {fileID: 2853591560227121268}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +299,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7969051278245642780}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +337,7 @@ GameObject:
   - component: {fileID: 2118506447270058483}
   - component: {fileID: 3255801584346082465}
   - component: {fileID: 5819139364022980609}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +412,7 @@ GameObject:
   - component: {fileID: 9166431296155532778}
   - component: {fileID: 5267326412874309866}
   - component: {fileID: 6423633973235749683}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +487,7 @@ GameObject:
   - component: {fileID: 5034315216963791772}
   - component: {fileID: 3187254601346908934}
   - component: {fileID: 8946496428643841931}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -559,7 +560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 809643423838695961}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -599,7 +600,7 @@ GameObject:
   - component: {fileID: 3836444320956826965}
   - component: {fileID: 3256989711452280875}
   - component: {fileID: 4584663236233792679}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: AI Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,6 +715,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: mixamorig:RightHandIndex2
       objectReference: {fileID: 0}
+    - target: {fileID: -8750310894620888310, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -769,85 +775,170 @@ PrefabInstance:
       propertyPath: m_Name
       value: mixamorig:RightHandThumb3
       objectReference: {fileID: 0}
+    - target: {fileID: -8555128947288767292, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8492252416866516007, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandMiddle1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8492252416866516007, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8461601739715493273, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandMiddle3
       objectReference: {fileID: 0}
+    - target: {fileID: -8461601739715493273, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8185859470440987466, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandIndex2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8185859470440987466, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8018943986127252810, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandPinky1
       objectReference: {fileID: 0}
+    - target: {fileID: -8018943986127252810, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7943967014893998848, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:Spine
+      objectReference: {fileID: 0}
+    - target: {fileID: -7943967014893998848, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7903621057009146681, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandThumb4
       objectReference: {fileID: 0}
+    - target: {fileID: -7903621057009146681, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7501237179697143339, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:HeadTop_End
+      objectReference: {fileID: 0}
+    - target: {fileID: -7501237179697143339, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7499949672928455232, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandIndex3
       objectReference: {fileID: 0}
+    - target: {fileID: -7499949672928455232, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7494157635790402336, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftToe_End
+      objectReference: {fileID: 0}
+    - target: {fileID: -7494157635790402336, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7168988647575554973, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandThumb1
       objectReference: {fileID: 0}
+    - target: {fileID: -7168988647575554973, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -6350175886712736466, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandRing4
+      objectReference: {fileID: 0}
+    - target: {fileID: -6350175886712736466, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6290541042718771982, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:Spine1
       objectReference: {fileID: 0}
+    - target: {fileID: -6290541042718771982, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -5731347846350957988, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandThumb2
+      objectReference: {fileID: 0}
+    - target: {fileID: -5731347846350957988, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5694983568130674314, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightArm
       objectReference: {fileID: 0}
+    - target: {fileID: -5694983568130674314, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -5450930993714758658, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftFoot
       objectReference: {fileID: 0}
+    - target: {fileID: -5450930993714758658, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -5354551154507576542, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandPinky4
+      objectReference: {fileID: 0}
+    - target: {fileID: -5354551154507576542, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5278227746663505412, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
@@ -864,115 +955,235 @@ PrefabInstance:
       propertyPath: m_Name
       value: mixamorig:LeftForeArm
       objectReference: {fileID: 0}
+    - target: {fileID: -4583615051183748722, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4477720676026676289, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandIndex4
+      objectReference: {fileID: 0}
+    - target: {fileID: -4477720676026676289, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4472713948317782811, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHand
       objectReference: {fileID: 0}
+    - target: {fileID: -4472713948317782811, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4169424163418251368, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightFoot
+      objectReference: {fileID: 0}
+    - target: {fileID: -4169424163418251368, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3392041003191176267, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:Head
       objectReference: {fileID: 0}
+    - target: {fileID: -3392041003191176267, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -3237935408044857770, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandPinky3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3237935408044857770, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2700277313866788293, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightLeg
       objectReference: {fileID: 0}
+    - target: {fileID: -2700277313866788293, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -2134938537878944079, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftLeg
+      objectReference: {fileID: 0}
+    - target: {fileID: -2134938537878944079, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1786537739266800056, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandRing3
       objectReference: {fileID: 0}
+    - target: {fileID: -1786537739266800056, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -1757306403094422825, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftToeBase
+      objectReference: {fileID: 0}
+    - target: {fileID: -1757306403094422825, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1709814357239333065, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1511454065854017058, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightForeArm
       objectReference: {fileID: 0}
+    - target: {fileID: -1511454065854017058, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -1398304144120640973, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandRing2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1398304144120640973, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -861719620216737889, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandThumb2
       objectReference: {fileID: 0}
+    - target: {fileID: -861719620216737889, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -611450746894279962, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightUpLeg
+      objectReference: {fileID: 0}
+    - target: {fileID: -611450746894279962, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -602077643037780277, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftShoulder
       objectReference: {fileID: 0}
+    - target: {fileID: -602077643037780277, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -479128218334629379, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandRing4
+      objectReference: {fileID: 0}
+    - target: {fileID: -479128218334629379, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -430259419159005199, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftArm
       objectReference: {fileID: 0}
+    - target: {fileID: -430259419159005199, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -363775075013417355, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandIndex1
+      objectReference: {fileID: 0}
+    - target: {fileID: -363775075013417355, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -286745008382018085, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandRing2
       objectReference: {fileID: 0}
+    - target: {fileID: -286745008382018085, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -99422596112303043, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandPinky4
+      objectReference: {fileID: 0}
+    - target: {fileID: -99422596112303043, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 353216786354341782, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightToeBase
       objectReference: {fileID: 0}
+    - target: {fileID: 353216786354341782, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 396078274548946852, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandPinky2
       objectReference: {fileID: 0}
+    - target: {fileID: 396078274548946852, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 718960445425170018, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandThumb1
+      objectReference: {fileID: 0}
+    - target: {fileID: 718960445425170018, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 834008436636761104, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
@@ -989,125 +1200,255 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grunt_Final_MCM528
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1039494006062493261, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandRing1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1039494006062493261, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1649161791080535540, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandRing1
       objectReference: {fileID: 0}
+    - target: {fileID: 1649161791080535540, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1811235091447182245, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandPinky1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811235091447182245, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2186385236852576065, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandIndex4
       objectReference: {fileID: 0}
+    - target: {fileID: 2186385236852576065, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2384613035792250474, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandMiddle2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2384613035792250474, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2599722537118583536, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:Spine2
       objectReference: {fileID: 0}
+    - target: {fileID: 2599722537118583536, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2777791707489549367, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftUpLeg
+      objectReference: {fileID: 0}
+    - target: {fileID: 2777791707489549367, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3060641434093814062, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandMiddle2
       objectReference: {fileID: 0}
+    - target: {fileID: 3060641434093814062, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3530880873708586964, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandPinky3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3530880873708586964, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3623480749610458178, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightToe_End
       objectReference: {fileID: 0}
+    - target: {fileID: 3623480749610458178, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4287563530002918813, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 4287563530002918813, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5065297436550275878, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandMiddle1
       objectReference: {fileID: 0}
+    - target: {fileID: 5065297436550275878, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5431044496996789895, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:Hips
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431044496996789895, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6215330848964909413, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandIndex1
       objectReference: {fileID: 0}
+    - target: {fileID: 6215330848964909413, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6670362641371362987, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandRing3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670362641371362987, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7061537585274394298, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandPinky2
       objectReference: {fileID: 0}
+    - target: {fileID: 7061537585274394298, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7090472315280656537, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandMiddle4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090472315280656537, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7170521987037128803, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandIndex3
       objectReference: {fileID: 0}
+    - target: {fileID: 7170521987037128803, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7359577684615996109, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandMiddle4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359577684615996109, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7491198808067639188, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:Neck
       objectReference: {fileID: 0}
+    - target: {fileID: 7491198808067639188, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7597689680661728475, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightShoulder
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597689680661728475, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062292767578552962, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8461494574079492126, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:RightHandThumb4
       objectReference: {fileID: 0}
+    - target: {fileID: 8461494574079492126, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8532436054174227672, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandMiddle3
       objectReference: {fileID: 0}
+    - target: {fileID: 8532436054174227672, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9145965879753493743, guid: ec3021b09a13cdf408d12c397e8ee2b3,
         type: 3}
       propertyPath: m_Name
       value: mixamorig:LeftHandThumb3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145965879753493743, guid: ec3021b09a13cdf408d12c397e8ee2b3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
