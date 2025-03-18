@@ -16,7 +16,7 @@ public class DialogueHandler : MonoBehaviour
     //for playing audio
     private AudioSource audioSource;
 
-    private void Awake()
+    private void OnEnable()
     {
         audioSource = GetComponent<AudioSource>();
 
