@@ -24602,6 +24602,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 533977030738716872, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
+      propertyPath: DeathScreen
+      value: 
+      objectReference: {fileID: 1413781442}
+    - target: {fileID: 533977030738716872, guid: d110e1c34e83ce247a08b9455a2744c8,
+        type: 3}
       propertyPath: MainCharacter
       value: 
       objectReference: {fileID: 1154535678}
@@ -31887,6 +31892,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241e51dc5a7fac6479e5c6ac305908b2, type: 3}
+--- !u!1 &1413781442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4468305698207650302, guid: 241e51dc5a7fac6479e5c6ac305908b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1413781441}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1423803551
 PrefabInstance:
   m_ObjectHideFlags: 0

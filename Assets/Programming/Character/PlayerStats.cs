@@ -26,6 +26,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     //public GameObject deathText;
     protected Animator MyAnim;
     public GameObject MainCharacter;
+    public GameObject DeathScreen;
 
     private void Start()
     {
@@ -34,11 +35,11 @@ public class PlayerStats : MonoBehaviour, IDamageable
         MyAnim = MainCharacter.GetComponent<Animator>();
     }
 
-    public bool TakeDamage(float Ammount)
+    public bool TakeDamage(float Amount)
     {
         if (!InputHandler.BlockTriggered)
         {
-            PlayerHealth -= Ammount;
+            PlayerHealth -= Amount;
             return true;
         }
         return false;
@@ -54,6 +55,11 @@ public class PlayerStats : MonoBehaviour, IDamageable
         {
             //deathText.SetActive(true);
             MyAnim.SetTrigger("Dead");
+            DeathScreen.SetActive(true);
+        }
+        else
+        {
+            DeathScreen.SetActive(false);
         }
     }
 
