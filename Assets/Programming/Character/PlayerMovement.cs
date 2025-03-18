@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //Script by Aaron Wing
@@ -29,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator MyAnim;
     public GameObject MainCharacter;
+    public Transform rotation;
 
     private void Awake()
     {
@@ -84,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         WorldDirection.Normalize();
 
         CurrentMovement.x = WorldDirection.x * Speed;
-        CurrentMovement.z = WorldDirection.z * Speed; 
+        CurrentMovement.z = WorldDirection.z * Speed;
 
         HandleGravity();
         CharacterController.Move(CurrentMovement * Time.deltaTime);
@@ -93,13 +92,31 @@ public class PlayerMovement : MonoBehaviour
     //This handles the gavity so the player is not floating everywhere.
     void HandleGravity()
     {
-        CurrentMovement.y -= Gravity * Time.deltaTime; 
+        CurrentMovement.y -= Gravity * Time.deltaTime;
     }
 
     void CharacterAnimations()
     {
-        MyAnim.SetFloat("Horiz", CurrentMovement.x);
-        MyAnim.SetFloat("Vert", CurrentMovement.z);
+        float forwardBackwardsMagnitude = 0;
+        float rightLeftMagnitude = 0;
+        Vector3 playerForward = rotation.forward;
+        Vector3 playerRight = rotation.right;
+
+        if (CurrentMovement.magnitude > 0)
+        {
+            float dot = Vector3.Dot(playerForward, CurrentMovement);
+
+            if (dot > 0.75)
+            {
+
+            }
+
+        }
+        Vector3 movementWithoutGravity = new Vector3(CurrentMovement.x, 0, CurrentMovement.z);
+
+        MyAnim.SetFloat("Horiz", Vector3.Dot(playerRight, movementWithoutGravity));
+        MyAnim.SetFloat("Vert", Vector3.Dot(playerForward, movementWithoutGravity));
+        //Debug.Log(CurrentMovement);
         MyAnim.SetFloat("MoveSpeed", Mathf.Max(Mathf.Abs(CurrentMovement.z), Mathf.Abs(CurrentMovement.x)));
     }
 }

@@ -51,6 +51,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ChargedHeavyAttack",
+                    "type": "Button",
+                    "id": "a8da7548-ffd0-4f32-a8df-6c0dd9e068a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Dodge",
                     "type": "Button",
                     "id": "75b9ea83-18c5-422a-a4fc-9f6261537d05",
@@ -296,6 +305,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "87ac9c07-2f2a-4b30-893a-5fe2e95a8ae4",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChargedHeavyAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da63286c-2842-4ec8-a7fc-10951edd4c86",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChargedHeavyAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -51,13 +51,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Density: 0.37
+    - _Density: 0.86
+    - _Density1: 0.03
+    - _DensityAlphas: 1.18
+    - _Fade: 0
+    - _Float: 17.45
+    - _Height: 2.25
+    - _NoiseDensity: 0.03
+    - _Particles: 1.55
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Speed: 1.68
+    - _SecondaryNosieDensity: 0.86
+    - _Speed: 2
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color_1: {r: 1, g: 0, b: 0, a: 0}
-    - _Color_2: {r: 0, g: 1, b: 1, a: 0}
+    - _Color: {r: 0, g: 1, b: 0.6538503, a: 1}
+    - _Color_1: {r: 0, g: 0, b: 0, a: 0}
+    - _Color_2: {r: 0.6728967, g: 0.9137255, b: 0.20392154, a: 0}
     - _MinMax: {r: 0.2, g: 0.8, b: 0, a: 0}
+    - _NoiseRange: {r: 0.2, g: 0.8, b: 0, a: 0}
+    - _PrimaryColour: {r: 0.043137256, g: 0.8627451, b: 0.08235294, a: 0}
+    - _SecondaryColour: {r: 0, g: 1, b: 0.654902, a: 0}
   m_BuildTextureStacks: []

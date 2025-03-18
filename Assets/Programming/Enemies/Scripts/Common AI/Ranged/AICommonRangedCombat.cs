@@ -55,7 +55,10 @@ public class AICommonRangedCombat : AIBase
 	/// <summary> /// The minimum distance possible between the AI and player before the AI will Attack. /// </summary>
 	[SerializeField] protected float minDistanceForAttack = 2f;
 	protected Coroutine lightAttackCoroutine;
-	private float speedReduction = -0.1f; // Reducing enemy movement for ranged attacks
+	protected float speedReduction = -0.1f; // Reducing enemy movement for ranged attacks
+	/// <summary> /// Global delay between all attacks variables /// </summary>
+	[Header("Delay between all attacks")]
+	[SerializeField] protected float globalAttackCoolDown = 0f;
 	#endregion
 
 	#region Detection Vars
@@ -83,28 +86,28 @@ public class AICommonRangedCombat : AIBase
 	#region Ranged Vars
 	[Header("Ranged Specific")]
 	[SerializeField] public float rangedDamage;
-	[SerializeField] private float rangedLifespan; // How long the object will last
+	[SerializeField] protected float rangedLifespan; // How long the object will last
 	[SerializeField] public float rangedSpeed;
 	[SerializeField] public bool isBeam;
 	#endregion
 	#region Projectile Vars
 	[Header("Projectiles")]
-	[SerializeField] private GameObject projectilePrefab;
-	[SerializeField] private Transform[] projectileSpawnPoint;
+	[SerializeField] protected GameObject projectilePrefab;
+	[SerializeField] protected Transform[] projectileSpawnPoint;
 
 
 	#endregion
 	#region Beam Variant
 	[Header("Beam Specific")]
-	[SerializeField] GameObject beamPrefab;
-	[SerializeField] private Transform[] beamSpawnPoint;
+	[SerializeField] protected GameObject beamPrefab;
+	[SerializeField] protected Transform[] beamSpawnPoint;
 	#endregion	
 	#region Retreat Vars
 	[Header("Retreating")]
-	[SerializeField] private float retreatDistance = 10f; // The distance from the player to the enemy to trigger a retreat
+	[SerializeField] protected float retreatDistance = 10f; // The distance from the player to the enemy to trigger a retreat
 	[SerializeField] protected float retreatCooldown = 6f; // Time between retreats
 	protected float retreatTimer = 0f; // Tracks current time between retreats
-	[SerializeField] private float chaseTimer = 6f; // Tracks how long the enemy is chased for
+	[SerializeField] protected float chaseTimer = 6f; // Tracks how long the enemy is chased for
 	protected bool chaseFinished = false; // A bypass to avoid the enemy AI getting stuck/chased forever
 	#endregion
 	#region Sound Effect Vars
@@ -119,19 +122,18 @@ public class AICommonRangedCombat : AIBase
 
 	/// <summary> /// Displays a line towards the player to see if the player can get detected, and to see if an onbject overlaps. /// </summary>
 	[SerializeField] protected bool enableVisualDetectionLine = false;
-	[SerializeField] private float distanceFromPlayer;
+	[SerializeField] protected float distanceFromPlayer;
 	#endregion
 
 	#region Awake
 	protected override void Awake()
 	{
 		base.Awake();
-
+		globalAttackCoolDown = lightAttackRate;
 		path = new NavMeshPath();
 		playerTarget = GameObject.FindWithTag("Player").transform;
 
 		animatorController = GetComponentInChildren<Animator>();
-
 		pathTarget = transform.position;
 	}
 	#endregion
@@ -154,7 +156,7 @@ public class AICommonRangedCombat : AIBase
 		agent.speed = currentSpeed;
 		if (lightAttackCooldown > 0f) lightAttackCooldown -= Time.deltaTime;
 		if (retreatTimer > 0f) retreatTimer -= Time.deltaTime;
-
+		if (globalAttackCoolDown >= 0) globalAttackCoolDown -= Time.deltaTime;
 
 		// thinking based on current state state.
 		// call appropriate functions.
@@ -219,7 +221,7 @@ public class AICommonRangedCombat : AIBase
 					if (hit.collider.gameObject.CompareTag("Player"))
 					{
 						if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack || attacking) currentSpeed = speedReduction; // PathTarget = transform.position;
-						if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null) { lightAttackCoroutine = StartCoroutine(LightAttack()); }
+						if (!attacking && lightAttackCooldown <= 0f && lightAttackCoroutine == null && globalAttackCoolDown <= 0f) { lightAttackCoroutine = StartCoroutine(LightAttack()); }
 					}
 				}
 				else
@@ -258,6 +260,7 @@ public class AICommonRangedCombat : AIBase
 	{
 		attacking = true;
 		lightAttackCooldown = lightAttackRate;
+		globalAttackCoolDown = isBeam ? lightAttackRate + rangedLifespan : lightAttackRate;
 		transform.LookAt(new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z)); // Turns the AI manually towards the player.
 
 		attackAnimationPlaying = true;

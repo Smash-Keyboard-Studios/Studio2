@@ -12,7 +12,67 @@ using UnityEngine.AI;
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
 
 
+[Serializable]
+public class LightAttack
+{
+	#region Attacking Variables
+	/* Attacking */
 
+	/// <summary>
+	/// The damage the AI will inflict onto the player.
+	/// </summary>
+	[Header("Attacking")]
+	public float lightAttackDamage = 20f;
+
+
+
+	/// <summary>
+	/// How long before next attack.
+	/// </summary>
+	[Tooltip("How long before next attack.")]
+	public float lightAttackRate = 1f;
+
+
+
+	/// <summary>
+	/// The minimum distance possible between the AI and player before the AI will Attack.
+	/// </summary>
+	public float minDistanceForAttack = 2f;
+
+
+	//protected Coroutine lightAttackCoroutine;
+
+	#endregion
+
+
+	#region Box Check Variables
+	/* Box check to detect and damage player */
+
+	/// <summary>
+	/// AI forward (local Z), how far this will stretch.
+	/// </summary>
+	[Header("Box check for light attack")]
+	public float boxCastDepth = 2f;
+
+	/// <summary>
+	/// AI side (local X), how wide this will be.
+	/// </summary>
+	public float boxCastLength = 3;
+
+	/// <summary>
+	/// AI up (local Y), how tall this check box is.
+	/// </summary>
+	public float boxCastHeight = 1;
+
+	/// <summary>
+	/// The offset from the AI position the box check will be.
+	/// </summary>
+	public float boxCastForwardOffset = 1;
+
+
+
+	#endregion
+}
 
 /// <summary>
 /// Common Melee AI behavior class. Controls movement, attacking and thinking.
@@ -32,15 +92,9 @@ public class GruntAI : AIBase
 	#endregion
 
 
-	#region Attacking Variables
-	/* Attacking */
-
-	/// <summary>
-	/// The damage the AI will inflict onto the player.
-	/// </summary>
-	[Header("Attacking")]
-	[SerializeField]
-	protected float lightAttackDamage = 20f;
+	#region Light Attack Variables
+	[Header("Light Attack Settings"), SerializeField]
+	protected LightAttack lightAttackClass;
 
 	/// <summary>
 	/// Remaining time left before the AI can attack again.
@@ -48,64 +102,16 @@ public class GruntAI : AIBase
 	protected float lightAttackCoolDown = 0f;
 
 	/// <summary>
-	/// How long before next attack.
-	/// </summary>
-	[SerializeField, Tooltip("How long before next attack.")]
-	protected float lightAttackRate = 1f;
-
-	/// <summary>
 	/// Weather the AI is currently attacking the player. Used by the IEnumerator.
 	/// </summary>
 	protected bool attacking = false;
-
-	/// <summary>
-	/// The minimum distance possible between the AI and player before the AI will Attack.
-	/// </summary>
-	[SerializeField]
-	protected float minDistanceForAttack = 2f;
-
-
-	protected Coroutine lightAttackCoroutine;
-
 	#endregion
-
-
-	#region Box Check Variables
-	/* Box check to detect and damage player */
-
-	/// <summary>
-	/// AI forward (local Z), how far this will stretch.
-	/// </summary>
-	[Header("Box check for light attack")]
-	[SerializeField]
-	protected float boxCastThickness = 2f;
-
-	/// <summary>
-	/// AI side (local X), how wide this will be.
-	/// </summary>
-	[SerializeField]
-	protected float boxCastLength = 3;
-
-	/// <summary>
-	/// AI up (local Y), how tall this check box is.
-	/// </summary>
-	[SerializeField]
-	protected float boxCastHeight = 1;
-
-	/// <summary>
-	/// The offset from the AI position the box check will be.
-	/// </summary>
-	[SerializeField]
-	protected Vector3 boxCastOffsetFromAI = Vector3.forward;
 
 	/// <summary>
 	/// The layers it will look for to deal damage to.
 	/// </summary>
-	[SerializeField]
+	[Header("Combat Detection Layer"), SerializeField]
 	protected LayerMask layersToCheckFor = Physics.AllLayers;
-
-	#endregion
-
 
 	#region Detection Variables
 	/* The limits for detecting the player */
@@ -135,6 +141,17 @@ public class GruntAI : AIBase
 	protected Transform playerTarget;
 
 	#endregion
+
+
+
+	#region Turning Variables 
+	[Header("Turning Variables and movement"), SerializeField]
+	protected float maxTurningDegreesDelta = 0.5f;
+
+	[SerializeField]
+	protected float speedWhileNextToPlayer = 0.4f;
+	#endregion
+
 
 
 	#region Debugging Variables
@@ -176,7 +193,14 @@ public class GruntAI : AIBase
 
 		path = new NavMeshPath();
 
-		playerTarget = GameObject.FindWithTag("Player").transform;
+		try
+		{
+			playerTarget = GameObject.FindWithTag("Player").transform;
+		}
+		catch (NullReferenceException)
+		{
+			Debug.LogError("Cannot find the player!", this);
+		}
 
 		animatorController = GetComponentInChildren<Animator>();
 
@@ -253,7 +277,10 @@ public class GruntAI : AIBase
 		{
 			// print(hit.transform.name);
 			if (hit.collider.gameObject.CompareTag("Player"))
+			{
+				//transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), 45);
 				ChangeState(AIState.Alerted);
+			}
 		}
 	}
 	#endregion
@@ -266,18 +293,27 @@ public class GruntAI : AIBase
 	/// </summary>
 	protected virtual void AlertedThinking()
 	{
-		pathTarget = playerTarget.position;
+		//Vector3 lead = Vector3.Distance(transform.position, playerTarget.position) < 3f ? Vector3.zero : playerTarget.GetComponent<CharacterController>().velocity;
+
+		pathTarget = playerTarget.position;// + lead;
 
 
-		if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack)
+		if (Vector3.Distance(playerTarget.position, transform.position) < lightAttackClass.minDistanceForAttack)
 		{
 			// attack // TODO Speed needs to be handled elsewhere. It breaks now with animations
-			if (Vector3.Distance(playerTarget.position, transform.position) < 1.55f || attacking) currentSpeed = 0.4f; // PathTarget = transform.position;
+			if (Vector3.Distance(playerTarget.position, transform.position) < 1.55f || attacking) currentSpeed = speedWhileNextToPlayer; // PathTarget = transform.position;
 			else currentSpeed = maxSpeed; // PathTarget = PlayerTarget.position;
 
 
-			if (!attacking && lightAttackCoolDown <= 0f && lightAttackCoroutine == null) lightAttackCoroutine = StartCoroutine(LightAttack());
+			if (!attacking && lightAttackCoolDown <= 0f) StartCoroutine(LightAttack());
+
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), maxTurningDegreesDelta);
+
 		}
+
+
+
+
 
 	}
 	#endregion
@@ -292,7 +328,7 @@ public class GruntAI : AIBase
 	protected virtual IEnumerator LightAttack()
 	{
 		attacking = true;
-		lightAttackCoolDown = lightAttackRate;
+		lightAttackCoolDown = lightAttackClass.lightAttackRate;
 
 		attackAnimationPlaying = true;
 
@@ -321,8 +357,6 @@ public class GruntAI : AIBase
 		attacking = false;
 
 		currentSpeed = maxSpeed;
-
-		lightAttackCoroutine = null;
 	}
 	#endregion
 
@@ -349,16 +383,17 @@ public class GruntAI : AIBase
 	/// </summary>
 	public virtual void LightAttackCheckAndDamage()
 	{
-		Collider[] HitObjects = Physics.OverlapBox(transform.position + boxCastOffsetFromAI, new Vector3(boxCastLength, boxCastHeight, boxCastThickness) / 2f,
-				 transform.rotation, layersToCheckFor, QueryTriggerInteraction.Ignore);
+		Collider[] HitObjects = Physics.OverlapBox(transform.position + (transform.forward * lightAttackClass.boxCastForwardOffset), new Vector3(lightAttackClass.boxCastLength, lightAttackClass.boxCastHeight, lightAttackClass.boxCastDepth) / 2f,
+				 transform.rotation, layersToCheckFor);
 
 		if (HitObjects.Length > 0)
 		{
 			foreach (var hitObject in HitObjects)
 			{
+				//print(hitObject.name);
 				if (hitObject.gameObject.CompareTag("Player"))
 				{
-					hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackDamage);
+					hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackClass.lightAttackDamage);
 				}
 			}
 		}

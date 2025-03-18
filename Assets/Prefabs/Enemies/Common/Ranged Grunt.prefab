@@ -58,6 +58,7 @@ MonoBehaviour:
   currentAIState: 0
   lightAttackRate: 0.75
   minDistanceForAttack: 20
+  globalAttackCoolDown: 0
   maxDetectionRange: 30
   rangedDamage: 10
   rangedLifespan: 8
@@ -215,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1346702387623867242}
   - component: {fileID: 2853591560227121268}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7969051278245642780}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +343,7 @@ GameObject:
   - component: {fileID: 2118506447270058483}
   - component: {fileID: 3255801584346082465}
   - component: {fileID: 5819139364022980609}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +449,7 @@ GameObject:
   - component: {fileID: 9166431296155532778}
   - component: {fileID: 5267326412874309866}
   - component: {fileID: 6423633973235749683}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +524,7 @@ GameObject:
   - component: {fileID: 5034315216963791772}
   - component: {fileID: 3187254601346908934}
   - component: {fileID: 8946496428643841931}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +597,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 809643423838695961}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -636,7 +637,7 @@ GameObject:
   - component: {fileID: 3836444320956826965}
   - component: {fileID: 3256989711452280875}
   - component: {fileID: 4584663236233792679}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: AI Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

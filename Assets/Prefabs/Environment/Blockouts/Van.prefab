@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 3830055207730578470}
   - component: {fileID: 4778483354717452207}
   - component: {fileID: 2743022489552570171}
-  - component: {fileID: 760098071705114202}
+  - component: {fileID: 2724559208779337827}
   m_Layer: 0
   m_Name: Van Blockout
   m_TagString: Untagged
@@ -4995,8 +4995,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2579660860873580406}
   m_Mesh: {fileID: 0}
---- !u!64 &760098071705114202
-MeshCollider:
+--- !u!65 &2724559208779337827
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5013,7 +5013,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 2.5539837, y: 3.250002, z: 6.5000005}
+  m_Center: {x: 1.496644, y: 0.8749988, z: -2.7500002}
