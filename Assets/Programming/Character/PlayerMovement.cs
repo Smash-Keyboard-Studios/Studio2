@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Gravity value
     [Header("Gravity Parameters")]
-    [SerializeField] private float Gravity = 9.81f;
+    [SerializeField] private float Gravity = 9.81f * 2;
 
     //Any extra things
     private CharacterController CharacterController;
@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerStats Stats;
     private Vector3 CurrentMovement;
     private bool CanSprint;
+    private bool IsSprinting;
 
     private Animator MyAnim;
     public GameObject MainCharacter;
@@ -38,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         InputHandler = PlayerInputHandler.Instance; //Gets the InputHandler from the PlayerInputHandler instance
-        CanSprint = false; //Sets the bool to false when the game starts
         MyAnim = MainCharacter.GetComponent<Animator>();
     }
 
@@ -59,24 +59,26 @@ public class PlayerMovement : MonoBehaviour
             Speed = WalkSpeed * (InputHandler.SprintValue > 0 ? SprintMultiplier : 1f); //Walkspeed gets multiplied by 2 when the sprint button is pressed otherwise it stays at its original value.
         }
 
-        //Sets CanSprint to true only if the player is moving either in the X or Y direction (Forwards/Back or Left/Right)
-        if (InputHandler.MoveInput.x > 0 || InputHandler.MoveInput.y > 0)
+        if (Mathf.Abs(InputHandler.MoveInput.x) > 0.1f && InputHandler.SprintValue > 0 || Mathf.Abs(InputHandler.MoveInput.y) > 0.1f && InputHandler.SprintValue > 0)
         {
-            CanSprint = true; //Sets the bool to true
+            IsSprinting = true; //Sets the bool to true
+        }
+        else
+        {
+            IsSprinting = false;
         }
 
         //If player is pressing the sprint button and CanSprint is true then the player can sprint and it drains 
-        if (InputHandler.SprintValue > 0 && CanSprint)
+        if (InputHandler.SprintValue > 0 && IsSprinting)
         {
             Stats.PlayerStamina = Stats.PlayerStamina - StaminaDecrease * (StaminaChargeRate * Time.deltaTime); //Player stamina is decreased by the StaminaDecrease value over the course of StaminaChargeRate times by Time.deltaTime
-            MyAnim.SetBool("Running", CanSprint);
         }
-        else if (InputHandler.SprintValue <= 0) //When the player is not sprinting and if the sprint value is bigger or equal to 0 then the sprint value will recharge.
+        else if (!IsSprinting) //When the player is not sprinting and if the sprint value is bigger or equal to 0 then the sprint value will recharge.
         {
             Stats.PlayerStamina = Stats.PlayerStamina + StaminaIncrease * (StaminaChargeRate * Time.deltaTime); //Player stamina is increased by the StaminaIncrease value over the course of StaminaChargeRate times by Time.deltaTime
-            CanSprint = false; //Sets the bool to false
-            MyAnim.SetBool("Running", CanSprint);
         }
+
+        MyAnim.SetBool("Running", IsSprinting);
 
         Vector3 InputDirection = new Vector3(InputHandler.MoveInput.x, 0f, InputHandler.MoveInput.y);
         Vector3 WorldDirection = transform.TransformDirection(InputDirection);
@@ -92,13 +94,18 @@ public class PlayerMovement : MonoBehaviour
     //This handles the gavity so the player is not floating everywhere.
     void HandleGravity()
     {
-        CurrentMovement.y -= Gravity * Time.deltaTime;
+        if (CharacterController.isGrounded)
+        {
+            CurrentMovement.y = -Gravity * Time.deltaTime;
+        }
+        else
+        {
+            CurrentMovement.y -= Gravity * Time.deltaTime;
+        }
     }
 
     void CharacterAnimations()
     {
-        float forwardBackwardsMagnitude = 0;
-        float rightLeftMagnitude = 0;
         Vector3 playerForward = rotation.forward;
         Vector3 playerRight = rotation.right;
 
@@ -118,5 +125,12 @@ public class PlayerMovement : MonoBehaviour
         MyAnim.SetFloat("Vert", Vector3.Dot(playerForward, movementWithoutGravity));
         //Debug.Log(CurrentMovement);
         MyAnim.SetFloat("MoveSpeed", Mathf.Max(Mathf.Abs(CurrentMovement.z), Mathf.Abs(CurrentMovement.x)));
+    }
+
+    public void Warp(Vector3 newPos)
+    {
+        CharacterController.enabled = false;
+        transform.position = newPos;
+        CharacterController.enabled = true;
     }
 }
