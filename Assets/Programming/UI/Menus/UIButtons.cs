@@ -40,4 +40,6 @@ public class UIButtons : MonoBehaviour
     {
         UIManager.Instance.PressQuit();
     }
+
+
 }

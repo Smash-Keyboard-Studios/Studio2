@@ -2,8 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
@@ -27,6 +31,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject optionsObj;
     [SerializeField] private GameObject controlsObj;
     //^ all these menu prefabs need to be dontdestroyonload to work properly
+    public bool inGameMenu;
 
     [Header("Tootips")]
     [SerializeField] private TextMeshProUGUI toolTipName;
@@ -66,6 +71,7 @@ public class UIManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
 
+
         DisableAllMenus(); //makes sure the menus are all disabled after changin a scene
     }
 
@@ -82,6 +88,8 @@ public class UIManager : MonoBehaviour
         gameMenuObj.SetActive(false);
         optionsObj.SetActive(false);
         controlsObj.SetActive(false);
+
+        inGameMenu = false;
     }
 
 
@@ -155,22 +163,30 @@ public class UIManager : MonoBehaviour
         {
             EnterMenu();
 
+            inGameMenu = true;
+            GameObject.FindGameObjectWithTag("Player").GetComponent <PlayerInput>().enabled = false;
             gameMenuObj.SetActive(true);
         }
     }
 
+
+       
+
     public void PressReturn()
     {
         //store whether in controls rn so can keep options open
-        bool wasInControls = controlsObj.activeInHierarchy;
+        bool wasInControls = controlsObj.activeInHierarchy && optionsObj.activeInHierarchy && !gameMenuObj.activeInHierarchy;
+        //store whether in controls (from gamemenu) rn so can keep options open
+        bool wasInControlsGameMenu = controlsObj.activeInHierarchy && optionsObj.activeInHierarchy && gameMenuObj.activeInHierarchy;
         //store whether in options (from gamemenu) rn so can keep game menu open
-        bool wasInOptions = !controlsObj.activeInHierarchy && optionsObj.activeInHierarchy && gameMenuObj.activeInHierarchy;
+        bool wasInOptionsGameMenu = !controlsObj.activeInHierarchy && optionsObj.activeInHierarchy && gameMenuObj.activeInHierarchy;
 
         DisableAllMenus();
 
-        if(wasInControls) { PressGameMenu(); PressOptions(); } //reopen options if was in controls before
-
-        if(wasInOptions) { PressGameMenu(); } //reopen game menu if was in options from game menu before
+        if (wasInControls) { PressOptions(); } //reopen options if was in controls before
+        else if (wasInControlsGameMenu) { PressGameMenu(); PressOptions(); } //reopen game menu and options if was in controls from game menu before
+        else if(wasInOptionsGameMenu) { PressGameMenu(); } //reopen game menu if was in options from game menu before
+        else { GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true; }
     }
 
     public void PressMainMenu()
