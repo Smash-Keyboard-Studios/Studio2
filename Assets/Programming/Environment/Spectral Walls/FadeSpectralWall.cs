@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class FadeSpectralWall : MonoBehaviour
 {
-    Renderer renderer;
+    Renderer spectralRenderer;
 
     public float fadeSpeed = 0.3f; // How fast the spectral walls fade in/out
 
@@ -19,10 +19,10 @@ public class FadeSpectralWall : MonoBehaviour
 
     void Awake()
     {
-        renderer = GetComponent<Renderer>();
+        spectralRenderer = GetComponent<Renderer>();
 
         // Create new instance of material so that it doesn't overwrite others
-        renderer.material = new Material(renderer.material);
+        spectralRenderer.material = new Material(spectralRenderer.material);
     }
 
     public void StartFadeOut()
@@ -31,19 +31,19 @@ public class FadeSpectralWall : MonoBehaviour
     }
     public void StartFadeIn()
     {
-        renderer.material.SetFloat("_Fade", highestFadeValue);
+        spectralRenderer.material.SetFloat("_Fade", highestFadeValue);
         StartCoroutine(FadeIn());
     }
 
     private IEnumerator FadeOut()
     {
         // Make wall lose opacity through shader
-        while (renderer.material.GetFloat("_Fade") < highestFadeValue)
+        while (spectralRenderer.material.GetFloat("_Fade") < highestFadeValue)
         {
             yield return new WaitForSeconds(0.01f);
-            renderer.material.SetFloat("_Fade", renderer.material.GetFloat("_Fade") + fadeSpeed);
+            spectralRenderer.material.SetFloat("_Fade", spectralRenderer.material.GetFloat("_Fade") + fadeSpeed);
         }
-        renderer.material.SetFloat("_Fade", highestFadeValue);
+        spectralRenderer.material.SetFloat("_Fade", highestFadeValue);
 
         endOfFadeout.Invoke();
     }
@@ -51,12 +51,12 @@ public class FadeSpectralWall : MonoBehaviour
     private IEnumerator FadeIn()
     {
         // Make wall gain opacity through shader
-        while (renderer.material.GetFloat("_Fade") > lowestFadeValue)
+        while (spectralRenderer.material.GetFloat("_Fade") > lowestFadeValue)
         {
             yield return new WaitForSeconds(0.01f);
-            renderer.material.SetFloat("_Fade", renderer.material.GetFloat("_Fade") - fadeSpeed);
+            spectralRenderer.material.SetFloat("_Fade", spectralRenderer.material.GetFloat("_Fade") - fadeSpeed);
         }
-        renderer.material.SetFloat("_Fade", lowestFadeValue);
+        spectralRenderer.material.SetFloat("_Fade", lowestFadeValue);
 
         endOfFadein.Invoke();
     }

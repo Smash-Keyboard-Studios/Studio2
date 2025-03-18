@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,12 +23,24 @@ public class Billboard : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		camTransform = Camera.main.transform;
+		try
+		{
+			camTransform = Camera.main.transform;
+		}
+		catch (NullReferenceException)
+		{
+			Debug.LogError("Main camera was not detected!", this);
+		}
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		if (camTransform == null)
+		{
+			return;
+		}
+
 		transform.LookAt(camTransform.position);
 	}
 }
