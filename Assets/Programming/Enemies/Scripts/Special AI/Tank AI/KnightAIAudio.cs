@@ -17,21 +17,24 @@ using UnityEngine;
 /// </summary>
 public class KnightAIAudio : GruntAIAudio
 {
-	protected KnightAI aiSpecialTank;
+	protected KnightAI knightAI;
 
 	// Start is called before the first frame update
 	protected override void Start()
 	{
-		aiSpecialTank = GetComponent<KnightAI>();
+		knightAI = GetComponent<KnightAI>();
 
 		base.Start();
 	}
 
 	protected override void SubscribeToAudioEvents()
 	{
-		aiSpecialTank.onSlamAttackStartSFXPlayOnce += OnSpecialAttackStartSFXPlayOnce;
+		knightAI.onSlamAttackStartSFXPlayOnce += OnSlamAttackStartSFXPlayOnce;
 
-		aiSpecialTank.onSlamHitGroundSFXPlayOnce += OnSpecialHitGroundSFXPlayOnce;
+		knightAI.onSlamHitGroundSFXPlayOnce += OnSlamHitGroundSFXPlayOnce;
+
+		knightAI.onSlashAttackSFXPlay += OnSlashAttackStartSFXPlay;
+		knightAI.onSlashAttackSFXStop += OnSlashAttackStartSFXStop;
 
 		base.SubscribeToAudioEvents();
 	}
@@ -63,13 +66,24 @@ public class KnightAIAudio : GruntAIAudio
 		// Audio code here
 	}
 
-	protected virtual void OnSpecialAttackStartSFXPlayOnce()
+	protected virtual void OnSlamAttackStartSFXPlayOnce()
 	{
 		// audio code here
 	}
 
-	private void OnSpecialHitGroundSFXPlayOnce()
+	protected virtual void OnSlamHitGroundSFXPlayOnce()
+	{
+		// audio code here
+	}
+
+	protected virtual void OnSlashAttackStartSFXPlay()
+	{
+		// audio code here
+	}
+
+	protected virtual void OnSlashAttackStartSFXStop()
 	{
 		// audio code here
 	}
 }
+

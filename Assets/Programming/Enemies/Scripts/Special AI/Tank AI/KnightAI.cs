@@ -122,10 +122,33 @@ public class KnightAI : GruntAI
 
 	#endregion
 
+
+	#region Shield break settings
+	[Header("Shield break settings")]
+	[SerializeField]
+	protected float stunDuration = 3f;
+
+	protected float stunTimer = 0f;
+
+	[SerializeField]
+	protected float speedWhileStunned = 0.5f;
+
+	[SerializeField]
+	protected float speedWhileShieldIsBroken = 6f;
+
+	protected bool shieldIsBroken = false;
+
+	#endregion
+
+
+
 	#region Audio Events
 
 	public event Action onSlamAttackStartSFXPlayOnce;
 	public event Action onSlamHitGroundSFXPlayOnce;
+
+	public event Action onSlashAttackSFXPlay;
+	public event Action onSlashAttackSFXStop;
 
 	#endregion
 
@@ -182,11 +205,13 @@ public class KnightAI : GruntAI
 	#region Shield Events
 	private void OnShieldBreak()
 	{
-
+		stunTimer = stunDuration;
+		shieldIsBroken = true;
 	}
 
 	private void OnShieldActivate()
 	{
+		shieldIsBroken = false;
 
 	}
 	#endregion
@@ -199,7 +224,17 @@ public class KnightAI : GruntAI
 	/// </summary>
 	protected override void AlertedThinking()
 	{
-		if (Vector3.Distance(playerTarget.position, transform.position) < agent.radius + 0.1f || attacking) currentSpeed = 0.4f;
+		// speed setting
+		if (stunTimer > 0)
+		{
+			currentSpeed = speedWhileStunned;
+			stunTimer -= Time.deltaTime;
+		}
+		else if (Vector3.Distance(playerTarget.position, transform.position) < agent.radius + 0.1f || attacking) currentSpeed = 0.4f;
+		else if (shieldIsBroken)
+		{
+			currentSpeed = speedWhileShieldIsBroken;
+		}
 		else currentSpeed = maxSpeed;
 
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), maxTurningDegreesDelta);
