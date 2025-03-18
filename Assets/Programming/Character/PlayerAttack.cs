@@ -95,7 +95,7 @@ public class PlayerAttack : MonoBehaviour
     {
         isAttacking = true;
         heavyAttacking = true;
-        MyAnim.SetBool("Attacking", isAttacking);
+        MyAnim.SetBool("HeavyAttacking", isAttacking);
 
         DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AttackType.Heavy);
 
@@ -107,7 +107,7 @@ public class PlayerAttack : MonoBehaviour
 
         isAttacking = false;
         heavyAttacking = false;
-        MyAnim.SetBool("Attacking", isAttacking);
+        MyAnim.SetBool("HeavyAttacking", isAttacking);
     }
 
     IEnumerator ChargedHeavyAttack()
