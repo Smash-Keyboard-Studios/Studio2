@@ -14,6 +14,8 @@ public class TriggerDialogue : MonoBehaviour
         {
             other.GetComponent<PlayerInput>().enabled = false;
 
+            UIManager.Instance.inDialogueMenu = true;
+
             dialogueHandler.GetComponent<DialogueHandler>().ConversationAsset = conversationAsset;
             dialogueHandler.SetActive(true);
             Destroy(gameObject);
