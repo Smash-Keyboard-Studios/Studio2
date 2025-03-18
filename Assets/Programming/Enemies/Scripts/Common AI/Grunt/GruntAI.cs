@@ -67,7 +67,7 @@ public class LightAttack
 	/// <summary>
 	/// The offset from the AI position the box check will be.
 	/// </summary>
-	public Vector3 boxCastOffsetFromAI = Vector3.forward;
+	public float boxCastForwardOffset = 1;
 
 
 
@@ -275,7 +275,10 @@ public class GruntAI : AIBase
 		{
 			// print(hit.transform.name);
 			if (hit.collider.gameObject.CompareTag("Player"))
+			{
+				//transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), 45);
 				ChangeState(AIState.Alerted);
+			}
 		}
 	}
 	#endregion
@@ -288,7 +291,9 @@ public class GruntAI : AIBase
 	/// </summary>
 	protected virtual void AlertedThinking()
 	{
-		pathTarget = playerTarget.position + playerTarget.GetComponent<CharacterController>().velocity;
+		//Vector3 lead = Vector3.Distance(transform.position, playerTarget.position) < 3f ? Vector3.zero : playerTarget.GetComponent<CharacterController>().velocity;
+
+		pathTarget = playerTarget.position;// + lead;
 
 
 		if (Vector3.Distance(playerTarget.position, transform.position) < lightAttackClass.minDistanceForAttack)
@@ -299,11 +304,13 @@ public class GruntAI : AIBase
 
 
 			if (!attacking && lightAttackCoolDown <= 0f) StartCoroutine(LightAttack());
+
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), maxTurningDegreesDelta);
+
 		}
 
 
 
-		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), maxTurningDegreesDelta);
 
 
 	}
@@ -374,13 +381,14 @@ public class GruntAI : AIBase
 	/// </summary>
 	public virtual void LightAttackCheckAndDamage()
 	{
-		Collider[] HitObjects = Physics.OverlapBox(transform.position + lightAttackClass.boxCastOffsetFromAI, new Vector3(lightAttackClass.boxCastLength, lightAttackClass.boxCastHeight, lightAttackClass.boxCastDepth) / 2f,
-				 transform.rotation, layersToCheckFor, QueryTriggerInteraction.Ignore);
+		Collider[] HitObjects = Physics.OverlapBox(transform.position + (transform.forward * lightAttackClass.boxCastForwardOffset), new Vector3(lightAttackClass.boxCastLength, lightAttackClass.boxCastHeight, lightAttackClass.boxCastDepth) / 2f,
+				 transform.rotation, layersToCheckFor);
 
 		if (HitObjects.Length > 0)
 		{
 			foreach (var hitObject in HitObjects)
 			{
+				//print(hitObject.name);
 				if (hitObject.gameObject.CompareTag("Player"))
 				{
 					hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackClass.lightAttackDamage);
