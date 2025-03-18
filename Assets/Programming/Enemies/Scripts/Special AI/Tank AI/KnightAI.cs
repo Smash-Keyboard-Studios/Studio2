@@ -302,7 +302,7 @@ public class KnightAI : GruntAI
 		animatorController.SetBool("IsSlashAttack", false);
 		animatorController.SetBool("IsAttacking", false);
 
-		damageRingIndicator.HideRing();
+
 		// this has a end termination.
 		base.AnimationAttackFinished();
 	}
@@ -337,6 +337,8 @@ public class KnightAI : GruntAI
 				}
 			}
 		}
+
+		damageRingIndicator.HideRing();
 
 	}
 
@@ -400,7 +402,7 @@ public class KnightAI : GruntAI
 
 		animatorController.SetBool("IsSlashAttack", false);
 
-
+		damageRingIndicator.HideRing();
 
 		while (attackAnimationPlaying) yield return null;
 
