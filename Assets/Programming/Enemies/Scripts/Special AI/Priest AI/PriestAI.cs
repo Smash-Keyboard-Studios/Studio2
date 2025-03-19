@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
+using Unity.VisualScripting;
+using static UnityEditor.PlayerSettings;
+using Unity.Mathematics;
+//using System.Numerics;
 
 public class TeleportLocation
 {
@@ -24,11 +28,14 @@ public class PriestAI : AICommonRangedCombat
 	//  / ___ \| | __ />  <  | . \
 	// /_/   \_\_|\___/_/\_\ |_|\_\
 	PriestAI priestAI;
-	[SerializeField] float furtherestTeleportPoint;
+	//[SerializeField] float furtherestTeleportPoint;
 	[SerializeField] protected Transform[] retreatLocations;
-	[SerializeField] List<TeleportLocation> teleportLocations;
+	List<Vector3> retreatPositions;
+	//[SerializeField] List<TeleportLocation> teleportLocations;
 	[SerializeField] protected float beamAttackCooldown;
+	[SerializeField] protected float projectileSpread;
 	float beamAttackTimer;
+	[SerializeField] protected float volleyDelay = 0.125f;
 	#region Awake
 	protected override void Awake()
 	{
@@ -47,7 +54,7 @@ public class PriestAI : AICommonRangedCombat
 	{
 
 		InvokeRepeating(nameof(RunPathfinding), 0, 0.25f);
-		foreach (Transform assignedTransform in retreatLocations) { teleportLocations.Add(new TeleportLocation(assignedTransform, 0f)); }
+		//foreach (Transform assignedTransform in retreatLocations) {retreatPositions.Add(assignedTransform.transform.position); }
 		base.Start();
 
 	}
@@ -61,9 +68,7 @@ public class PriestAI : AICommonRangedCombat
 		if (lightAttackCooldown > 0f) lightAttackCooldown -= Time.deltaTime;
 		if (retreatTimer > 0f) retreatTimer -= Time.deltaTime;
 		if (beamAttackTimer > 0f) beamAttackTimer -= Time.deltaTime;
-
-
-
+		
 		// thinking based on current state state.
 		// call appropriate functions.
 
@@ -115,13 +120,11 @@ public class PriestAI : AICommonRangedCombat
 	protected override void AlertedThinking()
 	{
 		pathTarget = playerTarget.position;
-
+		if ((Vector3.Distance(playerTarget.position, transform.position) < retreatDistance)){ chaseTimer -= Time.deltaTime; }
 
 		if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForAttack)
 		{
-			if ((Vector3.Distance(playerTarget.position, transform.position) < retreatDistance) && retreatTimer <= 0f && !chaseFinished)
-			{ //ChangeState(AIState.Retreating);
-			}
+			if ((Vector3.Distance(playerTarget.position, transform.position) < retreatDistance) && chaseTimer <= 0f){ ChangeState(AIState.Retreating);}
 			else
 			{
 				if (Physics.Linecast(transform.position, playerTarget.position, out RaycastHit hit) && Vector3.Distance(transform.position, playerTarget.position) <= maxDetectionRange) //Checks if the player is still in Line of Sight
@@ -145,17 +148,54 @@ public class PriestAI : AICommonRangedCombat
 	///<summary> /// How the AI acts when retreating. /// </summary>
 	protected override void RetreatingThinking()
 	{
-		//Transform chosenRetreat;teleportReference
-		List<float> distanceArray = new List<float>();
-		//int transformListIncrem = 0;
-		foreach (TeleportLocation chosenLocation in teleportLocations)
+		Vector3 furtherestTeleportPoint = Vector3.zero;
+		float teleportDistance = 0;
+
+		foreach (var checkingLocation in retreatLocations)
 		{
-			chosenLocation.teleportDistance = Vector3.Distance(playerTarget.position, chosenLocation.teleportReference.position);
-			//Debug.Log(teleportLocations);
+
+			// if the distance is zero, we know we dont have a point yet, so we set the point to the first pos in the list. assignedTransform.transform.position
+			if (teleportDistance == 0)
+			{
+				teleportDistance = Vector3.Distance(transform.position, checkingLocation.position);
+				furtherestTeleportPoint = checkingLocation.position;
+				continue;
+			}
+
+			if (Vector3.Distance(transform.position, checkingLocation.position) > teleportDistance) // if the distance is bigger to the one we currently have, use this one instead.
+			{
+				furtherestTeleportPoint = checkingLocation.position;
+				teleportDistance = Vector3.Distance(transform.position, checkingLocation.position);
+			}
 		}
-		Debug.Log(teleportLocations);
-		furtherestTeleportPoint = teleportLocations.Max(x => x.teleportDistance);
-		Debug.Log(furtherestTeleportPoint);
+		//furtherestTeleportPoint = retreatPositions.Max(x => x.Distance(transform.position, x));
+		// we should have a final point
+		if (chaseTimer <= 0)
+		{
+			transform.position = furtherestTeleportPoint;
+		}
+
+
+
+
+
+
+
+		////Transform chosenRetreat;teleportReference
+		//List<float> distanceArray = new List<float>();
+		////int transformListIncrem = 0;
+		//foreach (TeleportLocation chosenLocation in teleportLocations)
+		//{
+		//	chosenLocation.teleportDistance = Vector3.Distance(playerTarget.position, chosenLocation.teleportReference.position);
+		//	//Debug.Log(teleportLocations);
+		//}
+		//Debug.Log(teleportLocations);
+		//furtherestTeleportPoint = teleportLocations.Max(x => x.teleportDistance);
+		//Debug.Log(furtherestTeleportPoint);
+		//this.gameObject.transform = teleportLocations(furtherestTeleportPoint);
+		//float chosenTeleport = UnityEngine.Random.Range(0, retreatLocations.Length);
+		//Transform toTeleportTo = retreatLocations.ElementAt((int)chosenTeleport);
+		//this.transform.position = toTeleportTo.position;
 		//foreach (Transform optionalRetreat in teleportPoints)
 		//{
 		//	transformListIncrem = transformListIncrem + 1;
@@ -172,11 +212,11 @@ public class PriestAI : AICommonRangedCombat
 		//	chaseTimer -= Time.deltaTime;
 		//}
 
-		//if (Vector3.Distance(playerTarget.position, transform.position) >= minDistanceForAttack || chaseFinished)
-		//{
-		//	chaseTimer = retreatCooldown; // Resets the chase timer
-		//	ChangeState(AIState.Alerted);
-		//}
+		if (Vector3.Distance(playerTarget.position, transform.position) >= minDistanceForAttack)
+		{
+			chaseTimer = retreatCooldown; // Resets the chase timer
+			ChangeState(AIState.Alerted);
+		}
 	}
 	#endregion
 	#region LightAttack
@@ -237,29 +277,45 @@ public class PriestAI : AICommonRangedCombat
 	/// </summary>
 	public override void LightAttackCheckAndDamage()
 	{
+		StartCoroutine(multifireDelay());
+	}
+
+
+	IEnumerator multifireDelay()
+	{
 		Transform[] usedSpawn = isBeam ? beamSpawnPoint : projectileSpawnPoint;
 		//Action usedSFXAction = isBeam ? onSFXBeamStart : onSFXProjectileLaunch;
-		GameObject usedpreFab = isBeam ? beamPrefab : projectilePrefab;
+		GameObject usedPrefab = isBeam ? beamPrefab : projectilePrefab;
 		if (isBeam) { beamAttackTimer = beamAttackCooldown; }
+		Quaternion randomRotation;
+
 		foreach (Transform SpawnPoint in usedSpawn)
 		{
-			//usedSFXAction?.Invoke();
+
 			SpawnPoint.LookAt(playerTarget.position);
-			GameObject instance = Instantiate(usedpreFab, SpawnPoint.position, SpawnPoint.rotation);
+			randomRotation = Quaternion.LookRotation(playerTarget.position - SpawnPoint.position);
 			if (isBeam)
 			{
+				GameObject instance = Instantiate(usedPrefab, SpawnPoint.position, SpawnPoint.rotation);
 				instance.GetComponent<BaseEnemyBeam>().rangedDamage = rangedDamage;
 				instance.GetComponent<BaseEnemyBeam>().rangedLifespan = rangedLifespan;
 				instance.GetComponent<BaseEnemyBeam>().rangedSpeed = rangedSpeed;
 			}
 			else
 			{
-				instance.GetComponent<BaseEnemyProjectile>().rangedDamage = rangedDamage;
-				instance.GetComponent<BaseEnemyProjectile>().rangedLifespan = rangedLifespan;
-				instance.GetComponent<BaseEnemyProjectile>().rangedSpeed = rangedSpeed;
+					randomRotation *= Quaternion.Euler(new Vector3(0, UnityEngine.Random.Range(-projectileSpread, projectileSpread), 0));
+					SpawnPoint.rotation = Quaternion.Slerp(SpawnPoint.rotation, randomRotation, 1f);
+					GameObject instance = Instantiate(usedPrefab, SpawnPoint.position, SpawnPoint.rotation);
+					instance.GetComponent<BaseEnemyProjectile>().rangedDamage = rangedDamage;
+					instance.GetComponent<BaseEnemyProjectile>().rangedLifespan = rangedLifespan;
+					instance.GetComponent<BaseEnemyProjectile>().rangedSpeed = rangedSpeed;
 			}
+
+			yield return new WaitForSeconds(volleyDelay);
 		}
+
 	}
+
 	#endregion
 	#region RunPathfinding
 	/// <summary> 	/// Calculate the path. This should be called in Start with InvokeRepeating to optimise path calculations.	/// </summary>
