@@ -16,7 +16,7 @@ public class DialogueHandler : MonoBehaviour
     //for playing audio
     private AudioSource audioSource;
 
-    private void Awake()
+    private void OnEnable()
     {
         audioSource = GetComponent<AudioSource>();
 
@@ -57,6 +57,8 @@ public class DialogueHandler : MonoBehaviour
         //disable this if no more data
         if(currentData == null) {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true;
+
+            UIManager.Instance.inDialogueMenu = false;
 
             this.gameObject.SetActive(false); 
         }

@@ -57,7 +57,7 @@ public class PlayerInputHandler : MonoBehaviour
         MoveAction.canceled += context => MoveInput = Vector2.zero;
 
         SprintAction.performed += context => SprintValue = context.ReadValue<float>();
-        SprintAction.canceled += contect => SprintValue = 0f;
+        SprintAction.canceled += context => SprintValue = 0f;
 
         InteractAction.performed += context => InteractionTriggered = true;
         InteractAction.canceled += context => InteractionTriggered = false;

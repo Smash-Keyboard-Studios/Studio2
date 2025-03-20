@@ -21,15 +21,13 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Cooldown Delays")]
     public float LightAttackDelay = 0.2f;
-    public float HeavyAttackDelay = 1f;
-    public float ChargedHeavyAttackDelay = 2f;
+    public float HeavyAttackDelay = 2f;
 
     [Header("Attacks being carried out")]
     public bool isAttacking = false;
 
     public bool lightAttacking = false;
     public bool heavyAttacking = false;
-    public bool chargedHeavyAttacking = false;
 
     private Animator MyAnim;
     [Header("Player Model")] public GameObject MainCharacter;
@@ -95,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
     {
         isAttacking = true;
         heavyAttacking = true;
-        MyAnim.SetBool("Attacking", isAttacking);
+        MyAnim.SetBool("HeavyAttacking", isAttacking);
 
         DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AttackType.Heavy);
 
@@ -107,27 +105,30 @@ public class PlayerAttack : MonoBehaviour
 
         isAttacking = false;
         heavyAttacking = false;
-        MyAnim.SetBool("Attacking", isAttacking);
+        MyAnim.SetBool("HeavyAttacking", isAttacking);
     }
 
     IEnumerator ChargedHeavyAttack()
     {
         isChargingChargedHeavyAttack = false; //stop charging the attack
 
+        //set charged heavy dmg to heavy dmg if its too low (equivalent to normal heavy attack)
+        if (ChargedHeavyDmg < HeavyDmg) { ChargedHeavyDmg = HeavyDmg; }
+
         isAttacking = true;
-        chargedHeavyAttacking = true;
+        heavyAttacking = true;
         MyAnim.SetBool("Attacking", isAttacking);
 
 
         DamageEnemy(Physics.OverlapSphere(transform.position, chargedHeavyAttackRadius), AttackType.ChargedHeavy);
 
-        yield return new WaitForSeconds(ChargedHeavyAttackDelay);
+        yield return new WaitForSeconds(HeavyAttackDelay);
 
 
         ChargedHeavyDmg = 0; //reset charged heavy damage
 
         isAttacking = false;
-        chargedHeavyAttacking = false;
+        heavyAttacking = false;
         MyAnim.SetBool("Attacking", isAttacking);
     }
 
