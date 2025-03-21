@@ -11496,6 +11496,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1954420251}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &391984096 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2829685357577232280, guid: d110e1c34e83ce247a08b9455a2744c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1474338980}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &393790615 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5660892093653123077, guid: ee73234ddfc943b4d81184a6c985a39b,
@@ -41761,6 +41767,11 @@ PrefabInstance:
       propertyPath: MainCharacter
       value: 
       objectReference: {fileID: 1063549256}
+    - target: {fileID: 533977030738716872, guid: d110e1c34e83ce247a08b9455a2744c8,
+        type: 3}
+      propertyPath: playerRotation
+      value: 
+      objectReference: {fileID: 391984096}
     - target: {fileID: 5005257603024285522, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
       propertyPath: m_Name
@@ -46859,6 +46870,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7316108949022290800, guid: 241e51dc5a7fac6479e5c6ac305908b2,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735458864023246078, guid: 241e51dc5a7fac6479e5c6ac305908b2,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735458864023246078, guid: 241e51dc5a7fac6479e5c6ac305908b2,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
