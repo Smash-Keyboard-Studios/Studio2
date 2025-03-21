@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         float Speed = WalkSpeed; //The speed the player moves
 
         //Player can only sprint while they have stamina
-        if (Stats.PlayerStamina > StaminaDecrease)
+        if (Stats.PlayerStamina > 0)
         {
             Speed = WalkSpeed * (InputHandler.SprintValue > 0 ? SprintMultiplier : 1f); //Walkspeed gets multiplied by 2 when the sprint button is pressed otherwise it stays at its original value.
         }
