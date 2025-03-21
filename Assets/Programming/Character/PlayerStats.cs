@@ -26,13 +26,15 @@ public class PlayerStats : MonoBehaviour, IDamageable
     //public GameObject deathText;
     protected Animator MyAnim;
     public GameObject MainCharacter;
+    public GameObject playerRotation;
     public GameObject DeathScreen;
 
     private void Start()
     {
         InputHandler = PlayerInputHandler.Instance; //Gets the InputHandler from the PlayerInputHandler instance
-        //deathText.SetActive(false);
         MyAnim = MainCharacter.GetComponent<Animator>();
+        playerRotation.GetComponent<PlayerRotation>();
+        InteractionUI.SetActive(false);
     }
 
     public bool TakeDamage(float Amount)
@@ -51,14 +53,18 @@ public class PlayerStats : MonoBehaviour, IDamageable
         PlayerHealth = Mathf.Clamp(PlayerHealth, PlayerMinHealth, PlayerMaxHealth); //Clamps the PlayerHealth between the min and max health values
 
         //When the player loses all of their Health they will die.
-        if (PlayerHealth <= 0)
+        if (PlayerHealth == 0)
         {
-            //deathText.SetActive(true);
+            playerRotation.GetComponent<PlayerRotation>().enabled = false;
+            GetComponent<PlayerMovement>().enabled = false;
+
             MyAnim.SetTrigger("Dead");
             DeathScreen.SetActive(true);
         }
         else
         {
+            playerRotation.GetComponent<PlayerRotation>().enabled = true;
+            GetComponent<PlayerMovement>().enabled = true;
             DeathScreen.SetActive(false);
         }
     }
