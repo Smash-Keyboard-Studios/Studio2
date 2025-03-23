@@ -111,6 +111,7 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator ChargedHeavyAttack()
     {
         isChargingChargedHeavyAttack = false; //stop charging the attack
+        MyAnim.SetBool("ChargingHeavyAttack", isChargingChargedHeavyAttack);
 
         //set charged heavy dmg to heavy dmg if its too low (equivalent to normal heavy attack)
         if (ChargedHeavyDmg < HeavyDmg) { ChargedHeavyDmg = HeavyDmg; }
@@ -135,7 +136,8 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator ChargeChargedHeavyAttack()
     {
-        isChargingChargedHeavyAttack = true;
+        isChargingChargedHeavyAttack = true; //start charging the attack
+        MyAnim.SetBool("ChargingHeavyAttack", isChargingChargedHeavyAttack);
 
         while (isChargingChargedHeavyAttack && ChargedHeavyDmg < MaxChargedHeavyDmg)
         {

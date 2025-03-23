@@ -2390,6 +2390,8 @@ MonoBehaviour:
   PlayerHealAmount: 25
   InteractionUI: {fileID: 0}
   MainCharacter: {fileID: 27083249097777768}
+  playerRotation: {fileID: 0}
+  DeathScreen: {fileID: 0}
 --- !u!114 &8236928788153488819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2435,17 +2437,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LightDmg: 1
   HeavyDmg: 2
-  ChargedHeavyDmgMultiplier: 1
+  ChargedHeavyDmgAddition: 1
   MaxChargedHeavyDmg: 5
-  ChargedHeavyDmg: 0
-  isChargingChargedHeavyAttack: 0
   LightAttackDelay: 0.2
   HeavyAttackDelay: 1
-  ChargedHeavyAttackDelay: 1
   isAttacking: 0
   lightAttacking: 0
   heavyAttacking: 0
-  chargedHeavyAttacking: 0
   MainCharacter: {fileID: 27083249097777768}
   heavyAttackRadius: 1.5
   chargedHeavyAttackRadius: 2

@@ -18,5 +18,6 @@ public class PlayerRotation : MonoBehaviour
         Vector3 PlayerScreenToCameraSpace = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, 0f, Camera.main.WorldToScreenPoint(transform.position).y);
         Vector3 PlayerToMouse = MouseScreenToCameraSpace - PlayerScreenToCameraSpace;
         transform.LookAt(PlayerToMouse);
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
     }
 }
