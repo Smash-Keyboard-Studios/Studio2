@@ -182,7 +182,11 @@ public class KnightAI : GruntAI
 	#region Update
 	protected override void Update()
 	{
-		if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu) return;
+		if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
+		{
+			pathTarget = transform.position;
+			return;
+		}
 
 		if (isSlamWindingUp && slamWindUpTimer > 0f)
 		{
