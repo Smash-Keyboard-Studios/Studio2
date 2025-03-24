@@ -250,6 +250,7 @@ public class GruntAI : AIBase
 		}
 
 
+		// walking sfx player
 		if (agent.velocity.magnitude <= 0.1f)
 		{
 			WalkingSFXStop();
@@ -260,6 +261,7 @@ public class GruntAI : AIBase
 			WalkingSFXPlay(agent.velocity.magnitude);
 		}
 
+		// animations
 		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
 
 	}
