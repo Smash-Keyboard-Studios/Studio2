@@ -63,13 +63,22 @@ MonoBehaviour:
   maxDetectionRange: 30
   rangedDamage: 10
   rangedLifespan: 2
-  rangedSpeed: 10
+  rangedSpeed: 20
   isBeam: 1
   projectilePrefab: {fileID: 2228087868186991025, guid: c6c804fb49a28f54599e3451dbede250,
     type: 3}
   projectileSpawnPoint:
   - {fileID: 672964371900445091}
-  beamPrefab: {fileID: 7622524606344581348, guid: 6bcf02acef9fb324fbdc53d1ed8be185,
+  - {fileID: 672964371900445091}
+  - {fileID: 672964371900445091}
+  - {fileID: 672964371900445091}
+  - {fileID: 672964371900445091}
+  - {fileID: 672964371900445091}
+  - {fileID: 672964371900445091}
+  - {fileID: 672964371900445091}
+  - {fileID: 672964371900445091}
+  - {fileID: 672964371900445091}
+  beamPrefab: {fileID: 7622524606344581348, guid: cd37d32bb93292949b13fdc2bfe512f3,
     type: 3}
   beamSpawnPoint:
   - {fileID: 6264254839036688584}
@@ -79,11 +88,12 @@ MonoBehaviour:
   enableVisualDetectionRadius: 0
   enableVisualDetectionLine: 0
   distanceFromPlayer: 0
-  retreatLocations: []
+  retreatLocations:
+  - {fileID: 0}
+  - {fileID: 0}
   beamAttackCooldown: 15
   projectileSpread: 15
-  shittyTimer: 0.125
-  resetOfTimer: 0.125
+  volleyDelay: 0.125
 --- !u!114 &3222878168228818675
 MonoBehaviour:
   m_ObjectHideFlags: 0

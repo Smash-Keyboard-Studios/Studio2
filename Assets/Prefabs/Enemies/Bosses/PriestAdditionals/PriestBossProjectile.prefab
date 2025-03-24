@@ -65,8 +65,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4984637909554519789, guid: 69c9cafc9d150514881727da3970eb67,
         type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984637909554519789, guid: 69c9cafc9d150514881727da3970eb67,
+        type: 3}
       propertyPath: m_UseGravity
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984637909554519789, guid: 69c9cafc9d150514881727da3970eb67,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4984637909554519789, guid: 69c9cafc9d150514881727da3970eb67,
         type: 3}

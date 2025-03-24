@@ -3,22 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Linq;
-using Unity.VisualScripting;
-//using static UnityEditor.PlayerSettings; Where'd this come from???
-using Unity.Mathematics;
-//using System.Numerics;
 
-public class TeleportLocation
-{
-	public Transform teleportReference;
-	public float teleportDistance;
-	public TeleportLocation(Transform _teleportReference, float _teleportDistance)
-	{
-		teleportReference = _teleportReference;
-		teleportDistance = _teleportDistance;
-	}
-}
+
 public class PriestAI : AICommonRangedCombat
 {
 	// by
@@ -28,14 +14,17 @@ public class PriestAI : AICommonRangedCombat
 	//  / ___ \| | __ />  <  | . \
 	// /_/   \_\_|\___/_/\_\ |_|\_\
 	PriestAI priestAI;
-	//[SerializeField] float furtherestTeleportPoint;
 	[SerializeField] protected Transform[] retreatLocations;
 	List<Vector3> retreatPositions;
-	//[SerializeField] List<TeleportLocation> teleportLocations;
+
 	[SerializeField] protected float beamAttackCooldown;
-	[SerializeField] protected float projectileSpread;
+	[SerializeField] protected float beamTracker;
+	//[SerializeField] protected float beamDamage;
 	float beamAttackTimer;
+	bool beamStillActive;
+	[SerializeField] protected float projectileSpread;
 	[SerializeField] protected float volleyDelay = 0.125f;
+
 	#region Awake
 	protected override void Awake()
 	{
@@ -68,7 +57,7 @@ public class PriestAI : AICommonRangedCombat
 		if (lightAttackCooldown > 0f) lightAttackCooldown -= Time.deltaTime;
 		if (retreatTimer > 0f) retreatTimer -= Time.deltaTime;
 		if (beamAttackTimer > 0f) beamAttackTimer -= Time.deltaTime;
-		
+		//if (beamTracker > 0f) {beamAttackTimer -= Time.deltaTime; beamStillActive = true; } else { beamStillActive = false; }
 		// thinking based on current state state.
 		// call appropriate functions.
 
@@ -119,6 +108,10 @@ public class PriestAI : AICommonRangedCombat
 	/// <summary>	/// How the AI acts when it seen / detects the player. /// </summary>
 	protected override void AlertedThinking()
 	{
+		//if (beamStillActive)
+		//{
+		//	return;
+		//}
 		pathTarget = playerTarget.position;
 		if ((Vector3.Distance(playerTarget.position, transform.position) < retreatDistance)){ chaseTimer -= Time.deltaTime; }
 
@@ -175,43 +168,6 @@ public class PriestAI : AICommonRangedCombat
 			transform.position = furtherestTeleportPoint;
 		}
 
-
-
-
-
-
-
-		////Transform chosenRetreat;teleportReference
-		//List<float> distanceArray = new List<float>();
-		////int transformListIncrem = 0;
-		//foreach (TeleportLocation chosenLocation in teleportLocations)
-		//{
-		//	chosenLocation.teleportDistance = Vector3.Distance(playerTarget.position, chosenLocation.teleportReference.position);
-		//	//Debug.Log(teleportLocations);
-		//}
-		//Debug.Log(teleportLocations);
-		//furtherestTeleportPoint = teleportLocations.Max(x => x.teleportDistance);
-		//Debug.Log(furtherestTeleportPoint);
-		//this.gameObject.transform = teleportLocations(furtherestTeleportPoint);
-		//float chosenTeleport = UnityEngine.Random.Range(0, retreatLocations.Length);
-		//Transform toTeleportTo = retreatLocations.ElementAt((int)chosenTeleport);
-		//this.transform.position = toTeleportTo.position;
-		//foreach (Transform optionalRetreat in teleportPoints)
-		//{
-		//	transformListIncrem = transformListIncrem + 1;
-		//	distanceArray[transformListIncrem] = Vector3.Distance(playerTarget.position, optionalRetreat.position);
-		//}
-		//transform.position = chosenRetreat;
-		//if (chaseTimer <= 0) { chaseFinished = true; }//If enemy isn't able to retreat to safe distance or the player keeps chasing, bypass back to attacking.
-		//if (!chaseFinished)
-		//{
-		//	retreatTimer = retreatCooldown;
-		//	Vector3 directionToPlayer = playerTarget.position - transform.position; // Calculates the direction towards the player
-		//	Vector3 oppositeDirection = transform.position - directionToPlayer; // Calcualates the direction away from the player
-		//	pathTarget = oppositeDirection;
-		//	chaseTimer -= Time.deltaTime;
-		//}
-
 		if (Vector3.Distance(playerTarget.position, transform.position) >= minDistanceForAttack)
 		{
 			chaseTimer = retreatCooldown; // Resets the chase timer
@@ -224,6 +180,7 @@ public class PriestAI : AICommonRangedCombat
 	/// <returns></returns>
 	protected override IEnumerator LightAttack()
 	{
+		
 		attacking = true;
 		lightAttackCooldown = lightAttackRate;
 		transform.LookAt(new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z)); // Turns the AI manually towards the player.
@@ -241,8 +198,7 @@ public class PriestAI : AICommonRangedCombat
 		{
 			animatorController.SetBool("IsHardAttack", false);
 		}
-
-
+		
 		// we start the attack.
 		animatorController.SetBool("IsAttacking", true);
 
@@ -255,8 +211,6 @@ public class PriestAI : AICommonRangedCombat
 		lightAttackCoroutine = null;
 	}
 	#endregion
-
-
 
 	#region AnimationAttackFinished
 	/// <summary>	/// Reset animation varibles once the attack is finished. /// </summary>
@@ -297,18 +251,19 @@ public class PriestAI : AICommonRangedCombat
 			if (isBeam)
 			{
 				GameObject instance = Instantiate(usedPrefab, SpawnPoint.position, SpawnPoint.rotation);
-				instance.GetComponent<BaseEnemyBeam>().rangedDamage = rangedDamage;
-				instance.GetComponent<BaseEnemyBeam>().rangedLifespan = rangedLifespan;
-				instance.GetComponent<BaseEnemyBeam>().rangedSpeed = rangedSpeed;
+				instance.GetComponent<PriestBeam>().rangedDamage = rangedDamage;
+				instance.GetComponent<PriestBeam>().rangedLifespan = rangedLifespan;
+				instance.GetComponent<PriestBeam>().rangedSpeed = rangedSpeed;
+				beamTracker = rangedLifespan;
 			}
 			else
 			{
 					randomRotation *= Quaternion.Euler(new Vector3(0, UnityEngine.Random.Range(-projectileSpread, projectileSpread), 0));
 					SpawnPoint.rotation = Quaternion.Slerp(SpawnPoint.rotation, randomRotation, 1f);
 					GameObject instance = Instantiate(usedPrefab, SpawnPoint.position, SpawnPoint.rotation);
-					instance.GetComponent<BaseEnemyProjectile>().rangedDamage = rangedDamage;
-					instance.GetComponent<BaseEnemyProjectile>().rangedLifespan = rangedLifespan;
-					instance.GetComponent<BaseEnemyProjectile>().rangedSpeed = rangedSpeed;
+					instance.GetComponent<PriestProjectile>().rangedDamage = rangedDamage;
+					instance.GetComponent<PriestProjectile>().rangedLifespan = rangedLifespan;
+					instance.GetComponent<PriestProjectile>().rangedSpeed = rangedSpeed;
 			}
 
 			yield return new WaitForSeconds(volleyDelay);

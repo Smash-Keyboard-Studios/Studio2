@@ -226,6 +226,11 @@ public class GruntAI : AIBase
 	#region Update
 	protected virtual void Update()
 	{
+		if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
+		{
+			pathTarget = transform.position;
+			return;
+		}
 
 		// set values and deal with timers.
 		agent.speed = currentSpeed;
@@ -245,6 +250,7 @@ public class GruntAI : AIBase
 		}
 
 
+		// walking sfx player
 		if (agent.velocity.magnitude <= 0.1f)
 		{
 			WalkingSFXStop();
@@ -255,6 +261,7 @@ public class GruntAI : AIBase
 			WalkingSFXPlay(agent.velocity.magnitude);
 		}
 
+		// animations
 		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
 
 	}

@@ -1421,6 +1421,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
       propertyPath: m_Name
       value: TriggerDialogueOverlay (1)
       objectReference: {fileID: 0}
@@ -2497,6 +2503,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e92e1b5f497cab248b018884f0373934,
     type: 3}
   m_PrefabInstance: {fileID: 649107845}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &84491969 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7382970064223296992, guid: e7ce9c7118c412444b72ed66636c5bb8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1187977095}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &89028375
 PrefabInstance:
@@ -4492,6 +4504,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
       propertyPath: m_Name
       value: TriggerDialogueOverlay
       objectReference: {fileID: 0}
@@ -4573,6 +4591,11 @@ PrefabInstance:
     - target: {fileID: 8380478931517338330, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: dialogue.Array.data[0]
+      value: This is groundbreaking science here
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380478931517338330, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: dialogue.Array.data[1]
       value: This is groundbreaking science here
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -12458,7 +12481,7 @@ PrefabInstance:
     - target: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.62
+      value: -6.66
       objectReference: {fileID: 0}
     - target: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
@@ -12468,7 +12491,7 @@ PrefabInstance:
     - target: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.81
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
@@ -15217,6 +15240,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 112628558}
     m_Modifications:
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: m_Name
@@ -19280,6 +19309,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
       propertyPath: m_Name
       value: TriggerDialogueOverlay (3)
       objectReference: {fileID: 0}
@@ -19536,6 +19571,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 112628558}
     m_Modifications:
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: m_Name
@@ -22916,7 +22957,7 @@ Transform:
   m_GameObject: {fileID: 907337947}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.75, y: 0, z: 96.8}
+  m_LocalPosition: {x: -47.81, y: 0, z: 84.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -25233,7 +25274,7 @@ PrefabInstance:
     - target: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.44
+      value: -25.25
       objectReference: {fileID: 0}
     - target: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
@@ -25243,7 +25284,7 @@ PrefabInstance:
     - target: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -24.057976
+      value: -23.05
       objectReference: {fileID: 0}
     - target: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
@@ -25298,7 +25339,7 @@ PrefabInstance:
     - target: {fileID: 8782992056843421347, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
       propertyPath: m_Size.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8782992056843421347, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
@@ -25308,7 +25349,7 @@ PrefabInstance:
     - target: {fileID: 8782992056843421347, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
       propertyPath: m_Size.z
-      value: 25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8380478931517338330, guid: a158166407669584697fa60594eb8c22,
         type: 3}
@@ -28976,6 +29017,99 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1184864397}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1187977095
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1212411285}
+    m_Modifications:
+    - target: {fileID: 3934266227675103762, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: dialogueHandler
+      value: 
+      objectReference: {fileID: 1413781444}
+    - target: {fileID: 3934266227675103762, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: conversationAsset
+      value: Lv1Act8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732059354627714365, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732059354627714365, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5829859259646251657, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_Name
+      value: Dialog Enemy On Death Trigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 5829859259646251657, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382970064223296992, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -27.243063
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382970064223296992, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20.46211
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382970064223296992, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 228.01682
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382970064223296992, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382970064223296992, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382970064223296992, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382970064223296992, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382970064223296992, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382970064223296992, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382970064223296992, guid: e7ce9c7118c412444b72ed66636c5bb8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e7ce9c7118c412444b72ed66636c5bb8, type: 3}
 --- !u!1001 &1189448863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30278,6 +30412,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1621434413}
+  - {fileID: 84491969}
   m_Father: {fileID: 1920295586}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1212993192
@@ -34030,6 +34165,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 112628558}
     m_Modifications:
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: m_Name
@@ -38962,6 +39103,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TriggerDialogueTree
       objectReference: {fileID: 0}
+    - target: {fileID: 6345665579448160354, guid: 84ae927fbae70fc4a9c031e093738057,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7069092220570752605, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
       propertyPath: dialogueHandler
@@ -40044,6 +40190,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 112628558}
     m_Modifications:
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: m_Name
@@ -43349,6 +43501,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
       propertyPath: m_Name
       value: TriggerDialogueOverlay (2)
       objectReference: {fileID: 0}
@@ -45234,6 +45392,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
       propertyPath: m_Name
       value: TriggerDialogueOverlay (8)
       objectReference: {fileID: 0}
@@ -45895,6 +46059,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 112628558}
     m_Modifications:
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: m_Name
@@ -47053,6 +47223,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 112628558}
     m_Modifications:
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: m_Name
@@ -49258,6 +49434,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 112628558}
     m_Modifications:
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: m_Name
