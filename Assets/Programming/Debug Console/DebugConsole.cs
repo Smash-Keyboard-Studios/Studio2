@@ -32,18 +32,10 @@ public class DebugConsole : MonoBehaviour
 
 	bool consoleOpen = false;
 
+	public List<object> commands = new List<object>();
 
-	public List<object> commands;
 
-	public static Command test;
-	public static Command help;
-	public static Command<string[]> testMessage;
-	public static Command<int> loadLevel;
-	public static Command toggleMouse;
-	public static Command<float, float, float> tp;
-	public static Command destroyObjectCommand;
-	public static Command<float> setSprintSpeed;
-	public static Command infAmmo;
+	BaseCommands baseCommands;
 
 
 	void Awake()
@@ -58,43 +50,32 @@ public class DebugConsole : MonoBehaviour
 			DontDestroyOnLoad(this.gameObject);
 		}
 
-		InitCommands();
+		// InitCommands();
+		baseCommands = new BaseCommands(this);
 	}
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		consoleWindow.SetActive(consoleOpen);
-		Cursor.lockState = consoleOpen ? CursorLockMode.None : CursorLockMode.Locked;
-		Cursor.visible = consoleOpen ? true : false;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		// if (Input.GetKeyDown(KeyCode.BackQuote) || (consoleOpen && Input.GetKeyDown(InputManager.GetKey(InputActions.KeyAction.UI))))
-		// {
-		// 	consoleOpen = !consoleOpen;
+		if (Input.GetKeyDown(KeyCode.BackQuote) || (consoleOpen && Input.GetKeyDown(KeyCode.Escape)))
+		{
+			consoleOpen = !consoleOpen;
 
-		// 	ConsoleWindow.SetActive(consoleOpen);
-		// 	if (MouseLockManager.Instance == null)
-		// 	{
-		// 		Cursor.lockState = consoleOpen ? CursorLockMode.None : CursorLockMode.Locked;
-		// 		Cursor.visible = consoleOpen;
-		// 	}
-		// 	else
-		// 	{
-		// 		MouseLockManager.Instance.MouseVisable = consoleOpen;
-		// 	}
-		// 	PauseMenu.Overiding = consoleOpen;
-		// 	PauseMenu.Paused = false;
-		// 	Time.timeScale = consoleOpen ? 0 : 1;
+			consoleWindow.SetActive(consoleOpen);
 
-		// 	if (consoleOpen)
-		// 	{
-		// 		InputField.ActivateInputField();
-		// 	}
-		// }
+			Time.timeScale = consoleOpen ? 0 : 1;
+
+			if (consoleOpen)
+			{
+				inputField.ActivateInputField();
+			}
+		}
 
 
 		if (consoleOpen)
@@ -113,165 +94,6 @@ public class DebugConsole : MonoBehaviour
 		textObj.GetComponent<TMP_Text>().text = text;
 
 		vertScrollBar.value = 0;
-	}
-
-	public void InitCommands()
-	{
-		test = new Command("test", "test the debug console", "test", () =>
-		{
-			TextToConsole($"Test + {System.DateTime.Now}");
-		});
-
-		testMessage = new Command<string[]>("send", "sends the message to the debug console", "send <string>", (message) =>
-		{
-			string finalMessage = "";
-
-			foreach (var str in message)
-			{
-				finalMessage += str + " ";
-			}
-
-			TextToConsole(finalMessage);
-		});
-
-		help = new Command("help", "generates help message", "help", () =>
-		{
-			for (int i = 0; i < commands.Count; i++)
-			{
-				TextToConsole((commands[i] as CommandBase).CommandHelp + " - " + (commands[i] as CommandBase).CommandDescription);
-			}
-		});
-
-		loadLevel = new Command<int>("loadlevel", "Loads the desired scene with that build index", "loadlevel <int>", (index) =>
-		{
-			// try
-			// {
-
-			// 	if (index >= SceneManager.sceneCountInBuildSettings)
-			// 	{
-			// 		TextToConsole("Does not exsist");
-			// 		throw new NullReferenceException();
-			// 	}
-
-			// 	TextToConsole($"Loading scene {index}");
-			// 	if (LevelLoading.Instance == null)
-			// 	{
-			// 		SceneManager.LoadScene(index);
-			// 		return;
-			// 	}
-
-			// 	if (LevelLoading.Instance.loading) return;
-			// 	LevelLoading.Instance.LoadScene(index);
-			// }
-			// catch (Exception e)
-			// {
-			// 	TextToConsole("I have failed to load that scene \n" + e.Message);
-			// }
-		});
-
-		toggleMouse = new Command("togglemouse", "closes debug console and makes the mouse visible", "togglemouse", () =>
-		{
-			// if (MouseLockManager.Instance == null)
-			// {
-			// 	Cursor.lockState = CursorLockMode.Locked;
-			// 	Cursor.visible = true;
-			// }
-			// else
-			// {
-			// 	MouseLockManager.Instance.MouseVisable = true;
-			// }
-
-			// consoleOpen = !consoleOpen;
-
-			// ConsoleWindow.SetActive(consoleOpen);
-
-			// PauseMenu.Overiding = consoleOpen;
-			// PauseMenu.Paused = false;
-			// Time.timeScale = consoleOpen ? 0 : 1;
-		});
-
-		tp = new Command<float, float, float>("tp", "teleports the player in that direction", "tp <float> <float> <float>", (x, y, z) =>
-		{
-#nullable enable
-			GameObject? go = GameObject.FindGameObjectWithTag("Player");
-#nullable restore
-			if (go != null && go.transform.name == "Player")
-			{
-				go.transform.GetComponent<CharacterController>().enabled = false;
-				go.transform.position += new Vector3(x, y, z);
-				go.transform.GetComponent<CharacterController>().enabled = true;
-				TextToConsole("Moved the player");
-			}
-			else
-			{
-				TextToConsole("Cannot find the player");
-				return;
-			}
-		});
-
-		destroyObjectCommand = new Command("obliterate", "Deletes the game object 50m infront of the camera", "obliterate", () =>
-		{
-			try
-			{
-				RaycastHit hit;
-				Physics.Raycast(Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f)), out hit, 50);
-				Destroy(hit.transform.gameObject);
-				TextToConsole("Gone!");
-			}
-			catch
-			{
-				TextToConsole("Failed");
-			}
-		});
-
-		setSprintSpeed = new Command<float>("sprintspeed", "set the sprint speed of the player", "sprintspeed <float>", (newSpeed) =>
-		{
-#nullable enable
-			GameObject? go = GameObject.FindGameObjectWithTag("Player");
-#nullable restore
-			if (go != null && go.transform.name == "Player")
-			{
-				// go.transform.GetComponent<PlayerMovementController>().SprintSpeed = newSpeed;
-				TextToConsole("Set sprint speed of the player to " + newSpeed);
-			}
-			else
-			{
-				TextToConsole("Cannot find the player");
-				return;
-			}
-		});
-
-		infAmmo = new Command("infammo", "Infinite ammo for the gun", "infammo", () =>
-		{
-#nullable enable
-			GameObject? go = GameObject.FindGameObjectWithTag("Player");
-#nullable restore
-			if (go != null && go.transform.name == "Player")
-			{
-				//go.transform.GetComponent<AmmoController>().InfAmmo = true;
-				TextToConsole("Infinite ammo granted");
-			}
-			else
-			{
-				TextToConsole("Cannot find the player");
-				return;
-			}
-		});
-
-		// insert commands here
-
-		commands = new List<object>
-		{
-			test,
-			testMessage,
-			help,
-			loadLevel,
-			toggleMouse,
-			tp,
-			destroyObjectCommand,
-			setSprintSpeed,
-			infAmmo
-		};
 	}
 
 	public void EndEdit()
@@ -473,5 +295,10 @@ public class DebugConsole : MonoBehaviour
 		}
 
 		return 1;
+	}
+
+	public void DestroyGameObject(UnityEngine.Object objectToDestroy)
+	{
+		Destroy(objectToDestroy);
 	}
 }

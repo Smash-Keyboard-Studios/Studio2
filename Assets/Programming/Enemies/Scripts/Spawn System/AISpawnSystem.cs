@@ -133,7 +133,7 @@ public class AISpawnSystem : MonoBehaviour
 	/// <param name="timeBetweenSpawn">How long to wait before spawning the next enemy.</param>
 	/// <param name="minRadius">How close the AI can spawn.</param>
 	/// <param name="maxRadius">How far the AI can spawn.</param>
-	public void SpawnWave(EnemyWaveData[] waveData, List<GameObject> spawnLocationsToUse, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2)
+	public void SpawnWave(EnemyWaveData[] waveData, List<GameObject> spawnLocationsToUse, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2, EnemyRoomTracking effectedRoomTracking = null)
 	{
 		Dictionary<int, int> converted = new Dictionary<int, int>();
 
@@ -142,7 +142,7 @@ public class AISpawnSystem : MonoBehaviour
 			converted.Add(waveData[i].id, waveData[i].amount);
 		}
 
-		StartCoroutine(SpawnWaveCoroutine(converted, spawnLocationsToUse, timeBetweenSpawn, minRadius, maxRadius, randomCycleAmount));
+		StartCoroutine(SpawnWaveCoroutine(converted, spawnLocationsToUse, timeBetweenSpawn, minRadius, maxRadius, randomCycleAmount, effectedRoomTracking));
 	}
 	#endregion
 
@@ -159,8 +159,11 @@ public class AISpawnSystem : MonoBehaviour
 	/// <param name="maxRadius">How far the AI can spawn.</param>
 	/// <param name="randomCycleAmount">How many times to shuffle the list. (Randomises the list) 0 will disable.</param>
 	/// <returns>Coroutine</returns>
-	private IEnumerator SpawnWaveCoroutine(Dictionary<int, int> waveData, List<GameObject> spawnLocationToUse, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2)
+	private IEnumerator SpawnWaveCoroutine(Dictionary<int, int> waveData, List<GameObject> spawnLocationToUse, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2, EnemyRoomTracking effectedRoomTracking = null)
 	{
+		if (effectedRoomTracking != null) effectedRoomTracking.HaltExiting = true;
+
+
 		// convert dictionary into a spawn sequence. This is for randomness.
 		// I still want a dictionary for simplicity sake. {0, 30} is 30 melee enemies.
 		List<int> spawnSequence = new List<int>();
@@ -194,6 +197,8 @@ public class AISpawnSystem : MonoBehaviour
 
 
 		}
+
+		if (effectedRoomTracking != null) effectedRoomTracking.HaltExiting = false;
 
 		yield return null;
 	}
