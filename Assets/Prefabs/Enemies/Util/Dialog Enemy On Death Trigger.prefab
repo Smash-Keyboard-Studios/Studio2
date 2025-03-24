@@ -10,23 +10,34 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2291290206297420757, guid: 4000a8a4b871253448c305d641056e6f,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 2291290206297420757, guid: 4000a8a4b871253448c305d641056e6f,
+        type: 3}
       propertyPath: m_Name
       value: Dialog Enemy On Death Trigger
       objectReference: {fileID: 0}
-    - target: {fileID: 2980831541582871740, guid: 4000a8a4b871253448c305d641056e6f,
+    - target: {fileID: 2291290206297420757, guid: 4000a8a4b871253448c305d641056e6f,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -711.34076
-      objectReference: {fileID: 0}
-    - target: {fileID: 2980831541582871740, guid: 4000a8a4b871253448c305d641056e6f,
-        type: 3}
-      propertyPath: m_LocalPosition.y
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2980831541582871740, guid: 4000a8a4b871253448c305d641056e6f,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2980831541582871740, guid: 4000a8a4b871253448c305d641056e6f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9999504
+      objectReference: {fileID: 0}
+    - target: {fileID: 2980831541582871740, guid: 4000a8a4b871253448c305d641056e6f,
+        type: 3}
       propertyPath: m_LocalPosition.z
-      value: 604.1756
+      value: 192.5
       objectReference: {fileID: 0}
     - target: {fileID: 2980831541582871740, guid: 4000a8a4b871253448c305d641056e6f,
         type: 3}
@@ -76,7 +87,7 @@ PrefabInstance:
     - target: {fileID: 6016310680828168767, guid: 4000a8a4b871253448c305d641056e6f,
         type: 3}
       propertyPath: onAllEnemiesKilled.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6016310680828168767, guid: 4000a8a4b871253448c305d641056e6f,
         type: 3}
@@ -101,7 +112,7 @@ PrefabInstance:
     - target: {fileID: 6016310680828168767, guid: 4000a8a4b871253448c305d641056e6f,
         type: 3}
       propertyPath: onAllEnemiesKilled.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Collider, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
