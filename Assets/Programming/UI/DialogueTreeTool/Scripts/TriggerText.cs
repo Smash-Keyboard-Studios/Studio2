@@ -6,9 +6,20 @@ using UnityEngine;
 
 public class TriggerText : MonoBehaviour
 {
+    //UI text object that dialogue is outputted to
     [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private string[] dialogue;
 
+    //class that contains dialogue name and dialogue text in it
+    [System.Serializable] public class Dialogue
+    {
+        public string dialogueName;
+        public string dialogueText;
+    }
+
+    //instantiation of that class
+    [SerializeField] private Dialogue[] dialogue;
+
+    //whether currently in dialogue or not
     private bool inDialogue;
 
     private void OnTriggerEnter(Collider other)
@@ -25,10 +36,13 @@ public class TriggerText : MonoBehaviour
 
     private IEnumerator ShowDialogue()
     {
-        foreach (string item in dialogue)
+        foreach (Dialogue item in dialogue)
         {
-            dialogueText.text = item;
-            yield return new WaitForSeconds(item.Length/5); //just used a temp value for the delay
+            string itemName = item.dialogueName;
+            string itemText = item.dialogueText;
+
+            dialogueText.text = itemName + "\n" + itemText;
+            yield return new WaitForSeconds(itemText.Length/5); //just used a temp value for the delay
 
             ClearText();
             yield return new WaitForSeconds(0.5f);
