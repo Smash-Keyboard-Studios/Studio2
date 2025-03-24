@@ -18,16 +18,16 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 {
 	#region Timers
 	[Header("Timer controls.")]
-	[SerializeField] private float damageTick;
-	[SerializeField] private float beamWindUp;
+	[SerializeField] public float damageTick;
+	[SerializeField] public float beamWindUp;
 	protected float widthTimer = 0, damageTimer = 0;
 	#endregion
 	[Header("Do not touch these.")]
 	/// <summary> 	Layermask that ignores only the player to find where the beam actually hits.  </summary>
-	[SerializeField] private LayerMask raycastMask;
+	[SerializeField] public LayerMask raycastMask;
 	/// <summary> 	For the Overlapbox to grab only the player. </summary>
-	[SerializeField] private LayerMask boxCastMask;
-	private float rangeLimiter = 999f; 
+	[SerializeField] public LayerMask boxCastMask;
+	public float rangeLimiter = 999f; 
 	#region BoxCollider
 	[Header("Values for box collider check.")]
 	/// <summary> 	AI up (local Y), how tall this check box is.  </summary>
@@ -35,20 +35,20 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 	/// <summary> 	How wide this check box is.  </summary>
 	[SerializeField] protected float boxCastWidth = 2f;
 	/// <summary> 	How long this check box is.  </summary>
-	private float distanceForBoxLength;
+	public float distanceForBoxLength;
 	/// <summary> 	The actual world position for the box collider.  </summary>
-	private Vector3 midPoint;
+	public Vector3 midPoint;
 	/// <summary> 	How wide this check box is.  </summary>
-	private Quaternion boxRotation;
-	protected Collider[] boxHitColliders;
+	public Quaternion boxRotation;
+	public Collider[] boxHitColliders;
 	#endregion
 	#region Line Renderer Specifics
 	[Header("Visuals.")]
-	[SerializeField] private LineRenderer lineRenderer;
+	[SerializeField] public LineRenderer lineRenderer;
 	[SerializeField] public Material beamMaterialStart, beamMaterialEnd;
 	#endregion
 
-	private Coroutine AttackCoroutine = null;
+	public Coroutine AttackCoroutine = null;
 
 	protected override void Awake()
 	{
@@ -96,7 +96,7 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 		
 		if (AttackCoroutine != null) return;
 	}
-	void CheckForPlayer(Collider[] boxHitColliders)
+	public void CheckForPlayer(Collider[] boxHitColliders)
 	{
 		if (boxHitColliders.Length > 0)
 		{
