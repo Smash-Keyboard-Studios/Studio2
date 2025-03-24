@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6147254991918850394
 Transform:
@@ -141,6 +141,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8148145140772516883, guid: 2867742d081fa284b8e15eb5834bfe73,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -5447681916187959836, guid: 2867742d081fa284b8e15eb5834bfe73,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -166,10 +171,20 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.012040161
       objectReference: {fileID: 0}
+    - target: {fileID: 604630301978979637, guid: 2867742d081fa284b8e15eb5834bfe73,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2867742d081fa284b8e15eb5834bfe73,
         type: 3}
       propertyPath: m_Name
       value: lightswitchB
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2867742d081fa284b8e15eb5834bfe73,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 942636364793450461, guid: 2867742d081fa284b8e15eb5834bfe73,
         type: 3}
@@ -185,6 +200,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.088
+      objectReference: {fileID: 0}
+    - target: {fileID: 3897721139657156446, guid: 2867742d081fa284b8e15eb5834bfe73,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5802383873120792147, guid: 2867742d081fa284b8e15eb5834bfe73,
         type: 3}
