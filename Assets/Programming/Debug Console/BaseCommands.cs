@@ -1,0 +1,142 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class BaseCommands
+{
+    private DebugConsole console;
+
+    public static Command test;
+    public static Command help;
+    public static Command<string[]> testMessage;
+    public static Command<int> loadLevel;
+    public static Command<float, float, float> tp;
+    public static Command destroyObjectCommand;
+    public static Command<float> setSprintSpeed;
+
+    public BaseCommands(DebugConsole console)
+    {
+        test = new Command("test", "test the debug console", "test", () =>
+        {
+            console.TextToConsole($"Test + {System.DateTime.Now}");
+        });
+
+        testMessage = new Command<string[]>("send", "sends the message to the debug console", "send <string>", (message) =>
+        {
+            string finalMessage = "";
+
+            foreach (var str in message)
+            {
+                finalMessage += str + " ";
+            }
+
+            console.TextToConsole(finalMessage);
+        });
+
+        help = new Command("help", "generates help message", "help", () =>
+        {
+            for (int i = 0; i < console.commands.Count; i++)
+            {
+                console.TextToConsole((console.commands[i] as CommandBase).CommandHelp + " - " + (console.commands[i] as CommandBase).CommandDescription);
+            }
+        });
+
+        loadLevel = new Command<int>("loadlevel", "Loads the desired scene with that build index", "loadlevel <int>", (index) =>
+        {
+            try
+            {
+
+                if (index >= SceneManager.sceneCountInBuildSettings)
+                {
+                    console.TextToConsole("Does not exsist");
+                    throw new NullReferenceException();
+                }
+
+                console.TextToConsole($"Loading scene {index}");
+                if (LevelLoading.instance == null)
+                {
+                    SceneManager.LoadScene(index);
+                    return;
+                }
+
+                if (LevelLoading.instance.loading) return;
+                LevelLoading.instance.LoadScene(index);
+            }
+            catch (Exception e)
+            {
+                console.TextToConsole("I have failed to load that scene \n" + e.Message);
+            }
+        });
+
+        tp = new Command<float, float, float>("tp", "teleports the player in that direction", "tp <float> <float> <float>", (x, y, z) =>
+        {
+#nullable enable
+            GameObject? go = GameObject.FindGameObjectWithTag("Player");
+#nullable restore
+            if (go != null && go.transform.name == "Player")
+            {
+                go.transform.GetComponent<CharacterController>().enabled = false;
+                go.transform.position += new Vector3(x, y, z);
+                go.transform.GetComponent<CharacterController>().enabled = true;
+                console.TextToConsole("Moved the player");
+            }
+            else
+            {
+                console.TextToConsole("Cannot find the player");
+                return;
+            }
+        });
+
+        destroyObjectCommand = new Command("obliterate", "Deletes the game object 50m infront of the camera", "obliterate", () =>
+        {
+            try
+            {
+                RaycastHit hit;
+                Physics.Raycast(Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f)), out hit, 50);
+                console.DestroyGameObject(hit.transform.gameObject);
+                console.TextToConsole("Gone!");
+            }
+            catch
+            {
+                console.TextToConsole("Failed");
+            }
+        });
+
+        setSprintSpeed = new Command<float>("sprintspeed", "set the sprint speed of the player", "sprintspeed <float>", (newSpeed) =>
+        {
+#nullable enable
+            GameObject? go = GameObject.FindGameObjectWithTag("Player");
+#nullable restore
+            if (go != null && go.transform.name == "Player")
+            {
+                // go.transform.GetComponent<PlayerMovementController>().SprintSpeed = newSpeed;
+                console.TextToConsole("Set sprint speed of the player to " + newSpeed);
+            }
+            else
+            {
+                console.TextToConsole("Cannot find the player");
+                return;
+            }
+        });
+
+        // foreach
+
+
+        List<object> commandsToAdd = new List<object>()
+        {
+            test,
+            testMessage,
+            help,
+            loadLevel,
+            tp,
+            destroyObjectCommand,
+            setSprintSpeed,
+        };
+
+        foreach (var command in commandsToAdd)
+        {
+            console.commands.Add(command);
+        }
+    }
+}

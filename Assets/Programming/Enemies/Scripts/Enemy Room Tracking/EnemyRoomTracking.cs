@@ -25,6 +25,8 @@ public class EnemyRoomTracking : MonoBehaviour
 
 	public bool onlyDetectOnStart = false;
 
+	[HideInInspector]
+	public bool HaltExiting = false;
 
 
 	private int enemyCount = 0;
@@ -87,7 +89,7 @@ public class EnemyRoomTracking : MonoBehaviour
 	void Update()
 	{
 		// returns if this did not get to setup.
-		if (!ready) return;
+		if (!ready || HaltExiting) return;
 
 		// trigger the event when no more enemies in the tracking list.
 		if (enemyCount <= 0 && !firedEvent)
