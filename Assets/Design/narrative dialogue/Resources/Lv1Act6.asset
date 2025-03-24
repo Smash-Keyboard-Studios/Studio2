@@ -1,0 +1,234 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8621381ed847d4db790ca49b37c98b, type: 3}
+  m_Name: Lv1Act6
+  m_EditorClassIdentifier: 
+  dialogueData:
+  - guid: 7b4c2386dcbdf364aa5e40e1f1e661e1
+    dialogueItem: {fileID: 11400000, guid: 86bd7cc803622ca4d8ed2a186b0b2c05, type: 2}
+    position: {x: -690, y: 3}
+    previousguids:
+    - 19a624fd70d99de40adbd97c0d681c5e
+  - guid: 5139db3f8bcf35c45abcd21fc14a220a
+    dialogueItem: {fileID: 11400000, guid: 976a84ff13b90a94e91c22a8cc6f09a7, type: 2}
+    position: {x: -5013, y: 161}
+    previousguids:
+    - bf775e131a9434648bb0ffda6bf6fcec
+  - guid: bf775e131a9434648bb0ffda6bf6fcec
+    dialogueItem: {fileID: 11400000, guid: 1fe939c7b05eb5d4fa019806c0db9b57, type: 2}
+    position: {x: -5277, y: -27}
+    previousguids: []
+  - guid: 84be360d39d9cb64bb1dd029482a5dbb
+    dialogueItem: {fileID: 11400000, guid: 62c39f2300592d54993f7bc6c3f187f5, type: 2}
+    position: {x: -4688, y: -34}
+    previousguids:
+    - 5139db3f8bcf35c45abcd21fc14a220a
+  - guid: 47cefddc78d0b074aacec2a21ed2f8bf
+    dialogueItem: {fileID: 11400000, guid: 8aba33712a1d0b64da85884dfaf05fd0, type: 2}
+    position: {x: -4687, y: 160}
+    previousguids:
+    - 84be360d39d9cb64bb1dd029482a5dbb
+  - guid: f57f7077c909f9b499423144c54e8293
+    dialogueItem: {fileID: 11400000, guid: 751319f71605a5a458fff47e2a316b27, type: 2}
+    position: {x: -4384, y: -33}
+    previousguids:
+    - 47cefddc78d0b074aacec2a21ed2f8bf
+  - guid: 81d57109e46a0644699c24b1346f86a6
+    dialogueItem: {fileID: 11400000, guid: 976a84ff13b90a94e91c22a8cc6f09a7, type: 2}
+    position: {x: -4375, y: 162}
+    previousguids:
+    - f57f7077c909f9b499423144c54e8293
+  - guid: afceb0a034b530947ad569031294d204
+    dialogueItem: {fileID: 11400000, guid: 26756314cbc0fab498f966ebc5a2be47, type: 2}
+    position: {x: -4044, y: -32}
+    previousguids:
+    - 81d57109e46a0644699c24b1346f86a6
+  - guid: 3366faed0be11f5419b5133714556c1b
+    dialogueItem: {fileID: 11400000, guid: 8aba33712a1d0b64da85884dfaf05fd0, type: 2}
+    position: {x: -4033, y: 159}
+    previousguids:
+    - afceb0a034b530947ad569031294d204
+  - guid: fad550f431e806e44893307cb5ed9cd5
+    dialogueItem: {fileID: 11400000, guid: c7bf75ac7e8ef194fb6811a1cd103b96, type: 2}
+    position: {x: -3586, y: -23}
+    previousguids:
+    - 3366faed0be11f5419b5133714556c1b
+  - guid: 4f717e124ce391b41beaf6064f22aef1
+    dialogueItem: {fileID: 11400000, guid: 976a84ff13b90a94e91c22a8cc6f09a7, type: 2}
+    position: {x: -3221, y: 178}
+    previousguids:
+    - fad550f431e806e44893307cb5ed9cd5
+  - guid: fb5644690f16b824089858564b1dd56d
+    dialogueItem: {fileID: 11400000, guid: 3fa011c576ee4174fa25534be3a9c573, type: 2}
+    position: {x: -2802, y: -20}
+    previousguids:
+    - 4f717e124ce391b41beaf6064f22aef1
+  - guid: 2819606d13d541349bc1211819a37843
+    dialogueItem: {fileID: 11400000, guid: 8aba33712a1d0b64da85884dfaf05fd0, type: 2}
+    position: {x: -2796, y: 177}
+    previousguids:
+    - fb5644690f16b824089858564b1dd56d
+  - guid: 19a624fd70d99de40adbd97c0d681c5e
+    dialogueItem: {fileID: 11400000, guid: 976a84ff13b90a94e91c22a8cc6f09a7, type: 2}
+    position: {x: -1768, y: 172}
+    previousguids:
+    - a556360edeca0f74eba7cdc18ee868c9
+  - guid: a556360edeca0f74eba7cdc18ee868c9
+    dialogueItem: {fileID: 11400000, guid: bb97c0f747a1b7b4f87de629e22c86e7, type: 2}
+    position: {x: -2476, y: -21}
+    previousguids:
+    - 2819606d13d541349bc1211819a37843
+  - guid: a409730e5f4bc1643821074ed107ab13
+    dialogueItem: {fileID: 11400000, guid: 8aba33712a1d0b64da85884dfaf05fd0, type: 2}
+    position: {x: -659, y: 201}
+    previousguids:
+    - 7b4c2386dcbdf364aa5e40e1f1e661e1
+  - guid: 847ae40ca33451347951226970fb0e88
+    dialogueItem: {fileID: 11400000, guid: 5838f4d739e50924e825a0cca44efbe1, type: 2}
+    position: {x: -211, y: -5}
+    previousguids:
+    - a409730e5f4bc1643821074ed107ab13
+  - guid: 67fc973f2899b2a48b85000aee9b68c9
+    dialogueItem: {fileID: 11400000, guid: 976a84ff13b90a94e91c22a8cc6f09a7, type: 2}
+    position: {x: -133, y: 184}
+    previousguids:
+    - 847ae40ca33451347951226970fb0e88
+  - guid: 4801c530595443c44b99034ffee4cf8a
+    dialogueItem: {fileID: 11400000, guid: 6956512ee6a1a2a459c3ac87edbdffd5, type: 2}
+    position: {x: 236, y: -4}
+    previousguids:
+    - 67fc973f2899b2a48b85000aee9b68c9
+  - guid: 65f4004257830324a9f158c6c743afe5
+    dialogueItem: {fileID: 11400000, guid: 8aba33712a1d0b64da85884dfaf05fd0, type: 2}
+    position: {x: 429, y: 195}
+    previousguids:
+    - 4801c530595443c44b99034ffee4cf8a
+  - guid: 174db1ddd2f20cd469b37eb6a78650f8
+    dialogueItem: {fileID: 11400000, guid: 06438a9724f82a343b063bb4fe94d643, type: 2}
+    position: {x: 776, y: -9}
+    previousguids:
+    - 65f4004257830324a9f158c6c743afe5
+  - guid: 4e9be5df9c0b53d4391bf55de622a2c6
+    dialogueItem: {fileID: 11400000, guid: 976a84ff13b90a94e91c22a8cc6f09a7, type: 2}
+    position: {x: 959, y: 200}
+    previousguids:
+    - 174db1ddd2f20cd469b37eb6a78650f8
+  - guid: 9971d436e4ad4fc4f954b47e82f59d9d
+    dialogueItem: {fileID: 11400000, guid: 8e6799828cd527540b8a7e6680905cfb, type: 2}
+    position: {x: 1280, y: -7}
+    previousguids:
+    - 4e9be5df9c0b53d4391bf55de622a2c6
+  - guid: 98af73298d0c28742bd3d33b58f20352
+    dialogueItem: {fileID: 11400000, guid: 8aba33712a1d0b64da85884dfaf05fd0, type: 2}
+    position: {x: 1407, y: 189}
+    previousguids:
+    - 9971d436e4ad4fc4f954b47e82f59d9d
+  - guid: e755454cd931b4d409171111fcd2585d
+    dialogueItem: {fileID: 11400000, guid: 40045d378144c5e4d9a1634ed94c3cd8, type: 2}
+    position: {x: 1804, y: -24}
+    previousguids:
+    - 98af73298d0c28742bd3d33b58f20352
+  - guid: 04ffae26f90491740a2f3c8ec1c96b84
+    dialogueItem: {fileID: 11400000, guid: 976a84ff13b90a94e91c22a8cc6f09a7, type: 2}
+    position: {x: 1808, y: 173}
+    previousguids:
+    - e755454cd931b4d409171111fcd2585d
+  - guid: 725f28f0efdd52e4e81e71ecc97f91b4
+    dialogueItem: {fileID: 11400000, guid: a0766e99dd195ca4eb12d36ae441a66a, type: 2}
+    position: {x: 2353, y: -10}
+    previousguids:
+    - 04ffae26f90491740a2f3c8ec1c96b84
+  - guid: 809c05c44092b084d8fbc36bfab344b3
+    dialogueItem: {fileID: 11400000, guid: 8aba33712a1d0b64da85884dfaf05fd0, type: 2}
+    position: {x: 2463, y: 189}
+    previousguids:
+    - 725f28f0efdd52e4e81e71ecc97f91b4
+  - guid: a073e157772c9db45a4dab08e80535c8
+    dialogueItem: {fileID: 11400000, guid: c60474defa410e34b9c4863c4c68d751, type: 2}
+    position: {x: 2931, y: -17}
+    previousguids:
+    - 809c05c44092b084d8fbc36bfab344b3
+  - guid: 52d7221dd19556344ac3057e68170690
+    dialogueItem: {fileID: 11400000, guid: 976a84ff13b90a94e91c22a8cc6f09a7, type: 2}
+    position: {x: 2919, y: 184}
+    previousguids:
+    - a073e157772c9db45a4dab08e80535c8
+  - guid: 086b96dec895bdc45a1468a11c811307
+    dialogueItem: {fileID: 11400000, guid: 8c1ecca5e4004e449aa1f194c8642caf, type: 2}
+    position: {x: 3285, y: -20}
+    previousguids:
+    - 52d7221dd19556344ac3057e68170690
+  - guid: 81898a4a5094d6346badbb06d7f4902b
+    dialogueItem: {fileID: 11400000, guid: 8aba33712a1d0b64da85884dfaf05fd0, type: 2}
+    position: {x: 3360, y: 191}
+    previousguids:
+    - 086b96dec895bdc45a1468a11c811307
+  - guid: e233680e25362824cb911d7328d50f99
+    dialogueItem: {fileID: 11400000, guid: 062232d37be19da40b6435d43e71478f, type: 2}
+    position: {x: 3766, y: -35}
+    previousguids:
+    - 81898a4a5094d6346badbb06d7f4902b
+  - guid: d8c34e0301022a94a964285733ef786e
+    dialogueItem: {fileID: 11400000, guid: 976a84ff13b90a94e91c22a8cc6f09a7, type: 2}
+    position: {x: 3781, y: 191}
+    previousguids:
+    - e233680e25362824cb911d7328d50f99
+  - guid: c81b22a05517d8e449d6432a37aa3cbb
+    dialogueItem: {fileID: 11400000, guid: e28b58e5382b17e4599f6829bc0c87e3, type: 2}
+    position: {x: 4159, y: -32}
+    previousguids:
+    - d8c34e0301022a94a964285733ef786e
+  - guid: a2e42b9b83c12da47b0dbf61b3cfe368
+    dialogueItem: {fileID: 11400000, guid: 8aba33712a1d0b64da85884dfaf05fd0, type: 2}
+    position: {x: 4365, y: 182}
+    previousguids:
+    - c81b22a05517d8e449d6432a37aa3cbb
+  - guid: 39bbb41c3e5ce384da42e4d5e8fa8029
+    dialogueItem: {fileID: 11400000, guid: 9419a616057eb304088746efb04d4280, type: 2}
+    position: {x: 4830, y: -28}
+    previousguids:
+    - a2e42b9b83c12da47b0dbf61b3cfe368
+  - guid: 910360e5734b9384aa9f0044896f1054
+    dialogueItem: {fileID: 11400000, guid: 976a84ff13b90a94e91c22a8cc6f09a7, type: 2}
+    position: {x: 4977, y: 178}
+    previousguids:
+    - 39bbb41c3e5ce384da42e4d5e8fa8029
+  - guid: 8a368b276b277ea41a08a31ba749daf4
+    dialogueItem: {fileID: 11400000, guid: fb3f105dccef1ca4bb435084108fec6e, type: 2}
+    position: {x: 5405, y: -33}
+    previousguids:
+    - 910360e5734b9384aa9f0044896f1054
+  - guid: 810d6130afedebd4eb94479c96049c79
+    dialogueItem: {fileID: 11400000, guid: 8aba33712a1d0b64da85884dfaf05fd0, type: 2}
+    position: {x: 5409, y: 176}
+    previousguids:
+    - 8a368b276b277ea41a08a31ba749daf4
+  - guid: 3c8adba7604d2ac459944fcc8084d98d
+    dialogueItem: {fileID: 11400000, guid: f52d67c255a190046aa1cc12cab9b427, type: 2}
+    position: {x: 5720, y: -33}
+    previousguids:
+    - 810d6130afedebd4eb94479c96049c79
+  - guid: bf175391ef604804ebde741be31bafd8
+    dialogueItem: {fileID: 11400000, guid: 976a84ff13b90a94e91c22a8cc6f09a7, type: 2}
+    position: {x: 5755, y: 157}
+    previousguids:
+    - 3c8adba7604d2ac459944fcc8084d98d
+  - guid: f5ff1639e6c1d804698ab9564cc42ec2
+    dialogueItem: {fileID: 11400000, guid: 07aca9e931aab0c49ad9dd84d7a74b89, type: 2}
+    position: {x: 6094, y: -51}
+    previousguids:
+    - bf175391ef604804ebde741be31bafd8
+  - guid: b78d7b58e8db19e4f8093cd1550057d7
+    dialogueItem: {fileID: 11400000, guid: 8aba33712a1d0b64da85884dfaf05fd0, type: 2}
+    position: {x: 6161, y: 151}
+    previousguids:
+    - f5ff1639e6c1d804698ab9564cc42ec2
