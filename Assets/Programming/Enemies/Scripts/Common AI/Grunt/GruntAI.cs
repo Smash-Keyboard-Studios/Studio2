@@ -226,7 +226,11 @@ public class GruntAI : AIBase
 	#region Update
 	protected virtual void Update()
 	{
-		if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu) return;
+		if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
+		{
+			pathTarget = transform.position;
+			return;
+		}
 
 		// set values and deal with timers.
 		agent.speed = currentSpeed;
