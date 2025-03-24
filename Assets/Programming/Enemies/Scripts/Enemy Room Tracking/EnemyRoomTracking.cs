@@ -23,6 +23,10 @@ public class EnemyRoomTracking : MonoBehaviour
 	public LayerMask layerToCheckFor = Physics.AllLayers;
 
 
+	public bool onlyDetectOnStart = false;
+
+
+
 	private int enemyCount = 0;
 
 
@@ -93,6 +97,22 @@ public class EnemyRoomTracking : MonoBehaviour
 		}
 	}
 
+	void OnTriggerEnter(Collider other)
+	{
+		if (onlyDetectOnStart) return;
+
+		if (other.gameObject.CompareTag("Enemy"))
+		{
+			if (other.GetComponent<AIBase>() != null)
+			{
+				// we cannot remove this object without risking braking the events.
+				// we are presuming this object will not be disabled :3.
+				other.GetComponent<AIBase>().onDeath += RemoveEnemy;
+				enemyCount++;
+			}
+		}
+
+	}
 
 
 }
