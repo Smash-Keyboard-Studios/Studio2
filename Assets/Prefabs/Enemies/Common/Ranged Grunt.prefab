@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 4.25
-  currentAIState: 1
+  currentAIState: 0
   lightAttackRate: 0.75
   minDistanceForAttack: 8
   globalAttackCoolDown: 0.41666666
@@ -67,15 +67,15 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3761678875516936036, guid: 69c9cafc9d150514881727da3970eb67,
     type: 3}
   projectileSpawnPoint:
-  - {fileID: 0}
+  - {fileID: 8494952796967733763}
   beamPrefab: {fileID: 0}
   beamSpawnPoint:
   - {fileID: 0}
   retreatDistance: 4
   retreatCooldown: 8
   chaseTimer: 4
-  enableVisualDetectionRadius: 1
-  enableVisualDetectionLine: 1
+  enableVisualDetectionRadius: 0
+  enableVisualDetectionLine: 0
   distanceFromPlayer: 6.242662
 --- !u!114 &3222878168228818675
 MonoBehaviour:
