@@ -19,8 +19,8 @@ public class NPCTextDisplay : MonoBehaviour
 
     private void Update()
     {
-        NPCNameText.text = dialogueHandler.currentData.dialogueItem.NameTextRO;
-        NPCSpeechText.text = dialogueHandler.currentData.dialogueItem.DialogueText;
-        NPCImage.sprite = dialogueHandler.currentData.dialogueItem.IconRO;
+        NPCNameText.text = dialogueHandler.currentData.dialogueItem?.NameTextRO;
+        NPCSpeechText.text = dialogueHandler.currentData.dialogueItem?.DialogueText;
+        NPCImage.sprite = dialogueHandler.currentData.dialogueItem?.IconRO;
     }
 }
