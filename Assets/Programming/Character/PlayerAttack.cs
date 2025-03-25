@@ -13,10 +13,10 @@ public class PlayerAttack : MonoBehaviour
     //Adds this amount of damage to the charged heavy attack for every 0.5 secs it is held down
     [SerializeField] private int ChargedHeavyDmgAddition = 5;
     //max damage for charged heavy attack
-    [SerializeField] private int MaxChargedHeavyDmg = 25;
+    [SerializeField] public int MaxChargedHeavyDmg = 25; //public to be referenced by slider
 
     //for the charged heavy
-    private int ChargedHeavyDmg = 0;
+    [HideInInspector] public int ChargedHeavyDmg = 0; //public to be referenced by slider
     private bool isChargingChargedHeavyAttack = false;
 
     [Header("Cooldown Delays")]
@@ -92,6 +92,10 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator HeavyAttack()
     {
+        //we arent charging heavy attack
+        isChargingChargedHeavyAttack = false;
+        MyAnim.SetBool("ChargingHeavyAttack", false);
+
         isAttacking = true;
         heavyAttacking = true;
         MyAnim.SetBool("HeavyAttacking", isAttacking);
@@ -146,7 +150,7 @@ public class PlayerAttack : MonoBehaviour
         playerMovement.WalkSpeed = 0;
 
         //increase heavy attack per 0.5 secs that it is being charged
-        while (isChargingChargedHeavyAttack && ChargedHeavyDmg < MaxChargedHeavyDmg)
+        while (!heavyAttacking && isChargingChargedHeavyAttack && ChargedHeavyDmg < MaxChargedHeavyDmg)
         {
             yield return new WaitForSeconds(0.5f);
             ChargedHeavyDmg += ChargedHeavyDmgAddition;
