@@ -8,12 +8,12 @@ using UnityEngine.UIElements;
 public class PlayerAttack : MonoBehaviour
 {
     [Header("Damage Numbers")]
-    [SerializeField] private int LightDmg = 1;
-    [SerializeField] private int HeavyDmg = 2;
+    [SerializeField] private int LightDmg = 2;
+    [SerializeField] private int HeavyDmg = 5;
     //Adds this amount of damage to the charged heavy attack for every 0.5 secs it is held down
-    [SerializeField] private int ChargedHeavyDmgAddition = 1;
+    [SerializeField] private int ChargedHeavyDmgAddition = 5;
     //max damage for charged heavy attack
-    [SerializeField] private int MaxChargedHeavyDmg = 5;
+    [SerializeField] private int MaxChargedHeavyDmg = 25;
 
     //for the charged heavy
     private int ChargedHeavyDmg = 0;
@@ -38,6 +38,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool showLightRadius = false;
     [SerializeField] private bool showHeavyRadius = false;
+    [SerializeField] private bool showChargedHeavyRadius = false;
 
     private enum AttackType
     {
@@ -139,11 +140,20 @@ public class PlayerAttack : MonoBehaviour
         isChargingChargedHeavyAttack = true; //start charging the attack
         MyAnim.SetBool("ChargingHeavyAttack", isChargingChargedHeavyAttack);
 
+        //stores previous player movespeed then stops player from moving
+        PlayerMovement playerMovement = GetComponent<PlayerMovement>();
+        float MovementWalkSpeed = playerMovement.WalkSpeed;
+        playerMovement.WalkSpeed = 0;
+
+        //increase heavy attack per 0.5 secs that it is being charged
         while (isChargingChargedHeavyAttack && ChargedHeavyDmg < MaxChargedHeavyDmg)
         {
             yield return new WaitForSeconds(0.5f);
             ChargedHeavyDmg += ChargedHeavyDmgAddition;
         }
+
+        //reset movespeed to previous player movespeed
+        playerMovement.WalkSpeed = MovementWalkSpeed;
     }
 
 
@@ -189,6 +199,11 @@ public class PlayerAttack : MonoBehaviour
         if (showHeavyRadius)
         {
             Gizmos.DrawSphere(transform.position, heavyAttackRadius);
+        }
+
+        if (showHeavyRadius)
+        {
+            Gizmos.DrawSphere(transform.position, chargedHeavyAttackRadius);
         }
     }
 }
