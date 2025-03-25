@@ -7,8 +7,13 @@ public class PriestProjectile : BaseEnemyProjectile
     [SerializeField] protected GameObject aoeObject;
     [SerializeField] protected float aoeDamage;
     [SerializeField] protected float aoeLifespan;
-    protected override void OnCollisionEnter(Collision collision)
-    {
+	[SerializeField] protected float projectileVariety;
+	protected override void Start()
+	{
+		projectileRigidBody.velocity = transform.forward * rangedSpeed * UnityEngine.Random.Range(1, projectileVariety);
+	}
+	protected override void OnTriggerEnter(UnityEngine.Collider collision)
+	{
         RaycastHit floorHit;
 
 

@@ -15,10 +15,13 @@ public class BaseEnemyProjectile : MonoBehaviour
     [SerializeField] public float rangedSpeed; // How fast the object will be launched
     [SerializeField] public float rangedLifespan; // How long the object will last
     [SerializeField] public float rangedDamage;
-    public event Action onSFXImpact;
+	[SerializeField] public float gravityScale = 1.0f;
+	[SerializeField] public static float globalGravity = -9.81f;
+	public event Action onSFXImpact;
     protected virtual void Awake()
     {
         projectileRigidBody = GetComponent<Rigidbody>();
+        projectileRigidBody.useGravity = false;
     }
     protected virtual void Start()
     {
@@ -26,10 +29,15 @@ public class BaseEnemyProjectile : MonoBehaviour
     }
     protected virtual void Update()
     {
-        Destroy(gameObject, rangedLifespan);
+		Destroy(gameObject, rangedLifespan);
     }
-    protected virtual void OnCollisionEnter(Collision collision)
+    protected virtual void FixedUpdate()
     {
+		Vector3 manualGravity = globalGravity * gravityScale * Vector3.up;
+		projectileRigidBody.AddForce(manualGravity, ForceMode.Acceleration);
+	}
+    protected virtual void OnTriggerEnter(UnityEngine.Collider collision)
+	{
 
         onSFXImpact?.Invoke();
         collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
