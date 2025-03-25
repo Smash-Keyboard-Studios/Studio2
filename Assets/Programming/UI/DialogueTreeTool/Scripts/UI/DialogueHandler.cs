@@ -16,6 +16,14 @@ public class DialogueHandler : MonoBehaviour
     //for playing audio
     private AudioSource audioSource;
 
+    //for player object
+    GameObject playerObject;
+
+    private void Awake()
+    {
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+    }
+
     private void OnEnable()
     {
         audioSource = GetComponent<AudioSource>();
@@ -27,11 +35,15 @@ public class DialogueHandler : MonoBehaviour
     {
         ClearPlayerDialogueOptions();
 
+        //set player camera controller to focus on player camera holder
+        playerObject.GetComponentInChildren<CameraController>().ChangeCameraFocus
+            (playerObject.GetComponentInChildren<PlayerCameraObject>().gameObject);
 
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true;
-
+        //reenable input
+        playerObject.GetComponent<PlayerInput>().enabled = true;
         UIManager.Instance.inDialogueMenu = false;
 
+        //set this to false
         this.gameObject.SetActive(false);
     }
 
