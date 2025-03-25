@@ -23,6 +23,18 @@ public class DialogueHandler : MonoBehaviour
         GetTreeData();
     }
 
+    public void CloseDialogue()
+    {
+        ClearPlayerDialogueOptions();
+
+
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true;
+
+        UIManager.Instance.inDialogueMenu = false;
+
+        this.gameObject.SetActive(false);
+    }
+
     private void GetTreeData()
     {
         dialogueTreeData = Resources.Load(ConversationAsset) as DialogueTreeSaveData; //loads the example conversation from resources
@@ -40,7 +52,7 @@ public class DialogueHandler : MonoBehaviour
     public void GetNextDialogueData(DialogueSaveData playerOption)
     {
         currentData = null; //set currentdata to empty
-        foreach(Transform child in PlayerTextContainer.transform) { Destroy(child.gameObject); } //remove all children within player text
+        ClearPlayerDialogueOptions();
 
         foreach (DialogueSaveData dialogueData in dialogueTreeData.dialogueData)
         {
@@ -56,15 +68,16 @@ public class DialogueHandler : MonoBehaviour
 
         //disable this if no more data
         if(currentData == null) {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true;
-
-            UIManager.Instance.inDialogueMenu = false;
-
-            this.gameObject.SetActive(false); 
+            CloseDialogue();
         }
         
         //update player options
         SetPlayerDialogueOptions();
+    }
+
+    private void ClearPlayerDialogueOptions()
+    {
+        foreach (Transform child in PlayerTextContainer.transform) { Destroy(child.gameObject); } //remove all children within player text
     }
 
     private void SetPlayerDialogueOptions()
