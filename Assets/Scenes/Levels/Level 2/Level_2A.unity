@@ -2654,6 +2654,7 @@ Transform:
   m_Children:
   - {fileID: 208491016}
   - {fileID: 717516564}
+  - {fileID: 1332999688}
   - {fileID: 40786850}
   - {fileID: 1702766756}
   - {fileID: 561053676}
@@ -19321,7 +19322,7 @@ PrefabInstance:
     - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.75
+      value: -0.7730627
       objectReference: {fileID: 0}
     - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
         type: 3}
@@ -19331,7 +19332,7 @@ PrefabInstance:
     - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 65.45
+      value: 66.766815
       objectReference: {fileID: 0}
     - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
         type: 3}
@@ -19371,7 +19372,7 @@ PrefabInstance:
     - target: {fileID: 6499761872223000497, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: m_Size.x
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6499761872223000497, guid: a158166407669584697fa60594eb8c22,
         type: 3}
@@ -19381,7 +19382,7 @@ PrefabInstance:
     - target: {fileID: 6499761872223000497, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: m_Size.z
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8380478931517338330, guid: a158166407669584697fa60594eb8c22,
         type: 3}
@@ -19396,7 +19397,7 @@ PrefabInstance:
     - target: {fileID: 8380478931517338330, guid: a158166407669584697fa60594eb8c22,
         type: 3}
       propertyPath: dialogue.Array.data[0]
-      value: 'Ok phantom i''m gonna name you danny '
+      value: Gabage
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34156,6 +34157,116 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8113442389928652711, guid: 63a2800cc380c0f448ca9f2c58c53a04,
     type: 3}
   m_PrefabInstance: {fileID: 1332608913}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1332999687
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 112628558}
+    m_Modifications:
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 805122708991073232, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Name
+      value: TriggerDialogueOverlay (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.273063
+      objectReference: {fileID: 0}
+    - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 21.29216
+      objectReference: {fileID: 0}
+    - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 66.016815
+      objectReference: {fileID: 0}
+    - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6499761872223000497, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6499761872223000497, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6499761872223000497, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380478931517338330, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: dialogueText
+      value: 
+      objectReference: {fileID: 1413781446}
+    - target: {fileID: 8380478931517338330, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: dialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380478931517338330, guid: a158166407669584697fa60594eb8c22,
+        type: 3}
+      propertyPath: dialogue.Array.data[0]
+      value: Okay phatnom, I'm going to call you Danny
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a158166407669584697fa60594eb8c22, type: 3}
+--- !u!4 &1332999688 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
+    type: 3}
+  m_PrefabInstance: {fileID: 1332999687}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1338168105
 PrefabInstance:
