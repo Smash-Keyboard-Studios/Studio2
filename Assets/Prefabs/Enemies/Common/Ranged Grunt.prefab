@@ -54,29 +54,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282f227a3cbd4ff409aa3870071a4fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 4
-  currentAIState: 0
+  maxSpeed: 4.25
+  currentAIState: 1
   lightAttackRate: 0.75
-  minDistanceForAttack: 15
-  globalAttackCoolDown: 0
-  maxDetectionRange: 10
+  minDistanceForAttack: 8
+  globalAttackCoolDown: 0.41666666
+  maxDetectionRange: 8
   rangedDamage: 7
-  rangedLifespan: 10
+  rangedLifespan: 1.25
   rangedSpeed: 10
   isBeam: 0
   projectilePrefab: {fileID: 3761678875516936036, guid: 69c9cafc9d150514881727da3970eb67,
     type: 3}
   projectileSpawnPoint:
-  - {fileID: 8494952796967733763}
+  - {fileID: 0}
   beamPrefab: {fileID: 0}
   beamSpawnPoint:
   - {fileID: 0}
-  retreatDistance: 10
+  retreatDistance: 15
   retreatCooldown: 6
-  chaseTimer: 8
-  enableVisualDetectionRadius: 0
-  enableVisualDetectionLine: 0
-  distanceFromPlayer: 0
+  chaseTimer: 4
+  enableVisualDetectionRadius: 1
+  enableVisualDetectionLine: 1
+  distanceFromPlayer: 6.242662
 --- !u!114 &3222878168228818675
 MonoBehaviour:
   m_ObjectHideFlags: 0
