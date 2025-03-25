@@ -19800,12 +19800,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 532518221}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &533732589 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4468305698207650302, guid: 241e51dc5a7fac6479e5c6ac305908b2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1681095104}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &534685428
 GameObject:
   m_ObjectHideFlags: 0
@@ -47725,7 +47719,7 @@ PrefabInstance:
         type: 3}
       propertyPath: DeathScreen
       value: 
-      objectReference: {fileID: 533732589}
+      objectReference: {fileID: 1681095108}
     - target: {fileID: 533977030738716872, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
       propertyPath: InteractionUI
@@ -52740,6 +52734,12 @@ MonoBehaviour:
 --- !u!224 &1681095107 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6553224300621202740, guid: 241e51dc5a7fac6479e5c6ac305908b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1681095104}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1681095108 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1049068084611142250, guid: 241e51dc5a7fac6479e5c6ac305908b2,
     type: 3}
   m_PrefabInstance: {fileID: 1681095104}
   m_PrefabAsset: {fileID: 0}
