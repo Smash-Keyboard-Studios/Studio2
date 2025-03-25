@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3761678875516936036}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4640994, y: 1.2947817, z: -21.14}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -103,7 +103,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 128
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -152,6 +152,7 @@ MonoBehaviour:
   rangedSpeed: 0
   rangedLifespan: 0
   rangedDamage: 0
+  gravityScale: 1
 --- !u!114 &1202244625580736160
 MonoBehaviour:
   m_ObjectHideFlags: 0

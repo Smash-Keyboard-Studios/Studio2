@@ -15,14 +15,12 @@ public class FloorAOE : BaseEnemyProjectile
 	}
 	protected virtual void OnTriggerEnter(UnityEngine.Collider other)
 	{
-		Debug.Log(other);
 		other.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
 	}
 	protected virtual void OnTriggerStay(UnityEngine.Collider collision)
 	{
 		if (damageClock <= 0) 
 		{
-			Debug.Log(collision);
 			collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
 			damageClock = damageTick;
 		}

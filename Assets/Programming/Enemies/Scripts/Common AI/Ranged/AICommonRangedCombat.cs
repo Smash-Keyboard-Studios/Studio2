@@ -88,6 +88,7 @@ public class AICommonRangedCombat : AIBase
 	[SerializeField] public float rangedDamage;
 	[SerializeField] protected float rangedLifespan; // How long the object will last
 	[SerializeField] public float rangedSpeed;
+	[SerializeField] public float rangedGravity;
 	[SerializeField] public bool isBeam;
 	#endregion
 	#region Projectile Vars
@@ -232,7 +233,7 @@ public class AICommonRangedCombat : AIBase
 				}
 				else
 				{
-					currentSpeed = maxSpeed;// PathTarget = PlayerTarget.position;
+					//currentSpeed = maxSpeed;// PathTarget = PlayerTarget.position;
 				}
 			}
 		}
@@ -337,6 +338,7 @@ public class AICommonRangedCombat : AIBase
 				instance.GetComponent<BaseEnemyProjectile>().rangedDamage = rangedDamage;
 				instance.GetComponent<BaseEnemyProjectile>().rangedLifespan = rangedLifespan;
 				instance.GetComponent<BaseEnemyProjectile>().rangedSpeed = rangedSpeed;
+				instance.GetComponent<BaseEnemyProjectile>().gravityScale = rangedGravity;
 			}
 		}
 	}

@@ -42,7 +42,8 @@ public class PriestBeam : BaseEnemyBeam
 		if (width == boxCastWidth)
 		{
 			lineRenderer.material = beamMaterialEnd;
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z) - transform.position, transform.up), turnSpeed);
+			float distanceToPlayer = Vector3.Distance(playerObject.position, transform.position);
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z) - transform.position, transform.up), (turnSpeed/distanceToPlayer));
 			CastRaycast(transform);
 			makeABox(transform.position, boxEndPoint);
 			// This checks if the player reenters the beam when after it's done charging, and damages them for it.
