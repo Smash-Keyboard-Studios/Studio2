@@ -18,12 +18,12 @@ public class UIManager : MonoBehaviour
 
 
     [Header("Build Indexes for menu scenes")]
-    [SerializeField] private int mainMenuBuildIndex;
-    [SerializeField] private int creditsBuildIndex;
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
+    [SerializeField] private string creditsSceneName = "Credits";
 
     [Header("Build Indexes for each Level")]
-    public int[] Level1BuildIndexes;
-    public int[] Level2BuildIndexes;
+    public int Level1ID = 1;
+    public int Level2ID = 2;
 
     [Header("Menu GameObject Prefabs")]
     [SerializeField] private GameObject levelSelectObj;
@@ -91,7 +91,7 @@ public class UIManager : MonoBehaviour
         optionsObj.SetActive(false);
         controlsObj.SetActive(false);
 
-        
+
         inGameMenu = false;
     }
 
@@ -118,7 +118,16 @@ public class UIManager : MonoBehaviour
     {
         EnterMenu();
 
-        SceneManager.LoadScene(creditsBuildIndex);
+        //SceneManager.LoadScene(creditsBuildIndex);
+
+        if (LevelLoading.instance != null)
+        {
+            LevelLoading.instance.LoadScene(creditsSceneName);
+        }
+        else
+        {
+            Debug.LogError("LevelLoading.cs was not loaded!", this);
+        }
     }
 
     public void PressQuit()
@@ -130,32 +139,50 @@ public class UIManager : MonoBehaviour
     //level selection functions
     public void RestartLevel()
     {
-        int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
-
-        foreach(int index in Level1BuildIndexes)
+        if (LevelLoading.instance != null)
         {
-            if(index == currentBuildIndex) //if currently in level 1 scene
-            {
-                SelectLevel(Level1BuildIndexes[0]); //go to start of level 1
-                return;
-            }
+            LevelLoading.instance.Reload();
+        }
+        else
+        {
+            Debug.LogError("LevelLoading.cs was not loaded!", this);
         }
 
-        foreach (int index in Level2BuildIndexes)
-        {
-            if (index == currentBuildIndex) //if currently in level 2 scene
-            {
-                SelectLevel(Level2BuildIndexes[0]); //go to start of level 2
-                return;
-            }
-        }
+        // int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // foreach (int index in Level1BuildIndexes)
+        // {
+        //     if (index == currentBuildIndex) //if currently in level 1 scene
+        //     {
+        //         SelectLevel(Level1BuildIndexes[0]); //go to start of level 1
+        //         return;
+        //     }
+        // }
+
+        // foreach (int index in Level2BuildIndexes)
+        // {
+        //     if (index == currentBuildIndex) //if currently in level 2 scene
+        //     {
+        //         SelectLevel(Level2BuildIndexes[0]); //go to start of level 2
+        //         return;
+        //     }
+        // }
     }
 
     public void SelectLevel(int BuildIndex)
     {
         EnterLevel();
 
-        SceneManager.LoadScene(BuildIndex);
+        // SceneManager.LoadScene(BuildIndex);
+
+        if (LevelLoading.instance != null)
+        {
+            LevelLoading.instance.LoadLevel(BuildIndex);
+        }
+        else
+        {
+            Debug.LogError("LevelLoading.cs was not loaded!", this);
+        }
     }
 
 
@@ -167,13 +194,13 @@ public class UIManager : MonoBehaviour
             EnterMenu();
 
             inGameMenu = true;
-            GameObject.FindGameObjectWithTag("Player").GetComponent <PlayerInput>().enabled = false;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = false;
             gameMenuObj.SetActive(true);
         }
     }
 
 
-       
+
 
     public void PressReturn()
     {
@@ -188,7 +215,7 @@ public class UIManager : MonoBehaviour
 
         if (wasInControls) { PressOptions(); } //reopen options if was in controls before
         else if (wasInControlsGameMenu) { PressGameMenu(); PressOptions(); } //reopen game menu and options if was in controls from game menu before
-        else if(wasInOptionsGameMenu) { PressGameMenu(); } //reopen game menu if was in options from game menu before
+        else if (wasInOptionsGameMenu) { PressGameMenu(); } //reopen game menu if was in options from game menu before
         else { GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true; }
     }
 
@@ -196,6 +223,13 @@ public class UIManager : MonoBehaviour
     {
         EnterMenu();
 
-        SceneManager.LoadScene(mainMenuBuildIndex);
+        if (LevelLoading.instance != null)
+        {
+            LevelLoading.instance.LoadScene(mainMenuSceneName);
+        }
+        else
+        {
+            Debug.LogError("LevelLoading.cs was not loaded!", this);
+        }
     }
 }

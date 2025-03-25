@@ -4,6 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+//by    _                 _ _                     
+//     | |               (_) |                    
+//   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
+//  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
+// | (_| | (_) | | | | | | | |_) | | | (_) | | | |
+//  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+
+// Im scared of this script.
+
 /// <summary>
 /// This is how levels are loaded with the splash screen.
 /// You just need to call the loadScene func to load the scene you want.
@@ -16,6 +25,9 @@ public class LevelLoading : MonoBehaviour
 	// The loading screen UI.
 	public GameObject loadingScreen;
 	public Slider progressBar;
+
+	[SerializeField]
+	private string MainMenuSceneName = "MainMenu";
 
 	// used to stop loading the level multiple times when reloading is called more than once when loading.
 	private bool isReloading = false;
@@ -32,6 +44,10 @@ public class LevelLoading : MonoBehaviour
 	// This is used to keep track of levels being loaded.
 	List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
+
+
+
+	#region Awake
 	// sets the instance
 	void Awake()
 	{
@@ -46,7 +62,11 @@ public class LevelLoading : MonoBehaviour
 			DontDestroyOnLoad(this.gameObject);
 		}
 	}
+	#endregion
 
+
+
+	#region Start
 	// sets variables.
 	private void Start()
 	{
@@ -59,8 +79,11 @@ public class LevelLoading : MonoBehaviour
 		// SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
 
 	}
+	#endregion
 
 
+
+	#region Update
 	private void Update()
 	{
 		if (overrideAll) return;
@@ -68,15 +91,36 @@ public class LevelLoading : MonoBehaviour
 		// stops reloading of reloading multiple times.
 		isReloading = loadingScreen.gameObject.activeSelf;
 	}
+	#endregion
 
+
+
+	#region LoadMainMenu
 	/// <summary>
 	/// A function to load scene with index of 1.
 	/// </summary>
 	public void LoadMainMenu()
 	{
-		LoadScene(1);
+		LoadScene(new string[] { MainMenuSceneName });
+	}
+	#endregion
+
+
+
+	public void LoadLevel(int levelID)
+	{
+		if (levelID == 1)
+		{
+			LoadScene(LevelCollections.Level1);
+		}
+		else if (levelID == 2)
+		{
+			LoadScene(LevelCollections.Level2);
+		}
 	}
 
+
+	#region LoadScene int
 	/// <summary>
 	/// Loads the scene with the given index async.
 	/// </summary>
@@ -91,19 +135,23 @@ public class LevelLoading : MonoBehaviour
 
 		if (SceneManager.sceneCount > 1)
 		{
-			scenesLoading.Add(SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1)));
+			for (int i = 1; i < SceneManager.sceneCount; i++)
+				scenesLoading.Add(SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i)));
 		}
 
 		scenesLoading.Add(SceneManager.LoadSceneAsync(indexNumber, LoadSceneMode.Additive));
 
 		StartCoroutine(GetSceneLoadProgress());
 	}
+	#endregion
 
+
+	#region LoadScene string
 	/// <summary>
-	/// Loads the scene with the give name async.
+	/// Loads the scene with the given index async.
 	/// </summary>
-	/// <param name="mapName">build scene name</param>
-	public void LoadScene(string mapName)
+	/// <param name="sceneName">build scene index</param>
+	public void LoadScene(string sceneName)
 	{
 		if (overrideAll) return;
 
@@ -113,14 +161,49 @@ public class LevelLoading : MonoBehaviour
 
 		if (SceneManager.sceneCount > 1)
 		{
-			scenesLoading.Add(SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1)));
+			for (int i = 1; i < SceneManager.sceneCount; i++)
+				scenesLoading.Add(SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i)));
 		}
 
-		scenesLoading.Add(SceneManager.LoadSceneAsync(mapName, LoadSceneMode.Additive));
+		scenesLoading.Add(SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive));
 
 		StartCoroutine(GetSceneLoadProgress());
 	}
+	#endregion
 
+
+	#region LoadScene string[]
+	/// <summary>
+	/// Loads the scenes with the give names async.
+	/// </summary>
+	/// <param name="mapName">build scene name</param>
+	public void LoadScene(string[] mapNames)
+	{
+		if (overrideAll) return;
+
+		loading = true;
+		loadingScreen.gameObject.SetActive(true);
+		SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
+
+		if (SceneManager.sceneCount > 1)
+		{
+			for (int i = 1; i < SceneManager.sceneCount; i++)
+				scenesLoading.Add(SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i)));
+		}
+
+		foreach (string map in mapNames)
+		{
+			scenesLoading.Add(SceneManager.LoadSceneAsync(map, LoadSceneMode.Additive));
+
+		}
+
+		StartCoroutine(GetSceneLoadProgress());
+	}
+	#endregion
+
+
+
+	#region Reload
 	/// <summary>
 	/// Used to reload the current scene loaded.
 	/// </summary>
@@ -134,14 +217,36 @@ public class LevelLoading : MonoBehaviour
 
 		loadingScreen.gameObject.SetActive(true);
 
-		Scene save = SceneManager.GetSceneAt(1);
+		Scene savedScene = SceneManager.GetSceneAt(1);
 
-		scenesLoading.Add(SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1)));
-		scenesLoading.Add(SceneManager.LoadSceneAsync(save.buildIndex, LoadSceneMode.Additive));
+		// unload the scenes
+		if (SceneManager.sceneCount > 1)
+		{
+			for (int i = 1; i < SceneManager.sceneCount; i++)
+				scenesLoading.Add(SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i)));
+		}
+
+		// reload the scenes
+		if (LevelCollections.CheckSceneInCollection(savedScene.name))
+		{
+			foreach (string map in LevelCollections.GetCollectionNameFromScene(savedScene.name))
+			{
+				scenesLoading.Add(SceneManager.LoadSceneAsync(map, LoadSceneMode.Additive));
+			}
+		}
+		else
+		{
+			scenesLoading.Add(SceneManager.LoadSceneAsync(savedScene.buildIndex, LoadSceneMode.Additive));
+		}
+
 
 		StartCoroutine(GetSceneLoadProgress());
 	}
+	#endregion
 
+
+
+	#region GetSceneLoadProgress
 	/// <summary>
 	/// Used to keep track of loading.
 	/// </summary>
@@ -179,4 +284,5 @@ public class LevelLoading : MonoBehaviour
 			SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
 		}
 	}
+	#endregion
 }
