@@ -61,9 +61,9 @@ MonoBehaviour:
   minDistanceForAttack: 10
   globalAttackCoolDown: 3
   maxDetectionRange: 30
-  rangedDamage: 10
-  rangedLifespan: 2
-  rangedSpeed: 20
+  rangedDamage: 3
+  rangedLifespan: 5.04
+  rangedSpeed: 15
   isBeam: 1
   projectilePrefab: {fileID: 2228087868186991025, guid: c6c804fb49a28f54599e3451dbede250,
     type: 3}
@@ -92,8 +92,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   beamAttackCooldown: 15
+  beamTracker: 0
   projectileSpread: 15
-  volleyDelay: 0.125
+  volleyDelay: 0.1
 --- !u!114 &3222878168228818675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c369e918ef61bcb418ac140dab0f87e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 150
+  maxHealth: 70
 --- !u!136 &7444448901805668536
 CapsuleCollider:
   m_ObjectHideFlags: 0
