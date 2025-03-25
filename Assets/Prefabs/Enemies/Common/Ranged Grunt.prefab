@@ -54,15 +54,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282f227a3cbd4ff409aa3870071a4fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 3
+  maxSpeed: 4
   currentAIState: 0
   lightAttackRate: 0.75
   minDistanceForAttack: 20
   globalAttackCoolDown: 0
   maxDetectionRange: 10
-  rangedDamage: 10
-  rangedLifespan: 8
-  rangedSpeed: 15
+  rangedDamage: 7
+  rangedLifespan: 10
+  rangedSpeed: 10
   isBeam: 0
   projectilePrefab: {fileID: 3761678875516936036, guid: 69c9cafc9d150514881727da3970eb67,
     type: 3}
