@@ -28,6 +28,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     public GameObject MainCharacter;
     public GameObject playerRotation;
     public GameObject DeathScreen;
+    public GameObject ActiveShield;
 
     private void Start()
     {
@@ -35,6 +36,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         MyAnim = MainCharacter.GetComponent<Animator>();
         playerRotation.GetComponent<PlayerRotation>();
         InteractionUI.SetActive(false);
+        ActiveShield.SetActive(false);
     }
 
     public bool TakeDamage(float Amount)
@@ -66,6 +68,15 @@ public class PlayerStats : MonoBehaviour, IDamageable
             playerRotation.GetComponent<PlayerRotation>().enabled = true;
             GetComponent<PlayerMovement>().enabled = true;
             DeathScreen.SetActive(false);
+        }
+
+        if (InputHandler.BlockTriggered)
+        {
+            ActiveShield.SetActive(true);
+        }
+        else
+        {
+            ActiveShield.SetActive(false);
         }
     }
 
