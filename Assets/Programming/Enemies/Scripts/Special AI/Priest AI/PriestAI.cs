@@ -51,6 +51,11 @@ public class PriestAI : AICommonRangedCombat
 	#region Update
 	protected override void Update()
 	{
+		if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
+		{
+			pathTarget = transform.position;
+			return;
+		}
 		distanceFromPlayer = Vector3.Distance(playerTarget.position, transform.position);
 		// set values and deal with timers.
 		agent.speed = currentSpeed;
