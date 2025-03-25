@@ -1131,7 +1131,7 @@ MonoBehaviour:
   enableVisualDetectionRadius: 0
   enableVisualDetectionLine: 0
   slamAttackClass:
-    slamAttackRateCoolDown: 5
+    slamAttackRateCoolDown: 10
     slamWindUpTime: 1.25
     slamMaxRadius: 8
     slamAttackDamageAtMaxRange: 5
@@ -1140,7 +1140,7 @@ MonoBehaviour:
     minimumDistanceForForceSlam: 5
     timeWithinRadiusBeforeSlam: 3
   serratedSlashAttackClass:
-    serratedSlashCoolDown: 10
+    serratedSlashCoolDown: 5
     minimumDistanceForSerratedSlash: 2
     serratedSlashWindUpTime: 0.5
     serratedSlashRadius: 3
