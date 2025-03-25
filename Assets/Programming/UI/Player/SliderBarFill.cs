@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SliderBarFill : MonoBehaviour
 {
     PlayerStats playerStats;
+    PlayerAttack playerAttack;
 
     private Slider sliderBar;
 
@@ -23,6 +24,7 @@ public class SliderBarFill : MonoBehaviour
     void Start()
     {
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
+        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         sliderBar = GetComponent<Slider>();
 
         switch (whichSlider)
@@ -34,7 +36,7 @@ public class SliderBarFill : MonoBehaviour
                 sliderBar.maxValue = playerStats.PlayerMaxStamina;
                 break;
             case SliderType.ChargedButtonTimeHeld:
-                sliderBar.maxValue = 20; //set this to the max charge value
+                sliderBar.maxValue = playerAttack.MaxChargedHeavyDmg;
                 break;
             default:
                 break;
@@ -53,7 +55,9 @@ public class SliderBarFill : MonoBehaviour
                 sliderBar.value = playerStats.PlayerStamina;
                 break;
             case SliderType.ChargedButtonTimeHeld:
-                sliderBar.value = 20; //set this to the time that the charge button has been held for
+                //if not currently in the heavy attack set value to charge value
+                //this check is to stop the charging whenever the normal heavy is pressed
+                sliderBar.value = playerAttack.heavyAttacking ? 0: playerAttack.ChargedHeavyDmg;
                 break;
             default:
                 break;
