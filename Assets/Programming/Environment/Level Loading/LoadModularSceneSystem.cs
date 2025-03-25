@@ -14,6 +14,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Loads any scenes added to the array as additive on awake.
 /// </summary>
+[Obsolete("Using the level loading system instead", false)]
 public class LoadModularSceneSystem : MonoBehaviour
 {
 
@@ -21,12 +22,12 @@ public class LoadModularSceneSystem : MonoBehaviour
 	/// All the scene object to load. uses the name of the objects.
 	/// </summary>
 	[SerializeField]
-	public int[] additiveScenes;
+	public string[] additiveScenes;
 
 	void Start()
 	{
 		// iterate through all the objects in the array and attempts to load them additive.
-		foreach (int scene in additiveScenes)
+		foreach (string scene in additiveScenes)
 		{
 			try
 			{

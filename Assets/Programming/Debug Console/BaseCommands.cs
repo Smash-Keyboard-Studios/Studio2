@@ -9,11 +9,17 @@ public class BaseCommands
 
     public static Command test;
     public static Command help;
+    public static Command reloadLevel;
     public static Command<string[]> testMessage;
     public static Command<int> loadLevel;
     public static Command<float, float, float> tp;
     public static Command destroyObjectCommand;
     public static Command<float> setSprintSpeed;
+
+    public static Command<float> damagePlayer;
+    public static Command<float> healPlayer;
+
+    public static Command removeDialog;
 
     public BaseCommands(DebugConsole console)
     {
@@ -49,7 +55,7 @@ public class BaseCommands
 
                 if (index >= SceneManager.sceneCountInBuildSettings)
                 {
-                    console.TextToConsole("Does not exsist");
+                    console.TextToConsole("Does not exists");
                     throw new NullReferenceException();
                 }
 
@@ -69,7 +75,7 @@ public class BaseCommands
             }
         });
 
-        tp = new Command<float, float, float>("tp", "teleports the player in that direction", "tp <float> <float> <float>", (x, y, z) =>
+        tp = new Command<float, float, float>("tp", "teleports the player in that direction (direction is relative to player z forward)", "tp <float> <float> <float>", (x, y, z) =>
         {
 #nullable enable
             GameObject? go = GameObject.FindGameObjectWithTag("Player");
@@ -77,7 +83,7 @@ public class BaseCommands
             if (go != null && go.transform.name == "Player")
             {
                 go.transform.GetComponent<CharacterController>().enabled = false;
-                go.transform.position += new Vector3(x, y, z);
+                go.transform.position += go.transform.forward * z + go.transform.right * x + go.transform.up * y;
                 go.transform.GetComponent<CharacterController>().enabled = true;
                 console.TextToConsole("Moved the player");
             }
@@ -88,7 +94,7 @@ public class BaseCommands
             }
         });
 
-        destroyObjectCommand = new Command("obliterate", "Deletes the game object 50m infront of the camera", "obliterate", () =>
+        destroyObjectCommand = new Command("obliterate", "Deletes the game object 50m in front of the camera", "obliterate", () =>
         {
             try
             {
@@ -103,14 +109,14 @@ public class BaseCommands
             }
         });
 
-        setSprintSpeed = new Command<float>("sprintspeed", "set the sprint speed of the player", "sprintspeed <float>", (newSpeed) =>
+        setSprintSpeed = new Command<float>("walkspeed", "set the sprint speed of the player", "walkspeed <float>", (newSpeed) =>
         {
 #nullable enable
             GameObject? go = GameObject.FindGameObjectWithTag("Player");
 #nullable restore
             if (go != null && go.transform.name == "Player")
             {
-                // go.transform.GetComponent<PlayerMovementController>().SprintSpeed = newSpeed;
+                go.transform.GetComponent<PlayerMovement>().WalkSpeed = newSpeed;
                 console.TextToConsole("Set sprint speed of the player to " + newSpeed);
             }
             else
@@ -118,6 +124,93 @@ public class BaseCommands
                 console.TextToConsole("Cannot find the player");
                 return;
             }
+        });
+
+
+        reloadLevel = new Command("reload", "reloads the level", "reload", () =>
+        {
+            try
+            {
+                console.TextToConsole($"Reloading...");
+                if (LevelLoading.instance == null)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    return;
+                }
+
+                if (LevelLoading.instance.loading) return;
+                LevelLoading.instance.Reload();
+            }
+            catch (Exception e)
+            {
+                console.TextToConsole("I have failed to load that scene \n" + e.Message);
+            }
+        });
+
+        damagePlayer = new Command<float>("damage", "damages the player", "damage <float>", (damage) =>
+        {
+
+
+#nullable enable
+            GameObject? go = GameObject.FindGameObjectWithTag("Player");
+#nullable restore
+            if (go != null && go.transform.name == "Player")
+            {
+                go.transform.GetComponent<PlayerStats>().PlayerHealth -= damage;
+                console.TextToConsole($"player hp is now at {go.transform.GetComponent<PlayerStats>().PlayerHealth}");
+
+            }
+            else
+            {
+                console.TextToConsole("Cannot find the player");
+                return;
+            }
+
+        });
+
+
+        damagePlayer = new Command<float>("heal", "damages the player", "damage <float>", (health) =>
+        {
+
+
+#nullable enable
+            GameObject? go = GameObject.FindGameObjectWithTag("Player");
+#nullable restore
+            if (go != null && go.transform.name == "Player")
+            {
+                go.transform.GetComponent<PlayerStats>().PlayerHealth += health;
+                console.TextToConsole($"player hp is now at {go.transform.GetComponent<PlayerStats>().PlayerHealth}");
+
+            }
+            else
+            {
+                console.TextToConsole("Cannot find the player");
+                return;
+            }
+
+        });
+
+        removeDialog = new Command("rmrfdialog", "damages the player", "rmrfdialog", () =>
+        {
+
+#nullable enable
+            GameObject[] dialogueObjects = GameObject.FindGameObjectsWithTag("DialogueObject");
+#nullable restore
+            if (dialogueObjects.Length > 0)
+            {
+                foreach (var dobj in dialogueObjects)
+                {
+                    GameObject.Destroy(dobj);
+                }
+
+                console.TextToConsole($"removed {dialogueObjects.Length} from the scene");
+            }
+            else
+            {
+                console.TextToConsole("Cannot find any dialogueObjects");
+                return;
+            }
+
         });
 
         // foreach
@@ -132,6 +225,9 @@ public class BaseCommands
             tp,
             destroyObjectCommand,
             setSprintSpeed,
+            reloadLevel,
+            damagePlayer,
+            removeDialog,
         };
 
         foreach (var command in commandsToAdd)
