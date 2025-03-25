@@ -120,10 +120,12 @@ MonoBehaviour:
   rangedSpeed: 0
   rangedLifespan: 0
   rangedDamage: 0
+  gravityScale: 0.2
   aoeObject: {fileID: 5223894222131860991, guid: 943a29acdde8c43409c8bea16e965aec,
     type: 3}
   aoeDamage: 1
   aoeLifespan: 2.5
+  projectileVariety: 1.5
 --- !u!54 &8066814281486882872 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 4984637909554519789, guid: 69c9cafc9d150514881727da3970eb67,
