@@ -60,7 +60,7 @@ MonoBehaviour:
   minDistanceForAttack: 8
   globalAttackCoolDown: 0.41666666
   maxDetectionRange: 8
-  rangedDamage: 7
+  rangedDamage: 9
   rangedLifespan: 1.25
   rangedSpeed: 10
   isBeam: 0
@@ -71,8 +71,8 @@ MonoBehaviour:
   beamPrefab: {fileID: 0}
   beamSpawnPoint:
   - {fileID: 0}
-  retreatDistance: 15
-  retreatCooldown: 6
+  retreatDistance: 4
+  retreatCooldown: 8
   chaseTimer: 4
   enableVisualDetectionRadius: 1
   enableVisualDetectionLine: 1
