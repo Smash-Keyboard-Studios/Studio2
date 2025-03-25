@@ -2556,6 +2556,7 @@ MonoBehaviour:
   HeavyDmg: 5
   ChargedHeavyDmgAddition: 5
   MaxChargedHeavyDmg: 25
+  ChargedHeavyDmg: 0
   LightAttackDelay: 0.2
   HeavyAttackDelay: 2.5
   isAttacking: 0
@@ -4410,7 +4411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2169762620763144485}
-  - component: {fileID: 7417936107575358721}
+  - component: {fileID: 1218383833318923493}
   m_Layer: 6
   m_Name: CameraHolder
   m_TagString: Untagged
@@ -4433,7 +4434,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6124624632797496000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7417936107575358721
+--- !u!114 &1218383833318923493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
