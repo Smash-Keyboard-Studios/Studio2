@@ -56,15 +56,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 4
+  currentSpeed: 0
   currentAIState: 0
   lightAttackRate: 3
   minDistanceForAttack: 10
   globalAttackCoolDown: 3
   maxDetectionRange: 30
-  rangedGravity: 0.7
-  rangedSpeed: 12.5
-  rangedLifespan: 2.5
   rangedDamage: 3
+  rangedLifespan: 2.5
+  rangedSpeed: 12.5
+  rangedGravity: 0.7
   isBeam: 1
   projectilePrefab: {fileID: 2228087868186991025, guid: c6c804fb49a28f54599e3451dbede250,
     type: 3}
@@ -83,6 +84,7 @@ MonoBehaviour:
     type: 3}
   beamSpawnPoint:
   - {fileID: 6264254839036688584}
+  beamWindUp: 2
   retreatDistance: 3
   retreatCooldown: 6
   chaseTimer: 6
@@ -92,8 +94,10 @@ MonoBehaviour:
   retreatLocations:
   - {fileID: 0}
   - {fileID: 0}
+  retreatRange: 2
+  volleyRunDuration: 2
   beamAttackCooldown: 15
-  beamTracker: 0
+  beamDamage: 10
   projectileSpread: 15
   volleyDelay: 0.1
 --- !u!114 &3222878168228818675

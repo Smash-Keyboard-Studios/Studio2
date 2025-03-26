@@ -126,7 +126,9 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 			makeABox(transform.position, targetPoint);
 			yield return new WaitForSeconds(1);
 		}
+#pragma warning disable 0162
 		AttackCoroutine = null;
+#pragma warning restore 0162
 	}
 	protected void DealDamage(Collider collidedObject)
 	{

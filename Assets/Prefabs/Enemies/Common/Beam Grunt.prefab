@@ -63,6 +63,7 @@ MonoBehaviour:
   rangedDamage: 4
   rangedLifespan: 2
   rangedSpeed: 0
+  rangedGravity: 0
   isBeam: 1
   projectilePrefab: {fileID: 0}
   projectileSpawnPoint: []
@@ -70,6 +71,7 @@ MonoBehaviour:
     type: 3}
   beamSpawnPoint:
   - {fileID: 6264254839036688584}
+  beamWindUp: 1
   retreatDistance: 10
   retreatCooldown: 6
   chaseTimer: 8

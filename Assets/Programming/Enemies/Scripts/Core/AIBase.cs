@@ -63,7 +63,7 @@ public class AIBase : MonoBehaviour
 	[SerializeField]
 	protected float maxSpeed = 5f;
 
-	[SerializeField] protected float currentSpeed;
+	protected float currentSpeed;
 
 
 	/* AI State */
