@@ -5,7 +5,7 @@ using UnityEngine;
 public class FloorAOE : BaseEnemyProjectile
 {
 	[SerializeField] protected float damageTick;
-	[SerializeField] float damageClock;
+	float damageClock;
 
 	protected override void Update()
 	{
@@ -13,7 +13,7 @@ public class FloorAOE : BaseEnemyProjectile
 		Destroy(gameObject, rangedLifespan);
 
 	}
-	protected virtual void OnTriggerEnter(UnityEngine.Collider other)
+	protected override void OnTriggerEnter(UnityEngine.Collider other)
 	{
 		other.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
 	}
