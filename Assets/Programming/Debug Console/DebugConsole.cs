@@ -65,7 +65,7 @@ public class DebugConsole : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.BackQuote) || (consoleOpen && Input.GetKeyDown(KeyCode.Escape)))
 		{
-			if (UIManager.Instance.inGameMenu || UIManager.Instance.inDialogueMenu) return;
+			if (UIManager.Instance.inGameMenu || UIManager.Instance.inDialogueMenu) consoleOpen = false;
 
 			consoleOpen = !consoleOpen;
 
