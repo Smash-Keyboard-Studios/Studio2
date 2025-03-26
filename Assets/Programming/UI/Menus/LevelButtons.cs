@@ -11,11 +11,11 @@ public class LevelButtons : MonoBehaviour
 
     public void PressLevel1()
     {
-        UIManager.Instance.SelectLevel(UIManager.Instance.Level1BuildIndexes[0]);
+        UIManager.Instance.SelectLevel(UIManager.Instance.Level1ID);
     }
 
     public void PressLevel2()
     {
-        UIManager.Instance.SelectLevel(UIManager.Instance.Level2BuildIndexes[0]);
+        UIManager.Instance.SelectLevel(UIManager.Instance.Level2ID);
     }
 }

@@ -19800,12 +19800,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 532518221}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &533732589 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4468305698207650302, guid: 241e51dc5a7fac6479e5c6ac305908b2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1681095104}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &534685428
 GameObject:
   m_ObjectHideFlags: 0
@@ -45689,7 +45683,7 @@ PrefabInstance:
     - target: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 140.53581
+      value: 143.26682
       objectReference: {fileID: 0}
     - target: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
@@ -47725,7 +47719,7 @@ PrefabInstance:
         type: 3}
       propertyPath: DeathScreen
       value: 
-      objectReference: {fileID: 533732589}
+      objectReference: {fileID: 1681095108}
     - target: {fileID: 533977030738716872, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
       propertyPath: InteractionUI
@@ -52456,6 +52450,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Melee AI (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 3854924872114529646, guid: 00da7ea1c10f6aa4faa8fb578857dcf5,
+        type: 3}
+      propertyPath: maxDetectionRange
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5034315216963791772, guid: 00da7ea1c10f6aa4faa8fb578857dcf5,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -52740,6 +52739,12 @@ MonoBehaviour:
 --- !u!224 &1681095107 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6553224300621202740, guid: 241e51dc5a7fac6479e5c6ac305908b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1681095104}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1681095108 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1049068084611142250, guid: 241e51dc5a7fac6479e5c6ac305908b2,
     type: 3}
   m_PrefabInstance: {fileID: 1681095104}
   m_PrefabAsset: {fileID: 0}

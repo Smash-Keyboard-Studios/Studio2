@@ -51,7 +51,7 @@ public class DebugConsole : MonoBehaviour
 		}
 
 		// InitCommands();
-		baseCommands = new BaseCommands(this);
+		baseCommands = new BaseCommands(instance);
 	}
 
 	// Start is called before the first frame update
@@ -66,6 +66,8 @@ public class DebugConsole : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.BackQuote) || (consoleOpen && Input.GetKeyDown(KeyCode.Escape)))
 		{
 			consoleOpen = !consoleOpen;
+
+			if (UIManager.Instance.inGameMenu || UIManager.Instance.inDialogueMenu) consoleOpen = false;
 
 			consoleWindow.SetActive(consoleOpen);
 
@@ -102,14 +104,14 @@ public class DebugConsole : MonoBehaviour
 
 		if (string.IsNullOrEmpty(command))
 		{
-			TextToConsole("<color=red>Enter somthing valid!</color>");
+			TextToConsole("<color=red>Enter something valid!</color>");
 			return;
 		}
 
 		int result = ParseCommand(command);
 
-		if (result == 0) TextToConsole("Sucess");
-		if (result == 1) TextToConsole("<color=red>Unkown Command!</color>");
+		if (result == 0) TextToConsole("Code 0");
+		if (result == 1) TextToConsole("<color=red>Unknown Command!</color>");
 		if (result == 2) TextToConsole("<color=red>INTERNAL ERROR</color>");
 
 		inputField.text = "";

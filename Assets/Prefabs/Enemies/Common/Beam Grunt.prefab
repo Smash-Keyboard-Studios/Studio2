@@ -57,10 +57,10 @@ MonoBehaviour:
   maxSpeed: 2.5
   currentAIState: 0
   lightAttackRate: 4
-  minDistanceForAttack: 20
-  globalAttackCoolDown: 0
+  minDistanceForAttack: 15
+  globalAttackCoolDown: 3
   maxDetectionRange: 10
-  rangedDamage: 10
+  rangedDamage: 4
   rangedLifespan: 2
   rangedSpeed: 0
   isBeam: 1
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c369e918ef61bcb418ac140dab0f87e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 12
+  maxHealth: 7
 --- !u!136 &7444448901805668536
 CapsuleCollider:
   m_ObjectHideFlags: 0

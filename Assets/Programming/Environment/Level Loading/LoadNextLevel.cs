@@ -21,6 +21,14 @@ public class LoadNextLevel : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadSceneAsync(nameOfLevel);
+        if (LevelLoading.instance != null)
+        {
+            if (LevelCollections.CheckSceneInCollection(nameOfLevel))
+            {
+                LevelLoading.instance.LoadScene(LevelCollections.GetCollectionNameFromScene(nameOfLevel));
+            }
+        }
+        else
+            SceneManager.LoadSceneAsync(nameOfLevel);
     }
 }

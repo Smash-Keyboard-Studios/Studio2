@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7622524606344581348}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.5, y: 2.1850622, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50,6 +50,7 @@ MonoBehaviour:
   rangedSpeed: 0
   rangedLifespan: 0
   rangedDamage: 0
+  gravityScale: 1
   damageTick: 0.25
   beamWindUp: 1
   raycastMask:
@@ -58,8 +59,13 @@ MonoBehaviour:
   boxCastMask:
     serializedVersion: 2
     m_Bits: 64
+  rangeLimiter: 999
   boxCastHeight: 5
   boxCastWidth: 2
+  distanceForBoxLength: 0
+  midPoint: {x: 0, y: 0, z: 0}
+  boxRotation: {x: 0, y: 0, z: 0, w: 0}
+  boxHitColliders: []
   lineRenderer: {fileID: 1765822508714897069}
   beamMaterialStart: {fileID: 2100000, guid: 04a70a91424c9b14ca8b07eee0cdb937, type: 2}
   beamMaterialEnd: {fileID: 2100000, guid: 10fe0d3cbc1b97f499528f27412aff61, type: 2}

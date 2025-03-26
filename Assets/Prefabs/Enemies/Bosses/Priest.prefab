@@ -57,13 +57,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 4
   currentAIState: 0
-  lightAttackRate: 1
+  lightAttackRate: 3
   minDistanceForAttack: 10
   globalAttackCoolDown: 3
   maxDetectionRange: 30
-  rangedDamage: 10
-  rangedLifespan: 2
-  rangedSpeed: 20
+  rangedGravity: 0.7
+  rangedSpeed: 12.5
+  rangedLifespan: 2.5
+  rangedDamage: 3
   isBeam: 1
   projectilePrefab: {fileID: 2228087868186991025, guid: c6c804fb49a28f54599e3451dbede250,
     type: 3}
@@ -92,8 +93,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   beamAttackCooldown: 15
+  beamTracker: 0
   projectileSpread: 15
-  volleyDelay: 0.125
+  volleyDelay: 0.1
 --- !u!114 &3222878168228818675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c369e918ef61bcb418ac140dab0f87e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 150
+  maxHealth: 90
 --- !u!136 &7444448901805668536
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -152,9 +154,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!195 &4219887261251670066
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -700,7 +702,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9030536201279494183}
   m_LocalRotation: {x: -0.00000041093153, y: 0.7071071, z: 0.70710653, w: 0.00000041093196}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -709,7 +711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.44}
+  m_AnchoredPosition: {x: 0, y: 2.32}
   m_SizeDelta: {x: 20, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7398167460236307977
@@ -799,6 +801,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f2d60cee1da0814cb6b5a450f6d7a17,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f2d60cee1da0814cb6b5a450f6d7a17,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f2d60cee1da0814cb6b5a450f6d7a17,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8f2d60cee1da0814cb6b5a450f6d7a17,
         type: 3}

@@ -8,15 +8,15 @@ using UnityEngine.UIElements;
 public class PlayerAttack : MonoBehaviour
 {
     [Header("Damage Numbers")]
-    [SerializeField] private int LightDmg = 1;
-    [SerializeField] private int HeavyDmg = 2;
+    [SerializeField] private int LightDmg = 2;
+    [SerializeField] private int HeavyDmg = 5;
     //Adds this amount of damage to the charged heavy attack for every 0.5 secs it is held down
-    [SerializeField] private int ChargedHeavyDmgAddition = 1;
+    [SerializeField] private int ChargedHeavyDmgAddition = 5;
     //max damage for charged heavy attack
-    [SerializeField] private int MaxChargedHeavyDmg = 5;
+    [SerializeField] public int MaxChargedHeavyDmg = 25; //public to be referenced by slider
 
     //for the charged heavy
-    private int ChargedHeavyDmg = 0;
+    [HideInInspector] public int ChargedHeavyDmg = 0; //public to be referenced by slider
     private bool isChargingChargedHeavyAttack = false;
 
     [Header("Cooldown Delays")]
@@ -38,6 +38,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool showLightRadius = false;
     [SerializeField] private bool showHeavyRadius = false;
+    [SerializeField] private bool showChargedHeavyRadius = false;
 
     private enum AttackType
     {
@@ -91,6 +92,10 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator HeavyAttack()
     {
+        //we arent charging heavy attack
+        isChargingChargedHeavyAttack = false;
+        MyAnim.SetBool("ChargingHeavyAttack", false);
+
         isAttacking = true;
         heavyAttacking = true;
         MyAnim.SetBool("HeavyAttacking", isAttacking);
@@ -139,11 +144,20 @@ public class PlayerAttack : MonoBehaviour
         isChargingChargedHeavyAttack = true; //start charging the attack
         MyAnim.SetBool("ChargingHeavyAttack", isChargingChargedHeavyAttack);
 
-        while (isChargingChargedHeavyAttack && ChargedHeavyDmg < MaxChargedHeavyDmg)
+        //stores previous player movespeed then stops player from moving
+        PlayerMovement playerMovement = GetComponent<PlayerMovement>();
+        float MovementWalkSpeed = playerMovement.WalkSpeed;
+        playerMovement.WalkSpeed = 0;
+
+        //increase heavy attack per 0.5 secs that it is being charged
+        while (!heavyAttacking && isChargingChargedHeavyAttack && ChargedHeavyDmg < MaxChargedHeavyDmg)
         {
             yield return new WaitForSeconds(0.5f);
             ChargedHeavyDmg += ChargedHeavyDmgAddition;
         }
+
+        //reset movespeed to previous player movespeed
+        playerMovement.WalkSpeed = MovementWalkSpeed;
     }
 
 
@@ -189,6 +203,11 @@ public class PlayerAttack : MonoBehaviour
         if (showHeavyRadius)
         {
             Gizmos.DrawSphere(transform.position, heavyAttackRadius);
+        }
+
+        if (showHeavyRadius)
+        {
+            Gizmos.DrawSphere(transform.position, chargedHeavyAttackRadius);
         }
     }
 }

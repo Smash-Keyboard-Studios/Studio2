@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //The different movement speeds for the player
     [Header("Movement Speeds")]
-    [SerializeField] private float WalkSpeed = 3.0f;
+    [SerializeField] public float WalkSpeed = 3.0f;
     [SerializeField] private float SprintMultiplier = 2.0f;
     [SerializeField] private float StaminaDecrease = 5.0f;
     [SerializeField] private float StaminaIncrease = 2.5f;

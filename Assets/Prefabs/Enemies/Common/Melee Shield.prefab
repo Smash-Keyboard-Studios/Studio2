@@ -674,12 +674,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c597c93a184ceeb439b7e99142843fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 4
+  maxSpeed: 3.5
   currentAIState: 0
   lightAttackClass:
-    lightAttackDamage: 20
+    lightAttackDamage: 10
     lightAttackRate: 1
-    minDistanceForAttack: 2
+    minDistanceForAttack: 3
     boxCastDepth: 2
     boxCastLength: 3
     boxCastHeight: 1

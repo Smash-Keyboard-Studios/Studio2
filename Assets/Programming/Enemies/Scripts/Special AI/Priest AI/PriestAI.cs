@@ -18,10 +18,10 @@ public class PriestAI : AICommonRangedCombat
 	List<Vector3> retreatPositions;
 
 	[SerializeField] protected float beamAttackCooldown;
-	[SerializeField] protected float beamTracker;
-	//[SerializeField] protected float beamDamage;
-	float beamAttackTimer;
-	bool beamStillActive;
+	protected float beamTracker;
+	[SerializeField] protected float beamDamage;
+	protected float beamAttackTimer;
+	protected bool beamStillActive;
 	[SerializeField] protected float projectileSpread;
 	[SerializeField] protected float volleyDelay = 0.125f;
 
@@ -51,6 +51,11 @@ public class PriestAI : AICommonRangedCombat
 	#region Update
 	protected override void Update()
 	{
+		if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
+		{
+			pathTarget = transform.position;
+			return;
+		}
 		distanceFromPlayer = Vector3.Distance(playerTarget.position, transform.position);
 		// set values and deal with timers.
 		agent.speed = currentSpeed;
@@ -131,7 +136,7 @@ public class PriestAI : AICommonRangedCombat
 				}
 				else
 				{
-					currentSpeed = maxSpeed;// PathTarget = PlayerTarget.position;
+					//currentSpeed = maxSpeed;// PathTarget = PlayerTarget.position;
 				}
 			}
 		}
@@ -251,7 +256,7 @@ public class PriestAI : AICommonRangedCombat
 			if (isBeam)
 			{
 				GameObject instance = Instantiate(usedPrefab, SpawnPoint.position, SpawnPoint.rotation);
-				instance.GetComponent<PriestBeam>().rangedDamage = rangedDamage;
+				instance.GetComponent<PriestBeam>().rangedDamage = beamDamage;
 				instance.GetComponent<PriestBeam>().rangedLifespan = rangedLifespan;
 				instance.GetComponent<PriestBeam>().rangedSpeed = rangedSpeed;
 				beamTracker = rangedLifespan;
@@ -264,6 +269,7 @@ public class PriestAI : AICommonRangedCombat
 					instance.GetComponent<PriestProjectile>().rangedDamage = rangedDamage;
 					instance.GetComponent<PriestProjectile>().rangedLifespan = rangedLifespan;
 					instance.GetComponent<PriestProjectile>().rangedSpeed = rangedSpeed;
+				instance.GetComponent<PriestProjectile>().gravityScale = rangedGravity;
 			}
 
 			yield return new WaitForSeconds(volleyDelay);
