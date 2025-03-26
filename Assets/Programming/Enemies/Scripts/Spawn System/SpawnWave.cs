@@ -38,6 +38,7 @@ public class SpawnWave : MonoBehaviour
 	[SerializeField, Tooltip("All the spawn locations the AI are allow to spawn at")]
 	private List<GameObject> spawnPoints;
 
+	[SerializeField]
 	private EnemyRoomTracking effectedRoomTracking = null;
 
 	/// <summary>
