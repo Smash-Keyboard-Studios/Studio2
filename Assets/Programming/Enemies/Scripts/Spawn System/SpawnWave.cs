@@ -47,7 +47,7 @@ public class SpawnWave : MonoBehaviour
 	public void SpawnTheWave()
 	{
 		if (AISpawnSystem.instance != null)
-			AISpawnSystem.instance.SpawnWave(waveData, spawnPoints, timeBetweenSpawn, minSpawnRadius, maxSpawnRadius, sequenceShuffleAmount);
+			AISpawnSystem.instance.SpawnWave(waveData, spawnPoints, timeBetweenSpawn, minSpawnRadius, maxSpawnRadius, sequenceShuffleAmount, effectedRoomTracking);
 	}
 
 }
