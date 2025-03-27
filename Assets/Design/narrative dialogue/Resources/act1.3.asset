@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8621381ed847d4db790ca49b37c98b, type: 3}
+  m_Name: act1.3
+  m_EditorClassIdentifier: 
+  dialogueData:
+  - guid: 073300371d8dd134ab2a1f51ca2c10bc
+    dialogueItem: {fileID: 11400000, guid: 4a7d87c3dacee8a47a2b7c6707b11d2c, type: 2}
+    position: {x: -122, y: -45}
+    previousguids: []
+  - guid: d7261b476c0bc434fb1eee6163618820
+    dialogueItem: {fileID: 11400000, guid: 382e586f82e86264ebae01c192e088d9, type: 2}
+    position: {x: -53, y: 148}
+    previousguids:
+    - 073300371d8dd134ab2a1f51ca2c10bc
+  - guid: f427f32b5bf30a2418fb57a494f3af2a
+    dialogueItem: {fileID: 11400000, guid: 7cc5323043a515b46b95483fdcc92ccf, type: 2}
+    position: {x: 263, y: -37}
+    previousguids:
+    - d7261b476c0bc434fb1eee6163618820
+  - guid: b7171e9c9c859604baf5c9ce76190e1a
+    dialogueItem: {fileID: 11400000, guid: 45aa2e7280c09c84eba1d9b1d080da3d, type: 2}
+    position: {x: 411, y: 153}
+    previousguids:
+    - f427f32b5bf30a2418fb57a494f3af2a
+  - guid: 07d7208cdd60be743987e749d11176a9
+    dialogueItem: {fileID: 11400000, guid: 79007c491bec2824e8eaffb6be8035e6, type: 2}
+    position: {x: 764, y: -39}
+    previousguids:
+    - b7171e9c9c859604baf5c9ce76190e1a
+  - guid: 45081bd63ca15f244998d635d8d73390
+    dialogueItem: {fileID: 11400000, guid: 382e586f82e86264ebae01c192e088d9, type: 2}
+    position: {x: 966, y: 151}
+    previousguids:
+    - 07d7208cdd60be743987e749d11176a9
+  - guid: b00ba903d06eed949a06b43bef0a0b73
+    dialogueItem: {fileID: 11400000, guid: bd5e7e3033c92234fbbff3e44c486685, type: 2}
+    position: {x: 1305, y: -47}
+    previousguids:
+    - 45081bd63ca15f244998d635d8d73390
+  - guid: 4e6eb463dd8206b4882fcf1402b04fbf
+    dialogueItem: {fileID: 11400000, guid: 45aa2e7280c09c84eba1d9b1d080da3d, type: 2}
+    position: {x: 1539, y: 145}
+    previousguids:
+    - b00ba903d06eed949a06b43bef0a0b73
