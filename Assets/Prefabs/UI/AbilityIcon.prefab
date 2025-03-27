@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 66816493af9076247bccca45f7c96a5c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ce76a60a669b5c47840a8c592b609e0, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 07b430c1a416ae943924030751e1943e, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -396,5 +396,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c4de8b99b6ac2f40aa0b79ee1622ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityInUse: 0
-  cooldownTime: 5
+  abilityType: 3

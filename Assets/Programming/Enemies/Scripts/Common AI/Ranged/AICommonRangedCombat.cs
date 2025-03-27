@@ -102,7 +102,11 @@ public class AICommonRangedCombat : AIBase
 	[Header("Beam Specific")]
 	[SerializeField] protected GameObject beamPrefab;
 	[SerializeField] protected Transform[] beamSpawnPoint;
-	#endregion	
+	[SerializeField] protected float beamWindUp;
+	protected float beamTracker = 0;
+	protected bool beamStillActive;
+	protected GameObject instance;
+	#endregion
 	#region Retreat Vars
 	[Header("Retreating")]
 	[SerializeField] protected float retreatDistance = 10f; // The distance from the player to the enemy to trigger a retreat
@@ -164,7 +168,13 @@ public class AICommonRangedCombat : AIBase
 		if (lightAttackCooldown > 0f) lightAttackCooldown -= Time.deltaTime;
 		if (retreatTimer > 0f) retreatTimer -= Time.deltaTime;
 		if (globalAttackCoolDown >= 0) globalAttackCoolDown -= Time.deltaTime;
-
+		if (beamTracker > 0f) { beamTracker -= Time.deltaTime; beamStillActive = true; } else { beamStillActive = false; }
+		if (beamStillActive)
+		{
+			if (instance != null) { transform.rotation = instance.transform.rotation; }
+			pathTarget = transform.position;
+			return;
+		}
 		// thinking based on current state state.
 		// call appropriate functions.
 
@@ -326,12 +336,14 @@ public class AICommonRangedCombat : AIBase
 		{
 			usedSFXAction?.Invoke();
 			SpawnPoint.LookAt(playerTarget.position);
-			GameObject instance = Instantiate(usedpreFab, SpawnPoint.position, SpawnPoint.rotation);
+			instance = Instantiate(usedpreFab, SpawnPoint.position, SpawnPoint.rotation);
 			if (isBeam)
 			{
 				instance.GetComponent<BaseEnemyBeam>().rangedDamage = rangedDamage;
 				instance.GetComponent<BaseEnemyBeam>().rangedLifespan = rangedLifespan;
 				instance.GetComponent<BaseEnemyBeam>().rangedSpeed = rangedSpeed;
+				instance.GetComponent<BaseEnemyBeam>().beamWindUp = beamWindUp;
+				beamTracker = rangedLifespan + beamWindUp;
 			}
 			else
 			{

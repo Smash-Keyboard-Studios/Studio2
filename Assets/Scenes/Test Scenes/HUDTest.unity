@@ -724,10 +724,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClips:
-  - clipName: audiotest
+  - clipName: Plr_Walk
     audioClips:
-    - {fileID: 8300000, guid: 4c5fd86059f255a4b94f5934caca04e8, type: 3}
-    - {fileID: 8300000, guid: 8d8abb7ef9274f54e88f133f6d62da65, type: 3}
+    - {fileID: 8300000, guid: 498e4d94b596b2c4494fb0aa2255d3ee, type: 3}
+  - clipName: Plr_Run
+    audioClips:
+    - {fileID: 8300000, guid: 6a2a0a37359b24740a617f1308c2ae35, type: 3}
+  - clipName: Plr_GetHit
+    audioClips:
+    - {fileID: 8300000, guid: d9b9ec1e53b456443a42e0e2003ded82, type: 3}
+  - clipName: Plr_SwordUse
+    audioClips:
+    - {fileID: 8300000, guid: 390c0bb1ae3447744b47262682d02e4c, type: 3}
+  - clipName: Grunt_Attack
+    audioClips:
+    - {fileID: 8300000, guid: fa8a67326e0bc6d4181932025382d0ab, type: 3}
+  - clipName: Ranged_Shoot
+    audioClips:
+    - {fileID: 8300000, guid: cb7c074c13614e844a7b492cb087c566, type: 3}
+  - clipName: Grunt_ShieldBreak
+    audioClips:
+    - {fileID: 8300000, guid: 721e14f2b1bfee84bb02b47a84cfb580, type: 3}
+  - clipName: Env_GWallApp
+    audioClips:
+    - {fileID: 8300000, guid: 471fc3d490b935d4cb2f79e96af0d977, type: 3}
+  - clipName: Env_GWallDis
+    audioClips:
+    - {fileID: 8300000, guid: a709e4088a6e1354eb4b209e29f7635c, type: 3}
 --- !u!114 &750549012 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7482692109120159563, guid: 241e51dc5a7fac6479e5c6ac305908b2,
@@ -1418,10 +1441,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05417c42cdb59d4409db31d9a4b6f3ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuBuildIndex: 0
-  creditsBuildIndex: 0
-  Level1BuildIndexes: 
-  Level2BuildIndexes: 
+  mainMenuSceneName: MainMenu
+  creditsSceneName: Credits
+  Level1ID: 1
+  Level2ID: 2
   levelSelectObj: {fileID: 0}
   gameMenuObj: {fileID: 0}
   optionsObj: {fileID: 0}
@@ -1737,11 +1760,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1049068084611142250, guid: 241e51dc5a7fac6479e5c6ac305908b2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1544940796068524371, guid: 241e51dc5a7fac6479e5c6ac305908b2,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1863,16 +1881,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5531787071160888295, guid: 241e51dc5a7fac6479e5c6ac305908b2,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7735458864023246078, guid: 241e51dc5a7fac6479e5c6ac305908b2,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7735458864023246078, guid: 241e51dc5a7fac6479e5c6ac305908b2,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

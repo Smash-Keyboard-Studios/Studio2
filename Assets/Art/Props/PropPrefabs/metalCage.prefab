@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 114062828150003410}
   - component: {fileID: 2955693771264830786}
   - component: {fileID: 2157805977056364528}
-  - component: {fileID: 6396232689997814084}
+  - component: {fileID: 4189914885833634669}
   m_Layer: 0
   m_Name: metalCageModel
   m_TagString: Untagged
@@ -85,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6396232689997814084
-MeshCollider:
+--- !u!65 &4189914885833634669
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,10 +103,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7137711867588235235, guid: 701a0430e3af3cf4eafd9a14e45229dd, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1.3394623, y: 2.658962, z: 2.0935628}
+  m_Center: {x: 0.00000047683716, y: 0, z: -0.0000019073486}
 --- !u!1 &7466827782819105927
 GameObject:
   m_ObjectHideFlags: 0

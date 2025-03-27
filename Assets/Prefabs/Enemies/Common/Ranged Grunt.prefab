@@ -55,7 +55,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 4.25
-  currentSpeed: 0
   currentAIState: 0
   lightAttackRate: 0.75
   minDistanceForAttack: 8
@@ -73,6 +72,7 @@ MonoBehaviour:
   beamPrefab: {fileID: 0}
   beamSpawnPoint:
   - {fileID: 0}
+  beamWindUp: 1
   retreatDistance: 4
   retreatCooldown: 8
   chaseTimer: 4

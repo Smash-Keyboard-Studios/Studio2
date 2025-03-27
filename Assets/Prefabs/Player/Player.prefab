@@ -2556,6 +2556,7 @@ MonoBehaviour:
   HeavyDmg: 5
   ChargedHeavyDmgAddition: 5
   MaxChargedHeavyDmg: 25
+  ChargedHeavyDmg: 0
   LightAttackDelay: 0.2
   HeavyAttackDelay: 2.5
   isAttacking: 0
@@ -4701,9 +4702,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c20dfbcec6b638b418ef488a408cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxIntensity: 1
+  maxIntensity: 0.03
   minIntensity: 0
-  pulseSpeed: 1
+  pulseSpeed: 4
 --- !u!1 &9038434957366844899
 GameObject:
   m_ObjectHideFlags: 0

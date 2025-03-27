@@ -22,15 +22,41 @@ public class TriggerText : MonoBehaviour
     //whether currently in dialogue or not
     private bool inDialogue;
 
+    //audio
+    public AudioSource audio1; 
+    public AudioSource audio2;
+    private bool isAudio1Playing = false; // if audio 1 is playing 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             if (!inDialogue)
             {
+                audio1.Play(); // audio 1 plays
+                isAudio1Playing = true; // audio 1 is now playing
                 StartCoroutine("ShowDialogue");
                 inDialogue = true;
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (isAudio1Playing && !audio1.isPlaying) //checking audio1 and if its playing and then will play audio2 after 1 second
+        {
+            StartCoroutine("PlayAudio2");
+            isAudio1Playing = false;
+        }
+    }
+
+
+    private IEnumerator PlayAudio2()
+    {
+        yield return new WaitForSeconds(1f);
+        if (audio2 != null)
+        {
+            audio2.Play();
         }
     }
 
@@ -51,7 +77,6 @@ public class TriggerText : MonoBehaviour
 
         ClearText();
     }
-
     private void ClearText()
     {
         dialogueText.text = string.Empty;
