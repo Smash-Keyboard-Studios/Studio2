@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class OnDeathEvent : MonoBehaviour
+public class OnDetectPlayerEvent : MonoBehaviour
 {
     [SerializeField]
     private AIBase aIToSubscribeTo;
 
-    public UnityEvent onDeath;
+    public UnityEvent onDetectPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -17,11 +17,14 @@ public class OnDeathEvent : MonoBehaviour
             aIToSubscribeTo = GetComponent<AIBase>();
 
         if (aIToSubscribeTo != null)
-            aIToSubscribeTo.onDeath += InvokeOnDeath;
+            aIToSubscribeTo.onStateChanged += InvokeOnDetectPlayer;
     }
 
-    private void InvokeOnDeath(Transform eventData)
+    private void InvokeOnDetectPlayer(AIState state)
     {
-        onDeath?.Invoke();
+        if (state == AIState.Alerted)
+        {
+            onDetectPlayer?.Invoke();
+        }
     }
 }
