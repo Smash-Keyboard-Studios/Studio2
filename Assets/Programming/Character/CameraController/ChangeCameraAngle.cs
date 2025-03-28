@@ -25,7 +25,7 @@ public class ChangeCameraAngle : MonoBehaviour
         {
             PlayerCameraLocation = other.GetComponentInChildren<PlayerCameraObject>().gameObject; //set player camera
 
-            if (!inCameraMovement) { StartCoroutine("ChangeTheCameraAngle", other); }
+            if (!inCameraMovement) { StartCoroutine("ChangeTheCameraAngle", other.gameObject); }
         }
     }
 

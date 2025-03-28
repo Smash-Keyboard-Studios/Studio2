@@ -2339,8 +2339,8 @@ GameObject:
   - component: {fileID: 7613845529211925136}
   - component: {fileID: 2470002677059597800}
   - component: {fileID: 533977030738716872}
-  - component: {fileID: 8236928788153488819}
   - component: {fileID: 788834500746778170}
+  - component: {fileID: 8236928788153488819}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2497,6 +2497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65bcd4e1142ca2a4a8e3dce38f7b3570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockedShield: 0
   PlayerHealth: 100
   PlayerStamina: 100
   PlayerMaxHealth: 100
@@ -2509,6 +2510,35 @@ MonoBehaviour:
   playerRotation: {fileID: 2829685357577232280}
   DeathScreen: {fileID: 0}
   ActiveShield: {fileID: 1194959756969462176}
+--- !u!114 &788834500746778170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005257603024285522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb36870ecdc52b4e9bd9ecf4748a5fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlockedHeavyAttack: 0
+  LightDmg: 2
+  HeavyDmg: 5
+  ChargedHeavyDmgAddition: 5
+  MaxChargedHeavyDmg: 25
+  ChargedHeavyDmg: 0
+  LightAttackDelay: 0.2
+  HeavyAttackDelay: 2.5
+  isAttacking: 0
+  lightAttacking: 0
+  heavyAttacking: 0
+  MainCharacter: {fileID: 27083249097777768}
+  heavyAttackRadius: 1.5
+  chargedHeavyAttackRadius: 2
+  showLightRadius: 0
+  showHeavyRadius: 0
+  showChargedHeavyRadius: 0
 --- !u!114 &8236928788153488819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2540,34 +2570,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &788834500746778170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5005257603024285522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feb36870ecdc52b4e9bd9ecf4748a5fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LightDmg: 2
-  HeavyDmg: 5
-  ChargedHeavyDmgAddition: 5
-  MaxChargedHeavyDmg: 25
-  ChargedHeavyDmg: 0
-  LightAttackDelay: 0.2
-  HeavyAttackDelay: 2.5
-  isAttacking: 0
-  lightAttacking: 0
-  heavyAttacking: 0
-  MainCharacter: {fileID: 27083249097777768}
-  heavyAttackRadius: 1.5
-  chargedHeavyAttackRadius: 2
-  showLightRadius: 0
-  showHeavyRadius: 0
-  showChargedHeavyRadius: 0
 --- !u!1 &5031218017895963573
 GameObject:
   m_ObjectHideFlags: 0

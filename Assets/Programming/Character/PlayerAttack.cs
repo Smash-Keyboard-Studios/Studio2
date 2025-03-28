@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [Header("Unlocked Heavy Attack?")]
+    public bool unlockedHeavyAttack = false;
+
     [Header("Damage Numbers")]
     [SerializeField] private int LightDmg = 2;
     [SerializeField] private int HeavyDmg = 5;
@@ -62,13 +65,13 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnHeavyAttack(InputValue input)
     {
-        if (isAttacking) return;
+        if (isAttacking || !unlockedHeavyAttack) return;
         StartCoroutine (HeavyAttack());
     }
 
     public void OnChargedHeavyAttack(InputValue input)
     {
-        if (isAttacking) return;
+        if (isAttacking || !unlockedHeavyAttack) return;
 
         if (input.isPressed) { StartCoroutine("ChargeChargedHeavyAttack"); } //if pressed then start charging
         else { StartCoroutine(ChargedHeavyAttack()); } //if released then stop charging and do attack
@@ -205,7 +208,7 @@ public class PlayerAttack : MonoBehaviour
             Gizmos.DrawSphere(transform.position, heavyAttackRadius);
         }
 
-        if (showHeavyRadius)
+        if (showChargedHeavyRadius)
         {
             Gizmos.DrawSphere(transform.position, chargedHeavyAttackRadius);
         }

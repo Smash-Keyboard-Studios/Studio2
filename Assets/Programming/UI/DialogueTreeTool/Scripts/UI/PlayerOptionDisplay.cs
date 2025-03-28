@@ -10,7 +10,7 @@ public class PlayerOptionDisplay : MonoBehaviour
     [SerializeField] private DialogueHandler dialogueHandler;
 
     private TextMeshProUGUI PlayerSpeechText;
-    [SerializeField] private Image PlayerImage;
+    //[SerializeField] private Image PlayerImage;
 
     private void Awake()
     {
@@ -18,13 +18,13 @@ public class PlayerOptionDisplay : MonoBehaviour
 
         PlayerSpeechText = GetComponentInChildren<TextMeshProUGUI>();
 
-        PlayerImage = GameObject.FindGameObjectWithTag("DialoguePlayerImage").GetComponent<Image>();
+        //PlayerImage = GameObject.FindGameObjectWithTag("DialoguePlayerImage").GetComponent<Image>();
     }
 
     private void Update()
     {
         PlayerSpeechText.text = PlayerOption.dialogueItem.DialogueText;
-        PlayerImage.sprite = PlayerOption.dialogueItem.IconRO;
+        //PlayerImage.sprite = PlayerOption.dialogueItem.IconRO;
     }
 
     public void onPress()
