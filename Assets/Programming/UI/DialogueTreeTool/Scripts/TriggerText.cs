@@ -22,10 +22,14 @@ public class TriggerText : MonoBehaviour
     //whether currently in dialogue or not
     private bool inDialogue;
 
-    //audio
-    public AudioSource audio1; 
-    public AudioSource audio2;
-    private bool isAudio1Playing = false; // if audio 1 is playing 
+
+    //sorry odin but this very confusing code and it doesn't work because u are playing audiosources without having any reference to an audiosource or any audioclip to play
+    //let me know if you would like me to fix the code or explain to u how
+
+    ////audio
+    //public AudioSource audio1; 
+    //public AudioSource audio2;
+    //private bool isAudio1Playing = false; // if audio 1 is playing 
 
     private void OnTriggerEnter(Collider other)
     {
@@ -33,32 +37,32 @@ public class TriggerText : MonoBehaviour
         {
             if (!inDialogue)
             {
-                audio1.Play(); // audio 1 plays
-                isAudio1Playing = true; // audio 1 is now playing
+                //audio1.Play(); // audio 1 plays
+                //isAudio1Playing = true; // audio 1 is now playing
                 StartCoroutine("ShowDialogue");
                 inDialogue = true;
             }
         }
     }
 
-    private void Update()
-    {
-        if (isAudio1Playing && !audio1.isPlaying) //checking audio1 and if its playing and then will play audio2 after 1 second
-        {
-            StartCoroutine("PlayAudio2");
-            isAudio1Playing = false;
-        }
-    }
+    //private void Update()
+    //{
+    //    if (isAudio1Playing && !audio1.isPlaying) //checking audio1 and if its playing and then will play audio2 after 1 second
+    //    {
+    //        StartCoroutine("PlayAudio2");
+    //        isAudio1Playing = false;
+    //    }
+    //}
 
 
-    private IEnumerator PlayAudio2()
-    {
-        yield return new WaitForSeconds(1f);
-        if (audio2 != null)
-        {
-            audio2.Play();
-        }
-    }
+    //private IEnumerator PlayAudio2()
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //    if (audio2 != null)
+    //    {
+    //        audio2.Play();
+    //    }
+    //}
 
     private IEnumerator ShowDialogue()
     {

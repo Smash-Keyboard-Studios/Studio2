@@ -11,7 +11,6 @@ public class AbilityCooldownUI : MonoBehaviour
     private Slider cooldownBar;
     private TextMeshProUGUI cooldownText;
 
-    private float cooldownTime;
     private bool abilityInUse;
     private bool inCooldown;
 
@@ -35,8 +34,8 @@ public class AbilityCooldownUI : MonoBehaviour
         cooldownText = GetComponentInChildren<TextMeshProUGUI>();
 
         //set cooldown bar max value and disable it for now
-        cooldownBar.maxValue = cooldownTime;
         cooldownBar.enabled = false;
+
         //set text to nothing for now
         cooldownText.text = string.Empty;
 
@@ -56,15 +55,37 @@ public class AbilityCooldownUI : MonoBehaviour
             {
                 case AbilityType.LightAttack:
                     abilityInUse = playerObject.GetComponent<PlayerAttack>().lightAttacking;
-                    cooldownTime = playerObject.GetComponent<PlayerAttack>().LightAttackDelay;
+                    cooldownBar.maxValue = playerObject.GetComponent<PlayerAttack>().LightAttackDelay;
                     break;
+
                 case AbilityType.HeavyAttack:
-                    abilityInUse = playerObject.GetComponent<PlayerAttack>().heavyAttacking;
-                    cooldownTime = playerObject.GetComponent<PlayerAttack>().HeavyAttackDelay;
+                    if (playerObject.GetComponent<PlayerAttack>().unlockedHeavyAttack) //if unlocked, set cooldown to whether heavy attacking
+                    {
+                        abilityInUse = playerObject.GetComponent<PlayerAttack>().heavyAttacking;
+                        cooldownBar.maxValue = playerObject.GetComponent<PlayerAttack>().HeavyAttackDelay;
+                    }
+                    else //otherwise set slider to max so it looks disabled
+                    {
+                        abilityInUse = false;
+                        cooldownBar.enabled = true;
+                        cooldownBar.maxValue = 1;
+                        cooldownBar.value = cooldownBar.maxValue;
+                    }
                     break;
+
                 case AbilityType.Shield:
-                    abilityInUse = false;
-                    cooldownTime = 0;
+                    if (playerObject.GetComponent<PlayerStats>().unlockedShield) //if unlocked, set cooldown to whether using shield
+                    {
+                        abilityInUse = false;
+                        cooldownBar.maxValue = 0;
+                    }
+                    else //otherwise set slider to max so it looks disabled
+                    {
+                        abilityInUse = false;
+                        cooldownBar.enabled = true;
+                        cooldownBar.maxValue = 1;
+                        cooldownBar.value = cooldownBar.maxValue;
+                    }
                     break;
             }
         }
@@ -80,7 +101,7 @@ public class AbilityCooldownUI : MonoBehaviour
     {
         inCooldown = true;
 
-        float currentTime = cooldownTime; //timer for the cooldown
+        float currentTime = cooldownBar.maxValue; //timer for the cooldown
         float timeIncrements = 0.1f; //how many seconds between current time being updated
 
         //setting cooldown bar to active and initial values
