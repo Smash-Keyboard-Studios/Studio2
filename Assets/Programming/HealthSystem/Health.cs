@@ -21,20 +21,24 @@ public class Health : MonoBehaviour, IDamageable
 {
     [Header("Health Settings")]
     [SerializeField]
-    private float maxHealth = 100;
+    protected float maxHealth = 100;
 
-    private float currentHealth;
+    protected float currentHealth;
 
 
 
     public event Action onNoHealthLeft;
 
-    private bool calledOnDeathEvent = false;
+    protected bool calledOnDeathEvent = false;
 
+    protected HurtIndicator hurtIndicator;
 
 
     protected virtual void Start()
     {
+        hurtIndicator = GetComponent<HurtIndicator>();
+
+
         Reset();
     }
 
@@ -68,6 +72,10 @@ public class Health : MonoBehaviour, IDamageable
     public virtual bool TakeDamage(float amount)
     {
         AddToHealth(-amount);
+        if (hurtIndicator != null)
+        {
+            hurtIndicator.TakenDamage();
+        }
         return true;
     }
 
