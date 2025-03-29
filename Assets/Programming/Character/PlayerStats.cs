@@ -8,6 +8,9 @@ using UnityEngine.SceneManagement;
 //This script is attached to the player.
 public class PlayerStats : MonoBehaviour, IDamageable
 {
+    [Header("Unlocked Shield?")]
+    public bool unlockedShield = false;
+
     //Player stats value such as current stamina/health and max/min stamina/health
     [Header("Player Stats")]
     public float PlayerHealth = 100;
@@ -23,7 +26,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     private PlayerInputHandler InputHandler;
 
-    //public GameObject deathText;
     protected Animator MyAnim;
     public GameObject MainCharacter;
     public GameObject playerRotation;
@@ -70,40 +72,86 @@ public class PlayerStats : MonoBehaviour, IDamageable
             DeathScreen.SetActive(false);
         }
 
-        if (InputHandler.BlockTriggered)
+        if (unlockedShield)
         {
-            ActiveShield.SetActive(true);
-        }
-        else
-        {
-            ActiveShield.SetActive(false);
+            if (InputHandler.BlockTriggered)
+            {
+                ActiveShield.SetActive(true);
+            }
+            else
+            {
+                ActiveShield.SetActive(false);
+            }
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("HealthObject"))
-        {
-            InteractionUI.SetActive(true);
+        //interactable objects
 
-            if (InputHandler.InteractionTriggered)
-            {
+        switch (other.gameObject.tag)
+        {
+            case "HealthObject":
                 if (PlayerHealth < PlayerMaxHealth)
                 {
                     PlayerHealth += PlayerHealAmount;
                     Destroy(other.gameObject);
                     InteractionUI.SetActive(false);
                 }
-            }
 
+                break;
+
+            case "UnlockableHammer":
+                InteractionUI.SetActive(true);
+
+                if (InputHandler.InteractionTriggered)
+                {
+                    //enable heavy attack
+                    GetComponent<PlayerAttack>().unlockedHeavyAttack = true;
+
+                    Destroy(other.gameObject);
+                    InteractionUI.SetActive(false);
+                }
+
+                break;
+
+            case "UnlockableShield":
+                InteractionUI.SetActive(true);
+
+                if (InputHandler.InteractionTriggered)
+                {
+                    //enable Shield
+                    unlockedShield = true;
+
+                    Destroy(other.gameObject);
+                    InteractionUI.SetActive(false);
+                }
+
+                break;
+
+            default:
+                break;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("HealthObject"))
+        //interactable objects
+
+        switch (other.gameObject.tag)
         {
-            InteractionUI.SetActive(false);
+            case "UnlockableHammer":
+                InteractionUI.SetActive(false);
+
+                break;
+
+            case "UnlockableShield":
+                InteractionUI.SetActive(false);
+
+                break;
+
+            default:
+                break;
         }
     }
 }
