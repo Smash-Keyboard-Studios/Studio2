@@ -422,8 +422,10 @@ public class GruntAI : AIBase
 		filter.areaMask = NavMesh.AllAreas;
 
 
-		if (NavMesh.CalculatePath(transform.position, pathTarget, filter, path))
-			agent.path = path;
+		//if (NavMesh.CalculatePath(transform.position, pathTarget, filter, path))
+		//agent.path = path;
+
+		agent.destination = pathTarget;
 
 		// print("NAV-ING");
 	}
