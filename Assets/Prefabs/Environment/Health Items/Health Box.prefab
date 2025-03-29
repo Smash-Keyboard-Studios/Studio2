@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8850754640990962201}
-  - component: {fileID: 4610631766233143114}
+  - component: {fileID: -2940387956101534981}
+  - component: {fileID: 968999274540667386}
   m_Layer: 0
   m_Name: Health Box
   m_TagString: HealthObject
@@ -33,8 +34,22 @@ Transform:
   - {fileID: 2687039299964959569}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &4610631766233143114
-SphereCollider:
+--- !u!114 &-2940387956101534981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4937923229752190964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7044dc3c672f81c4cbbf655657686929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healAmount: 0
+  player: {fileID: 5005257603024285522, guid: d110e1c34e83ce247a08b9455a2744c8, type: 3}
+--- !u!65 &968999274540667386
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -52,7 +67,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1.5, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &2504266911006694586
 PrefabInstance:
