@@ -51,6 +51,7 @@ public class HealthWithShield : HealthWithBasicShield
         }
 
         AddToHealth(-amount);
+        hurtIndicator.TakenDamage();
         return true;
     }
 

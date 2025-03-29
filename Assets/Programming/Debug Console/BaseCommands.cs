@@ -18,6 +18,8 @@ public class BaseCommands
 
     public static Command<float> damagePlayer;
     public static Command<float> healPlayer;
+    public static Command noClip;
+    public static Command unlockAllAbilities;
 
     public static Command removeDialog;
 
@@ -100,7 +102,7 @@ public class BaseCommands
             {
                 RaycastHit hit;
                 Physics.Raycast(Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f)), out hit, 50);
-                console.DestroyGameObject(hit.transform.gameObject);
+                console.DestroyUnityObject(hit.transform.gameObject);
                 console.TextToConsole("Gone!");
             }
             catch
@@ -213,6 +215,62 @@ public class BaseCommands
 
         });
 
+
+        noClip = new Command("noclip", "gives you that ability to walk through walls", "noclip", () =>
+        {
+#nullable enable
+            GameObject? go = GameObject.FindGameObjectWithTag("Player");
+#nullable restore
+            if (go != null && go.transform.name == "Player")
+            {
+                if (go.transform.GetComponent<NoClipPlayerController>() != null)
+                {
+                    console.DestroyUnityObject(go.GetComponent<NoClipPlayerController>());
+                    go.transform.GetComponent<CharacterController>().enabled = true;
+
+                    console.TextToConsole($"No clip mode deactivated");
+                }
+                else
+                {
+
+                    go.transform.GetComponent<CharacterController>().enabled = false;
+                    go.AddComponent<NoClipPlayerController>();
+
+                    console.TextToConsole($"No clip mode activated");
+                }
+
+
+            }
+            else
+            {
+                console.TextToConsole("Cannot find the player");
+                return;
+            }
+        });
+
+
+        unlockAllAbilities = new Command("unlockall", "gives you all the abilities", "unlockall", () =>
+        {
+#nullable enable
+            GameObject? go = GameObject.FindGameObjectWithTag("Player");
+#nullable restore
+            if (go != null && go.transform.name == "Player")
+            {
+
+                go.GetComponent<PlayerStats>().unlockedShield = true;
+                go.GetComponent<PlayerAttack>().unlockedHeavyAttack = true;
+
+                console.TextToConsole($"Unlocked all abilities");
+
+            }
+            else
+            {
+                console.TextToConsole("Cannot find the player");
+                return;
+            }
+        });
+
+
         // foreach
 
 
@@ -228,6 +286,8 @@ public class BaseCommands
             reloadLevel,
             damagePlayer,
             removeDialog,
+            noClip,
+            unlockAllAbilities,
         };
 
         foreach (var command in commandsToAdd)

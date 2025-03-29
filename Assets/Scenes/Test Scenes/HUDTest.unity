@@ -122,6 +122,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &95634465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6845460742431075063, guid: 241e51dc5a7fac6479e5c6ac305908b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 9213064966571481302}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &113523610 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5719213580746815652, guid: a158166407669584697fa60594eb8c22,
@@ -886,21 +892,11 @@ PrefabInstance:
       propertyPath: DeathScreen
       value: 
       objectReference: {fileID: 9213064966571481303}
-    - target: {fileID: 788834500746778170, guid: d110e1c34e83ce247a08b9455a2744c8,
+    - target: {fileID: 533977030738716872, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
-      propertyPath: showHeavyRadius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 788834500746778170, guid: d110e1c34e83ce247a08b9455a2744c8,
-        type: 3}
-      propertyPath: showLightRadius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 788834500746778170, guid: d110e1c34e83ce247a08b9455a2744c8,
-        type: 3}
-      propertyPath: showChargedHeavyRadius
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: InteractionUI
+      value: 
+      objectReference: {fileID: 95634465}
     - target: {fileID: 5005257603024285522, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
       propertyPath: m_Name
@@ -959,11 +955,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8619092761253086058, guid: d110e1c34e83ce247a08b9455a2744c8,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 866911448}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d110e1c34e83ce247a08b9455a2744c8, type: 3}
 --- !u!1 &866911446 stripped
 GameObject:
@@ -971,18 +963,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 866911445}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &866911448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 866911446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5127a1c9cbd58314face205c38e0f708, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1072248386
 GameObject:
   m_ObjectHideFlags: 0
@@ -1885,11 +1865,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7482692109120159563, guid: 241e51dc5a7fac6479e5c6ac305908b2,
-        type: 3}
-      propertyPath: m_text
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7912818815416686928, guid: 241e51dc5a7fac6479e5c6ac305908b2,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1899,11 +1874,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864076011358876510, guid: 241e51dc5a7fac6479e5c6ac305908b2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
