@@ -298,6 +298,8 @@ public class AISpawnSystem : MonoBehaviour
 		// we sore all possible spawn locations.
 		foreach (GameObject possibleSpawnLocation in spawnLocationToUse.ToList())
 		{
+			if (possibleSpawnLocation == null) continue;
+
 			if (Vector3.Distance(possibleSpawnLocation.transform.position, playerObject.transform.position) > minRadius &&
 				Vector3.Distance(possibleSpawnLocation.transform.position, playerObject.transform.position) < maxRadius)
 			{
