@@ -36,28 +36,9 @@ public class GruntAIAudio : AIAudioBase
 		base.SubscribeToAudioEvents();
 	}
 
-	protected override void OnDeathSFXPlayOnce()
-	{
-		// Audio code here
-	}
-
-	protected override void OnTakeDamageSFXPlayOnce()
-	{
-		// Audio code here
-	}
-
-	protected override void OnWalkingSFXPlay(float speed)
-	{
-		// Audio code here
-	}
-
-	protected override void OnWalkingSFXStop()
-	{
-		// Audio code here
-	}
-
 	protected virtual void OnAttackSFXPlayOnce(bool obj)
 	{
 		// Audio code here
+		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Common.Enemy.MeleeAttack");
 	}
 }

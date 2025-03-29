@@ -299,7 +299,7 @@ public class DebugConsole : MonoBehaviour
 		return 1;
 	}
 
-	public void DestroyGameObject(UnityEngine.Object objectToDestroy)
+	public void DestroyUnityObject(UnityEngine.Object objectToDestroy)
 	{
 		Destroy(objectToDestroy);
 	}
