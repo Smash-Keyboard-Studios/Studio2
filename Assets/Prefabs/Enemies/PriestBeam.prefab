@@ -181,8 +181,10 @@ MonoBehaviour:
   rangedLifespan: 0
   rangedDamage: 0
   gravityScale: 1
-  damageTick: 0.25
+  damageTick: 0.5
   beamWindUp: 1
+  widthTimer: 0
+  damageTimer: 0
   raycastMask:
     serializedVersion: 2
     m_Bits: 51
