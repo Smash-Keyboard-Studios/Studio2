@@ -185,7 +185,16 @@ public class KnightAI : GruntAI
 		if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
 		{
 			pathTarget = transform.position;
+			agent.destination = pathTarget;
+
+			animatorController.enabled = false;
+
+
 			return;
+		}
+		else
+		{
+			animatorController.enabled = true;
 		}
 
 		if (isSlamWindingUp && slamWindUpTimer > 0f)

@@ -132,8 +132,11 @@ public class BaseEnemyBeam : BaseEnemyProjectile
 	}
 	protected void DealDamage(Collider collidedObject)
 	{
-		//Debug.Log("Player hit for: " + projectileDamage);
-		collidedObject.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
-		damageTimer = damageTick; // Damage has been taken so cooldown reset.
+		if (damageTimer <= 0) //Additional check to prevent the stupid damage amount, even if the code skipping the prior one.
+		{
+			//Debug.Log("Player hit for: " + projectileDamage);
+			collidedObject.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
+			damageTimer = damageTick; // Damage has been taken so cooldown reset.
+		}
 	}
 }

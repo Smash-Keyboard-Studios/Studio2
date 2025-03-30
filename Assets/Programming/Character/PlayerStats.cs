@@ -91,15 +91,15 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
         switch (other.gameObject.tag)
         {
-            case "HealthObject":
-                if (PlayerHealth < PlayerMaxHealth)
-                {
-                    PlayerHealth += PlayerHealAmount;
-                    Destroy(other.gameObject);
-                    InteractionUI.SetActive(false);
-                }
+            //case "HealthObject":
+            //    if (PlayerHealth < PlayerMaxHealth)
+            //    {
+            //        PlayerHealth += PlayerHealAmount;
+            //        Destroy(other.gameObject);
+            //        InteractionUI.SetActive(false);
+            //    }
 
-                break;
+            //    break;
 
             case "UnlockableHammer":
                 InteractionUI.SetActive(true);

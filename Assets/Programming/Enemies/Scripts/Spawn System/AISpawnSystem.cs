@@ -186,11 +186,15 @@ public class AISpawnSystem : MonoBehaviour
 		// cycles through the list and spawns the AI with matching id in aISpawnList.
 		foreach (int id in spawnSequence.ToList())
 		{
-			bool successfulSpawn = SpawnAI(id, spawnLocationToUse, minRadius, maxRadius);
+			bool successfulSpawn = false;
 
-			if (!successfulSpawn)
+			while (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
+				yield return null;
+
+			while (!successfulSpawn)
 			{
-				continue;
+				successfulSpawn = SpawnAI(id, spawnLocationToUse, minRadius, maxRadius);
+				yield return null;
 			}
 
 			yield return new WaitForSeconds(timeBetweenSpawn);
@@ -230,11 +234,15 @@ public class AISpawnSystem : MonoBehaviour
 		// cycles through the list and spawns the AI with matching id in aISpawnList.
 		foreach (int id in waveData.ToList())
 		{
-			bool successfulSpawn = SpawnAI(id, spawnLocationToUse, minRadius, maxRadius);
+			bool successfulSpawn = false;
 
-			if (!successfulSpawn)
+			while (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
+				yield return null;
+
+			while (!successfulSpawn)
 			{
-				continue;
+				successfulSpawn = SpawnAI(id, spawnLocationToUse, minRadius, maxRadius);
+				yield return null;
 			}
 
 			yield return new WaitForSeconds(timeBetweenSpawn);
@@ -298,6 +306,8 @@ public class AISpawnSystem : MonoBehaviour
 		// we sore all possible spawn locations.
 		foreach (GameObject possibleSpawnLocation in spawnLocationToUse.ToList())
 		{
+			if (possibleSpawnLocation == null) continue;
+
 			if (Vector3.Distance(possibleSpawnLocation.transform.position, playerObject.transform.position) > minRadius &&
 				Vector3.Distance(possibleSpawnLocation.transform.position, playerObject.transform.position) < maxRadius)
 			{
