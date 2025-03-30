@@ -7,7 +7,7 @@ public class FogOfWar : MonoBehaviour
     Renderer fogRenderer;
 
     [Header("Fade-out Speed")]
-    [SerializeField] private float fadeOutSpeed;
+    [SerializeField] private float fadeOutSpeed = 0.05f;
 
 
     private void Start()
