@@ -1531,8 +1531,6 @@ MonoBehaviour:
       by raiders and burned alive, praying for help. prayers that fell upon deaf
       ears. Even in that realm of fog they sat and prayed hoping their prayers would
       be answered.
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &39784064
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3354,8 +3352,6 @@ MonoBehaviour:
     dialogueText: 'I died leading the scared and lost through a brush fire, I died
       wishing I could have saved more and I have spent my afterlife trying to atone
       for my failures by leading these poor souls '
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &143753275
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8840,8 +8836,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &333617188
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12425,8 +12419,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &445420564
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13309,8 +13301,6 @@ MonoBehaviour:
   - dialogueName: Watch
     dialogueText: 'Then keep going and don''t let him get to you. I know you can
       do this Hunter. '
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &465100414
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15477,8 +15467,6 @@ MonoBehaviour:
     dialogueText: Let me tell you, heartless one, about the lives of those you have
       cruelly ended. They toiled through fear and torment all for a salvation they
       can no longer achieve
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &553155500
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16584,8 +16572,6 @@ MonoBehaviour:
   - dialogueName: Priest
     dialogueText: 'Instead, I lead them to you. you who denied them their chance
       of salvation and committed them to their doom '
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &590249086
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20345,8 +20331,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &734072824
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26454,7 +26438,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1322843790}
     m_Modifications:
     - target: {fileID: 1918345586691243424, guid: 3d56d25e45bd22d479558b321ce093fb,
         type: 3}
@@ -26516,6 +26500,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d56d25e45bd22d479558b321ce093fb, type: 3}
+--- !u!4 &990393291 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4014943590051314144, guid: 3d56d25e45bd22d479558b321ce093fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 990393290}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &994965401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27309,7 +27299,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1737247352}
     m_Modifications:
     - target: {fileID: 2455571893365345445, guid: 6fe0cb57549a1914997ca2f4265badeb,
         type: 3}
@@ -27318,13 +27308,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2979167492733785631, guid: 6fe0cb57549a1914997ca2f4265badeb,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2979167492733785631, guid: 6fe0cb57549a1914997ca2f4265badeb,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2979167492733785631, guid: 6fe0cb57549a1914997ca2f4265badeb,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -45.93
+      value: -42.93
       objectReference: {fileID: 0}
     - target: {fileID: 2979167492733785631, guid: 6fe0cb57549a1914997ca2f4265badeb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.99999046
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2979167492733785631, guid: 6fe0cb57549a1914997ca2f4265badeb,
         type: 3}
@@ -27371,6 +27371,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fe0cb57549a1914997ca2f4265badeb, type: 3}
+--- !u!4 &1030454231 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2979167492733785631, guid: 6fe0cb57549a1914997ca2f4265badeb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1030454230}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1033984505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27680,12 +27686,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5660892093653123077, guid: ee73234ddfc943b4d81184a6c985a39b,
     type: 3}
   m_PrefabInstance: {fileID: 1047872858}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &1048820864 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1354305418322804302, guid: 241e51dc5a7fac6479e5c6ac305908b2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1413781441}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1067732229 stripped
 Transform:
@@ -35743,8 +35743,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &1311990925
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36237,7 +36235,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1795426108}
+  - {fileID: 990393291}
   m_Father: {fileID: 1593138227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1323958572
@@ -37651,8 +37651,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &1365646591
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38217,8 +38215,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &1384757365
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38366,8 +38362,6 @@ MonoBehaviour:
       more than the same rights afforded to them as were afforded to men, their passion
       moved them to action. And those same actions that have given men their liberty
       were enough to see them hanged. '
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &1388473853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39460,8 +39454,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &1437401465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -41580,8 +41572,6 @@ MonoBehaviour:
   - dialogueName: Watch
     dialogueText: "Boss ...think ... the si...al is gett.... bad i...can\u2019t ....
       hear...yo......ca...hea....e...b.ss......."
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &1513010480
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -41609,7 +41599,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1737247352}
     m_Modifications:
     - target: {fileID: 1918345586691243424, guid: 3d56d25e45bd22d479558b321ce093fb,
         type: 3}
@@ -41619,7 +41609,7 @@ PrefabInstance:
     - target: {fileID: 4014943590051314144, guid: 3d56d25e45bd22d479558b321ce093fb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -52.73
+      value: -49.73
       objectReference: {fileID: 0}
     - target: {fileID: 4014943590051314144, guid: 3d56d25e45bd22d479558b321ce093fb,
         type: 3}
@@ -41671,6 +41661,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d56d25e45bd22d479558b321ce093fb, type: 3}
+--- !u!4 &1514135612 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4014943590051314144, guid: 3d56d25e45bd22d479558b321ce093fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1514135611}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1515578323
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42216,7 +42212,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1737247352}
     m_Modifications:
     - target: {fileID: 1918345586691243424, guid: 3d56d25e45bd22d479558b321ce093fb,
         type: 3}
@@ -42226,7 +42222,7 @@ PrefabInstance:
     - target: {fileID: 4014943590051314144, guid: 3d56d25e45bd22d479558b321ce093fb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -53.44301
+      value: -50.44301
       objectReference: {fileID: 0}
     - target: {fileID: 4014943590051314144, guid: 3d56d25e45bd22d479558b321ce093fb,
         type: 3}
@@ -42278,6 +42274,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d56d25e45bd22d479558b321ce093fb, type: 3}
+--- !u!4 &1532343850 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4014943590051314144, guid: 3d56d25e45bd22d479558b321ce093fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1532343849}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1534499823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44537,8 +44539,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &1628727247
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -44920,8 +44920,6 @@ MonoBehaviour:
     dialogueText: 'Thanks, watch, sorry. '
   - dialogueName: Watch
     dialogueText: 'Nothing to thank me for. It hurts to see you in pain. '
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &1642650861
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -46288,8 +46286,6 @@ MonoBehaviour:
     dialogueText: 'The knights who rode out valiantly in the name of their god. Went
       against the teachings of their faith, all to end the reign of their corrupt
       king. Now they fear their violent act will forever brand them as heretics. '
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &1694542615
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -47047,8 +47043,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &1719671409
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -47285,8 +47279,6 @@ MonoBehaviour:
   - dialogueName: Hunter
     dialogueText: 'I joke but... I loved seeing her there. It always made me run
       a little faster ya know '
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &1722822191
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -47645,6 +47637,10 @@ Transform:
   m_Children:
   - {fileID: 1957886974}
   - {fileID: 1872464881}
+  - {fileID: 1514135612}
+  - {fileID: 1848855449}
+  - {fileID: 1030454231}
+  - {fileID: 1532343850}
   m_Father: {fileID: 390581792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1742281032
@@ -48221,8 +48217,6 @@ MonoBehaviour:
     dialogueText: 'I have led them all through the fog and fear of that realm, lead
       them as best I can. Lead them in spite of my fears. To guide them through that
       final test, Lead them to a place I thought safe. '
-  audio1: {fileID: 1048820864}
-  audio2: {fileID: 0}
 --- !u!65 &1754391874
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49099,12 +49093,17 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1322843790}
     m_Modifications:
     - target: {fileID: 2455571893365345445, guid: 6fe0cb57549a1914997ca2f4265badeb,
         type: 3}
       propertyPath: m_Name
       value: VendingmachineTypeB 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2979167492733785631, guid: 6fe0cb57549a1914997ca2f4265badeb,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2999998
       objectReference: {fileID: 0}
     - target: {fileID: 2979167492733785631, guid: 6fe0cb57549a1914997ca2f4265badeb,
         type: 3}
@@ -49161,6 +49160,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fe0cb57549a1914997ca2f4265badeb, type: 3}
+--- !u!4 &1795426108 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2979167492733785631, guid: 6fe0cb57549a1914997ca2f4265badeb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1795426107}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1798904430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49921,8 +49926,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &1828525735
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -50731,7 +50734,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1737247352}
     m_Modifications:
     - target: {fileID: 1918345586691243424, guid: 3d56d25e45bd22d479558b321ce093fb,
         type: 3}
@@ -50741,7 +50744,7 @@ PrefabInstance:
     - target: {fileID: 4014943590051314144, guid: 3d56d25e45bd22d479558b321ce093fb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -49.26
+      value: -46.26
       objectReference: {fileID: 0}
     - target: {fileID: 4014943590051314144, guid: 3d56d25e45bd22d479558b321ce093fb,
         type: 3}
@@ -50793,6 +50796,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d56d25e45bd22d479558b321ce093fb, type: 3}
+--- !u!4 &1848855449 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4014943590051314144, guid: 3d56d25e45bd22d479558b321ce093fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1848855448}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1855070190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53710,8 +53719,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &1968677724
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54200,8 +54207,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &1981726561
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54272,8 +54277,6 @@ MonoBehaviour:
   dialogue:
   - dialogueName: 
     dialogueText: 
-  audio1: {fileID: 0}
-  audio2: {fileID: 0}
 --- !u!65 &1982863077
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -59304,9 +59307,3 @@ SceneRoots:
   - {fileID: 1378767618}
   - {fileID: 251871443}
   - {fileID: 1626072164}
-  - {fileID: 1795426107}
-  - {fileID: 1514135611}
-  - {fileID: 1848855448}
-  - {fileID: 990393290}
-  - {fileID: 1532343849}
-  - {fileID: 1030454230}
