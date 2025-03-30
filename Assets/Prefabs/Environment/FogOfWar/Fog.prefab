@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2612670044447156384}
   - component: {fileID: 3133490985340942927}
   - component: {fileID: 3772016794769395145}
-  - component: {fileID: 8905341764264725721}
   - component: {fileID: 2121994670164305738}
   - component: {fileID: 2936335072315060538}
   - component: {fileID: 7461126495573694237}
@@ -87,28 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8905341764264725721
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7285303097793597436}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &2121994670164305738
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -142,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae99c436137eaa45867e176de7e6162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeOutSpeed: 1
+  fadeOutSpeed: 0.05
 --- !u!114 &7461126495573694237
 MonoBehaviour:
   m_ObjectHideFlags: 0
