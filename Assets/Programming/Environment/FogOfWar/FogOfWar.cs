@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class FogOfWar : MonoBehaviour
 {
+    Renderer fogRenderer;
 
     [Header("Fade-out Speed")]
     [SerializeField] private float fadeOutSpeed;
 
-    private Renderer fogRenderer;
-    private Color fogMaterial;
 
     private void Start()
     {
@@ -28,11 +27,13 @@ public class FogOfWar : MonoBehaviour
     
     IEnumerator fadeOut()
     {
-        while (fogRenderer.material.color.a > 0.01f) // Checks it at 0.01f as otherwise it gets mad :(
+        while (fogRenderer.material.GetFloat("_Opacity") > 0)
         {
-            fogRenderer.material.color = new Color(fogMaterial.r, fogMaterial.g, fogMaterial.b, Mathf.Lerp(fogRenderer.material.color.a, 0, (fadeOutSpeed / 100))); // Lerps the transparency, divides the set fadeout speed by 100 to compensate
-            yield return null; // stupid stupid coroutines!!!!!!!!
+            yield return new WaitForSeconds(0.01f);
+            fogRenderer.material.SetFloat("_Opacity", fogRenderer.material.GetFloat("_Opacity") - fadeOutSpeed);
         }
+
         Destroy(this.gameObject); // tells object to stop existing :D
     }
+
 }
