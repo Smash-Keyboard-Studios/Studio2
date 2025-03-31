@@ -45,8 +45,6 @@ public class LevelLoading : MonoBehaviour
 	List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
 
-
-
 	#region Awake
 	// sets the instance
 	void Awake()
