@@ -47,6 +47,8 @@ public class SavePlayerState : MonoBehaviour
 
         onSaveData?.Invoke();
 
+        GameObject.FindGameObjectWithTag("LoadPlayerState")?.GetComponent<CheckpointSavedUI>()?.DisplayIcon();
+
         // pass in the player's data to be saved.
         PlayerCheckpointManager.instance.StorePlayerState(playerObject.transform.position, playerObject.GetComponent<PlayerAttack>().unlockedHeavyAttack,
         playerObject.GetComponent<PlayerStats>().unlockedShield, SceneManager.GetSceneAt(1).buildIndex);
