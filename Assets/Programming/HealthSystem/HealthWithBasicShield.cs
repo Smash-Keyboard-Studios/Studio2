@@ -35,7 +35,7 @@ public class HealthWithBasicShield : Health, IShieldObject
 	{
 		base.Reset();
 
-		ActivateShield();
+		ActivateShield(false);
 	}
 
 	public virtual void BreakShield()
@@ -58,11 +58,12 @@ public class HealthWithBasicShield : Health, IShieldObject
 		return base.TakeDamage(amount);
 	}
 
-	protected virtual void ActivateShield()
+	protected virtual void ActivateShield(bool playSFX = true)
 	{
 		shieldActive = true;
 		shieldObject.SetActive(true);
-		InvokeOnShieldActivateSFXPlayOnce();
+		InvokeShieldActivate();
+		if (playSFX) InvokeOnShieldActivateSFXPlayOnce();
 	}
 
 	protected void InvokeShieldBreak()

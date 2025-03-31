@@ -20,4 +20,11 @@ public static class LevelCollections
         else if (Level2.Contains(sceneName)) return Level2;
         else return null;
     }
+
+    public static int GetLevelIDFromSceneName(string sceneName)
+    {
+        if (Level1.Contains(sceneName)) return 1;
+        else if (Level2.Contains(sceneName)) return 2;
+        else return 0;
+    }
 }

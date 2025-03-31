@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be150bcb51106341963a3e904c299b7, type: 3}
+  m_Name: EnemyMelee
+  m_EditorClassIdentifier: 
+  CollectionName: EnemyMelee
+  audioCollection:
+  - clipName: Attack
+    audioClip: {fileID: 8300000, guid: 64239921e1cf3c4459a42392289f8249, type: 3}
+  - clipName: AttackVariant
+    audioClip: {fileID: 8300000, guid: 64239921e1cf3c4459a42392289f8249, type: 3}
+  - clipName: TakeDamage
+    audioClip: {fileID: 8300000, guid: 8b7e14d927446304aa4be49f52d8b27b, type: 3}
+  - clipName: ShieldBreak
+    audioClip: {fileID: 8300000, guid: 194eba637faaa0f44981bf052340e99d, type: 3}
+  - clipName: ActivateShield
+    audioClip: {fileID: 8300000, guid: 45231974ea63ee843947cf3eae85a31c, type: 3}
+  - clipName: ShieldHit
+    audioClip: {fileID: 8300000, guid: f033d43251bcff7459e5f404a198907b, type: 3}
+  - clipName: Death
+    audioClip: {fileID: 8300000, guid: 8b7e14d927446304aa4be49f52d8b27b, type: 3}
