@@ -33,6 +33,9 @@ public class Health : MonoBehaviour, IDamageable
 
     protected HurtIndicator hurtIndicator;
 
+    public event Action onTakenDamageSFXPlayOnce;
+
+
 
     protected virtual void Start()
     {
@@ -76,6 +79,10 @@ public class Health : MonoBehaviour, IDamageable
         {
             hurtIndicator.TakenDamage();
         }
+
+        InvokeOnTakenDamageSFXPlayOnce();
+
+
         return true;
     }
 
@@ -86,5 +93,10 @@ public class Health : MonoBehaviour, IDamageable
     public virtual float GetHealthNormalized()
     {
         return currentHealth / maxHealth;
+    }
+
+    protected virtual void InvokeOnTakenDamageSFXPlayOnce()
+    {
+        onTakenDamageSFXPlayOnce?.Invoke();
     }
 }

@@ -114,11 +114,6 @@ public class AIBase : MonoBehaviour
 	public event Action onWalkingSFXStop;
 
 	/// <summary>
-	/// Called when taking damage.
-	/// </summary>
-	public event Action onTakeDamageSFXPlayOnce;
-
-	/// <summary>
 	/// Called when the AI dies.
 	/// </summary>
 	public event Action onDeathSFXPlayOnce;
@@ -243,14 +238,6 @@ public class AIBase : MonoBehaviour
 	protected virtual void WalkingSFXStop()
 	{
 		onWalkingSFXStop?.Invoke();
-	}
-
-	/// <summary>
-	/// Invokes the on take damage event.
-	/// </summary>
-	protected virtual void TakeDamageSFXPlayOnce()
-	{
-		onTakeDamageSFXPlayOnce?.Invoke();
 	}
 
 	/// <summary>
