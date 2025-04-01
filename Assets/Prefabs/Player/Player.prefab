@@ -2478,7 +2478,6 @@ GameObject:
   - component: {fileID: 533977030738716872}
   - component: {fileID: 788834500746778170}
   - component: {fileID: 8236928788153488819}
-  - component: {fileID: 2159565278602351331}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2616,10 +2615,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00fa85d1284c074a93cf19fe8ee1f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkSpeed: 3
+  WalkSpeed: 4
   SprintMultiplier: 2
-  StaminaDecrease: 5
-  StaminaIncrease: 2.5
+  StaminaDecrease: 7
+  StaminaIncrease: 10
   StaminaChargeRate: 1.5
   Gravity: 9.81
   MainCharacter: {fileID: 27083249097777768}
@@ -2709,22 +2708,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!208 &2159565278602351331
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5005257603024285522}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 0
-  m_Extents: {x: 0.5, y: 1, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &5031218017895963573
 GameObject:
   m_ObjectHideFlags: 0

@@ -183,8 +183,6 @@ MonoBehaviour:
   gravityScale: 1
   damageTick: 0.5
   beamWindUp: 1
-  widthTimer: 0
-  damageTimer: 0
   raycastMask:
     serializedVersion: 2
     m_Bits: 51
@@ -203,4 +201,4 @@ MonoBehaviour:
   beamMaterialEnd: {fileID: 2100000, guid: 10fe0d3cbc1b97f499528f27412aff61, type: 2}
   playerObject: {fileID: 729630874051252865, guid: c025df6931704224986de739725a8dea,
     type: 3}
-  turnSpeed: 2
+  turnSpeed: 0.5
