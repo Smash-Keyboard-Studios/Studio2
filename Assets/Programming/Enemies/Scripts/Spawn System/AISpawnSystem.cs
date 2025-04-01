@@ -193,7 +193,7 @@ public class AISpawnSystem : MonoBehaviour
 
 			while (!successfulSpawn)
 			{
-				successfulSpawn = SpawnAI(id, spawnLocationToUse, minRadius, maxRadius);
+				successfulSpawn = SpawnAI(id, spawnLocationToUse, minRadius, maxRadius, effectedRoomTracking);
 				yield return null;
 			}
 
@@ -263,7 +263,7 @@ public class AISpawnSystem : MonoBehaviour
 	/// <param name="minRadius">How close the AI can spawn.</param>
 	/// <param name="maxRadius">How far the AI can spawn.</param>
 	/// <returns>True if spawning was successful.</returns>
-	private bool SpawnAI(int id, List<GameObject> spawnLocationToUse, float minRadius, float maxRadius)
+	private bool SpawnAI(int id, List<GameObject> spawnLocationToUse, float minRadius, float maxRadius, EnemyRoomTracking enemyRoomTracking = null)
 	{
 		// get the AI prefab from the id given.
 		GameObject aiPrefab = GetEnemyPrefabFromID(id);
@@ -286,6 +286,12 @@ public class AISpawnSystem : MonoBehaviour
 		// spawn the AI and set state to alerted. This is not proc gen. this is wave gen.
 		GameObject ai = Instantiate(aiPrefab, spawnLocation.Value, Quaternion.identity, null);
 		ai.GetComponent<AIBase>()?.ChangeState(AIState.Alerted);
+
+		if (enemyRoomTracking != null)
+		{
+			enemyRoomTracking.AddEnemy(ai.transform);
+		}
+
 		return true;
 	}
 	#endregion

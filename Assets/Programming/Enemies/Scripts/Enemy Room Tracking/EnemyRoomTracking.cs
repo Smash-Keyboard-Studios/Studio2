@@ -28,7 +28,7 @@ public class EnemyRoomTracking : MonoBehaviour
 	[HideInInspector]
 	public bool HaltExiting = false;
 
-
+	private int enemyCount = 0;
 
 
 	private bool ready = false;
@@ -45,7 +45,6 @@ public class EnemyRoomTracking : MonoBehaviour
 		boxCollider = GetComponent<BoxCollider>();
 
 
-		boxCollider.enabled = false;
 		boxCollider.isTrigger = true;
 
 
@@ -74,14 +73,12 @@ public class EnemyRoomTracking : MonoBehaviour
 
 						// we cannot remove this object without risking braking the events.
 						collider.GetComponent<AIBase>().onDeath += RemoveEnemy;
+						enemyCount++;
 						EnemyList.Add(collider.transform);
 					}
 				}
 			}
-		}
 
-		if (onlyDetectOnStart)
-		{
 			ready = true;
 		}
 
@@ -94,6 +91,7 @@ public class EnemyRoomTracking : MonoBehaviour
 	/// <param name="EntityTransform">The transform of the enemy that died, may be null.</param>
 	private void RemoveEnemy(Transform EntityTransform)
 	{
+		enemyCount--;
 		EnemyList.Remove(EntityTransform);
 	}
 
@@ -103,7 +101,7 @@ public class EnemyRoomTracking : MonoBehaviour
 		if (!ready || HaltExiting) return;
 
 		// trigger the event when no more enemies in the tracking list.
-		if (EnemyList.Count <= 0 && !firedEvent)
+		if (enemyCount <= 0 && !firedEvent)
 		{
 			onAllEnemiesKilled?.Invoke();
 			firedEvent = true;
@@ -124,12 +122,22 @@ public class EnemyRoomTracking : MonoBehaviour
 				// we cannot remove this object without risking braking the events.
 				// we are presuming this object will not be disabled :3.
 				other.GetComponent<AIBase>().onDeath += RemoveEnemy;
+				enemyCount++;
 				EnemyList.Add(other.transform);
 
 				if (!ready) ready = true;
 			}
 		}
 
+	}
+
+	public void AddEnemy(Transform enemyTransform)
+	{
+		if (!transform.CompareTag("Enemy")) return;
+
+		enemyTransform.GetComponent<AIBase>().onDeath += RemoveEnemy;
+		enemyCount++;
+		EnemyList.Add(enemyTransform);
 	}
 
 
