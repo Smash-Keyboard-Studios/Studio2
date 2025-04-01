@@ -28,10 +28,12 @@ public class PriestAI : AICommonRangedCombat
 	Vector3 randomRetreat;
 	#endregion
 	#region Variables for Priest attacks
-	[Header("Variables for Priest attacks.")]
+	[Header("Additional Variables for Priest's beam.")]
 	[SerializeField] protected float beamAttackCooldown;
 	protected float beamAttackTimer;
 	[SerializeField] protected float beamDamage;
+	[SerializeField] protected float beamTurnSpeed;
+	[Header("Additional Variables for Priest's volley.")]
 	[SerializeField] protected float projectileSpread;
 	[SerializeField] protected float volleyDelay = 0.125f;
 	#endregion
@@ -74,7 +76,7 @@ public class PriestAI : AICommonRangedCombat
 		if (retreatTimer > 0f) retreatTimer -= Time.deltaTime;
 		if (beamAttackTimer > 0f) beamAttackTimer -= Time.deltaTime;
 		if (beamTracker > 0f) { beamTracker -= Time.deltaTime; beamStillActive = true; } else { beamStillActive = false; }
-		if (beamStillActive) 
+		if (beamStillActive)
 		{
 			if (instance != null) { transform.rotation = instance.transform.rotation; }
 			pathTarget = transform.position;
@@ -129,10 +131,10 @@ public class PriestAI : AICommonRangedCombat
 	/// <summary>	/// How the AI acts when it seen / detects the player. /// </summary>
 	protected override void AlertedThinking()
 	{
-		if (volleyRunTimer <= 0) 
-		{ 
-			retreatingAfterVolley = false; 
-			volleyRunTimer = volleyRunDuration; 
+		if (volleyRunTimer <= 0)
+		{
+			retreatingAfterVolley = false;
+			volleyRunTimer = volleyRunDuration;
 		}
 		if (!isBeam && retreatingAfterVolley)
 		{
@@ -142,7 +144,7 @@ public class PriestAI : AICommonRangedCombat
 		}
 		else
 		{
-			
+
 			pathTarget = playerTarget.position;
 
 			if ((Vector3.Distance(playerTarget.position, transform.position) < retreatDistance)) { chaseTimer -= Time.deltaTime; }
@@ -213,7 +215,7 @@ public class PriestAI : AICommonRangedCombat
 	/// <returns></returns>
 	protected override IEnumerator LightAttack()
 	{
-		
+
 		attacking = true;
 		lightAttackCooldown = lightAttackRate;
 		transform.LookAt(new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z)); // Turns the AI manually towards the player.
@@ -231,7 +233,7 @@ public class PriestAI : AICommonRangedCombat
 		{
 			animatorController.SetBool("IsHardAttack", false);
 		}
-		
+
 		// we start the attack.
 		animatorController.SetBool("IsAttacking", true);
 
@@ -240,11 +242,11 @@ public class PriestAI : AICommonRangedCombat
 		attacking = false;
 
 		currentSpeed = maxSpeed;
-	
-		if (!isBeam) 
-		{ 
-			randomRetreat = new Vector3(UnityEngine.Random.Range(-retreatRange, retreatRange), 0, UnityEngine.Random.Range(-retreatRange, retreatRange));  
-			retreatingAfterVolley = true; 
+
+		if (!isBeam)
+		{
+			randomRetreat = new Vector3(UnityEngine.Random.Range(-retreatRange, retreatRange), 0, UnityEngine.Random.Range(-retreatRange, retreatRange));
+			retreatingAfterVolley = true;
 		}
 		lightAttackCoroutine = null;
 	}
@@ -289,25 +291,29 @@ public class PriestAI : AICommonRangedCombat
 			if (isBeam)
 			{
 				instance = Instantiate(usedPrefab, SpawnPoint.position, SpawnPoint.rotation);
-				instance.GetComponent<PriestBeam>().rangedDamage = beamDamage;
-				instance.GetComponent<PriestBeam>().rangedLifespan = rangedLifespan;
-				instance.GetComponent<PriestBeam>().rangedSpeed = rangedSpeed;
-				instance.GetComponent<PriestBeam>().beamWindUp = beamWindUp;
-				beamTracker = rangedLifespan + beamWindUp;
+				if (instance != null)
+				{
+					instance.GetComponent<PriestBeam>().rangedDamage = beamDamage;
+					instance.GetComponent<PriestBeam>().rangedLifespan = rangedLifespan;
+					instance.GetComponent<PriestBeam>().rangedSpeed = rangedSpeed;
+					instance.GetComponent<PriestBeam>().beamWindUp = beamWindUp;
+					instance.GetComponent<PriestBeam>().turnSpeed = beamTurnSpeed;
+					instance.GetComponent<PriestBeam>().maxAggro = minDistanceForAttack;
+					beamTracker = rangedLifespan + beamWindUp;
+				}
 			}
 			else
 			{
-					randomRotation *= Quaternion.Euler(new Vector3(0, UnityEngine.Random.Range(-projectileSpread, projectileSpread), 0));
-					SpawnPoint.rotation = Quaternion.Slerp(SpawnPoint.rotation, randomRotation, 1f);
-					instance = Instantiate(usedPrefab, SpawnPoint.position, SpawnPoint.rotation);
-					instance.GetComponent<PriestProjectile>().rangedDamage = rangedDamage;
-					instance.GetComponent<PriestProjectile>().rangedLifespan = rangedLifespan;
-					instance.GetComponent<PriestProjectile>().rangedSpeed = rangedSpeed;
+				randomRotation *= Quaternion.Euler(new Vector3(0, UnityEngine.Random.Range(-projectileSpread, projectileSpread), 0));
+				SpawnPoint.rotation = Quaternion.Slerp(SpawnPoint.rotation, randomRotation, 1f);
+				instance = Instantiate(usedPrefab, SpawnPoint.position, SpawnPoint.rotation);
+				instance.GetComponent<PriestProjectile>().rangedDamage = rangedDamage;
+				instance.GetComponent<PriestProjectile>().rangedLifespan = rangedLifespan;
+				instance.GetComponent<PriestProjectile>().rangedSpeed = rangedSpeed;
 				instance.GetComponent<PriestProjectile>().gravityScale = rangedGravity;
 			}
-
-			yield return new WaitForSeconds(volleyDelay);
 		}
+		yield return new WaitForSeconds(volleyDelay);
 
 	}
 

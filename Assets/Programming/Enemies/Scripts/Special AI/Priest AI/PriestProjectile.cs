@@ -16,8 +16,6 @@ public class PriestProjectile : BaseEnemyProjectile
 	{
         RaycastHit floorHit;
 
-        print(collision.name);
-
 		collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
         if (Physics.Raycast(transform.position, Vector3.down, out  floorHit)) 
         { 
