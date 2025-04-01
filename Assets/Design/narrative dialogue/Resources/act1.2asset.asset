@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8621381ed847d4db790ca49b37c98b, type: 3}
+  m_Name: act1.2asset
+  m_EditorClassIdentifier: 
+  dialogueData:
+  - guid: 07d7208cdd60be743987e749d11176a9
+    dialogueItem: {fileID: 11400000, guid: 6c43b1eae2dc6a2498bbb716aff776ff, type: 2}
+    position: {x: 198, y: -29}
+    previousguids: []
+  - guid: b00ba903d06eed949a06b43bef0a0b73
+    dialogueItem: {fileID: 11400000, guid: 02521e3925c42d54eacf093d00414a79, type: 2}
+    position: {x: 631, y: -23}
+    previousguids:
+    - 07d7208cdd60be743987e749d11176a9

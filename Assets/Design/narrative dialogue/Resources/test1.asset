@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8621381ed847d4db790ca49b37c98b, type: 3}
+  m_Name: test1
+  m_EditorClassIdentifier: 
+  dialogueData:
+  - guid: c79a8d5f245eea54c84cb9b7801a2282
+    dialogueItem: {fileID: 11400000, guid: 131eb48518602584b98e51c958b6edf6, type: 2}
+    position: {x: 588, y: 242}
+    previousguids:
+    - 9aee7f05abf213d448dd6cc26160c7fb
+  - guid: 02d5c0a57b9484247a2e1fb5fc3c48f5
+    dialogueItem: {fileID: 11400000, guid: 1d47599c95f73f34f8dedfb3a5402950, type: 2}
+    position: {x: 929, y: 251}
+    previousguids:
+    - c79a8d5f245eea54c84cb9b7801a2282
+  - guid: 9aee7f05abf213d448dd6cc26160c7fb
+    dialogueItem: {fileID: 11400000, guid: c1dd24a95a54b3b43b39199d777edbeb, type: 2}
+    position: {x: 72, y: 243}
+    previousguids: []
