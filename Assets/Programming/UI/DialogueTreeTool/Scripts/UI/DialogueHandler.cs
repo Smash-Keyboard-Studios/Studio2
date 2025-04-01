@@ -43,6 +43,14 @@ public class DialogueHandler : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GetNextDialogueData(currentData);
+        }
+    }
+
     private void GetTreeData()
     {
         dialogueTreeData = Resources.Load(ConversationAsset) as DialogueTreeSaveData; //loads the example conversation from resources

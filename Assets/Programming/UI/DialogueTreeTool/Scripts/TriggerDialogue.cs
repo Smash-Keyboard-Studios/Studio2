@@ -7,6 +7,7 @@ public class TriggerDialogue : MonoBehaviour
 {
     [SerializeField] private GameObject dialogueHandler;
     [SerializeField] private string conversationAsset;
+    [SerializeField] private bool pausesPlayer;
 
     [Header("Changes Camera Angle?")]
     public bool HasCameraChange;
@@ -18,9 +19,12 @@ public class TriggerDialogue : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //disable input
-            other.GetComponent<PlayerInput>().enabled = false;
-            UIManager.Instance.inDialogueMenu = true;
+            if (pausesPlayer)
+            {
+                //disable input
+                other.GetComponent<PlayerInput>().enabled = false;
+                UIManager.Instance.inDialogueMenu = true;
+            }
 
             //if camerachange, change camera to new location
             if (HasCameraChange) { other.GetComponentInChildren<CameraController>().ChangeCameraFocus(NewCameraLocation); }
