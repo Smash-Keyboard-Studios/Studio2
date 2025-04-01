@@ -9,6 +9,9 @@ public class PriestBeam : BaseEnemyBeam
 	[SerializeField] public float turnSpeed;
 	private Vector3 boxEndPoint;
 	float width;
+	protected float distanceToPlayer;
+	protected float adjustedTurnSpeed;
+	public float maxAggro;
 
 	protected override void Awake()
 
@@ -37,13 +40,15 @@ public class PriestBeam : BaseEnemyBeam
 		if (widthTimer > 0) widthTimer -= Time.deltaTime; // Timer that manages the beam's width.
 		if (damageTimer > 0) damageTimer -= Time.deltaTime;
 		width = Mathf.Lerp(boxCastWidth, 0.01f, widthTimer / beamWindUp);
+		distanceToPlayer = Vector3.Distance(playerObject.position, transform.position);
 		lineRenderer.startWidth = width;
 		lineRenderer.endWidth = width;
 		if (width == boxCastWidth)
 		{
 			lineRenderer.material = beamMaterialEnd;
-			float distanceToPlayer = Vector3.Distance(playerObject.position, transform.position);
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z) - transform.position, transform.up), (turnSpeed/distanceToPlayer));
+			
+			adjustedTurnSpeed = (turnSpeed * (maxAggro / distanceToPlayer));
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z) - transform.position, transform.up), adjustedTurnSpeed);
 			CastRaycast(transform);
 			makeABox(transform.position, boxEndPoint);
 			// This checks if the player reenters the beam when after it's done charging, and damages them for it.
