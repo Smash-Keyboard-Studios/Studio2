@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb02e8c57bb6be640a5ffbcff69d6b78, type: 3}
-  m_Name: L2A8H 12
+  m_Script: {fileID: 11500000, guid: bd8621381ed847d4db790ca49b37c98b, type: 3}
+  m_Name: act2.6.2
   m_EditorClassIdentifier: 
-  NameText: Hunter
-  Icon: {fileID: 21300000, guid: 497694a8ea49d1a45bbe4e1380776747, type: 3}
-  IsPlayerTextOption: 0
-  DialogueText: Well, you know me. Nothing new ....
-  SoundToPlay: {fileID: 0}
+  dialogueData:
+  - guid: 6b5cf01027ec45345b5037e0f873c3e3
+    dialogueItem: {fileID: 11400000, guid: 9b15a0b5da41880428668ab9e2c53f0f, type: 2}
+    position: {x: 245, y: 108}
+    previousguids: []
