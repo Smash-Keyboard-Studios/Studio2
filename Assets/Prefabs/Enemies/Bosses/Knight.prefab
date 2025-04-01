@@ -5258,7 +5258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 2.75
-  currentAIState: 0
+  currentAIState: 1
   lightAttackClass:
     lightAttackDamage: 20
     lightAttackRate: 1
@@ -5270,7 +5270,7 @@ MonoBehaviour:
   layersToCheckFor:
     serializedVersion: 2
     m_Bits: 4294967295
-  maxDetectionRange: 30
+  maxDetectionRange: 10
   maxTurningDegreesDelta: 0.5
   speedWhileNextToPlayer: 0.4
   enableVisualDetectionRadius: 0
@@ -5278,7 +5278,7 @@ MonoBehaviour:
   slamAttackClass:
     slamAttackRateCoolDown: 10
     slamWindUpTime: 1.25
-    slamMaxRadius: 8
+    slamMaxRadius: 5
     slamAttackDamageAtMaxRange: 5
     slamMinRadius: 3
     slamAttackDamageAtMinRange: 55
@@ -5288,10 +5288,10 @@ MonoBehaviour:
     serratedSlashCoolDown: 5
     minimumDistanceForSerratedSlash: 2
     serratedSlashWindUpTime: 0.5
-    serratedSlashRadius: 3
-    serratedSlashDamage: 2
+    serratedSlashRadius: 4
+    serratedSlashDamage: 5
     serratedSlashTickLength: 0.2
-    serratedSlashAttackDuration: 1.2
+    serratedSlashAttackDuration: 2
   globalAttackDelay: 1
   stunDuration: 3
   speedWhileStunned: 0.5
@@ -5321,10 +5321,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbc7e2400dda745ad4d0aa673350c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 150
   shieldObject: {fileID: 2485080906551701511}
   shieldActive: 1
-  coolDownTime: 10
+  coolDownTime: 7
 --- !u!114 &6925100915833262026
 MonoBehaviour:
   m_ObjectHideFlags: 0
