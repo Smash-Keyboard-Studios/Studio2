@@ -45,8 +45,6 @@ public class LevelLoading : MonoBehaviour
 	List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
 
-
-
 	#region Awake
 	// sets the instance
 	void Awake()
@@ -116,6 +114,10 @@ public class LevelLoading : MonoBehaviour
 		else if (levelID == 2)
 		{
 			LoadScene(LevelCollections.Level2);
+		}
+		else
+		{
+			Debug.LogError($"Failed to find level with id of {levelID}", this);
 		}
 	}
 

@@ -47,6 +47,7 @@ public class HealthWithShield : HealthWithBasicShield
     {
         if (shieldActive)
         {
+            InvokeOnShieldHitSFXPlayOnce();
             return false;
         }
 
@@ -55,12 +56,11 @@ public class HealthWithShield : HealthWithBasicShield
         return true;
     }
 
-    protected override void ActivateShield()
+    protected override void ActivateShield(bool playSFX = true)
     {
         //currentShieldHealth = maxShieldHealth;
         resetShield = false;
-        base.ActivateShield();
-        InvokeShieldActivate();
+        base.ActivateShield(playSFX);
     }
 
     public override void BreakShield()
@@ -68,6 +68,7 @@ public class HealthWithShield : HealthWithBasicShield
         ShieldDeactivate();
         base.BreakShield();
     }
+
 
     protected void ShieldDeactivate()
     {

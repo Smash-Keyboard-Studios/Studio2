@@ -26,11 +26,16 @@ public class HealthWithBasicShield : Health, IShieldObject
 	public event Action onShieldActivate;
 
 
+	// audio events
+	public event Action onShieldHitSFXPlayOnce;
+	public event Action onShieldBreakSFXPlayOnce;
+	public event Action onShieldActiveSFXPlayOnce;
+
 	public override void Reset()
 	{
 		base.Reset();
 
-		ActivateShield();
+		ActivateShield(false);
 	}
 
 	public virtual void BreakShield()
@@ -46,21 +51,25 @@ public class HealthWithBasicShield : Health, IShieldObject
 	{
 		if (shieldActive)
 		{
+			InvokeOnShieldHitSFXPlayOnce();
 			return false;
 		}
 
 		return base.TakeDamage(amount);
 	}
 
-	protected virtual void ActivateShield()
+	protected virtual void ActivateShield(bool playSFX = true)
 	{
 		shieldActive = true;
 		shieldObject.SetActive(true);
+		InvokeShieldActivate();
+		if (playSFX) InvokeOnShieldActivateSFXPlayOnce();
 	}
 
 	protected void InvokeShieldBreak()
 	{
 		onShieldBreak?.Invoke();
+		InvokeOnShieldBreakSFXPlayOnce();
 	}
 
 	protected void InvokeShieldActivate()
@@ -73,5 +82,19 @@ public class HealthWithBasicShield : Health, IShieldObject
 		return (shieldActive ? 1 : 0);
 	}
 
+	protected virtual void InvokeOnShieldHitSFXPlayOnce()
+	{
+		onShieldHitSFXPlayOnce?.Invoke();
+	}
+
+	protected virtual void InvokeOnShieldBreakSFXPlayOnce()
+	{
+		onShieldBreakSFXPlayOnce?.Invoke();
+	}
+
+	protected virtual void InvokeOnShieldActivateSFXPlayOnce()
+	{
+		onShieldActiveSFXPlayOnce?.Invoke();
+	}
 
 }

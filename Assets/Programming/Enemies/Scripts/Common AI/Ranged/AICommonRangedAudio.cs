@@ -38,11 +38,6 @@ public class AICommonRangedAudio : AIAudioBase
 		// Audio code here
 	}
 
-	protected override void OnTakeDamageSFXPlayOnce()
-	{
-		// Audio code here
-	}
-
 	protected override void OnWalkingSFXPlay(float speed)
 	{
 		// Audio code here

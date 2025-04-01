@@ -667,6 +667,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1651306239}
   - component: {fileID: 1651306240}
+  - component: {fileID: 1651306241}
+  - component: {fileID: 1651306242}
   m_Layer: 0
   m_Name: PersistantObject
   m_TagString: Untagged
@@ -706,6 +708,38 @@ MonoBehaviour:
   MainMenuSceneName: MainMenu
   loading: 0
   overrideAll: 0
+--- !u!114 &1651306241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651306238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ee1627503737d4193bcdafbce4bf64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasPlayerState: 0
+  levelWithState: -1
+  playerLastPosition: {x: 0, y: 0, z: 0}
+  hasHeavyAttack: 0
+  hasShield: 0
+--- !u!114 &1651306242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651306238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd9bc9cef00fd3846af38eb20c30b5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioCollection:
+  - {fileID: 11400000, guid: a410cc60bcec53f4ba49b81562cf0c9d, type: 2}
+  - {fileID: 11400000, guid: f051179b13c11da4daf6c40ce7aad43e, type: 2}
 --- !u!1 &1742369105
 GameObject:
   m_ObjectHideFlags: 0

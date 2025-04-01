@@ -28,7 +28,6 @@ public class EnemyRoomTracking : MonoBehaviour
 	[HideInInspector]
 	public bool HaltExiting = false;
 
-
 	private int enemyCount = 0;
 
 
@@ -39,16 +38,19 @@ public class EnemyRoomTracking : MonoBehaviour
 	[Space]
 	public UnityEvent onAllEnemiesKilled;
 
+	private List<Transform> EnemyList = new List<Transform>();
+
 	void Awake()
 	{
 		boxCollider = GetComponent<BoxCollider>();
 
 
-		boxCollider.enabled = false;
 		boxCollider.isTrigger = true;
 
 
 	}
+
+	// TODO fix formatting with fix statements, it looks ugly and hart to track.
 
 	void Start()
 	{
@@ -66,15 +68,21 @@ public class EnemyRoomTracking : MonoBehaviour
 				{
 					if (collider.GetComponent<AIBase>() != null)
 					{
+
+						if (EnemyList.Contains(collider.transform)) return;
+
 						// we cannot remove this object without risking braking the events.
 						collider.GetComponent<AIBase>().onDeath += RemoveEnemy;
 						enemyCount++;
+						EnemyList.Add(collider.transform);
 					}
 				}
 			}
+
+			ready = true;
 		}
 
-		ready = true;
+
 	}
 
 	/// <summary>
@@ -84,6 +92,7 @@ public class EnemyRoomTracking : MonoBehaviour
 	private void RemoveEnemy(Transform EntityTransform)
 	{
 		enemyCount--;
+		EnemyList.Remove(EntityTransform);
 	}
 
 	void Update()
@@ -107,13 +116,28 @@ public class EnemyRoomTracking : MonoBehaviour
 		{
 			if (other.GetComponent<AIBase>() != null)
 			{
+
+				if (EnemyList.Contains(other.transform)) return;
+
 				// we cannot remove this object without risking braking the events.
 				// we are presuming this object will not be disabled :3.
 				other.GetComponent<AIBase>().onDeath += RemoveEnemy;
 				enemyCount++;
+				EnemyList.Add(other.transform);
+
+				if (!ready) ready = true;
 			}
 		}
 
+	}
+
+	public void AddEnemy(Transform enemyTransform)
+	{
+		if (!transform.CompareTag("Enemy")) return;
+
+		enemyTransform.GetComponent<AIBase>().onDeath += RemoveEnemy;
+		enemyCount++;
+		EnemyList.Add(enemyTransform);
 	}
 
 

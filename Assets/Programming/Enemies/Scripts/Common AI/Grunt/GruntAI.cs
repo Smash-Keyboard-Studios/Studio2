@@ -356,12 +356,10 @@ public class GruntAI : AIBase
 		if (UnityEngine.Random.Range(0f, 4f) < 1.5f)
 		{
 			animatorController.SetBool("IsHardAttack", true);
-			AttackSFXPlayOnce(true);
 		}
 		else
 		{
 			animatorController.SetBool("IsHardAttack", false);
-			AttackSFXPlayOnce(false);
 		}
 
 
@@ -403,6 +401,9 @@ public class GruntAI : AIBase
 	{
 		Collider[] HitObjects = Physics.OverlapBox(transform.position + (transform.forward * lightAttackClass.boxCastForwardOffset), new Vector3(lightAttackClass.boxCastLength, lightAttackClass.boxCastHeight, lightAttackClass.boxCastDepth) / 2f,
 				 transform.rotation, layersToCheckFor);
+
+
+		AttackSFXPlayOnce(animatorController.GetBool("IsHardAttack"));
 
 		if (HitObjects.Length > 0)
 		{

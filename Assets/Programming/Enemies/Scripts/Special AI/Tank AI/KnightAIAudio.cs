@@ -46,11 +46,6 @@ public class KnightAIAudio : GruntAIAudio
 		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Tank.Enemy.Death");
 	}
 
-	protected override void OnTakeDamageSFXPlayOnce()
-	{
-		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Tank.Enemy.TakeDamage");
-	}
-
 	protected override void OnWalkingSFXPlay(float speed)
 	{
 		if (walkSFXPlayTimer <= 0)

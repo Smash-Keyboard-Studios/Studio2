@@ -42,8 +42,6 @@ public class AIAudioBase : MonoBehaviour
 	{
 		aiBase.onDeathSFXPlayOnce += OnDeathSFXPlayOnce;
 
-		aiBase.onTakeDamageSFXPlayOnce += OnTakeDamageSFXPlayOnce;
-
 		aiBase.onWalkingSFXPlay += OnWalkingSFXPlay;
 		aiBase.onWalkingSFXStop += OnWalkingSFXStop;
 	}
@@ -57,12 +55,6 @@ public class AIAudioBase : MonoBehaviour
 	{
 		// audio code here
 		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Common.Enemy.Death");
-	}
-
-	protected virtual void OnTakeDamageSFXPlayOnce()
-	{
-		// audio code here
-		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Common.Enemy.TakeDamage");
 	}
 
 	protected virtual void OnWalkingSFXPlay(float speed)
