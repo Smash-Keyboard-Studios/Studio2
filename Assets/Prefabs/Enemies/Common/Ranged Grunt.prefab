@@ -133,11 +133,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rendererMaterialData:
-  - renderer: {fileID: 3042248201640652357, guid: 00da7ea1c10f6aa4faa8fb578857dcf5,
-      type: 3}
+  - renderer: {fileID: 131730245739939634}
     materialIndexInList: 2
-  - renderer: {fileID: 1663293961037935529, guid: 00da7ea1c10f6aa4faa8fb578857dcf5,
-      type: 3}
+  - renderer: {fileID: 183162105436112823}
     materialIndexInList: 2
   opacity: 150
   hurtDuration: 0.2
@@ -967,6 +965,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2245311833386546698}
   m_SourcePrefab: {fileID: 100100000, guid: 9eee19dc0b9fa05469d5a1cd857ca35f, type: 3}
+--- !u!137 &131730245739939634 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6733448747930054422, guid: 9eee19dc0b9fa05469d5a1cd857ca35f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2548478836745803736}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &183162105436112823 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2437778945693749359, guid: 9eee19dc0b9fa05469d5a1cd857ca35f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2548478836745803736}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2653951150543925299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9eee19dc0b9fa05469d5a1cd857ca35f,
