@@ -29,7 +29,6 @@ public class EnemyRoomTracking : MonoBehaviour
 	public bool HaltExiting = false;
 
 
-	private int enemyCount = 0;
 
 
 	private bool ready = false;
@@ -38,6 +37,8 @@ public class EnemyRoomTracking : MonoBehaviour
 
 	[Space]
 	public UnityEvent onAllEnemiesKilled;
+
+	private List<Transform> EnemyList = new List<Transform>();
 
 	void Awake()
 	{
@@ -49,6 +50,8 @@ public class EnemyRoomTracking : MonoBehaviour
 
 
 	}
+
+	// TODO fix formatting with fix statements, it looks ugly and hart to track.
 
 	void Start()
 	{
@@ -66,15 +69,23 @@ public class EnemyRoomTracking : MonoBehaviour
 				{
 					if (collider.GetComponent<AIBase>() != null)
 					{
+
+						if (EnemyList.Contains(collider.transform)) return;
+
 						// we cannot remove this object without risking braking the events.
 						collider.GetComponent<AIBase>().onDeath += RemoveEnemy;
-						enemyCount++;
+						EnemyList.Add(collider.transform);
 					}
 				}
 			}
 		}
 
-		ready = true;
+		if (onlyDetectOnStart)
+		{
+			ready = true;
+		}
+
+
 	}
 
 	/// <summary>
@@ -83,7 +94,7 @@ public class EnemyRoomTracking : MonoBehaviour
 	/// <param name="EntityTransform">The transform of the enemy that died, may be null.</param>
 	private void RemoveEnemy(Transform EntityTransform)
 	{
-		enemyCount--;
+		EnemyList.Remove(EntityTransform);
 	}
 
 	void Update()
@@ -92,7 +103,7 @@ public class EnemyRoomTracking : MonoBehaviour
 		if (!ready || HaltExiting) return;
 
 		// trigger the event when no more enemies in the tracking list.
-		if (enemyCount <= 0 && !firedEvent)
+		if (EnemyList.Count <= 0 && !firedEvent)
 		{
 			onAllEnemiesKilled?.Invoke();
 			firedEvent = true;
@@ -107,10 +118,15 @@ public class EnemyRoomTracking : MonoBehaviour
 		{
 			if (other.GetComponent<AIBase>() != null)
 			{
+
+				if (EnemyList.Contains(other.transform)) return;
+
 				// we cannot remove this object without risking braking the events.
 				// we are presuming this object will not be disabled :3.
 				other.GetComponent<AIBase>().onDeath += RemoveEnemy;
-				enemyCount++;
+				EnemyList.Add(other.transform);
+
+				if (!ready) ready = true;
 			}
 		}
 
