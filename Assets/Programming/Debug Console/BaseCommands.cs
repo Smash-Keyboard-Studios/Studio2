@@ -257,7 +257,7 @@ public class BaseCommands
             if (go != null && go.transform.name == "Player")
             {
 
-                go.GetComponent<PlayerStats>().unlockedShield = true;
+                go.GetComponent<ShieldAbility>().unlockedShield = true;
                 go.GetComponent<PlayerAttack>().unlockedHeavyAttack = true;
 
                 console.TextToConsole($"Unlocked all abilities");
