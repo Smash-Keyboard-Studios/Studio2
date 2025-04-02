@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 //Script by Aaron Wing
@@ -8,9 +9,6 @@ using UnityEngine.SceneManagement;
 //This script is attached to the player.
 public class PlayerStats : MonoBehaviour, IDamageable
 {
-    [Header("Unlocked Shield?")]
-    public bool unlockedShield = false;
-
     //Player stats value such as current stamina/health and max/min stamina/health
     [Header("Player Stats")]
     public float PlayerHealth = 100;
@@ -30,7 +28,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
     public GameObject MainCharacter;
     public GameObject playerRotation;
     public GameObject DeathScreen;
-    public GameObject ActiveShield;
+
+    private ShieldAbility shield;
 
     private void Start()
     {
@@ -38,12 +37,12 @@ public class PlayerStats : MonoBehaviour, IDamageable
         MyAnim = MainCharacter.GetComponent<Animator>();
         playerRotation.GetComponent<PlayerRotation>();
         InteractionUI.SetActive(false);
-        ActiveShield.SetActive(false);
+        shield = GetComponent<ShieldAbility>();
     }
 
     public bool TakeDamage(float Amount)
     {
-        if (!InputHandler.BlockTriggered)
+        if (!InputHandler.BlockTriggered && !shield.isShieldActive)
         {
             PlayerHealth -= Amount;
             return true;
@@ -71,18 +70,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
             GetComponent<PlayerMovement>().enabled = true;
             DeathScreen.SetActive(false);
         }
-
-        if (unlockedShield)
-        {
-            if (InputHandler.BlockTriggered)
-            {
-                ActiveShield.SetActive(true);
-            }
-            else
-            {
-                ActiveShield.SetActive(false);
-            }
-        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -91,16 +78,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
         switch (other.gameObject.tag)
         {
-            //case "HealthObject":
-            //    if (PlayerHealth < PlayerMaxHealth)
-            //    {
-            //        PlayerHealth += PlayerHealAmount;
-            //        Destroy(other.gameObject);
-            //        InteractionUI.SetActive(false);
-            //    }
-
-            //    break;
-
             case "UnlockableHammer":
                 InteractionUI.SetActive(true);
 
@@ -121,7 +98,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
                 if (InputHandler.InteractionTriggered)
                 {
                     //enable Shield
-                    unlockedShield = true;
+                    shield.unlockedShield = true;
 
                     Destroy(other.gameObject);
                     InteractionUI.SetActive(false);

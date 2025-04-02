@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 1459531854623295260}
   - component: {fileID: 9219263919013809214}
   m_Layer: 6
-  m_Name: Sphere
+  m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2478,6 +2478,7 @@ GameObject:
   - component: {fileID: 533977030738716872}
   - component: {fileID: 788834500746778170}
   - component: {fileID: 8236928788153488819}
+  - component: {fileID: 7694880310181773891}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2635,7 +2636,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65bcd4e1142ca2a4a8e3dce38f7b3570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockedShield: 0
   PlayerHealth: 100
   PlayerStamina: 100
   PlayerMaxHealth: 100
@@ -2668,7 +2668,6 @@ MonoBehaviour:
   ChargedHeavyDmg: 0
   LightAttackDelay: 0.2
   HeavyAttackDelay: 2.5
-  isAttacking: 0
   lightAttacking: 0
   heavyAttacking: 0
   MainCharacter: {fileID: 27083249097777768}
@@ -2708,6 +2707,24 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &7694880310181773891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005257603024285522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201d1e2528590aa45974384ec3efc295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeShield: {fileID: 1194959756969462176}
+  isShieldInCoolDown: 0
+  isShieldActive: 0
+  unlockedShield: 0
+  shieldUsageSec: 3
+  coolDownSec: 5
 --- !u!1 &5031218017895963573
 GameObject:
   m_ObjectHideFlags: 0
