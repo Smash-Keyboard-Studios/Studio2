@@ -13,102 +13,52 @@ MonoBehaviour:
   m_Name: act1.4
   m_EditorClassIdentifier: 
   dialogueData:
-  - guid: 72b5b5f1bacdd3d4aa39e8e5cfac1daa
-    dialogueItem: {fileID: 11400000, guid: 02521e3925c42d54eacf093d00414a79, type: 2}
-    position: {x: -576, y: -85}
-    previousguids: []
-  - guid: b4bb4a20ef0bb294e8cdf673b01d0259
-    dialogueItem: {fileID: 11400000, guid: d8c17e2175ba7b4479ad92f8e34a6a6c, type: 2}
-    position: {x: -512, y: 142}
-    previousguids:
-    - 72b5b5f1bacdd3d4aa39e8e5cfac1daa
-  - guid: 073300371d8dd134ab2a1f51ca2c10bc
-    dialogueItem: {fileID: 11400000, guid: 6c43b1eae2dc6a2498bbb716aff776ff, type: 2}
-    position: {x: -213, y: -93}
-    previousguids:
-    - b4bb4a20ef0bb294e8cdf673b01d0259
-  - guid: d7261b476c0bc434fb1eee6163618820
-    dialogueItem: {fileID: 11400000, guid: 382e586f82e86264ebae01c192e088d9, type: 2}
-    position: {x: -196, y: 114}
+  - guid: f427f32b5bf30a2418fb57a494f3af2a
+    dialogueItem: {fileID: 11400000, guid: 2c5abfbef071455499b1d2b84f32acf1, type: 2}
+    position: {x: -101, y: -99}
     previousguids:
     - 073300371d8dd134ab2a1f51ca2c10bc
-  - guid: f427f32b5bf30a2418fb57a494f3af2a
-    dialogueItem: {fileID: 11400000, guid: 8856351310c940f41962120db679d949, type: 2}
-    position: {x: 131, y: -95}
-    previousguids:
-    - d7261b476c0bc434fb1eee6163618820
-  - guid: b7171e9c9c859604baf5c9ce76190e1a
-    dialogueItem: {fileID: 11400000, guid: 45aa2e7280c09c84eba1d9b1d080da3d, type: 2}
-    position: {x: 224, y: 100}
+  - guid: 073300371d8dd134ab2a1f51ca2c10bc
+    dialogueItem: {fileID: 11400000, guid: 6607b810dbfbf9048b6e0d50f19adc3a, type: 2}
+    position: {x: -502, y: -102}
+    previousguids: []
+  - guid: 28bcc27222782b34f92e905795f2e233
+    dialogueItem: {fileID: 11400000, guid: 3d30f1dc650e5aa48a121991aa686e6f, type: 2}
+    position: {x: 207, y: -98}
     previousguids:
     - f427f32b5bf30a2418fb57a494f3af2a
-  - guid: 28bcc27222782b34f92e905795f2e233
-    dialogueItem: {fileID: 11400000, guid: 3f4ae864a5eb43f49ac07d4207693c58, type: 2}
-    position: {x: 556, y: -107}
-    previousguids:
-    - b7171e9c9c859604baf5c9ce76190e1a
-  - guid: 07d7208cdd60be743987e749d11176a9
-    dialogueItem: {fileID: 11400000, guid: 0e4e1a98515a1c94685caa46ccb07cc1, type: 2}
-    position: {x: 969, y: -103}
-    previousguids:
-    - 0737d62b8751fe84fb19ce2763362e24
-  - guid: 0737d62b8751fe84fb19ce2763362e24
-    dialogueItem: {fileID: 11400000, guid: d8c17e2175ba7b4479ad92f8e34a6a6c, type: 2}
-    position: {x: 659, y: 81}
+  - guid: b00ba903d06eed949a06b43bef0a0b73
+    dialogueItem: {fileID: 11400000, guid: 5144475ceab366442a8df7640d00f6d2, type: 2}
+    position: {x: 906, y: -101}
     previousguids:
     - 28bcc27222782b34f92e905795f2e233
-  - guid: 45081bd63ca15f244998d635d8d73390
-    dialogueItem: {fileID: 11400000, guid: 382e586f82e86264ebae01c192e088d9, type: 2}
-    position: {x: 971, y: 91}
-    previousguids:
-    - 07d7208cdd60be743987e749d11176a9
-  - guid: b00ba903d06eed949a06b43bef0a0b73
-    dialogueItem: {fileID: 11400000, guid: 9b30579f99351314b9d314fd0a08ed92, type: 2}
-    position: {x: 1296, y: -102}
-    previousguids:
-    - 45081bd63ca15f244998d635d8d73390
-  - guid: 4e6eb463dd8206b4882fcf1402b04fbf
-    dialogueItem: {fileID: 11400000, guid: 45aa2e7280c09c84eba1d9b1d080da3d, type: 2}
-    position: {x: 1395, y: 95}
+  - guid: c17a952ee621f2147ba71b954d2e7e81
+    dialogueItem: {fileID: 11400000, guid: bc8ceb1948399ff418a57e193847a288, type: 2}
+    position: {x: 1227, y: -101}
     previousguids:
     - b00ba903d06eed949a06b43bef0a0b73
-  - guid: c17a952ee621f2147ba71b954d2e7e81
-    dialogueItem: {fileID: 11400000, guid: 38430dab824cb4c48899b8ce54e7356b, type: 2}
-    position: {x: 1734, y: -98}
-    previousguids:
-    - 4e6eb463dd8206b4882fcf1402b04fbf
-  - guid: 98de303da2792b54080df5a8db67f7bf
-    dialogueItem: {fileID: 11400000, guid: 5a72df95e683a9d49bcff5aa826f21e7, type: 2}
-    position: {x: 1742, y: 91}
+  - guid: 56ade7689abf0e245ad7a37fb1504bed
+    dialogueItem: {fileID: 11400000, guid: 83bff04e149a8d64c882b656a9e04d9d, type: 2}
+    position: {x: 1548, y: -98}
     previousguids:
     - c17a952ee621f2147ba71b954d2e7e81
   - guid: 7fceb79eb959e3e43ad0c0547c6af61d
-    dialogueItem: {fileID: 11400000, guid: fa1526ce2eeb4db48907ff798dc6d9d9, type: 2}
-    position: {x: 2040, y: -96}
+    dialogueItem: {fileID: 11400000, guid: 5b7934146eb644745abbfa5b50781810, type: 2}
+    position: {x: 2001, y: -92}
     previousguids:
-    - 98de303da2792b54080df5a8db67f7bf
+    - 56ade7689abf0e245ad7a37fb1504bed
   - guid: a4dc75f8a956b114b8907b7debdf5b60
-    dialogueItem: {fileID: 11400000, guid: 5c13dcf1432122c4cb126d927e8b06ed, type: 2}
-    position: {x: 2375, y: -104}
-    previousguids:
-    - 43415909cb660394dabf5f8b5451c278
-  - guid: 43415909cb660394dabf5f8b5451c278
-    dialogueItem: {fileID: 11400000, guid: 5a72df95e683a9d49bcff5aa826f21e7, type: 2}
-    position: {x: 2053, y: 103}
+    dialogueItem: {fileID: 11400000, guid: 4fd39acd7d517124aa7afeb6667699ad, type: 2}
+    position: {x: 2566, y: -98}
     previousguids:
     - 7fceb79eb959e3e43ad0c0547c6af61d
-  - guid: d36aa258e5a2b3d4a9082964b03a8be8
-    dialogueItem: {fileID: 11400000, guid: a87692a645000084d852d610e640df97, type: 2}
-    position: {x: 2368, y: 118}
+  - guid: 53149309d5250c243a7c92cf62de2b55
+    dialogueItem: {fileID: 11400000, guid: d83e49342e49ff24c906d66b54133e07, type: 2}
+    position: {x: 3174, y: -92}
     previousguids:
     - a4dc75f8a956b114b8907b7debdf5b60
   - guid: b90b3a39a760f8844af2f593233e6f32
-    dialogueItem: {fileID: 11400000, guid: f91a9fb2d6f01184c9239e4426f079a0, type: 2}
-    position: {x: 2720, y: -101}
+    dialogueItem: {fileID: 11400000, guid: ed8390f574aa33e498a8c679c13aad9f, type: 2}
+    position: {x: 3734, y: -87}
     previousguids:
-    - d36aa258e5a2b3d4a9082964b03a8be8
-  - guid: db46f10f21d648b40805e87dc0b7daac
-    dialogueItem: {fileID: 11400000, guid: d8c17e2175ba7b4479ad92f8e34a6a6c, type: 2}
-    position: {x: 2753, y: 113}
-    previousguids:
-    - b90b3a39a760f8844af2f593233e6f32
+    - 53149309d5250c243a7c92cf62de2b55
