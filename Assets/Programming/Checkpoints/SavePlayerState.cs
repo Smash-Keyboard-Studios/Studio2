@@ -51,6 +51,6 @@ public class SavePlayerState : MonoBehaviour
 
         // pass in the player's data to be saved.
         PlayerCheckpointManager.instance.StorePlayerState(playerObject.transform.position, playerObject.GetComponent<PlayerAttack>().unlockedHeavyAttack,
-        playerObject.GetComponent<PlayerStats>().unlockedShield, SceneManager.GetSceneAt(1).buildIndex);
+        playerObject.GetComponent<ShieldAbility>().unlockedShield, SceneManager.GetSceneAt(1).buildIndex);
     }
 }

@@ -16,14 +16,14 @@ public class PriestProjectile : BaseEnemyProjectile
 	{
         RaycastHit floorHit;
 
-
 		collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
         if (Physics.Raycast(transform.position, Vector3.down, out  floorHit)) 
         { 
-        GameObject instance = Instantiate(aoeObject, floorHit.point,floorHit.transform.rotation);
+        GameObject instance = Instantiate(aoeObject, floorHit.point,Quaternion.identity);
         instance.GetComponent<FloorAOE>().rangedDamage = aoeDamage;
         instance.GetComponent<FloorAOE>().rangedLifespan = aoeLifespan;
         Destroy(gameObject, 0.05f); //Nearly instantly removes projectile to avoid player clipping
 		}
+
 	}
 }

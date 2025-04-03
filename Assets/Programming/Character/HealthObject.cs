@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class HealthObject : MonoBehaviour
 {
-    public float healAmount;
-    PlayerStats stats;
-    public GameObject player;
+    public float healAmount = 30f;
 
-    public void Start()
-    {
-        player.GetComponent<PlayerStats>();
-        stats = player.GetComponent<PlayerStats>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (stats.PlayerHealth < stats.PlayerMaxHealth)
+            PlayerStats pStats = other.GetComponent<PlayerStats>();
+
+            if (pStats == null) return;
+
+            if (pStats.PlayerHealth < pStats.PlayerMaxHealth)
             {
-                Debug.Log("HEAL ME");
-                stats.PlayerHealth += healAmount;
+                Debug.Log("Healed player");
+                pStats.PlayerHealth += healAmount;
                 Destroy(gameObject);
             }
         }

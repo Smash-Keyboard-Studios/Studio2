@@ -25,11 +25,19 @@ public class HealthWithBasicShield : Health, IShieldObject
 	public event Action onShieldBreak;
 	public event Action onShieldActivate;
 
+	protected ShieldHitIndicator shieldHitIndicator;
 
 	// audio events
 	public event Action onShieldHitSFXPlayOnce;
 	public event Action onShieldBreakSFXPlayOnce;
 	public event Action onShieldActiveSFXPlayOnce;
+
+	protected override void Start()
+	{
+		shieldHitIndicator = GetComponent<ShieldHitIndicator>();
+
+		base.Start();
+	}
 
 	public override void Reset()
 	{
@@ -52,6 +60,8 @@ public class HealthWithBasicShield : Health, IShieldObject
 		if (shieldActive)
 		{
 			InvokeOnShieldHitSFXPlayOnce();
+
+			if (shieldHitIndicator != null) shieldHitIndicator.ShieldHit();
 			return false;
 		}
 

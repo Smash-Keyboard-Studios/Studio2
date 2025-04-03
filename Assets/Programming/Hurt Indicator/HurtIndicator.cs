@@ -23,26 +23,25 @@ public class HurtIndicator : MonoBehaviour
     private RendererMaterialData[] rendererMaterialData;
 
     [SerializeField]
-    private float opacity = 120f;
+    private float opacity = 150f;
 
     [SerializeField]
-    private float hurtDuration = 0.4f;
+    private float hurtDuration = 0.2f;
 
     private float damageTimer = 0;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
         if (damageTimer > 0) damageTimer -= Time.deltaTime;
 
-        float alpha = damageTimer > 0 ? opacity / 255f : 0;
+        float blend = Mathf.Sin((damageTimer / hurtDuration) * Mathf.PI);
+
+        float alpha = damageTimer > 0 ? Mathf.Lerp(0, opacity / 255f, blend) : 0;
+
+
         // terrible for performance.
         foreach (var hurtMaterial in rendererMaterialData)
         {

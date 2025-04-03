@@ -15,6 +15,7 @@ public class FloorAOE : BaseEnemyProjectile
 	}
 	protected override void OnTriggerEnter(UnityEngine.Collider other)
 	{
+		if (other.CompareTag("Player"))
 		other.gameObject.GetComponent<IDamageable>()?.TakeDamage(rangedDamage);
 	}
 	protected virtual void OnTriggerStay(UnityEngine.Collider collision)

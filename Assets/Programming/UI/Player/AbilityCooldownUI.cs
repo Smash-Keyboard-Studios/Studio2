@@ -74,7 +74,7 @@ public class AbilityCooldownUI : MonoBehaviour
                     break;
 
                 case AbilityType.Shield:
-                    if (playerObject.GetComponent<PlayerStats>().unlockedShield) //if unlocked, set cooldown to whether using shield
+                    if (playerObject.GetComponent<ShieldAbility>().unlockedShield) //if unlocked, set cooldown to whether using shield
                     {
                         abilityInUse = false;
                         cooldownBar.maxValue = 0;

@@ -71,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 4984637909554519789, guid: 69c9cafc9d150514881727da3970eb67,
         type: 3}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4984637909554519789, guid: 69c9cafc9d150514881727da3970eb67,
         type: 3}
@@ -122,10 +122,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileRigidBody: {fileID: 8066814281486882872}
-  rangedSpeed: 0
-  rangedLifespan: 0
+  rangedSpeed: 1
+  rangedLifespan: 5
   rangedDamage: 0
-  gravityScale: 0.2
+  gravityScale: 0
   aoeObject: {fileID: 5223894222131860991, guid: 943a29acdde8c43409c8bea16e965aec,
     type: 3}
   aoeDamage: 1

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1595968694445084054}
   - component: {fileID: -5763366764873827429}
   - component: {fileID: 1134480095389972997}
+  - component: {fileID: 7227990238141694798}
   - component: {fileID: 4219887261251670066}
   - component: {fileID: 8950207567973540252}
   - component: {fileID: 5706574705448098848}
@@ -137,8 +138,8 @@ MonoBehaviour:
     materialIndexInList: 2
   - renderer: {fileID: 183162105436112823}
     materialIndexInList: 2
-  opacity: 120
-  hurtDuration: 0.4
+  opacity: 150
+  hurtDuration: 0.2
 --- !u!114 &1134480095389972997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +154,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathVFX: {fileID: 6044061267622044361, guid: 54968594e95862349b33f9dfa627a2ca,
     type: 3}
+--- !u!114 &7227990238141694798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66097493073879181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c552221e2a8c446a40c4aafb8ce6f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToSpawn: {fileID: 4937923229752190964, guid: eeeb8892335e19f4da20c4cf693303a9,
+    type: 3}
+  spawnOffSetFromEnemy: {x: 0, y: -1, z: 0}
 --- !u!195 &4219887261251670066
 NavMeshAgent:
   m_ObjectHideFlags: 0

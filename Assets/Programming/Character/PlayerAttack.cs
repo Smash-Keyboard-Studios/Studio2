@@ -27,8 +27,6 @@ public class PlayerAttack : MonoBehaviour
     public float HeavyAttackDelay = 2f;
 
     [Header("Attacks being carried out")]
-    public bool isAttacking = false;
-
     public bool lightAttacking = false;
     public bool heavyAttacking = false;
 
@@ -59,19 +57,23 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnAttack(InputValue input)
     {
-        if (isAttacking) return;
+        if (lightAttacking) return;
         StartCoroutine(LightAttack());
     }
 
     public void OnHeavyAttack(InputValue input)
     {
-        if (isAttacking || !unlockedHeavyAttack) return;
+        if (lightAttacking || 
+            heavyAttacking || 
+            !unlockedHeavyAttack) return;
         StartCoroutine (HeavyAttack());
     }
 
     public void OnChargedHeavyAttack(InputValue input)
     {
-        if (isAttacking || !unlockedHeavyAttack) return;
+        if (lightAttacking || 
+            heavyAttacking || 
+            !unlockedHeavyAttack) return;
 
         if (input.isPressed) { StartCoroutine("ChargeChargedHeavyAttack"); } //if pressed then start charging
         else { StartCoroutine(ChargedHeavyAttack()); } //if released then stop charging and do attack
@@ -80,17 +82,15 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator LightAttack()
     {
-        isAttacking = true; 
         lightAttacking = true;
-        MyAnim.SetBool("Attacking", isAttacking);
+        MyAnim.SetBool("Attacking", lightAttacking);
 
         DamageEnemy(Physics.OverlapBox(transform.position + MainCharacter.transform.forward, Vector3.one, MainCharacter.transform.rotation), AttackType.Light);
        
         yield return new WaitForSeconds(LightAttackDelay);
 
-        isAttacking = false;
         lightAttacking= false;
-        MyAnim.SetBool("Attacking", isAttacking);
+        MyAnim.SetBool("Attacking", lightAttacking);
     }
 
     IEnumerator HeavyAttack()
@@ -99,9 +99,8 @@ public class PlayerAttack : MonoBehaviour
         isChargingChargedHeavyAttack = false;
         MyAnim.SetBool("ChargingHeavyAttack", false);
 
-        isAttacking = true;
         heavyAttacking = true;
-        MyAnim.SetBool("HeavyAttacking", isAttacking);
+        MyAnim.SetBool("HeavyAttacking", heavyAttacking);
 
         DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AttackType.Heavy);
 
@@ -111,9 +110,8 @@ public class PlayerAttack : MonoBehaviour
         //so this is resetting the charging which starts on RMB press
         ChargedHeavyDmg = 0; //reset charged heavy damage
 
-        isAttacking = false;
         heavyAttacking = false;
-        MyAnim.SetBool("HeavyAttacking", isAttacking);
+        MyAnim.SetBool("HeavyAttacking", heavyAttacking);
     }
 
     IEnumerator ChargedHeavyAttack()
@@ -124,9 +122,8 @@ public class PlayerAttack : MonoBehaviour
         //set charged heavy dmg to heavy dmg if its too low (equivalent to normal heavy attack)
         if (ChargedHeavyDmg < HeavyDmg) { ChargedHeavyDmg = HeavyDmg; }
 
-        isAttacking = true;
         heavyAttacking = true;
-        MyAnim.SetBool("Attacking", isAttacking);
+        MyAnim.SetBool("HeavyAttacking", heavyAttacking);
 
 
         DamageEnemy(Physics.OverlapSphere(transform.position, chargedHeavyAttackRadius), AttackType.ChargedHeavy);
@@ -136,9 +133,8 @@ public class PlayerAttack : MonoBehaviour
 
         ChargedHeavyDmg = 0; //reset charged heavy damage
 
-        isAttacking = false;
         heavyAttacking = false;
-        MyAnim.SetBool("Attacking", isAttacking);
+        MyAnim.SetBool("HeavyAttacking", heavyAttacking);
     }
 
 

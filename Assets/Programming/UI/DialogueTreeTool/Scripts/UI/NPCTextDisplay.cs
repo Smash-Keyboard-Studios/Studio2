@@ -13,10 +13,10 @@ public class NPCTextDisplay : MonoBehaviour
     //[SerializeField] private Image NPCImage;
 
     //npc text colours
-    private Color32 HunterColour = new Color32(109, 234, 214, 255);
-    private Color32 WatchColour = new Color32(57, 230, 78, 255);
-    private Color32 PriestColour = new Color32(236, 39, 63, 255);
-    private Color DefaultColour = new Color32(255, 255, 255, 255);
+    [SerializeField] private Color32 HunterColour = new Color32(109, 234, 214, 255);
+    [SerializeField] private Color32 WatchColour = new Color32(57, 230, 78, 255);
+    [SerializeField] private Color32 PriestColour = new Color32(236, 39, 63, 255);
+    [SerializeField] private Color DefaultColour = new Color32(255, 255, 255, 255);
 
     private void Awake()
     {
