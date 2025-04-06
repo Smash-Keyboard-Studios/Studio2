@@ -12,7 +12,7 @@ public class BuildScript
         string path = "Builds/Windows";
         CreateDirectory(path);
 
-        string appName = $"{Application.productName}";
+        string appName = $"{Application.productName.Replace(' ', '-')}";
 
 
         string build = $"{path}/{appName}";
@@ -38,7 +38,7 @@ public class BuildScript
 
     private static void ZipBuild(string path, string appName)
     {
-        string zipPath = path + appName + ".zip";
+        string zipPath = "Builds/" + appName + "-Windows" + ".zip";
         if (File.Exists(zipPath))
         {
             File.Delete(zipPath);
