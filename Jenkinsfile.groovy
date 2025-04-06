@@ -38,7 +38,7 @@ pipeline{
 
     post{
         always{
-            archiveArtifacts artifacts: "${PROJECT_NAME}//Builds/**", allowEmptyArchive: true
+            archiveArtifacts artifacts: "/Builds/**", allowEmptyArchive: true
         }
         failure{
             echo 'Build Failed'
