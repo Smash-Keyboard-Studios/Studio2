@@ -139,6 +139,8 @@ public class PlayerCheckpointManager : MonoBehaviour
     {
         if (!hasPlayerState) return;
 
+        if (SceneManager.GetSceneAt(1).buildIndex != levelWithState) return;
+
         // playerObject.transform.position = playerLastPosition;
 
         playerObject.GetComponent<PlayerAttack>().unlockedHeavyAttack = hasHeavyAttack;
