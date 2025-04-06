@@ -12,7 +12,7 @@ public class BuildScript
         string path = "Builds/Windows";
         CreateDirectory(path);
 
-        string appName = $"{Application.productName} v{Application.version}";
+        string appName = $"{Application.productName}";
 
 
         string build = $"{path}/{appName}";
