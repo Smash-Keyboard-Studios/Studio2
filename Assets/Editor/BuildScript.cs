@@ -12,7 +12,7 @@ public class BuildScript
         string path = "Builds/Windows";
         CreateDirectory(path);
 
-        string appName = $"{Application.productName} v{Application.version}.exe";
+        string appName = $"{Application.productName} v{Application.version}";
 
 
         string build = $"{path}/{appName}";
@@ -21,14 +21,14 @@ public class BuildScript
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
         {
             scenes = GetEnabledScene(),
-            locationPathName = build,
+            locationPathName = build + ".exe",
             target = BuildTarget.StandaloneWindows64,
             options = BuildOptions.None
         };
 
         BuildPipeline.BuildPlayer(buildPlayerOptions);
 
-        ZipBuild(path);
+        ZipBuild(path, appName);
 
         if (Directory.Exists(path))
         {
@@ -36,9 +36,9 @@ public class BuildScript
         }
     }
 
-    private static void ZipBuild(string path)
+    private static void ZipBuild(string path, string appName)
     {
-        string zipPath = path + ".zip";
+        string zipPath = "Build/" + appName + ".zip";
         if (File.Exists(zipPath))
         {
             File.Delete(zipPath);
