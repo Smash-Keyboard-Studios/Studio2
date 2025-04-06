@@ -18,7 +18,7 @@ pipeline{
             when{expression {BUILD_WINDOWS == 'true'}}
             steps{
                 script{
-                    withEnv([UNITY_PATH=${UNITY_INSTALLATION}]){
+                    withEnv(["UNITY_PATH=${UNITY_INSTALLATION}"]){
                         bat '''
                         "%UNITY_PATH%/Unity.exe" -quit -batchmode -projectPath %PROJECT_PATH% -executeMethod BuildScript.BuiltWindows -logFile -
                         '''
