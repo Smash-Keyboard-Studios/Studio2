@@ -31,7 +31,7 @@ public class Health : MonoBehaviour, IDamageable
 
     protected bool calledOnDeathEvent = false;
 
-    protected HurtIndicator hurtIndicator;
+    protected HurtIndicatorAuto hurtIndicator;
 
     public event Action onTakenDamageSFXPlayOnce;
 
@@ -39,7 +39,7 @@ public class Health : MonoBehaviour, IDamageable
 
     protected virtual void Start()
     {
-        hurtIndicator = GetComponent<HurtIndicator>();
+        hurtIndicator = GetComponent<HurtIndicatorAuto>();
 
 
         Reset();

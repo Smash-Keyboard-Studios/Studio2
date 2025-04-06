@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3222878168228818675}
   - component: {fileID: 6754516033712081943}
   - component: {fileID: 1595968694445084054}
-  - component: {fileID: -5763366764873827429}
+  - component: {fileID: 5225559723827089388}
   - component: {fileID: 1134480095389972997}
   - component: {fileID: 7227990238141694798}
   - component: {fileID: 4219887261251670066}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 4
---- !u!114 &-5763366764873827429
+--- !u!114 &5225559723827089388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,14 +130,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 66097493073879181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd1e95c741acdc4c9dc51f0cc717640, type: 3}
+  m_Script: {fileID: 11500000, guid: 8974864d88eb72041b5fa3b50537c52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rendererMaterialData:
-  - renderer: {fileID: 131730245739939634}
-    materialIndexInList: 2
-  - renderer: {fileID: 183162105436112823}
-    materialIndexInList: 2
+  materialName: HurtColor
+  modelToColor: {fileID: 2653951150543925299}
   opacity: 150
   hurtDuration: 0.2
 --- !u!114 &1134480095389972997
@@ -981,18 +978,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2245311833386546698}
   m_SourcePrefab: {fileID: 100100000, guid: 9eee19dc0b9fa05469d5a1cd857ca35f, type: 3}
---- !u!137 &131730245739939634 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -6733448747930054422, guid: 9eee19dc0b9fa05469d5a1cd857ca35f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2548478836745803736}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &183162105436112823 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2437778945693749359, guid: 9eee19dc0b9fa05469d5a1cd857ca35f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2548478836745803736}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2653951150543925299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9eee19dc0b9fa05469d5a1cd857ca35f,

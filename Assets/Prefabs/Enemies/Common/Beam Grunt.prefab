@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3184584886692258883}
   - component: {fileID: 8847805536133693472}
   - component: {fileID: 2872504794865671369}
+  - component: {fileID: 530806168998653832}
   - component: {fileID: 4219887261251670066}
   - component: {fileID: 8950207567973540252}
   - component: {fileID: 5706574705448098848}
@@ -164,6 +165,22 @@ MonoBehaviour:
   prefabToSpawn: {fileID: 4937923229752190964, guid: eeeb8892335e19f4da20c4cf693303a9,
     type: 3}
   spawnOffSetFromEnemy: {x: 0, y: -1, z: 0}
+--- !u!114 &530806168998653832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66097493073879181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8974864d88eb72041b5fa3b50537c52e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialName: HurtColor
+  modelToColor: {fileID: 5344260620474333256}
+  opacity: 150
+  hurtDuration: 0.2
 --- !u!195 &4219887261251670066
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1727,6 +1744,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -6.4882975
       objectReference: {fileID: 0}
+    - target: {fileID: 3853268898807207900, guid: 8f2d60cee1da0814cb6b5a450f6d7a17,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3853268898807207900, guid: 8f2d60cee1da0814cb6b5a450f6d7a17,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
     - target: {fileID: 3882815353823017779, guid: 8f2d60cee1da0814cb6b5a450f6d7a17,
         type: 3}
       propertyPath: m_Layer
@@ -1860,13 +1887,18 @@ PrefabInstance:
     - target: {fileID: 6148737315974723067, guid: 8f2d60cee1da0814cb6b5a450f6d7a17,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6148737315974723067, guid: 8f2d60cee1da0814cb6b5a450f6d7a17,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 7e876d255ca833d4bb76c49d32b7dd5e, type: 2}
+    - target: {fileID: 6148737315974723067, guid: 8f2d60cee1da0814cb6b5a450f6d7a17,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
     - target: {fileID: 6240733294840144465, guid: 8f2d60cee1da0814cb6b5a450f6d7a17,
         type: 3}
       propertyPath: m_Layer

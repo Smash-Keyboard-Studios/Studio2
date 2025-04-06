@@ -10,17 +10,13 @@ using UnityEngine;
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
 
-[Serializable]
-public struct RendererMaterialData
+public class HurtIndicatorAuto : MonoBehaviour
 {
-    public Renderer renderer;
-    public int materialIndexInList;
-}
+    [SerializeField]
+    private string materialName = "HurtColor";
 
-[Obsolete("Please use the HurtIndicatorAuto, it collects the materials automatically.")]
-public class HurtIndicator : MonoBehaviour
-{
-    public RendererMaterialData[] rendererMaterialData;
+    // private Renderer[] allRenderers;
+    private List<Material> allMaterials = new List<Material>();
 
     [SerializeField]
     protected float opacity = 150f;
@@ -31,27 +27,42 @@ public class HurtIndicator : MonoBehaviour
     protected float damageTimer = 0;
 
 
+    void Start()
+    {
+        Renderer[] allRenderers = transform.GetComponentsInChildren<Renderer>();
+
+        foreach (var renderer in allRenderers)
+        {
+            foreach (var material in renderer.materials)
+            {
+                if (!material.name.Contains(materialName)) continue;
+                allMaterials.Add(material);
+            }
+        }
+    }
 
     // Update is called once per frame
-    protected virtual void Update()
+    void Update()
     {
         if (damageTimer > 0) damageTimer -= Time.deltaTime;
 
+        // this makes the color fade in and out when using just time.
         float blend = Mathf.Sin((damageTimer / hurtDuration) * Mathf.PI);
 
         float alpha = damageTimer > 0 ? Mathf.Lerp(0, opacity / 255f, blend) : 0;
 
 
-        // terrible for performance.
-        foreach (var hurtMaterial in rendererMaterialData)
+
+        foreach (var material in allMaterials)
         {
-            Color materialColor = hurtMaterial.renderer.materials[hurtMaterial.materialIndexInList].color;
+            if (material.color.a == alpha) continue;
 
-            if (materialColor.a != alpha) materialColor = new Color(materialColor.r, materialColor.g, materialColor.b, alpha);
+            material.color = new Color(material.color.r, material.color.g, material.color.b, alpha);
 
-            hurtMaterial.renderer.materials[hurtMaterial.materialIndexInList].color = materialColor;
         }
     }
+
+
 
     public virtual void TakenDamage()
     {

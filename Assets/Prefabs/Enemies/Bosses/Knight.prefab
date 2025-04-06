@@ -5385,7 +5385,8 @@ GameObject:
   - component: {fileID: 1013276433663460835}
   - component: {fileID: 6925100915833262026}
   - component: {fileID: 3589648385036302975}
-  - component: {fileID: 4048292342947087461}
+  - component: {fileID: 1540274914076019151}
+  - component: {fileID: 5155038419371565631}
   - component: {fileID: 5986573266199650273}
   - component: {fileID: 6855098570431426246}
   - component: {fileID: 1723901489230906852}
@@ -5524,7 +5525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathVFX: {fileID: 6044061267622044361, guid: 3c0237778c41ebb48a02e20e1ea0256d,
     type: 3}
---- !u!114 &4048292342947087461
+--- !u!114 &1540274914076019151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5533,15 +5534,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 9086637893552779497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd1e95c741acdc4c9dc51f0cc717640, type: 3}
+  m_Script: {fileID: 11500000, guid: 8974864d88eb72041b5fa3b50537c52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rendererMaterialData:
-  - renderer: {fileID: 4651850573022622714}
-    materialIndexInList: 2
-  - renderer: {fileID: 5308957337478578552}
-    materialIndexInList: 1
-  opacity: 120
+  materialName: HurtColor
+  modelToColor: {fileID: 2098291912130264831}
+  opacity: 150
+  hurtDuration: 0.2
+--- !u!114 &5155038419371565631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9086637893552779497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a15bed9df9ec8488ae0993adc1c4d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShieldObject: {fileID: 5092487067449743543}
+  shieldMaterialName: Shield
+  opacity: 210
   hurtDuration: 0.2
 --- !u!195 &5986573266199650273
 NavMeshAgent:
@@ -6013,18 +6027,6 @@ MonoBehaviour:
 --- !u!4 &2098291912130264831 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6b0efa0a15e64f748901faa0f659ed02,
-    type: 3}
-  m_PrefabInstance: {fileID: 1915182254492227860}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &4651850573022622714 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6492688103223978734, guid: 6b0efa0a15e64f748901faa0f659ed02,
-    type: 3}
-  m_PrefabInstance: {fileID: 1915182254492227860}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &5308957337478578552 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 5996873371566561388, guid: 6b0efa0a15e64f748901faa0f659ed02,
     type: 3}
   m_PrefabInstance: {fileID: 1915182254492227860}
   m_PrefabAsset: {fileID: 0}

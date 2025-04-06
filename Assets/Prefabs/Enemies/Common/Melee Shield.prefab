@@ -719,9 +719,9 @@ GameObject:
   - component: {fileID: 7046107696531932651}
   - component: {fileID: 2606612965298187628}
   - component: {fileID: 7128693859107202854}
-  - component: {fileID: 2408350859444068358}
   - component: {fileID: 8923346942455427332}
   - component: {fileID: 9030912312341313396}
+  - component: {fileID: 2742521641634147287}
   - component: {fileID: 6926050681425062596}
   - component: {fileID: 3559611396835977321}
   - component: {fileID: 5709710706370089452}
@@ -824,25 +824,6 @@ MonoBehaviour:
   maxHealth: 10
   shieldObject: {fileID: 2969950179643449159}
   shieldActive: 1
---- !u!114 &2408350859444068358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083788038602741258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd1e95c741acdc4c9dc51f0cc717640, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rendererMaterialData:
-  - renderer: {fileID: 5019945700357682352}
-    materialIndexInList: 2
-  - renderer: {fileID: 600658438130528568}
-    materialIndexInList: 1
-  opacity: 150
-  hurtDuration: 0.2
 --- !u!114 &8923346942455427332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,10 +850,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a15bed9df9ec8488ae0993adc1c4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rendererMaterialData:
-    renderer: {fileID: 750127242836168775}
-    materialIndexInList: 0
+  ShieldObject: {fileID: 993855085377136087}
+  shieldMaterialName: Shield
   opacity: 210
+  hurtDuration: 0.2
+--- !u!114 &2742521641634147287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6083788038602741258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8974864d88eb72041b5fa3b50537c52e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialName: HurtColor
+  modelToColor: {fileID: 4472165420487204553}
+  opacity: 150
   hurtDuration: 0.2
 --- !u!195 &6926050681425062596
 NavMeshAgent:
@@ -1866,12 +1862,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!137 &600658438130528568 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3589118312514963482, guid: fbb5b7924110c0d49b206e9d2d9b469e,
-    type: 3}
-  m_PrefabInstance: {fileID: 4150889199770384674}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2032613260840637475 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2715566404302941441, guid: fbb5b7924110c0d49b206e9d2d9b469e,
@@ -2033,12 +2023,6 @@ MonoBehaviour:
 --- !u!4 &4472165420487204553 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fbb5b7924110c0d49b206e9d2d9b469e,
-    type: 3}
-  m_PrefabInstance: {fileID: 4150889199770384674}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &5019945700357682352 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -274572549336068718, guid: fbb5b7924110c0d49b206e9d2d9b469e,
     type: 3}
   m_PrefabInstance: {fileID: 4150889199770384674}
   m_PrefabAsset: {fileID: 0}

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class ShieldHitIndicator : MonoBehaviour
 {
+
     [SerializeField]
-    private RendererMaterialData rendererMaterialData;
+    private string shieldMaterialName = "Shield";
+
+    private Material shieldMaterial;
 
     [SerializeField]
     private float opacity = 210f;
@@ -19,8 +22,19 @@ public class ShieldHitIndicator : MonoBehaviour
 
     void Start()
     {
+        Renderer[] allRenderers = transform.GetComponentsInChildren<Renderer>();
 
-        savedAlpha = rendererMaterialData.renderer.materials[rendererMaterialData.materialIndexInList].GetColor("_Color").a;
+        foreach (var renderer in allRenderers)
+        {
+            foreach (var material in renderer.materials)
+            {
+                if (!material.name.Contains(shieldMaterialName)) continue;
+
+                shieldMaterial = material;
+            }
+        }
+
+        savedAlpha = shieldMaterial.GetColor("_Color").a;
 
     }
 
@@ -29,18 +43,13 @@ public class ShieldHitIndicator : MonoBehaviour
     {
         if (damageTimer > 0) damageTimer -= Time.deltaTime;
 
-        // terrible for performance.
-
         float blend = Mathf.Sin((damageTimer / hurtDuration) * Mathf.PI);
 
         float alpha = damageTimer > 0 ? Mathf.Lerp(savedAlpha, opacity / 255f, blend) : savedAlpha;
 
 
-        Color materialColor = rendererMaterialData.renderer.materials[rendererMaterialData.materialIndexInList].GetColor("_Color");
 
-        if (materialColor.a != alpha) materialColor = new Color(materialColor.r, materialColor.g, materialColor.b, alpha);
-
-        rendererMaterialData.renderer.materials[rendererMaterialData.materialIndexInList].SetColor("_Color", materialColor);
+        if (shieldMaterial.color.a != alpha) shieldMaterial.color = new Color(shieldMaterial.color.r, shieldMaterial.color.g, shieldMaterial.color.b, alpha);
 
     }
 
