@@ -38,7 +38,7 @@ public class BuildScript
 
     private static void ZipBuild(string path, string appName)
     {
-        string zipPath = "Build/" + appName + ".zip";
+        string zipPath = path + appName + ".zip";
         if (File.Exists(zipPath))
         {
             File.Delete(zipPath);
