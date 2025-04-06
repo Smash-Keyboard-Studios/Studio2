@@ -1,7 +1,7 @@
 def PROJECT_NAME = "Studio2"
 def CUSTOM_WORKSPACE = "C:\\Jenkins\\Unity_Projects\\${PROJECT_NAME}"
 def UNITY_VERSION = "2022.3.44f1"
-def UNITY_INSTALLATION = "%ProgramFiles%\\Unity\\Hub\\Editor\\${UNITY_VERSION}\\Editor"
+def UNITY_INSTALLATION = "Unity\\Hub\\Editor\\${UNITY_VERSION}\\Editor"
 
 pipeline{
     environment{
@@ -20,7 +20,7 @@ pipeline{
                 script{
                     withEnv(["UNITY_PATH=${UNITY_INSTALLATION}"]){
                         bat '''
-                        "\"%UNITY_PATH%/Unity.exe\" -quit -batchmode -projectPath "%PROJECT_PATH%" -executeMethod BuildScript.BuiltWindows -logFile -
+                        "%ProgramFiles%/%UNITY_PATH%/Unity.exe" -quit -batchmode -projectPath "%PROJECT_PATH%" -executeMethod BuildScript.BuiltWindows -logFile -
                         '''
                     
                     }
