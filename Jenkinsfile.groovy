@@ -20,7 +20,7 @@ pipeline{
                 script{
                     withEnv(["UNITY_PATH=${UNITY_INSTALLATION}"]){
                         bat '''
-                        "%ProgramFiles%/%UNITY_PATH%/Unity.exe" -quit -batchmode -projectPath "%PROJECT_PATH%" -executeMethod BuildScript.BuiltWindows -logFile -
+                        "%ProgramFiles%/%UNITY_PATH%/Unity.exe" -quit -batchmode -projectPath "C:/Jenkins/Unity_Projects/Studio2" -executeMethod BuildScript.BuiltWindows -logFile -
                         '''
                     
                     }
