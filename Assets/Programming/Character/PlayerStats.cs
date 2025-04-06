@@ -30,6 +30,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     public GameObject DeathScreen;
 
     private ShieldAbility shield;
+    private DamageIndicator indicator;
 
     private void Start()
     {
@@ -38,6 +39,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         playerRotation.GetComponent<PlayerRotation>();
         InteractionUI.SetActive(false);
         shield = GetComponent<ShieldAbility>();
+        indicator = GetComponent<DamageIndicator>();
     }
 
     public bool TakeDamage(float Amount)
@@ -45,6 +47,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         if (!InputHandler.BlockTriggered && !shield.isShieldActive)
         {
             PlayerHealth -= Amount;
+            indicator.FlashStart();
             return true;
         }
         return false;
