@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 //Script by Aaron Wing
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController CharacterController;
     private PlayerInputHandler InputHandler;
     private PlayerStats Stats;
+
     private Vector3 CurrentMovement;
     private bool CanSprint;
     private bool IsSprinting;
@@ -30,10 +32,17 @@ public class PlayerMovement : MonoBehaviour
     public GameObject MainCharacter;
     public Transform rotation;
 
+    //audio stuff for walking
+    private AudioSource audioSource;
+    private bool playingWalkSound;
+
     private void Awake()
     {
         CharacterController = GetComponent<CharacterController>(); //Gets the CharacterController from the component
         Stats = GetComponent<PlayerStats>(); //Gets the Stats from the component
+
+        audioSource = GetComponent<AudioSource>(); //sets audiosource
+        playingWalkSound = false;
     }
 
     private void Start()
@@ -46,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     {
         HandleMovement(); //Updates the HandleMovement by every frame
         CharacterAnimations(); //This is for animating the character
+        CharacterSound(); //This is for playing the movement sfx
     }
 
     //This handles anything movement related
@@ -125,6 +135,29 @@ public class PlayerMovement : MonoBehaviour
         MyAnim.SetFloat("Vert", Vector3.Dot(playerForward, movementWithoutGravity));
         //Debug.Log(CurrentMovement);
         MyAnim.SetFloat("MoveSpeed", Mathf.Max(Mathf.Abs(CurrentMovement.z), Mathf.Abs(CurrentMovement.x)));
+    }
+
+    private void CharacterSound()
+    {
+        //calculate move speed to set the sound delay
+        float moveSpeed = Mathf.Max(Mathf.Abs(CurrentMovement.z), Mathf.Abs(CurrentMovement.x));
+        
+        //check if moving and not currently playing walking sound
+        if (moveSpeed > Mathf.Epsilon && !playingWalkSound)
+        {
+            float stepDelay = 1.2f / moveSpeed;
+            StartCoroutine("PlayStepSound", stepDelay);
+        }
+    }
+
+    private IEnumerator PlayStepSound(float stepDelay)
+    {
+        playingWalkSound = true;
+
+        AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_Walk");
+        yield return new WaitForSeconds(stepDelay);
+
+        playingWalkSound = false;
     }
 
     public void Warp(Vector3 newPos)

@@ -18,7 +18,11 @@ public class HealthObject : MonoBehaviour
             if (pStats.PlayerHealth < pStats.PlayerMaxHealth)
             {
                 Debug.Log("Healed player");
+
+                AudioManager.Instance.PlayAudio(false, false, pStats.audioSource, "Plr_Heal");
+
                 pStats.PlayerHealth += healAmount;
+
                 Destroy(gameObject);
             }
         }

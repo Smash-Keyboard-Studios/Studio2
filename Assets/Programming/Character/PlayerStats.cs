@@ -30,6 +30,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     protected Animator MyAnim;
 
+    public AudioSource audioSource;
+
     [Header("Other GameObject References")]
     public GameObject MainCharacter;
     public GameObject playerRotation;
@@ -47,11 +49,13 @@ public class PlayerStats : MonoBehaviour, IDamageable
         //animator
         MyAnim = MainCharacter.GetComponent<Animator>();
 
+        //audio
+        audioSource = GetComponent<AudioSource>();
+
         //script references
         attackScript = GetComponent<PlayerAttack>();
         shieldScript = GetComponent<ShieldAbility>();
         indicator = GetComponent<DamageIndicator>();
-
 
         //interaction ui starts as disabled
         InteractionUI.SetActive(false);
@@ -66,6 +70,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         if (!InputHandler.BlockTriggered && !shieldScript.isShieldActive)
         {
             PlayerHealth -= Amount;
+            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_GetHit");
             indicator.FlashStart();
             return true;
         }
