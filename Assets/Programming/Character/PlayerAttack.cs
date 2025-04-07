@@ -30,9 +30,7 @@ public class PlayerAttack : MonoBehaviour
     public bool lightAttacking = false;
     public bool heavyAttacking = false;
 
-    private Animator MyAnim;
-    [Header("Player Model")] public GameObject MainCharacter;
-
+    [Header("Radius for AoE Attacks")]
     [SerializeField] private float heavyAttackRadius = 1.5f;
     [SerializeField] private float chargedHeavyAttackRadius = 2f;
 
@@ -40,6 +38,13 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private bool showLightRadius = false;
     [SerializeField] private bool showHeavyRadius = false;
     [SerializeField] private bool showChargedHeavyRadius = false;
+
+    //animation stuff
+    private Animator MyAnim;
+    [Header("Player Model")] public GameObject MainCharacter;
+
+    //audio stuff for ability sounds
+    private AudioSource audioSource;
 
     private enum AttackType
     {
@@ -52,6 +57,7 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         MyAnim = MainCharacter.GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -66,6 +72,7 @@ public class PlayerAttack : MonoBehaviour
         if (lightAttacking || 
             heavyAttacking || 
             !unlockedHeavyAttack) return;
+
         StartCoroutine (HeavyAttack());
     }
 
@@ -85,11 +92,12 @@ public class PlayerAttack : MonoBehaviour
         lightAttacking = true;
         MyAnim.SetBool("Attacking", lightAttacking);
 
+        AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_SwordUse");
         DamageEnemy(Physics.OverlapBox(transform.position + MainCharacter.transform.forward, Vector3.one, MainCharacter.transform.rotation), AttackType.Light);
        
         yield return new WaitForSeconds(LightAttackDelay);
 
-        lightAttacking= false;
+        lightAttacking = false;
         MyAnim.SetBool("Attacking", lightAttacking);
     }
 
@@ -102,6 +110,7 @@ public class PlayerAttack : MonoBehaviour
         heavyAttacking = true;
         MyAnim.SetBool("HeavyAttacking", heavyAttacking);
 
+        AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_SwordUse"); //##########################################################TO BE CHANGED to heavy attack sound
         DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AttackType.Heavy);
 
         yield return new WaitForSeconds(HeavyAttackDelay);
@@ -125,7 +134,7 @@ public class PlayerAttack : MonoBehaviour
         heavyAttacking = true;
         MyAnim.SetBool("HeavyAttacking", heavyAttacking);
 
-
+        AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_SwordUse"); //##########################################################TO BE CHANGED to heavy attack sound
         DamageEnemy(Physics.OverlapSphere(transform.position, chargedHeavyAttackRadius), AttackType.ChargedHeavy);
 
         yield return new WaitForSeconds(HeavyAttackDelay);
@@ -148,12 +157,18 @@ public class PlayerAttack : MonoBehaviour
         float MovementWalkSpeed = playerMovement.WalkSpeed;
         playerMovement.WalkSpeed = 0;
 
+        //start playing charging sound
+        AudioManager.Instance.PlayAudio(true, false, audioSource, "Plr_SwordUse"); //##########################################################TO BE CHANGED to charging heavy sound
+
         //increase heavy attack per 0.5 secs that it is being charged
         while (!heavyAttacking && isChargingChargedHeavyAttack && ChargedHeavyDmg < MaxChargedHeavyDmg)
         {
             yield return new WaitForSeconds(0.5f);
             ChargedHeavyDmg += ChargedHeavyDmgAddition;
         }
+
+        //stop charging sound because we aren't charging anymore
+        AudioManager.Instance.StopAudio(audioSource);
 
         //reset movespeed to previous player movespeed
         playerMovement.WalkSpeed = MovementWalkSpeed;
