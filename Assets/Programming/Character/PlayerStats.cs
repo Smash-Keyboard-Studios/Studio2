@@ -22,29 +22,48 @@ public class PlayerStats : MonoBehaviour, IDamageable
     [Header("Interaction")]
     public GameObject InteractionUI;
 
+    [Header("Unlockable Abilities")]
+    [SerializeField] private GameObject HammerModel;
+    [SerializeField] private GameObject HooverModel;
+
     private PlayerInputHandler InputHandler;
 
     protected Animator MyAnim;
+
+    [Header("Other GameObject References")]
     public GameObject MainCharacter;
     public GameObject playerRotation;
     public GameObject DeathScreen;
 
-    private ShieldAbility shield;
+    private PlayerAttack attackScript;
+    private ShieldAbility shieldScript;
     private DamageIndicator indicator;
 
     private void Start()
     {
-        InputHandler = PlayerInputHandler.Instance; //Gets the InputHandler from the PlayerInputHandler instance
+        //Gets the InputHandler from the PlayerInputHandler instance
+        InputHandler = PlayerInputHandler.Instance;
+
+        //animator
         MyAnim = MainCharacter.GetComponent<Animator>();
-        playerRotation.GetComponent<PlayerRotation>();
-        InteractionUI.SetActive(false);
-        shield = GetComponent<ShieldAbility>();
+
+        //script references
+        attackScript = GetComponent<PlayerAttack>();
+        shieldScript = GetComponent<ShieldAbility>();
         indicator = GetComponent<DamageIndicator>();
+
+
+        //interaction ui starts as disabled
+        InteractionUI.SetActive(false);
+
+        //player models start as disabled if that ability is locked (enabled on unlock)
+        HammerModel.SetActive(attackScript.unlockedHeavyAttack);
+        HooverModel.SetActive(shieldScript.unlockedShield);
     }
 
     public bool TakeDamage(float Amount)
     {
-        if (!InputHandler.BlockTriggered && !shield.isShieldActive)
+        if (!InputHandler.BlockTriggered && !shieldScript.isShieldActive)
         {
             PlayerHealth -= Amount;
             indicator.FlashStart();
@@ -87,7 +106,9 @@ public class PlayerStats : MonoBehaviour, IDamageable
                 if (InputHandler.InteractionTriggered)
                 {
                     //enable heavy attack
-                    GetComponent<PlayerAttack>().unlockedHeavyAttack = true;
+                    attackScript.unlockedHeavyAttack = true;
+
+                    HammerModel.SetActive(true);
 
                     Destroy(other.gameObject);
                     InteractionUI.SetActive(false);
@@ -101,7 +122,9 @@ public class PlayerStats : MonoBehaviour, IDamageable
                 if (InputHandler.InteractionTriggered)
                 {
                     //enable Shield
-                    shield.unlockedShield = true;
+                    shieldScript.unlockedShield = true;
+
+                    HooverModel.SetActive(true);
 
                     Destroy(other.gameObject);
                     InteractionUI.SetActive(false);
@@ -118,20 +141,10 @@ public class PlayerStats : MonoBehaviour, IDamageable
     {
         //interactable objects
 
-        switch (other.gameObject.tag)
+        if(other.gameObject.CompareTag("UnlockableHammer") ||
+            other.gameObject.CompareTag("UnlockableShield"))
         {
-            case "UnlockableHammer":
-                InteractionUI.SetActive(false);
-
-                break;
-
-            case "UnlockableShield":
-                InteractionUI.SetActive(false);
-
-                break;
-
-            default:
-                break;
+            InteractionUI.SetActive(false);
         }
     }
 }

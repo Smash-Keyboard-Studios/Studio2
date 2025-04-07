@@ -51,18 +51,21 @@ public class AbilityCooldownUI : MonoBehaviour
     {
         if (playerObject != null) //if weve found player object then set ability in use to the correct ability type
         {
+            PlayerAttack playerAttackScript = playerObject.GetComponent<PlayerAttack>();
+            ShieldAbility playerShieldScript = playerObject.GetComponent<ShieldAbility>();
+
             switch (abilityType)
             {
                 case AbilityType.LightAttack:
-                    abilityInUse = playerObject.GetComponent<PlayerAttack>().lightAttacking;
-                    cooldownBar.maxValue = playerObject.GetComponent<PlayerAttack>().LightAttackDelay;
+                    abilityInUse = playerAttackScript.lightAttacking;
+                    cooldownBar.maxValue = playerAttackScript.LightAttackDelay;
                     break;
 
                 case AbilityType.HeavyAttack:
-                    if (playerObject.GetComponent<PlayerAttack>().unlockedHeavyAttack) //if unlocked, set cooldown to whether heavy attacking
+                    if (playerAttackScript.unlockedHeavyAttack) //if unlocked, set cooldown to whether heavy attacking
                     {
-                        abilityInUse = playerObject.GetComponent<PlayerAttack>().heavyAttacking;
-                        cooldownBar.maxValue = playerObject.GetComponent<PlayerAttack>().HeavyAttackDelay;
+                        abilityInUse = playerAttackScript.heavyAttacking;
+                        cooldownBar.maxValue = playerAttackScript.HeavyAttackDelay;
                     }
                     else //otherwise set slider to max so it looks disabled
                     {
@@ -74,10 +77,10 @@ public class AbilityCooldownUI : MonoBehaviour
                     break;
 
                 case AbilityType.Shield:
-                    if (playerObject.GetComponent<ShieldAbility>().unlockedShield) //if unlocked, set cooldown to whether using shield
+                    if (playerShieldScript.unlockedShield) //if unlocked, set cooldown to whether using shield
                     {
-                        abilityInUse = false;
-                        cooldownBar.maxValue = 0;
+                        abilityInUse = playerShieldScript.isShieldActive || playerShieldScript.isShieldInCoolDown;
+                        cooldownBar.maxValue = playerShieldScript.shieldUsageSec + playerShieldScript.coolDownSec;
                     }
                     else //otherwise set slider to max so it looks disabled
                     {
