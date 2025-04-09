@@ -34,7 +34,7 @@ public class AudioClipFetcher : MonoBehaviour
 
         AudioCollectionSO foundCollection = null;
 
-
+        // find the collection on the list.
         foreach (var collection in audioCollection)
         {
             if (collection == null)
@@ -49,6 +49,7 @@ public class AudioClipFetcher : MonoBehaviour
             }
         }
 
+        // find the clip on that collection
         foreach (var audioData in foundCollection.audioCollection)
         {
             if (audioData.audioClip == null)
