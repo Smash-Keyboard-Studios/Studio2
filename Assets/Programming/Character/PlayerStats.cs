@@ -74,6 +74,11 @@ public class PlayerStats : MonoBehaviour, IDamageable
             indicator.FlashStart();
             return true;
         }
+        else if (shieldScript.isShieldActive)
+        {
+            //if shield has blocked damage play the shield deflect sound
+            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_ShieldHit");
+        }
         return false;
     }
 
