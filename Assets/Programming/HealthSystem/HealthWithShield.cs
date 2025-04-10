@@ -48,6 +48,7 @@ public class HealthWithShield : HealthWithBasicShield
         if (shieldActive)
         {
             InvokeOnShieldHitSFXPlayOnce();
+            if (shieldHitIndicator != null) shieldHitIndicator.ShieldHit();
             return false;
         }
 

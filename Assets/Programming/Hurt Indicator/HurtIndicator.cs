@@ -17,23 +17,23 @@ public struct RendererMaterialData
     public int materialIndexInList;
 }
 
+[Obsolete("Please use the HurtIndicatorAuto, it collects the materials automatically.")]
 public class HurtIndicator : MonoBehaviour
 {
-    [SerializeField]
-    private RendererMaterialData[] rendererMaterialData;
+    public RendererMaterialData[] rendererMaterialData;
 
     [SerializeField]
-    private float opacity = 150f;
+    protected float opacity = 150f;
 
     [SerializeField]
-    private float hurtDuration = 0.2f;
+    protected float hurtDuration = 0.2f;
 
-    private float damageTimer = 0;
+    protected float damageTimer = 0;
 
 
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (damageTimer > 0) damageTimer -= Time.deltaTime;
 
@@ -53,7 +53,7 @@ public class HurtIndicator : MonoBehaviour
         }
     }
 
-    public void TakenDamage()
+    public virtual void TakenDamage()
     {
         damageTimer = hurtDuration;
     }
