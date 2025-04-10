@@ -140,7 +140,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialName: HurtColor
-  modelToColor: {fileID: 2747331710869337534}
   opacity: 150
   hurtDuration: 0.2
 --- !u!195 &4219887261251670066
@@ -152,7 +151,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 66097493073879181}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.6
+  m_Radius: 0.5
   m_Speed: 3
   m_Acceleration: 12
   avoidancePriority: 99

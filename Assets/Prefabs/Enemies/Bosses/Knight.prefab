@@ -5538,7 +5538,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialName: HurtColor
-  modelToColor: {fileID: 2098291912130264831}
   opacity: 150
   hurtDuration: 0.2
 --- !u!114 &5155038419371565631
@@ -5553,7 +5552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a15bed9df9ec8488ae0993adc1c4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShieldObject: {fileID: 5092487067449743543}
   shieldMaterialName: Shield
   opacity: 210
   hurtDuration: 0.2
@@ -5566,7 +5564,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 9086637893552779497}
   m_Enabled: 1
   m_AgentTypeID: -1372625422
-  m_Radius: 1
+  m_Radius: 0.6
   m_Speed: 3.5
   m_Acceleration: 16
   avoidancePriority: 99
