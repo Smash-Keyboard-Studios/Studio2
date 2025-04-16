@@ -19,7 +19,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     public float PlayerMinStamina = 0;
     public float PlayerHealAmount = 25;
 
-    private bool isDead;
+    public bool isDead;
 
     [Header("Interaction")]
     public GameObject InteractionUI;
@@ -96,6 +96,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
                 playerRotation.GetComponent<PlayerRotation>().enabled = false;
                 GetComponent<PlayerMovement>().enabled = false;
+                GetComponent<PlayerAttack>().enabled = false;
 
                 MyAnim.SetTrigger("Dead");
                 MyAnim.SetBool("isDead", true);
@@ -108,6 +109,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
             playerRotation.GetComponent<PlayerRotation>().enabled = true;
             GetComponent<PlayerMovement>().enabled = true;
+            GetComponent<PlayerAttack>().enabled = true;
 
             MyAnim.SetBool("isDead", false);
             DeathScreen.SetActive(false);
