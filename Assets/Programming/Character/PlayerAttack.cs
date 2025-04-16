@@ -7,8 +7,9 @@ using UnityEngine.UIElements;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [Header("Unlocked Heavy Attack?")]
+    [Header("Heavy Attack Unlockable")]
     public bool unlockedHeavyAttack = false;
+    [SerializeField] private GameObject HammerModel;
 
     [Header("Damage Numbers")]
     [SerializeField] private int LightDmg = 2;
@@ -56,6 +57,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void Awake()
     {
+        HammerModel.SetActive(false);
+
         MyAnim = MainCharacter.GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -107,6 +110,8 @@ public class PlayerAttack : MonoBehaviour
         isChargingChargedHeavyAttack = false;
         MyAnim.SetBool("ChargingHeavyAttack", false);
 
+        //sets hammer model to active and other vars to true since heavy attacking
+        HammerModel.SetActive(true);
         heavyAttacking = true;
         MyAnim.SetBool("HeavyAttacking", heavyAttacking);
 
@@ -119,6 +124,8 @@ public class PlayerAttack : MonoBehaviour
         //so this is resetting the charging which starts on RMB press
         ChargedHeavyDmg = 0; //reset charged heavy damage
 
+        //no longer heavy attacking so disable model and set other vars to false
+        HammerModel.SetActive(false);
         heavyAttacking = false;
         MyAnim.SetBool("HeavyAttacking", heavyAttacking);
     }
@@ -131,6 +138,8 @@ public class PlayerAttack : MonoBehaviour
         //set charged heavy dmg to heavy dmg if its too low (equivalent to normal heavy attack)
         if (ChargedHeavyDmg < HeavyDmg) { ChargedHeavyDmg = HeavyDmg; }
 
+        //sets hammer model to active and other vars to true since heavy attacking
+        HammerModel.SetActive(true);
         heavyAttacking = true;
         MyAnim.SetBool("HeavyAttacking", heavyAttacking);
 
@@ -142,6 +151,8 @@ public class PlayerAttack : MonoBehaviour
 
         ChargedHeavyDmg = 0; //reset charged heavy damage
 
+        //no longer heavy attacking so disable model and other vars
+        HammerModel.SetActive(false);
         heavyAttacking = false;
         MyAnim.SetBool("HeavyAttacking", heavyAttacking);
     }
@@ -149,6 +160,8 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator ChargeChargedHeavyAttack()
     {
+        //sets hammer model to active and other vars to true since we are charging heavy attack
+        HammerModel.SetActive(true);
         isChargingChargedHeavyAttack = true; //start charging the attack
         MyAnim.SetBool("ChargingHeavyAttack", isChargingChargedHeavyAttack);
 
