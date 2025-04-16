@@ -27,11 +27,14 @@ public class ShieldAbility : MonoBehaviour
     {
         if (unlockedShield)
         {
-            if (inputHandler.BlockTriggered && !isShieldInCoolDown)
+            if (!isShieldInCoolDown)
             {
-                activeShield.SetActive(true);
-                isShieldActive = true;
-                StartCoroutine(ShieldUsage());
+                if (inputHandler.BlockTriggered)
+                {
+                    activeShield.SetActive(true);
+                    isShieldActive = true;
+                    StartCoroutine(ShieldUsage());
+                }
             }
         }
     }

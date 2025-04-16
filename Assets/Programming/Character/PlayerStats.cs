@@ -67,7 +67,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     public bool TakeDamage(float Amount)
     {
-        if (!InputHandler.BlockTriggered && !shieldScript.isShieldActive)
+        if (!shieldScript.isShieldActive)
         {
             PlayerHealth -= Amount;
             AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_GetHit");
