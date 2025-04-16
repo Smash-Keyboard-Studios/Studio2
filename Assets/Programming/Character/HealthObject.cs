@@ -15,15 +15,18 @@ public class HealthObject : MonoBehaviour
 
             if (pStats == null) return;
 
-            if (pStats.PlayerHealth < pStats.PlayerMaxHealth)
+            if (!pStats.isDead)
             {
-                Debug.Log("Healed player");
+                if (pStats.PlayerHealth < pStats.PlayerMaxHealth)
+                {
+                    Debug.Log("Healed player");
 
-                AudioManager.Instance.PlayAudio(false, false, pStats.audioSource, "Plr_Heal");
+                    AudioManager.Instance.PlayAudio(false, false, pStats.audioSource, "Plr_Heal");
 
-                pStats.PlayerHealth += healAmount;
+                    pStats.PlayerHealth += healAmount;
 
-                Destroy(gameObject);
+                    Destroy(gameObject);
+                }
             }
         }
     }
