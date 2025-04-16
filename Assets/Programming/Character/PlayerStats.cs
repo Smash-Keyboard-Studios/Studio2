@@ -19,18 +19,19 @@ public class PlayerStats : MonoBehaviour, IDamageable
     public float PlayerMinStamina = 0;
     public float PlayerHealAmount = 25;
 
+    private bool isDead;
+
     [Header("Interaction")]
     public GameObject InteractionUI;
 
     [Header("Unlockable Abilities")]
-    [SerializeField] private GameObject HammerModel;
     [SerializeField] private GameObject HooverModel;
 
     private PlayerInputHandler InputHandler;
 
     protected Animator MyAnim;
 
-    public AudioSource audioSource;
+    [HideInInspector] public AudioSource audioSource;
 
     [Header("Other GameObject References")]
     public GameObject MainCharacter;
@@ -61,7 +62,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
         InteractionUI.SetActive(false);
 
         //player models start as disabled if that ability is locked (enabled on unlock)
-        HammerModel.SetActive(attackScript.unlockedHeavyAttack);
         HooverModel.SetActive(shieldScript.unlockedShield);
     }
 
@@ -90,16 +90,26 @@ public class PlayerStats : MonoBehaviour, IDamageable
         //When the player loses all of their Health they will die.
         if (PlayerHealth == 0)
         {
-            playerRotation.GetComponent<PlayerRotation>().enabled = false;
-            GetComponent<PlayerMovement>().enabled = false;
+            if (!isDead)
+            {
+                isDead = true;
 
-            MyAnim.SetTrigger("Dead");
-            DeathScreen.SetActive(true);
+                playerRotation.GetComponent<PlayerRotation>().enabled = false;
+                GetComponent<PlayerMovement>().enabled = false;
+
+                MyAnim.SetTrigger("Dead");
+                MyAnim.SetBool("isDead", true);
+                DeathScreen.SetActive(true);
+            }
         }
         else
         {
+            isDead = false;
+
             playerRotation.GetComponent<PlayerRotation>().enabled = true;
             GetComponent<PlayerMovement>().enabled = true;
+
+            MyAnim.SetBool("isDead", false);
             DeathScreen.SetActive(false);
         }
     }
@@ -117,8 +127,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
                 {
                     //enable heavy attack
                     attackScript.unlockedHeavyAttack = true;
-
-                    HammerModel.SetActive(true);
 
                     Destroy(other.gameObject);
                     InteractionUI.SetActive(false);

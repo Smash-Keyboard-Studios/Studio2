@@ -14,10 +14,16 @@ public class PlayerRotation : MonoBehaviour
 
     void HandleRotationInput() //Rotate player to face mouse.
     {
-        Vector3 MouseScreenToCameraSpace = new Vector3(Input.mousePosition.x, 0f, Input.mousePosition.y);
-        Vector3 PlayerScreenToCameraSpace = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, 0f, Camera.main.WorldToScreenPoint(transform.position).y);
-        Vector3 PlayerToMouse = MouseScreenToCameraSpace - PlayerScreenToCameraSpace;
-        transform.LookAt(PlayerToMouse);
-        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+        //get centre point of player in screen space
+        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position) - Vector3.up;
+        //get direction of player to mouse point
+        Vector3 playerToMouse = Input.mousePosition - playerScreenPoint;
+
+        // we swap the y to z as up on screen is forward so we want that to be z.
+        Vector3 lookDirectionInWorld = new Vector3(playerToMouse.x, transform.position.y, playerToMouse.y);
+
+        // we take the player's position and add the normalized direction vector. we just want a point around the player
+        transform.LookAt(transform.position + lookDirectionInWorld.normalized);
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0); //prevents rotation around other axis
     }
 }
