@@ -13,25 +13,11 @@ MonoBehaviour:
   m_Name: act1.5
   m_EditorClassIdentifier: 
   dialogueData:
-  - guid: b67639fc666b2594fa60e175d4a185d8
-    dialogueItem: {fileID: 11400000, guid: 2a383cd10cc3fb2458cf3c8ea1e1e5fc, type: 2}
-    position: {x: -2530, y: -114}
-    previousguids: []
-  - guid: 7c2efb8847dea734ba9357c4d51d7988
-    dialogueItem: {fileID: 11400000, guid: 00585ca6083be3945803756bc70d28d1, type: 2}
-    position: {x: -1698, y: -119}
-    previousguids:
-    - b67639fc666b2594fa60e175d4a185d8
-  - guid: 3323983e8cb967b47a3426e30f0ce592
-    dialogueItem: {fileID: 11400000, guid: c7c8b08c8ee003e4ea55d0c6c01f577c, type: 2}
-    position: {x: -1012, y: -118}
-    previousguids:
-    - 7c2efb8847dea734ba9357c4d51d7988
   - guid: 72b9f6c3fcd5e3c40b13d2fc20849ca6
     dialogueItem: {fileID: 11400000, guid: 295b9a8fe5fe29f4695eba67e5925b18, type: 2}
     position: {x: -57, y: -117}
     previousguids:
-    - 3323983e8cb967b47a3426e30f0ce592
+    - 28c7eefaa32b81f47ba337d5f346a7c1
   - guid: 59aba7676aa2c4343bde3e9e9f8f142b
     dialogueItem: {fileID: 11400000, guid: cd251eae414a3e04890d0105eebad648, type: 2}
     position: {x: 252, y: -116}
@@ -57,3 +43,27 @@ MonoBehaviour:
     position: {x: 2132, y: -118}
     previousguids:
     - 15183b89545fedd4eae06b17fa9066fe
+  - guid: b67639fc666b2594fa60e175d4a185d8
+    dialogueItem: {fileID: 11400000, guid: 2a383cd10cc3fb2458cf3c8ea1e1e5fc, type: 2}
+    position: {x: -2735, y: -128}
+    previousguids:
+    - 15e62e5c62734a549b4e3d56307aa08e
+  - guid: 7c2efb8847dea734ba9357c4d51d7988
+    dialogueItem: {fileID: 11400000, guid: 00585ca6083be3945803756bc70d28d1, type: 2}
+    position: {x: -1903, y: -133}
+    previousguids:
+    - b67639fc666b2594fa60e175d4a185d8
+  - guid: 3323983e8cb967b47a3426e30f0ce592
+    dialogueItem: {fileID: 11400000, guid: c7c8b08c8ee003e4ea55d0c6c01f577c, type: 2}
+    position: {x: -1215, y: -131}
+    previousguids:
+    - 7c2efb8847dea734ba9357c4d51d7988
+  - guid: 28c7eefaa32b81f47ba337d5f346a7c1
+    dialogueItem: {fileID: 11400000, guid: aadc24d14fa242e4b9fad0672286761a, type: 2}
+    position: {x: -695, y: -126}
+    previousguids:
+    - 3323983e8cb967b47a3426e30f0ce592
+  - guid: 15e62e5c62734a549b4e3d56307aa08e
+    dialogueItem: {fileID: 11400000, guid: 46ee90f93259ece4597cb78b0cf97783, type: 2}
+    position: {x: -3159, y: -139}
+    previousguids: []
