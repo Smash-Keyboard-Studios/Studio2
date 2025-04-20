@@ -16,7 +16,8 @@ MonoBehaviour:
   - guid: a2285988d730fd845b262e50de6dd15c
     dialogueItem: {fileID: 11400000, guid: c1dd24a95a54b3b43b39199d777edbeb, type: 2}
     position: {x: -501, y: -2}
-    previousguids: []
+    previousguids:
+    - 40fa4419418a72f45ac158f1e4e5a2ed
   - guid: 091783f5f1f5d3041b4f123ffbcf6e43
     dialogueItem: {fileID: 11400000, guid: 131eb48518602584b98e51c958b6edf6, type: 2}
     position: {x: -108, y: -3}
@@ -32,3 +33,7 @@ MonoBehaviour:
     position: {x: 750, y: -2}
     previousguids:
     - a12b1c5a96d9ba24d9a09e5466859a04
+  - guid: 40fa4419418a72f45ac158f1e4e5a2ed
+    dialogueItem: {fileID: 11400000, guid: 46ee90f93259ece4597cb78b0cf97783, type: 2}
+    position: {x: -858, y: 2}
+    previousguids: []
