@@ -14,26 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueData:
   - guid: 073300371d8dd134ab2a1f51ca2c10bc
-    dialogueItem: {fileID: 11400000, guid: 45f40ae01811a314cb697c59317ac3bf, type: 2}
-    position: {x: -1461, y: -91}
-    previousguids: []
+    dialogueItem: {fileID: 11400000, guid: 36f4da824b84dee46b69b3560ad4f008, type: 2}
+    position: {x: -658, y: 0}
+    previousguids:
+    - 861df44ca024de04ab71e5791f85f7e2
   - guid: d7261b476c0bc434fb1eee6163618820
-    dialogueItem: {fileID: 11400000, guid: 2bcf3e66a1ce66249b0fa5caa8adb4f0, type: 2}
-    position: {x: -1139, y: -96}
+    dialogueItem: {fileID: 11400000, guid: 36aa8ecda1b9ccf4889822c14f7df237, type: 2}
+    position: {x: -336, y: -5}
     previousguids:
     - 073300371d8dd134ab2a1f51ca2c10bc
   - guid: f427f32b5bf30a2418fb57a494f3af2a
-    dialogueItem: {fileID: 11400000, guid: 30932e28d3fb1e74a9d65f6ba92b8d34, type: 2}
-    position: {x: -816, y: -101}
+    dialogueItem: {fileID: 11400000, guid: 1ce73756138c6c44abf027d463d7ad5e, type: 2}
+    position: {x: -13, y: -10}
     previousguids:
     - d7261b476c0bc434fb1eee6163618820
   - guid: b7171e9c9c859604baf5c9ce76190e1a
-    dialogueItem: {fileID: 11400000, guid: c178c8cf6a7b63248a9328feeba18b74, type: 2}
-    position: {x: -300, y: -98}
+    dialogueItem: {fileID: 11400000, guid: 3f05f5fff3132734db0a734762d37ffa, type: 2}
+    position: {x: 503, y: -7}
     previousguids:
     - f427f32b5bf30a2418fb57a494f3af2a
   - guid: f4c850d728367b348bc87b6814a659f6
-    dialogueItem: {fileID: 11400000, guid: 79f6d9122d7039b4da84241d1401e25e, type: 2}
-    position: {x: 229, y: -93}
+    dialogueItem: {fileID: 11400000, guid: f925672085d4a0446b4e2d1077b12b23, type: 2}
+    position: {x: 1032, y: -2}
     previousguids:
     - b7171e9c9c859604baf5c9ce76190e1a
+  - guid: 861df44ca024de04ab71e5791f85f7e2
+    dialogueItem: {fileID: 11400000, guid: 46ee90f93259ece4597cb78b0cf97783, type: 2}
+    position: {x: -1067, y: 7}
+    previousguids: []

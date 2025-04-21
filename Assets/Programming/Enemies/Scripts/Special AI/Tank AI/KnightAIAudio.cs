@@ -43,14 +43,14 @@ public class KnightAIAudio : GruntAIAudio
 
 	protected override void OnDeathSFXPlayOnce()
 	{
-		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Tank.Enemy.Death");
+		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Knight.Enemy.Death");
 	}
 
 	protected override void OnWalkingSFXPlay(float speed)
 	{
 		if (walkSFXPlayTimer <= 0)
 		{
-			AudioManager.Instance.PlayAudio(true, true, aiAudioSource, "Tank.Enemy.Walk");
+			AudioManager.Instance.PlayAudio(true, true, aiAudioSource, "Knight.Enemy.Walk");
 			walkSFXPlayTimer = walkSFXPlayDelay;
 		}
 	}
@@ -62,23 +62,23 @@ public class KnightAIAudio : GruntAIAudio
 
 	protected override void OnAttackSFXPlayOnce(bool obj)
 	{
-		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Tank.Enemy.MeleeAttack");
+		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Knight.Enemy.MeleeAttack");
 	}
 
 	protected virtual void OnSlamAttackStartSFXPlayOnce()
 	{
-		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Tank.Enemy.SlamAttack");
+		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Knight.Enemy.SlamAttack");
 	}
 
 	protected virtual void OnSlamHitGroundSFXPlayOnce()
 	{
-		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Tank.Enemy.SlamShockWave");
+		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Knight.Enemy.SlamShockWave");
 
 	}
 
 	protected virtual void OnSlashAttackSFXPlay()
 	{
-		AudioManager.Instance.PlayAudio(true, false, aiAudioSource, "Tank.Enemy.SerratedSlashAttack");
+		AudioManager.Instance.PlayAudio(true, false, aiAudioSource, "Knight.Enemy.SerratedSlashAttack");
 
 	}
 

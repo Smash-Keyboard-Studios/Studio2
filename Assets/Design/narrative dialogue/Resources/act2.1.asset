@@ -15,20 +15,25 @@ MonoBehaviour:
   dialogueData:
   - guid: 073300371d8dd134ab2a1f51ca2c10bc
     dialogueItem: {fileID: 11400000, guid: 45f40ae01811a314cb697c59317ac3bf, type: 2}
-    position: {x: -801, y: -47}
-    previousguids: []
+    position: {x: -871, y: -100}
+    previousguids:
+    - 3fbbee17f4f8f5d448f7dc23ec8a7897
   - guid: d7261b476c0bc434fb1eee6163618820
     dialogueItem: {fileID: 11400000, guid: 2bcf3e66a1ce66249b0fa5caa8adb4f0, type: 2}
-    position: {x: -483, y: -43}
+    position: {x: -538, y: -100}
     previousguids:
     - 073300371d8dd134ab2a1f51ca2c10bc
   - guid: f427f32b5bf30a2418fb57a494f3af2a
     dialogueItem: {fileID: 11400000, guid: 30932e28d3fb1e74a9d65f6ba92b8d34, type: 2}
-    position: {x: -172, y: -44}
+    position: {x: -177, y: -100}
     previousguids:
     - d7261b476c0bc434fb1eee6163618820
   - guid: b7171e9c9c859604baf5c9ce76190e1a
     dialogueItem: {fileID: 11400000, guid: 79f6d9122d7039b4da84241d1401e25e, type: 2}
-    position: {x: 148, y: -43}
+    position: {x: 217, y: -96}
     previousguids:
     - f427f32b5bf30a2418fb57a494f3af2a
+  - guid: 3fbbee17f4f8f5d448f7dc23ec8a7897
+    dialogueItem: {fileID: 11400000, guid: 46ee90f93259ece4597cb78b0cf97783, type: 2}
+    position: {x: -1252, y: -90}
+    previousguids: []

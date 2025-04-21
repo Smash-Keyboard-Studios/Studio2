@@ -59,29 +59,29 @@ public class GruntAIAudio : AIAudioBase
 	{
 		// Audio code here
 		if (!isVariant)
-			aiAudioSource.PlayOneShot(AudioClipFetcher.instance.GetClipFromKey("EnemyMelee.Attack"));
+			AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "EnemyMelee.Attack");
 		else
-			aiAudioSource.PlayOneShot(AudioClipFetcher.instance.GetClipFromKey("EnemyMelee.AttackVariant"));
+			AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "EnemyMelee.AttackVariant");
 	}
 
 	protected virtual void OnTakenDamageSFXPlayOnce()
 	{
-		aiAudioSource.PlayOneShot(AudioClipFetcher.instance.GetClipFromKey("EnemyMelee.TakeDamage"));
+		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "EnemyMelee.TakeDamage");
 	}
 
 	protected virtual void OnShieldActiveSFXPlayOnce()
 	{
-		aiAudioSource.PlayOneShot(AudioClipFetcher.instance.GetClipFromKey("EnemyMelee.ActivateShield"));
+		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "EnemyMelee.ActivateShield");
 	}
 
 	protected virtual void OnShieldBreakSFXPlayOnce()
 	{
-		aiAudioSource.PlayOneShot(AudioClipFetcher.instance.GetClipFromKey("EnemyMelee.ShieldBreak"));
+		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "EnemyMelee.ShieldBreak");
 	}
 
 	protected virtual void OnShieldHitSFXPlayOnce()
 	{
-		aiAudioSource.PlayOneShot(AudioClipFetcher.instance.GetClipFromKey("EnemyMelee.ShieldHit"));
+		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "EnemyMelee.ShieldHit");
 	}
 
 	protected override void OnDeathSFXPlayOnce()

@@ -55,9 +55,19 @@ public class SliderBarFill : MonoBehaviour
                 sliderBar.value = playerStats.PlayerStamina;
                 break;
             case SliderType.ChargedButtonTimeHeld:
-                //if not currently in the heavy attack set value to charge value
-                //this check is to stop the charging whenever the normal heavy is pressed
-                sliderBar.value = playerAttack.heavyAttacking ? 0: playerAttack.ChargedHeavyDmg;
+                //if heavy attack is unlocked then set slider bar value
+                if (playerAttack.unlockedHeavyAttack)
+                {
+                    //if not currently in the heavy attack set value to charge value
+                    //this check is to stop the charging whenever the normal heavy is pressed
+                    sliderBar.value = playerAttack.heavyAttacking ? 0 : playerAttack.ChargedHeavyDmg;
+                }
+                //otherwise slider bar value is always 0
+                else
+                {
+                    sliderBar.value = 0;
+                }
+                
                 break;
             default:
                 break;
