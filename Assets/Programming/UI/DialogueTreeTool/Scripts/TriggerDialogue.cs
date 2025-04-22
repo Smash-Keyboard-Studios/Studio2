@@ -30,6 +30,7 @@ public class TriggerDialogue : MonoBehaviour
             if (HasCameraChange) { other.GetComponentInChildren<CameraController>().ChangeCameraFocus(NewCameraLocation); }
 
             //open dialogue
+            dialogueHandler.SetActive(false); //set to false so can be reopened and have conversaionasset update
             dialogueHandler.GetComponent<DialogueHandler>().ConversationAsset = conversationAsset;
             dialogueHandler.SetActive(true);
             Destroy(gameObject);
