@@ -30,7 +30,7 @@ public class EnemyRoomTracking : MonoBehaviour
 
 	private int enemyCount = 0;
 
-	
+
 	private bool ready = false;
 
 	private bool firedEvent = false;
@@ -52,8 +52,13 @@ public class EnemyRoomTracking : MonoBehaviour
 
 	// TODO fix formatting with fix statements, it looks ugly and hart to track.
 
-	void Start()
+	IEnumerator Start()
 	{
+		while (LevelLoading.instance.loading)
+		{
+			yield return null;
+		}
+
 		// we get all the enemies inside the designated area, we are using a box collider to get the unit measurements.
 		Collider[] colliders = Physics.OverlapBox(transform.position + boxCollider.center, boxCollider.size / 2f,
 		transform.rotation, layerToCheckFor, QueryTriggerInteraction.Ignore);
@@ -69,7 +74,7 @@ public class EnemyRoomTracking : MonoBehaviour
 					if (collider.GetComponent<AIBase>() != null)
 					{
 
-						if (EnemyList.Contains(collider.transform)) return;
+						if (EnemyList.Contains(collider.transform)) continue;
 
 						// we cannot remove this object without risking braking the events.
 						collider.GetComponent<AIBase>().onDeath += RemoveEnemy;
