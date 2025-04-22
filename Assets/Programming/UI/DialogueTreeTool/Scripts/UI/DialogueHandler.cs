@@ -79,7 +79,9 @@ public class DialogueHandler : MonoBehaviour
                 //set new npc dialogue data
                 currentData = dialogueData;
 
-                //play the npc dialogue sound for the new data
+                //stop anything currently playing
+                //then play the npc dialogue sound for the new data
+                audioSource.Stop();
                 audioSource.PlayOneShot(currentData.dialogueItem.SoundToPlay);
             }
         }

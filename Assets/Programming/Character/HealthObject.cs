@@ -15,7 +15,7 @@ public class HealthObject : MonoBehaviour
 
             if (pStats == null) return;
 
-            if (!pStats.isDead)
+            if (!pStats.isDead && pStats.PlayerHealth > 0)
             {
                 if (pStats.PlayerHealth < pStats.PlayerMaxHealth)
                 {
