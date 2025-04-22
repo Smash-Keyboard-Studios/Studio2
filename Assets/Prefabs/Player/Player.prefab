@@ -2850,6 +2850,7 @@ MonoBehaviour:
   PlayerMaxStamina: 100
   PlayerMinStamina: 0
   PlayerHealAmount: 25
+  isDead: 0
   InteractionUI: {fileID: 0}
   HooverModel: {fileID: 6764947534684146016}
   audioSource: {fileID: 0}
@@ -2875,7 +2876,7 @@ MonoBehaviour:
   ChargedHeavyDmgAddition: 5
   MaxChargedHeavyDmg: 25
   ChargedHeavyDmg: 0
-  LightAttackDelay: 0.2
+  LightAttackDelay: 0.5
   HeavyAttackDelay: 2.5
   lightAttacking: 0
   heavyAttacking: 0
@@ -5255,7 +5256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxIntensity: 0.03
   minIntensity: 0
-  pulseSpeed: 7
+  pulseSpeed: 0.05
 --- !u!1 &9038434957366844899
 GameObject:
   m_ObjectHideFlags: 0
