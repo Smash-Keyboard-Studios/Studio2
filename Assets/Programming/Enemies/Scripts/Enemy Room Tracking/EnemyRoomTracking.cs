@@ -30,7 +30,7 @@ public class EnemyRoomTracking : MonoBehaviour
 
 	private int enemyCount = 0;
 
-
+	
 	private bool ready = false;
 
 	private bool firedEvent = false;
@@ -79,7 +79,7 @@ public class EnemyRoomTracking : MonoBehaviour
 				}
 			}
 
-			ready = true;
+			if (enemyCount > 0) ready = true;
 		}
 
 
