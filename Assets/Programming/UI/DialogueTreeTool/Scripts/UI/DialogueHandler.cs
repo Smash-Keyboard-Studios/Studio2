@@ -34,10 +34,12 @@ public class DialogueHandler : MonoBehaviour
         playerObject.GetComponentInChildren<CameraController>().ChangeCameraFocus
             (playerObject.GetComponentInChildren<PlayerCameraObject>().gameObject);
 
-        //reenable input
-        playerObject.GetComponent<PlayerInput>().enabled = true;
-        UIManager.Instance.inDialogueMenu = false;
-
+        //reenable input if not in game menu rn
+        if (!UIManager.Instance.inGameMenu)
+        {
+            playerObject.GetComponent<PlayerInput>().enabled = true;
+            UIManager.Instance.inDialogueMenu = false;
+        }
 
         //set this to false
         this.gameObject.SetActive(false);
