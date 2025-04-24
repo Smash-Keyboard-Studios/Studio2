@@ -8,6 +8,9 @@ public class EnemySpawnItem : MonoBehaviour
 
     public Vector3 spawnOffSetFromEnemy = Vector3.zero;
 
+    [Range(0, 100)]
+    public float spawnChance = 33f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +20,7 @@ public class EnemySpawnItem : MonoBehaviour
 
     public void SpawnItem(Transform deathLocation)
     {
-        Instantiate(prefabToSpawn, deathLocation.position + spawnOffSetFromEnemy, Quaternion.identity);
+        if (Random.Range(0f, 100f) <= spawnChance)
+            Instantiate(prefabToSpawn, deathLocation.position + spawnOffSetFromEnemy, Quaternion.identity);
     }
 }

@@ -34,10 +34,12 @@ public class DialogueHandler : MonoBehaviour
         playerObject.GetComponentInChildren<CameraController>().ChangeCameraFocus
             (playerObject.GetComponentInChildren<PlayerCameraObject>().gameObject);
 
-        //reenable input
-        playerObject.GetComponent<PlayerInput>().enabled = true;
-        UIManager.Instance.inDialogueMenu = false;
-
+        //reenable input if not in game menu rn
+        if (!UIManager.Instance.inGameMenu)
+        {
+            playerObject.GetComponent<PlayerInput>().enabled = true;
+            UIManager.Instance.inDialogueMenu = false;
+        }
 
         //set this to false
         this.gameObject.SetActive(false);
@@ -77,7 +79,9 @@ public class DialogueHandler : MonoBehaviour
                 //set new npc dialogue data
                 currentData = dialogueData;
 
-                //play the npc dialogue sound for the new data
+                //stop anything currently playing
+                //then play the npc dialogue sound for the new data
+                audioSource.Stop();
                 audioSource.PlayOneShot(currentData.dialogueItem.SoundToPlay);
             }
         }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
@@ -23,6 +25,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     [Header("Interaction")]
     public GameObject InteractionUI;
+    public GameObject AbilityUnlockedUI;
 
     [Header("Unlockable Abilities")]
     [SerializeField] private GameObject HooverModel;
@@ -132,6 +135,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
                     Destroy(other.gameObject);
                     InteractionUI.SetActive(false);
+
+                    StartCoroutine("ShowAbilityUnlocked", "Heavy Attack");
                 }
 
                 break;
@@ -148,6 +153,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
                     Destroy(other.gameObject);
                     InteractionUI.SetActive(false);
+
+                    StartCoroutine("ShowAbilityUnlocked", "Shield");
                 }
 
                 break;
@@ -166,5 +173,15 @@ public class PlayerStats : MonoBehaviour, IDamageable
         {
             InteractionUI.SetActive(false);
         }
+    }
+
+    private IEnumerator ShowAbilityUnlocked(string whichAbility)
+    {
+        AbilityUnlockedUI.SetActive(true);
+        AbilityUnlockedUI.GetComponentInChildren<TextMeshProUGUI>().text = whichAbility + " Unlocked!";
+
+        yield return new WaitForSeconds(2);
+
+        AbilityUnlockedUI.SetActive(false);
     }
 }

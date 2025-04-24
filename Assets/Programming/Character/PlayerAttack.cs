@@ -24,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
     private bool isChargingChargedHeavyAttack = false;
 
     [Header("Cooldown Delays")]
-    public float LightAttackDelay = 0.2f;
+    public float LightAttackDelay = 0.3f;
     public float HeavyAttackDelay = 2f;
 
     [Header("Attacks being carried out")]

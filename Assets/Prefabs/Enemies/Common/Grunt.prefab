@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 8950207567973540252}
   - component: {fileID: 5706574705448098848}
   - component: {fileID: -5515921045981890056}
+  - component: {fileID: -2091549974215721587}
   m_Layer: 7
   m_Name: Grunt
   m_TagString: Enemy
@@ -306,6 +307,22 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-2091549974215721587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66097493073879181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c552221e2a8c446a40c4aafb8ce6f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToSpawn: {fileID: 4937923229752190964, guid: eeeb8892335e19f4da20c4cf693303a9,
+    type: 3}
+  spawnOffSetFromEnemy: {x: 0, y: 0, z: 0}
+  spawnChance: 10
 --- !u!1 &1058971686249467550
 GameObject:
   m_ObjectHideFlags: 0
