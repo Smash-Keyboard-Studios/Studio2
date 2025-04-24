@@ -150,17 +150,17 @@ PrefabInstance:
     - target: {fileID: 4616847991055122877, guid: 89ebef302e5dc5b44b9de23ccf24f487,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.6
+      value: 4.85
       objectReference: {fileID: 0}
     - target: {fileID: 4616847991055122877, guid: 89ebef302e5dc5b44b9de23ccf24f487,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0000105
+      value: 2.27
       objectReference: {fileID: 0}
     - target: {fileID: 4616847991055122877, guid: 89ebef302e5dc5b44b9de23ccf24f487,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.25
+      value: 1.62
       objectReference: {fileID: 0}
     - target: {fileID: 4616847991055122877, guid: 89ebef302e5dc5b44b9de23ccf24f487,
         type: 3}
@@ -18659,7 +18659,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 919a5bdba27737d419d6a90004d84605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClips: []
+  audioClips:
+  - clipName: GhostSmoke
+    audioClips:
+    - {fileID: 8300000, guid: d6fdd465cee9fe448897c99eaefcc6e3, type: 3}
+  - clipName: SWon
+    audioClips:
+    - {fileID: 8300000, guid: d6fdd465cee9fe448897c99eaefcc6e3, type: 3}
+  - clipName: SWoff
+    audioClips:
+    - {fileID: 8300000, guid: 1aed075beccf5fd4c905d6a2bb0a1461, type: 3}
 --- !u!4 &1621671270
 Transform:
   m_ObjectHideFlags: 0
@@ -22374,6 +22383,46 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 191495901}
+    - target: {fileID: 4973042709466943086, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973042709466943086, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973042709466943086, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973042709466943086, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811205712211176442, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811205712211176442, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811205712211176442, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811205712211176442, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6141139468060085444, guid: df16c0b73a2f95445a8892e6925216ac,
         type: 3}
       propertyPath: m_Pivot.x
@@ -22472,6 +22521,26 @@ PrefabInstance:
     - target: {fileID: 6141139468060085444, guid: df16c0b73a2f95445a8892e6925216ac,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951362893621146625, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951362893621146625, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951362893621146625, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951362893621146625, guid: df16c0b73a2f95445a8892e6925216ac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
