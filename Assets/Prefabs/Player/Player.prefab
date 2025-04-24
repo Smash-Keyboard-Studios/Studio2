@@ -2685,6 +2685,7 @@ GameObject:
   - component: {fileID: 7694880310181773891}
   - component: {fileID: 8801687776631732312}
   - component: {fileID: 774508971772862245}
+  - component: {fileID: 5980035394998752889}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2944,7 +2945,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5005257603024285522}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 100ffcdd0d68e7f40839d1d2358a8269, type: 3}
   m_Name: 
@@ -3048,6 +3049,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5980035394998752889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005257603024285522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f638aeaf9106864cb82bf612f8eee89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageRingGameObject: {fileID: 5644760467099071960}
 --- !u!1 &5031218017895963573
 GameObject:
   m_ObjectHideFlags: 0
@@ -5475,6 +5489,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VFX_Shield
+      objectReference: {fileID: 0}
+    - target: {fileID: 2109879316996603484, guid: 471a88f1f2a69804f8b333f749d7e3b0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5426494343868138843, guid: 471a88f1f2a69804f8b333f749d7e3b0,
         type: 3}
