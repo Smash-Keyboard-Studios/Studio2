@@ -6,7 +6,7 @@ public class PlayerRotation : MonoBehaviour
 {
     void Update()
     {
-        if(!UIManager.Instance.inGameMenu && !UIManager.Instance.inDialogueMenu)
+        if (!UIManager.Instance.inGameMenu && !UIManager.Instance.inDialogueMenu)
         {
             HandleRotationInput();
         }
@@ -15,7 +15,7 @@ public class PlayerRotation : MonoBehaviour
     void HandleRotationInput() //Rotate player to face mouse.
     {
         //get centre point of player in screen space
-        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position) - Vector3.up;
+        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position - Vector3.up);
         //get direction of player to mouse point
         Vector3 playerToMouse = Input.mousePosition - playerScreenPoint;
 
