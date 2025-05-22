@@ -71,10 +71,114 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6e268f8f4bf3892489aabaf7648fe542,
         type: 3}
       propertyPath: m_Name
-      value: BackBack Vacume Tube Only V2
+      value: BackBack Vacume Tube Only Alt texture
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6892132338227429926}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6e268f8f4bf3892489aabaf7648fe542, type: 3}
+--- !u!4 &4902179682335497396 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+    type: 3}
+  m_PrefabInstance: {fileID: 4864647427740924767}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6354434647551256013
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4902179682335497396}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 55167802ecf42a549867a6b2d0d77eda, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e876d255ca833d4bb76c49d32b7dd5e, type: 2}
+    - target: {fileID: 919132149155446097, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_Name
+      value: BackBack Vacume Tube Only Alt texture
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6e268f8f4bf3892489aabaf7648fe542,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e268f8f4bf3892489aabaf7648fe542, type: 3}
+--- !u!4 &6892132338227429926 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6e268f8f4bf3892489aabaf7648fe542,
+    type: 3}
+  m_PrefabInstance: {fileID: 6354434647551256013}
+  m_PrefabAsset: {fileID: 0}
