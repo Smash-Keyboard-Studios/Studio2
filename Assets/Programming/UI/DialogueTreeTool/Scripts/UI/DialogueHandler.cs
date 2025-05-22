@@ -55,6 +55,8 @@ public class DialogueHandler : MonoBehaviour
 
     private void GetTreeData()
     {
+        if (string.IsNullOrEmpty(ConversationAsset)) return;
+
         dialogueTreeData = Resources.Load(ConversationAsset) as DialogueTreeSaveData; //loads the example conversation from resources
 
         //first foreach loop to find what the root dialogue is
@@ -87,10 +89,11 @@ public class DialogueHandler : MonoBehaviour
         }
 
         //disable this if no more data
-        if(currentData == null) {
+        if (currentData == null)
+        {
             CloseDialogue();
         }
-        
+
         //update player options
         SetPlayerDialogueOptions();
     }

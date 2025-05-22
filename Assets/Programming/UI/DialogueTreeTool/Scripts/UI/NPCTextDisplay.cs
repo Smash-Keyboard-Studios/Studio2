@@ -29,6 +29,8 @@ public class NPCTextDisplay : MonoBehaviour
         NPCSpeechText.text = dialogueHandler.currentData.dialogueItem?.DialogueText;
         //NPCImage.sprite = dialogueHandler.currentData.dialogueItem?.IconRO;
 
+        if (string.IsNullOrEmpty(NPCNameText.text)) return;
+
         //change colour of npc text based on who is speaking
         switch (NPCNameText.text.ToLower())
         {

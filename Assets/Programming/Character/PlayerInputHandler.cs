@@ -76,10 +76,10 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnDisable()
     {
-        MoveAction.Disable();
-        SprintAction.Disable();
-        InteractAction.Disable();
-        BlockAction.Disable();
+        if (MoveAction != null) MoveAction.Disable();
+        if (SprintAction != null) SprintAction.Disable();
+        if (InteractAction != null) InteractAction.Disable();
+        if (BlockAction != null) BlockAction.Disable();
     }
 
 }

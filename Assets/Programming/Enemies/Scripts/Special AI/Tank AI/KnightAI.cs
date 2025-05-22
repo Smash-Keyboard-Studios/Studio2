@@ -423,6 +423,7 @@ public class KnightAI : GruntAI
 	doing tick-based damage (every 0.25s) while in the hurt box, 
 	dealing high damage, up to 4 times.
 	*/
+	float localTimer = 0f;
 
 	#region SerratedSlashAttack
 	protected virtual IEnumerator SerratedSlashAttack()
@@ -442,7 +443,7 @@ public class KnightAI : GruntAI
 		animatorController.SetBool("IsCharging", false);
 
 
-		float localTimer = 0f;
+		localTimer = 0f;
 		while (localTimer < serratedSlashAttackClass.serratedSlashAttackDuration)
 		{
 			DamageInRadius(serratedSlashAttackClass.serratedSlashRadius, serratedSlashAttackClass.serratedSlashDamage);

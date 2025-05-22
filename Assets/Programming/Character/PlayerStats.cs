@@ -62,7 +62,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         indicator = GetComponent<DamageIndicator>();
 
         //interaction ui starts as disabled
-        InteractionUI.SetActive(false);
+        if (InteractionUI != null) InteractionUI.SetActive(false);
 
         //player models start as disabled if that ability is locked (enabled on unlock)
         HooverModel.SetActive(shieldScript.unlockedShield);
@@ -168,7 +168,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     {
         //interactable objects
 
-        if(other.gameObject.CompareTag("UnlockableHammer") ||
+        if (other.gameObject.CompareTag("UnlockableHammer") ||
             other.gameObject.CompareTag("UnlockableShield"))
         {
             InteractionUI.SetActive(false);
