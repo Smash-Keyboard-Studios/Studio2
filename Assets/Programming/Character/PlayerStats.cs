@@ -74,7 +74,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         {
             PlayerHealth -= Amount;
             AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_GetHit");
-            indicator.FlashStart();
+            if (indicator.enabled) indicator.FlashStart(); // domibron ~ I added a check because this breaks the AI somehow.
             return true;
         }
         else if (shieldScript.isShieldActive)
