@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -32,6 +31,7 @@ public class Health : MonoBehaviour, IDamageable
     protected bool calledOnDeathEvent = false;
 
     protected HurtIndicatorAuto hurtIndicator;
+    protected DamageNumberSystem damageNumberSystem;
 
     public event Action onTakenDamageSFXPlayOnce;
 
@@ -40,6 +40,7 @@ public class Health : MonoBehaviour, IDamageable
     protected virtual void Start()
     {
         hurtIndicator = GetComponent<HurtIndicatorAuto>();
+        damageNumberSystem = GetComponent<DamageNumberSystem>();
 
 
         Reset();
@@ -75,10 +76,18 @@ public class Health : MonoBehaviour, IDamageable
     public virtual bool TakeDamage(float amount)
     {
         AddToHealth(-amount);
+
+        if (damageNumberSystem != null)
+        {
+            damageNumberSystem.SpawnNumber(amount.ToString("F0"), new Color(1, UnityEngine.Random.Range(0f, 1f), 0), 10 + (3 * (Mathf.Sqrt(amount))));
+        }
+
+
         if (hurtIndicator != null)
         {
             hurtIndicator.TakenDamage();
         }
+
 
         InvokeOnTakenDamageSFXPlayOnce();
 

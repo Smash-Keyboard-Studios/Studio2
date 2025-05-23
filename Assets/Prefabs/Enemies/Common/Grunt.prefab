@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 5706574705448098848}
   - component: {fileID: -5515921045981890056}
   - component: {fileID: -2091549974215721587}
+  - component: {fileID: 409817707414561416}
   m_Layer: 7
   m_Name: Grunt
   m_TagString: Enemy
@@ -323,6 +324,24 @@ MonoBehaviour:
     type: 3}
   spawnOffSetFromEnemy: {x: 0, y: 0, z: 0}
   spawnChance: 10
+--- !u!114 &409817707414561416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66097493073879181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60080a26aeea06947bcf521ea61149f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magicNumberPrefab: {fileID: 7122786255667809930, guid: 5a049595a9d51de41a0ff67badff996b,
+    type: 3}
+  MinDistance: 1.2
+  MaxDistance: 1.5
+  MaxRotationOffsetHorizontal: 120
+  MaxRotationOffsetVertical: 60
 --- !u!1 &1058971686249467550
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,6 +929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7e0fc7b9ddd9f4bafdfa8801d56551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertDirection: 0
 --- !u!1001 &2425965616288830037
 PrefabInstance:
   m_ObjectHideFlags: 0

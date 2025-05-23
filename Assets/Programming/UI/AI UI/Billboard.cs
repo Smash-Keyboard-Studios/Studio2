@@ -18,6 +18,8 @@ using UnityEngine;
 /// </summary>
 public class Billboard : MonoBehaviour
 {
+	public bool invertDirection = false;
+
 	Transform camTransform;
 
 	// Start is called before the first frame update
@@ -41,6 +43,13 @@ public class Billboard : MonoBehaviour
 			return;
 		}
 
-		transform.LookAt(camTransform.position);
+		if (!invertDirection)
+		{
+			transform.LookAt(camTransform.position);
+		}
+		else
+		{
+			transform.LookAt(transform.position - (camTransform.position - transform.position));
+		}
 	}
 }
