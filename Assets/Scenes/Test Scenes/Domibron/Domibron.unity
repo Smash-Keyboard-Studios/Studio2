@@ -285,12 +285,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241e51dc5a7fac6479e5c6ac305908b2, type: 3}
---- !u!1 &32829065 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1049068084611142250, guid: 241e51dc5a7fac6479e5c6ac305908b2,
-    type: 3}
-  m_PrefabInstance: {fileID: 32829064}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &97828959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3577,11 +3571,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 533977030738716872, guid: d110e1c34e83ce247a08b9455a2744c8,
-        type: 3}
-      propertyPath: DeathScreen
-      value: 
-      objectReference: {fileID: 32829065}
     - target: {fileID: 1268343772234204737, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -3600,17 +3589,17 @@ PrefabInstance:
     - target: {fileID: 6586798735416910705, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.19
+      value: 23.43
       objectReference: {fileID: 0}
     - target: {fileID: 6586798735416910705, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.18
+      value: 1.87
       objectReference: {fileID: 0}
     - target: {fileID: 6586798735416910705, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.8
+      value: 14.18
       objectReference: {fileID: 0}
     - target: {fileID: 6586798735416910705, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
@@ -3645,11 +3634,6 @@ PrefabInstance:
     - target: {fileID: 6586798735416910705, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8801687776631732312, guid: d110e1c34e83ce247a08b9455a2744c8,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
