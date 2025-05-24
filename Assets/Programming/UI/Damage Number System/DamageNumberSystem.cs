@@ -36,6 +36,7 @@ public class DamageNumberSystem : MonoBehaviour
     /// <param name="textSize">How large the text should be.</param>
     public void SpawnNumber(string text, Color textColor, float textSize = 10f)
     {
+        // print(textSize);
         // we need to spawn the numbers but based on the camera's position, spawn 180 radius in front towards the camera.
         // So some randomness needs to happen.
 
@@ -55,5 +56,7 @@ public class DamageNumberSystem : MonoBehaviour
         textComp.text = text;
 
         textComp.color = textColor;
+
+        textComp.fontSize = textSize;
     }
 }

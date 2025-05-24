@@ -77,9 +77,16 @@ public class Health : MonoBehaviour, IDamageable
     {
         AddToHealth(-amount);
 
+        float baseSize = 6f;
+        float numberSizeMultiply = 3f;
+        float minRandomMultiplyAmount = 0.4f;
+        float maxRandomMultiplyAmount = 0.4f;
+
         if (damageNumberSystem != null)
         {
-            damageNumberSystem.SpawnNumber(amount.ToString("F0"), new Color(1, UnityEngine.Random.Range(0f, 1f), 0), 10 + (3 * (Mathf.Sqrt(amount))));
+            damageNumberSystem.SpawnNumber(amount.ToString("F0"),
+            new Color(1, UnityEngine.Random.Range(0f, 1f), 0),
+            (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
         }
 
 
