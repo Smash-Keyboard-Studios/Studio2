@@ -38,7 +38,7 @@ public class EnemyRoomTracking : MonoBehaviour
 	[Space]
 	public UnityEvent onAllEnemiesKilled;
 
-	private List<Transform> EnemyList = new List<Transform>();
+	private List<Transform> enemyList = new List<Transform>();
 
 	void Awake()
 	{
@@ -74,12 +74,12 @@ public class EnemyRoomTracking : MonoBehaviour
 					if (collider.GetComponent<AIBase>() != null)
 					{
 
-						if (EnemyList.Contains(collider.transform)) continue;
+						if (enemyList.Contains(collider.transform)) continue;
 
 						// we cannot remove this object without risking braking the events.
 						collider.GetComponent<AIBase>().onDeath += RemoveEnemy;
 						enemyCount++;
-						EnemyList.Add(collider.transform);
+						enemyList.Add(collider.transform);
 					}
 				}
 			}
@@ -93,11 +93,11 @@ public class EnemyRoomTracking : MonoBehaviour
 	/// <summary>
 	/// Removes the enemy that died.
 	/// </summary>
-	/// <param name="EntityTransform">The transform of the enemy that died, may be null.</param>
-	private void RemoveEnemy(Transform EntityTransform)
+	/// <param name="entityTransform">The transform of the enemy that died, may be null.</param>
+	private void RemoveEnemy(Transform entityTransform)
 	{
 		enemyCount--;
-		EnemyList.Remove(EntityTransform);
+		enemyList.Remove(entityTransform);
 	}
 
 	void Update()
@@ -122,13 +122,13 @@ public class EnemyRoomTracking : MonoBehaviour
 			if (other.GetComponent<AIBase>() != null)
 			{
 
-				if (EnemyList.Contains(other.transform)) return;
+				if (enemyList.Contains(other.transform)) return;
 
 				// we cannot remove this object without risking braking the events.
 				// we are presuming this object will not be disabled :3.
 				other.GetComponent<AIBase>().onDeath += RemoveEnemy;
 				enemyCount++;
-				EnemyList.Add(other.transform);
+				enemyList.Add(other.transform);
 
 				if (!ready) ready = true;
 			}
@@ -142,7 +142,7 @@ public class EnemyRoomTracking : MonoBehaviour
 
 		enemyTransform.GetComponent<AIBase>().onDeath += RemoveEnemy;
 		enemyCount++;
-		EnemyList.Add(enemyTransform);
+		enemyList.Add(enemyTransform);
 	}
 
 

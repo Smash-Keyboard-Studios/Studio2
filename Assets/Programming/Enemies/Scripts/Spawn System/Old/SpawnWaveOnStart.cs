@@ -23,7 +23,7 @@ public class SpawnWaveOnStart : MonoBehaviour
 	/// The wave spawn parameters
 	/// </summary>
 	[Tooltip("The wave spawn sequence")]
-	public EnemyWaveData[] waveData;
+	public EnemiesInWaveData[] waveData;
 
 	[SerializeField, Tooltip("How long to wait before spawning the next enemy in the sequence.")]
 	private float timeBetweenSpawn = 0.5f;

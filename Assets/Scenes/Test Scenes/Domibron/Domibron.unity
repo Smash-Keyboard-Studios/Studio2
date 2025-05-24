@@ -3714,6 +3714,61 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 471a88f1f2a69804f8b333f749d7e3b0, type: 3}
+--- !u!1 &1923951860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1923951862}
+  - component: {fileID: 1923951861}
+  m_Layer: 0
+  m_Name: SpawnWaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1923951861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923951860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962451a252d13764d9de14f892c55218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCoreData: {fileID: 11400000, guid: 90ba5151d41d95b42a34407eb0f8818c, type: 2}
+  waveData: []
+  spawnPoints: []
+  onWaveEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onAllWavesCleared:
+    m_PersistentCalls:
+      m_Calls: []
+  minSpawnRadius: 15
+  maxSpawnRadius: 40
+--- !u!4 &1923951862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923951860}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 34.067112, y: 18.138763, z: 4.898022}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2111136318 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2002656491048023171, guid: ffc642bdc4dab674b94576cd829dd037,
@@ -4076,17 +4131,17 @@ PrefabInstance:
     - target: {fileID: 9166431296155532778, guid: 00da7ea1c10f6aa4faa8fb578857dcf5,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.494
       objectReference: {fileID: 0}
     - target: {fileID: 9166431296155532778, guid: 00da7ea1c10f6aa4faa8fb578857dcf5,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9166431296155532778, guid: 00da7ea1c10f6aa4faa8fb578857dcf5,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.494
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4691,3 +4746,4 @@ SceneRoots:
   - {fileID: 1726102537}
   - {fileID: 350622962}
   - {fileID: 4040390293478373142}
+  - {fileID: 1923951862}

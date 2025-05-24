@@ -15,29 +15,12 @@ using UnityEngine;
 
 
 
-/// <summary>
-/// Used to store data in the aiSpawnList, as dictionaries cannot serialize.
-/// </summary>
-[Serializable]
-public struct Enemy
-{
-	public int id;
-	public GameObject prefab;
-}
 
-/// <summary>
-/// Alternative to using list or dictionary for spawn parameters.
-/// </summary>
-[Serializable]
-public struct EnemyWaveData
-{
-	public int id;
-	public int amount;
-}
 
 /// <summary>
 /// Singleton class, this does AI wave spawning.
 /// </summary>
+[Obsolete("Please use the new " + nameof(SpawnWaveManager) + " instead!")]
 public class AISpawnSystem : MonoBehaviour
 {
 	#region Variables
@@ -70,6 +53,7 @@ public class AISpawnSystem : MonoBehaviour
 
 
 	#region Awake
+
 	void Awake()
 	{
 		if (instance != null && instance != this)
@@ -133,7 +117,7 @@ public class AISpawnSystem : MonoBehaviour
 	/// <param name="timeBetweenSpawn">How long to wait before spawning the next enemy.</param>
 	/// <param name="minRadius">How close the AI can spawn.</param>
 	/// <param name="maxRadius">How far the AI can spawn.</param>
-	public void SpawnWave(EnemyWaveData[] waveData, List<GameObject> spawnLocationsToUse, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2, EnemyRoomTracking effectedRoomTracking = null)
+	public void SpawnWave(EnemiesInWaveData[] waveData, List<GameObject> spawnLocationsToUse, float timeBetweenSpawn = 0.5f, float minRadius = 30f, float maxRadius = 100f, int randomCycleAmount = 2, EnemyRoomTracking effectedRoomTracking = null)
 	{
 		Dictionary<int, int> converted = new Dictionary<int, int>();
 
@@ -275,7 +259,7 @@ public class AISpawnSystem : MonoBehaviour
 		}
 
 		// get a random spawn location that is suitable.
-		Vector3? spawnLocation = GetRandomSpawnLocation(spawnLocationToUse, minRadius, maxRadius);
+		Vector3? spawnLocation = GetRandomSpawnLocation(spawnLocationToUse, playerObject.transform.position, minRadius, maxRadius);
 
 		if (!spawnLocation.HasValue)
 		{
@@ -305,7 +289,7 @@ public class AISpawnSystem : MonoBehaviour
 	/// <param name="minRadius">How close the point can be to the player.</param>
 	/// <param name="maxRadius">How far the point can be from the player.</param>
 	/// <returns>A point as Vector3 if successful, null if not.</returns>
-	private Vector3? GetRandomSpawnLocation(List<GameObject> spawnLocationToUse, float minRadius = 30f, float maxRadius = 100f)
+	public static Vector3? GetRandomSpawnLocation(List<GameObject> spawnLocationToUse, Vector3 playerPosition, float minRadius = 30f, float maxRadius = 100f)
 	{
 		List<GameObject> viableSpawnLocations = new List<GameObject>();
 
@@ -314,8 +298,8 @@ public class AISpawnSystem : MonoBehaviour
 		{
 			if (possibleSpawnLocation == null) continue;
 
-			if (Vector3.Distance(possibleSpawnLocation.transform.position, playerObject.transform.position) > minRadius &&
-				Vector3.Distance(possibleSpawnLocation.transform.position, playerObject.transform.position) < maxRadius)
+			if (Vector3.Distance(possibleSpawnLocation.transform.position, playerPosition) > minRadius &&
+				Vector3.Distance(possibleSpawnLocation.transform.position, playerPosition) < maxRadius)
 			{
 				viableSpawnLocations.Add(possibleSpawnLocation);
 			}
@@ -360,7 +344,7 @@ public class AISpawnSystem : MonoBehaviour
 	/// Util function to randomise a given list.
 	/// </summary>
 	/// <param name="list">The list to randomise.</param>
-	private void RandomiseList(ref List<int> list)
+	public static void RandomiseList(ref List<int> list)
 	{
 
 		for (int i = 0; i < list.Count; i++)
