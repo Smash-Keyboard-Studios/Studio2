@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FogOfWar : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class FogOfWar : MonoBehaviour
     [Header("Fade-out Speed")]
     [SerializeField] private float fadeOutSpeed = 0.05f;
 
+    public UnityEvent fadingOut;
 
     private void Start()
     {
@@ -22,6 +24,7 @@ public class FogOfWar : MonoBehaviour
         {
             Destroy(gameObject.GetComponent<BoxCollider>()); // Destroys the box collider to prevent it from occurring again
             StartCoroutine(fadeOut()); // Activates the fadeout
+            fadingOut.Invoke();
         }
     }
     
@@ -33,7 +36,10 @@ public class FogOfWar : MonoBehaviour
             fogRenderer.material.SetFloat("_Opacity", fogRenderer.material.GetFloat("_Opacity") - fadeOutSpeed);
         }
 
+        yield return new WaitForSeconds(2f); // Wait for SFX to finish, very hardbaked
+
         Destroy(this.gameObject); // tells object to stop existing :D
     }
+
 
 }
