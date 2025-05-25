@@ -970,6 +970,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5511645364436532592}
+  - component: {fileID: 500105243747814196}
   m_Layer: 5
   m_Name: PlayerCanvases
   m_TagString: Untagged
@@ -999,6 +1000,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &500105243747814196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115958375053051335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55370da10fdeaaa4e92ccbc0af324a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDeathScreenObject: {fileID: 1049068084611142250}
 --- !u!1 &2324804226719688765
 GameObject:
   m_ObjectHideFlags: 0
