@@ -727,6 +727,7 @@ GameObject:
   - component: {fileID: 5709710706370089452}
   - component: {fileID: -1224240333922569538}
   - component: {fileID: 2223605082561628224}
+  - component: {fileID: 5009405342800116570}
   m_Layer: 7
   m_Name: Melee Shield
   m_TagString: Enemy
@@ -1049,6 +1050,24 @@ MonoBehaviour:
     type: 3}
   spawnOffSetFromEnemy: {x: 0, y: 0, z: 0}
   spawnChance: 33
+--- !u!114 &5009405342800116570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6083788038602741258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60080a26aeea06947bcf521ea61149f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magicNumberPrefab: {fileID: 7122786255667809930, guid: 5a049595a9d51de41a0ff67badff996b,
+    type: 3}
+  MinDistance: 0.3
+  MaxDistance: 0.4
+  MaxRotationOffsetHorizontal: 180
+  MaxRotationOffsetVertical: 60
 --- !u!1 &6757599849635561419
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,6 +1530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7e0fc7b9ddd9f4bafdfa8801d56551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertDirection: 0
 --- !u!1001 &4150889199770384674
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -48,12 +48,32 @@ public class HealthWithShield : HealthWithBasicShield
         if (shieldActive)
         {
             InvokeOnShieldHitSFXPlayOnce();
+
+            if (damageNumberSystem != null)
+            {
+                damageNumberSystem.SpawnNumber("Blocked",
+                new Color(0.14f, 0.77f, 1f),
+                (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
+            }
+
             if (shieldHitIndicator != null) shieldHitIndicator.ShieldHit();
             return false;
         }
 
         AddToHealth(-amount);
-        hurtIndicator.TakenDamage();
+
+        if (damageNumberSystem != null)
+        {
+            damageNumberSystem.SpawnNumber(amount.ToString("F0"),
+            new Color(1, UnityEngine.Random.Range(0f, 1f), 0),
+            (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
+        }
+
+        if (hurtIndicator != null)
+        {
+            hurtIndicator.TakenDamage();
+        }
+
         return true;
     }
 
