@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 8950207567973540252}
   - component: {fileID: 5706574705448098848}
   - component: {fileID: 3449337514029256079}
+  - component: {fileID: 1308339082092308132}
   m_Layer: 7
   m_Name: Beam Grunt
   m_TagString: Enemy
@@ -329,6 +330,24 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1308339082092308132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66097493073879181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60080a26aeea06947bcf521ea61149f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magicNumberPrefab: {fileID: 7122786255667809930, guid: 5a049595a9d51de41a0ff67badff996b,
+    type: 3}
+  MinDistance: 0.3
+  MaxDistance: 0.4
+  MaxRotationOffsetHorizontal: 180
+  MaxRotationOffsetVertical: 60
 --- !u!1 &1058971686249467550
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,6 +881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7e0fc7b9ddd9f4bafdfa8801d56551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertDirection: 0
 --- !u!1001 &2584302014873586952
 PrefabInstance:
   m_ObjectHideFlags: 0

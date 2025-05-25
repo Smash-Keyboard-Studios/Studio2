@@ -35,6 +35,10 @@ public class Health : MonoBehaviour, IDamageable
 
     public event Action onTakenDamageSFXPlayOnce;
 
+    protected float baseSize = 6f;
+    protected float numberSizeMultiply = 3f;
+    protected float minRandomMultiplyAmount = 0.4f;
+    protected float maxRandomMultiplyAmount = 0.4f;
 
 
     protected virtual void Start()
@@ -77,10 +81,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         AddToHealth(-amount);
 
-        float baseSize = 6f;
-        float numberSizeMultiply = 3f;
-        float minRandomMultiplyAmount = 0.4f;
-        float maxRandomMultiplyAmount = 0.4f;
+
 
         if (damageNumberSystem != null)
         {

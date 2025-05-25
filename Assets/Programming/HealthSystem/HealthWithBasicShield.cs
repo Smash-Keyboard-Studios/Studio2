@@ -61,6 +61,13 @@ public class HealthWithBasicShield : Health, IShieldObject
 		{
 			InvokeOnShieldHitSFXPlayOnce();
 
+			if (damageNumberSystem != null)
+			{
+				damageNumberSystem.SpawnNumber("Blocked",
+				new Color(0.14f, 0.77f, 1f),
+				(baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
+			}
+
 			if (shieldHitIndicator != null) shieldHitIndicator.ShieldHit();
 			return false;
 		}
