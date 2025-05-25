@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//by    _                 _ _                     
+//     | |               (_) |                    
+//   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
+//  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
+// | (_| | (_) | | | | | | | |_) | | | (_) | | | |
+//  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+
+
 public class PlayerRotation : MonoBehaviour
 {
     void Update()
@@ -23,7 +31,7 @@ public class PlayerRotation : MonoBehaviour
         Vector3 lookDirectionInWorld = new Vector3(playerToMouse.x, transform.position.y, playerToMouse.y);
 
         // we take the player's position and add the normalized direction vector. we just want a point around the player
-        transform.LookAt(transform.position + lookDirectionInWorld.normalized);
+        transform.LookAt(transform.position + lookDirectionInWorld.normalized); // TODO add some lerp here.
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0); //prevents rotation around other axis
     }
 }

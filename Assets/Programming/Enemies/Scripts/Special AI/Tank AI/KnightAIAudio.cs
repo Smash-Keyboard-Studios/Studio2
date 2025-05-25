@@ -69,24 +69,24 @@ public class KnightAIAudio : GruntAIAudio
 
 	protected virtual void OnSlamAttackStartSFXPlayOnce()
 	{
-		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Knight.Enemy.SlamAttack");
+		aiAudioSource.PlayOneShot(AudioClipFetcher.instance.GetClipFromKey(collectionKey + "SlamAttack"));
 	}
 
 	protected virtual void OnSlamHitGroundSFXPlayOnce()
 	{
-		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Knight.Enemy.SlamShockWave");
+		aiAudioSource.PlayOneShot(AudioClipFetcher.instance.GetClipFromKey(collectionKey + "SlamShockWave"));
 
 	}
 
 	protected virtual void OnSlashAttackSFXPlay()
 	{
-		AudioManager.Instance.PlayAudio(true, false, aiAudioSource, "Knight.Enemy.SerratedSlashAttack");
-
+		aiAudioSource.clip = AudioClipFetcher.instance.GetClipFromKey(collectionKey + "SerratedSlashAttack");
+		aiAudioSource.Play();
 	}
 
 	protected virtual void OnSlashAttackSFXStop()
 	{
-		AudioManager.Instance.StopAudio(aiAudioSource);
+		aiAudioSource.Stop();
 
 	}
 }

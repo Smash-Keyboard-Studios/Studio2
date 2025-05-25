@@ -40,6 +40,7 @@ public class Health : MonoBehaviour, IDamageable
     protected float minRandomMultiplyAmount = 0.4f;
     protected float maxRandomMultiplyAmount = 0.4f;
 
+    public Gradient damageNumbersGradient = new Gradient();
 
     protected virtual void Start()
     {
@@ -85,8 +86,9 @@ public class Health : MonoBehaviour, IDamageable
 
         if (damageNumberSystem != null)
         {
+
             damageNumberSystem.SpawnNumber(amount.ToString("F0"),
-            new Color(1, UnityEngine.Random.Range(0f, 1f), 0),
+            damageNumbersGradient.Evaluate(UnityEngine.Random.Range(0f, 1f)),
             (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
         }
 

@@ -52,7 +52,7 @@ public class HealthWithShield : HealthWithBasicShield
             if (damageNumberSystem != null)
             {
                 damageNumberSystem.SpawnNumber("Blocked",
-                new Color(0.14f, 0.77f, 1f),
+                shieldBlockedColor,
                 (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
             }
 
@@ -65,7 +65,7 @@ public class HealthWithShield : HealthWithBasicShield
         if (damageNumberSystem != null)
         {
             damageNumberSystem.SpawnNumber(amount.ToString("F0"),
-            new Color(1, UnityEngine.Random.Range(0f, 1f), 0),
+            damageNumbersGradient.Evaluate(UnityEngine.Random.Range(0f, 1f)),
             (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
         }
 

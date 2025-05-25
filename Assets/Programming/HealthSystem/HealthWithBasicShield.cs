@@ -32,6 +32,8 @@ public class HealthWithBasicShield : Health, IShieldObject
 	public event Action onShieldBreakSFXPlayOnce;
 	public event Action onShieldActiveSFXPlayOnce;
 
+	public Color shieldBlockedColor = new Color(0.14f, 0.77f, 1f);
+
 	protected override void Start()
 	{
 		shieldHitIndicator = GetComponent<ShieldHitIndicator>();
@@ -64,7 +66,7 @@ public class HealthWithBasicShield : Health, IShieldObject
 			if (damageNumberSystem != null)
 			{
 				damageNumberSystem.SpawnNumber("Blocked",
-				new Color(0.14f, 0.77f, 1f),
+				shieldBlockedColor,
 				(baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
 			}
 
