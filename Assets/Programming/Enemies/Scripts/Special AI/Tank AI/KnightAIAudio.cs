@@ -19,6 +19,8 @@ public class KnightAIAudio : GruntAIAudio
 {
 	protected KnightAI knightAI;
 
+	private const string collectionKey = "EnemyKnightBoss.";
+
 	// Start is called before the first frame update
 	protected override void Start()
 	{
@@ -43,14 +45,14 @@ public class KnightAIAudio : GruntAIAudio
 
 	protected override void OnDeathSFXPlayOnce()
 	{
-		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Knight.Enemy.Death");
+		//aiAudioSource.PlayOneShot(AudioClipFetcher.instance.GetClipFromKey(collectionKey + ))
 	}
 
 	protected override void OnWalkingSFXPlay(float speed)
 	{
 		if (walkSFXPlayTimer <= 0)
 		{
-			AudioManager.Instance.PlayAudio(true, true, aiAudioSource, "Knight.Enemy.Walk");
+			aiAudioSource.PlayOneShot(AudioClipFetcher.instance.GetClipFromKey(collectionKey + "Walk"));
 			walkSFXPlayTimer = walkSFXPlayDelay;
 		}
 	}
@@ -62,7 +64,7 @@ public class KnightAIAudio : GruntAIAudio
 
 	protected override void OnAttackSFXPlayOnce(bool obj)
 	{
-		AudioManager.Instance.PlayAudio(false, false, aiAudioSource, "Knight.Enemy.MeleeAttack");
+		aiAudioSource.PlayOneShot(AudioClipFetcher.instance.GetClipFromKey(collectionKey + "MeleeAttack"));
 	}
 
 	protected virtual void OnSlamAttackStartSFXPlayOnce()
