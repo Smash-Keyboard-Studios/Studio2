@@ -5,6 +5,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
+//by    _                 _ _                     
+//     | |               (_) |                    
+//   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
+//  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
+// | (_| | (_) | | | | | | | |_) | | | (_) | | | |
+//  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
 
 
 /// <summary>
@@ -52,6 +58,16 @@ public class SpawnWaveManager : MonoBehaviour
     private Coroutine waveCoroutine;
 
 
+    void Awake()
+    {
+        playerTransform = GameObject.Find("Player").transform;
+
+        if (playerTransform == null)
+        {
+            throw new NullReferenceException("Cannot locate the player and get transform!");
+        }
+    }
+
 
     public void SpawnTheWave()
     {
@@ -78,6 +94,7 @@ public class SpawnWaveManager : MonoBehaviour
             for (int i = 0; i < waveDataAsIDs.Count; i++)
             {
                 SpawnAI(waveDataAsIDs[i], spawnPoints, playerTransform.position, minSpawnRadius, maxSpawnRadius);
+                yield return null;
             }
 
             waveDataAsIDs.Clear();
@@ -238,7 +255,7 @@ public class SpawnWaveManager : MonoBehaviour
         List<int> listToReturn = new List<int>();
         foreach (EnemiesInWaveData enemy in enemyInWaveData)
         {
-            for (int i = 1; i < enemy.amount; i++)
+            for (int i = 0; i < enemy.amount; i++)
             {
                 listToReturn.Add(enemy.id);
             }

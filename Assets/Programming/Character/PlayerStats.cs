@@ -16,9 +16,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     public float PlayerHealth = 100;
     public float PlayerStamina = 100;
     public float PlayerMaxHealth = 100;
-    public float PlayerMinHealth = 0;
     public float PlayerMaxStamina = 100;
-    public float PlayerMinStamina = 0;
     public float PlayerHealAmount = 25;
 
     public bool isDead;
@@ -32,14 +30,15 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
     private PlayerInputHandler InputHandler;
 
-    protected Animator MyAnim;
+    protected Animator MyAnim; // ! protected? mmm, typo?
 
     [HideInInspector] public AudioSource audioSource;
 
     [Header("Other GameObject References")]
     public GameObject MainCharacter;
     public GameObject playerRotation;
-    public GameObject DeathScreen;
+
+    public event Action onDeathEvent;
 
     private PlayerAttack attackScript;
     private ShieldAbility shieldScript;
@@ -62,7 +61,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         indicator = GetComponent<DamageIndicator>();
 
         //interaction ui starts as disabled
-        if (InteractionUI != null) InteractionUI.SetActive(false);
+        if (InteractionUI != null) InteractionUI.SetActive(false); // ! we no longer have interact text. :/
 
         //player models start as disabled if that ability is locked (enabled on unlock)
         HooverModel.SetActive(shieldScript.unlockedShield);
@@ -74,21 +73,22 @@ public class PlayerStats : MonoBehaviour, IDamageable
         {
             PlayerHealth -= Amount;
             AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_GetHit");
-            if (indicator.enabled) indicator.FlashStart(); // domibron ~ I added a check because this breaks the AI somehow.
+            if (indicator.enabled) indicator.FlashStart(); // ! domibron ~ I added a check because this breaks the AI somehow.
             return true;
         }
         else if (shieldScript.isShieldActive)
         {
             //if shield has blocked damage play the shield deflect sound
-            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_ShieldHit");
+            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_ShieldHit"); // ! domibron ~ add shield hit VFX too. (also damage number system can display text such as "blocked")
         }
         return false;
     }
 
     private void Update()
     {
-        PlayerStamina = Mathf.Clamp(PlayerStamina, PlayerMinStamina, PlayerMaxStamina); //Clamps the PlayerStamina between the min and max stamina values
-        PlayerHealth = Mathf.Clamp(PlayerHealth, PlayerMinHealth, PlayerMaxHealth); //Clamps the PlayerHealth between the min and max health values
+
+        PlayerStamina = Mathf.Clamp(PlayerStamina, 0, PlayerMaxStamina); //Clamps the PlayerStamina between the min and max stamina values
+        PlayerHealth = Mathf.Clamp(PlayerHealth, 0, PlayerMaxHealth); //Clamps the PlayerHealth between the min and max health values
 
         //When the player loses all of their Health they will die.
         if (PlayerHealth == 0)
@@ -103,22 +103,22 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
                 MyAnim.SetTrigger("Dead");
                 MyAnim.SetBool("isDead", true);
-                DeathScreen.SetActive(true);
+                onDeathEvent?.Invoke();
             }
         }
         else
         {
-            isDead = false;
+            isDead = false; // ! domibron ~ this will allow the player to revive themselves. What is the point of this else? could be removed.
 
             playerRotation.GetComponent<PlayerRotation>().enabled = true;
             GetComponent<PlayerMovement>().enabled = true;
             GetComponent<PlayerAttack>().enabled = true;
 
             MyAnim.SetBool("isDead", false);
-            DeathScreen.SetActive(false);
         }
     }
 
+    // ! start domibron ~ i want to rework this slightly as this is not a good scalable solution to collectables.
     private void OnTriggerStay(Collider other)
     {
         //interactable objects
@@ -174,6 +174,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
             InteractionUI.SetActive(false);
         }
     }
+    // ! end
 
     private IEnumerator ShowAbilityUnlocked(string whichAbility)
     {
