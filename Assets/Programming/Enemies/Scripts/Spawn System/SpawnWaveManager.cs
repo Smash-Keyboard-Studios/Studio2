@@ -68,6 +68,11 @@ public class SpawnWaveManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        print(enemyCount);
+    }
+
 
     public void SpawnTheWave()
     {
@@ -104,10 +109,12 @@ public class SpawnWaveManager : MonoBehaviour
                 yield return null;
             }
 
+            print("Wave was cleared");
             onWaveEnd?.Invoke();
         }
 
-        onAllWavesCleared.Invoke();
+        print("All eaves were cleared");
+        onAllWavesCleared?.Invoke();
     }
 
 
@@ -141,7 +148,8 @@ public class SpawnWaveManager : MonoBehaviour
 
         // spawn the AI and set state to alerted. This is not proc gen. this is wave gen.
         GameObject ai = Instantiate(aiPrefab, spawnLocation.Value, Quaternion.identity, null);
-        ai.GetComponent<AIBase>()?.ChangeState(AIState.Alerted);
+        ai.GetComponent<AIBase>().ChangeState(AIState.Alerted);
+        ai.GetComponent<AIBase>().onDeath += RemoveEnemy;
 
         AddEnemy(ai.transform);
 
@@ -219,9 +227,6 @@ public class SpawnWaveManager : MonoBehaviour
     #region AddEnemy
     private void AddEnemy(Transform enemyTransform)
     {
-        if (!transform.CompareTag("Enemy")) return;
-
-        enemyTransform.GetComponent<AIBase>().onDeath += RemoveEnemy;
         enemyCount++;
         trackingEnemies.Add(enemyTransform);
     }
