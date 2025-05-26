@@ -31,7 +31,7 @@ public class Health : MonoBehaviour, IDamageable
     protected bool calledOnDeathEvent = false;
 
     protected HurtIndicatorAuto hurtIndicator;
-    protected DamageNumberSystem damageNumberSystem;
+    protected FloatingTextSystem floatingTextSystem;
 
     public event Action onTakenDamageSFXPlayOnce;
 
@@ -45,7 +45,7 @@ public class Health : MonoBehaviour, IDamageable
     protected virtual void Start()
     {
         hurtIndicator = GetComponent<HurtIndicatorAuto>();
-        damageNumberSystem = GetComponent<DamageNumberSystem>();
+        floatingTextSystem = GetComponent<FloatingTextSystem>();
 
 
         Reset();
@@ -84,10 +84,10 @@ public class Health : MonoBehaviour, IDamageable
 
 
 
-        if (damageNumberSystem != null)
+        if (floatingTextSystem != null)
         {
 
-            damageNumberSystem.SpawnNumber(amount.ToString("F0"),
+            floatingTextSystem.SpawnText(amount.ToString("F0"),
             damageNumbersGradient.Evaluate(UnityEngine.Random.Range(0f, 1f)),
             (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
         }

@@ -49,9 +49,9 @@ public class HealthWithShield : HealthWithBasicShield
         {
             InvokeOnShieldHitSFXPlayOnce();
 
-            if (damageNumberSystem != null)
+            if (floatingTextSystem != null)
             {
-                damageNumberSystem.SpawnNumber("Blocked",
+                floatingTextSystem.SpawnText("Blocked",
                 shieldBlockedColor,
                 (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
             }
@@ -62,9 +62,9 @@ public class HealthWithShield : HealthWithBasicShield
 
         AddToHealth(-amount);
 
-        if (damageNumberSystem != null)
+        if (floatingTextSystem != null)
         {
-            damageNumberSystem.SpawnNumber(amount.ToString("F0"),
+            floatingTextSystem.SpawnText(amount.ToString("F0"),
             damageNumbersGradient.Evaluate(UnityEngine.Random.Range(0f, 1f)),
             (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
         }

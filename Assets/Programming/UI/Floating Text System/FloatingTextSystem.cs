@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Spawns numbers around the entity to display the damage it took.
 /// </summary>
-public class DamageNumberSystem : MonoBehaviour
+public class FloatingTextSystem : MonoBehaviour
 {
     public GameObject magicNumberPrefab;
 
@@ -21,11 +21,21 @@ public class DamageNumberSystem : MonoBehaviour
     void Start()
     {
         cameraTransform = Camera.main.transform;
+        //StartCoroutine(spawnNum());
     }
 
     void Update()
     {
 
+    }
+
+    IEnumerator spawnNum()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1.1f);
+            SpawnText("test", Color.cyan);
+        }
     }
 
     /// <summary>
@@ -34,7 +44,7 @@ public class DamageNumberSystem : MonoBehaviour
     /// <param name="text">The message or number to display.</param>
     /// <param name="textColor">The colour for the text.</param>
     /// <param name="textSize">How large the text should be.</param>
-    public void SpawnNumber(string text, Color textColor, float textSize = 10f)
+    public void SpawnText(string text, Color textColor, float textSize = 10f)
     {
         // print(textSize);
         // we need to spawn the numbers but based on the camera's position, spawn 180 radius in front towards the camera.

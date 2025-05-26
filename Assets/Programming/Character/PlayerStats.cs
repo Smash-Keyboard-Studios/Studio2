@@ -44,6 +44,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
     private ShieldAbility shieldScript;
     private DamageIndicator indicator;
 
+    private FloatingTextSystem floatingTextSystem;
+
     private void Start()
     {
         //Gets the InputHandler from the PlayerInputHandler instance
@@ -60,6 +62,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
         shieldScript = GetComponent<ShieldAbility>();
         indicator = GetComponent<DamageIndicator>();
 
+        floatingTextSystem = GetComponent<FloatingTextSystem>();
+
         //interaction ui starts as disabled
         if (InteractionUI != null) InteractionUI.SetActive(false); // ! we no longer have interact text. :/
 
@@ -74,12 +78,17 @@ public class PlayerStats : MonoBehaviour, IDamageable
             PlayerHealth -= Amount;
             AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_GetHit");
             if (indicator.enabled) indicator.FlashStart(); // ! domibron ~ I added a check because this breaks the AI somehow.
+            floatingTextSystem.SpawnText(Amount.ToString("F0"), new Color(0.8f, 0.5f, 0f),
+            (6 + (3 * Mathf.Sqrt(Amount))) * UnityEngine.Random.Range(0.4f, 0.4f));
             return true;
         }
         else if (shieldScript.isShieldActive)
         {
             //if shield has blocked damage play the shield deflect sound
-            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_ShieldHit"); // ! domibron ~ add shield hit VFX too. (also damage number system can display text such as "blocked")
+            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_ShieldHit"); // ! domibron ~ add shield hit VFX too. 
+            if (indicator.enabled) indicator.FlashStart(); // ! domibron ~ I added a check because this breaks the AI somehow.
+            floatingTextSystem.SpawnText("Blocked", Color.cyan,
+            (6 + (3 * Mathf.Sqrt(Amount))) * UnityEngine.Random.Range(0.4f, 0.4f));
         }
         return false;
     }
