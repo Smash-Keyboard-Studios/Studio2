@@ -23,6 +23,14 @@ public class DialogueHandler : MonoBehaviour
         GetTreeData();
     }
 
+    void Start()
+    {
+        if (currentData.dialogueItem == null) // ! domibron ~ added check to fix a bug
+        {
+            CloseDialogue();
+        }
+    }
+
     public void CloseDialogue()
     {
         ClearPlayerDialogueOptions();
