@@ -40,7 +40,8 @@ public class Health : MonoBehaviour, IDamageable
     protected float minRandomMultiplyAmount = 0.4f;
     protected float maxRandomMultiplyAmount = 0.4f;
 
-    public Gradient damageNumbersGradient = new Gradient();
+    public Color topColor = new Color(1, 0.8f, 0.1f);
+    public Color bottomColor = new Color(1, 0, 0);
 
     protected virtual void Start()
     {
@@ -83,14 +84,8 @@ public class Health : MonoBehaviour, IDamageable
         AddToHealth(-amount);
 
 
+        SpawnDamageText(amount);
 
-        if (floatingTextSystem != null)
-        {
-
-            floatingTextSystem.SpawnText(amount.ToString("F0"),
-            damageNumbersGradient.Evaluate(UnityEngine.Random.Range(0f, 1f)),
-            (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
-        }
 
 
         if (hurtIndicator != null)
@@ -103,6 +98,16 @@ public class Health : MonoBehaviour, IDamageable
 
 
         return true;
+    }
+
+    protected void SpawnDamageText(float amount)
+    {
+        if (floatingTextSystem != null)
+        {
+            floatingTextSystem.SpawnTwoToneText(amount.ToString("F0"),
+            topColor, bottomColor,
+            textSize: (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
+        }
     }
 
     /// <summary>

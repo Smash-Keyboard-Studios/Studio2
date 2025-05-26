@@ -32,7 +32,8 @@ public class HealthWithBasicShield : Health, IShieldObject
 	public event Action onShieldBreakSFXPlayOnce;
 	public event Action onShieldActiveSFXPlayOnce;
 
-	public Color shieldBlockedColor = new Color(0.14f, 0.77f, 1f);
+	public Color shieldTopColor = new Color(0.7f, 1f, 1f);
+	public Color shieldBottomColor = new Color(0f, 0.6f, 1f);
 
 	protected override void Start()
 	{
@@ -63,12 +64,8 @@ public class HealthWithBasicShield : Health, IShieldObject
 		{
 			InvokeOnShieldHitSFXPlayOnce();
 
-			if (floatingTextSystem != null)
-			{
-				floatingTextSystem.SpawnText("Blocked",
-				shieldBlockedColor,
-				(baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
-			}
+			SpawnShieldBlockedText(amount);
+
 
 			if (shieldHitIndicator != null) shieldHitIndicator.ShieldHit();
 			return false;
@@ -100,6 +97,19 @@ public class HealthWithBasicShield : Health, IShieldObject
 	{
 		return (shieldActive ? 1 : 0);
 	}
+
+
+	protected void SpawnShieldBlockedText(float amount)
+	{
+		if (floatingTextSystem != null)
+		{
+			floatingTextSystem.SpawnTwoToneText("Blocked",
+			shieldTopColor, shieldBottomColor,
+			textSize: (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
+		}
+	}
+
+
 
 	protected virtual void InvokeOnShieldHitSFXPlayOnce()
 	{
