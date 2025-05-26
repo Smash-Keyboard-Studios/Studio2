@@ -1921,7 +1921,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1186490166}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &191495903
 MonoBehaviour:
@@ -7263,7 +7263,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1186490166}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &790042081
 PrefabInstance:
@@ -7588,7 +7588,7 @@ RectTransform:
   - {fileID: 1100860469}
   - {fileID: 163859728}
   - {fileID: 371382798}
-  m_Father: {fileID: 1186490166}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10169,12 +10169,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1200261941}
-  - {fileID: 867691429}
-  - {fileID: 781680487}
-  - {fileID: 191495902}
-  - {fileID: 1392729966}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1200261937
@@ -10272,7 +10267,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1107244574}
-  m_Father: {fileID: 1186490166}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11707,7 +11702,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1186490166}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
         type: 3}
@@ -11804,12 +11799,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84ae927fbae70fc4a9c031e093738057, type: 3}
---- !u!4 &1392729966 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2603491572775404665, guid: 84ae927fbae70fc4a9c031e093738057,
-    type: 3}
-  m_PrefabInstance: {fileID: 1392729965}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1429718964
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23723,5 +23712,10 @@ SceneRoots:
   - {fileID: 2055751596}
   - {fileID: 1621671270}
   - {fileID: 1186490166}
+  - {fileID: 1200261941}
+  - {fileID: 867691429}
+  - {fileID: 781680487}
+  - {fileID: 191495902}
+  - {fileID: 1392729965}
   - {fileID: 411973430}
   - {fileID: 701440272}

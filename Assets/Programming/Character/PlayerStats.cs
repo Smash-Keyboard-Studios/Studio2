@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.SceneManagement;
 
 //Script by Aaron Wing
 
@@ -22,11 +20,10 @@ public class PlayerStats : MonoBehaviour, IDamageable
     public bool isDead;
 
     [Header("Interaction")]
-    public GameObject InteractionUI;
-    public GameObject AbilityUnlockedUI;
+    public GameObject AbilityUnlockedUI; // TODO relocate to its own system.
 
-    [Header("Unlockable Abilities")]
-    [SerializeField] private GameObject HooverModel;
+
+
 
     private PlayerInputHandler InputHandler;
 
@@ -63,12 +60,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
         indicator = GetComponent<DamageIndicator>();
 
         floatingTextSystem = GetComponent<FloatingTextSystem>();
-
-        //interaction ui starts as disabled
-        if (InteractionUI != null) InteractionUI.SetActive(false); // ! we no longer have interact text. :/
-
-        //player models start as disabled if that ability is locked (enabled on unlock)
-        HooverModel.SetActive(shieldScript.unlockedShield);
     }
 
     public bool TakeDamage(float Amount)
@@ -127,64 +118,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
         }
     }
 
-    // ! start domibron ~ i want to rework this slightly as this is not a good scalable solution to collectables.
-    private void OnTriggerStay(Collider other)
-    {
-        //interactable objects
-
-        switch (other.gameObject.tag)
-        {
-            case "UnlockableHammer":
-                InteractionUI.SetActive(true);
-
-                if (InputHandler.InteractionTriggered)
-                {
-                    //enable heavy attack
-                    attackScript.unlockedHeavyAttack = true;
-
-                    Destroy(other.gameObject);
-                    InteractionUI.SetActive(false);
-
-                    StartCoroutine(ShowAbilityUnlocked("Heavy Attack"));
-                }
-
-                break;
-
-            case "UnlockableShield":
-                InteractionUI.SetActive(true);
-
-                if (InputHandler.InteractionTriggered)
-                {
-                    //enable Shield
-                    shieldScript.unlockedShield = true;
-
-                    HooverModel.SetActive(true);
-
-                    Destroy(other.gameObject);
-                    InteractionUI.SetActive(false);
-
-                    StartCoroutine(ShowAbilityUnlocked("Shield"));
-                }
-
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        //interactable objects
-
-        if (other.gameObject.CompareTag("UnlockableHammer") ||
-            other.gameObject.CompareTag("UnlockableShield"))
-        {
-            InteractionUI.SetActive(false);
-        }
-    }
-    // ! end
-
+    // TODO relocate on a UI popup manager than on player stats. planning to remove player stats and uncouple player scripts.
     private IEnumerator ShowAbilityUnlocked(string whichAbility)
     {
         AbilityUnlockedUI.SetActive(true);
