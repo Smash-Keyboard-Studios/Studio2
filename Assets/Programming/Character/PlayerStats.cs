@@ -136,7 +136,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
                     Destroy(other.gameObject);
                     InteractionUI.SetActive(false);
 
-                    StartCoroutine("ShowAbilityUnlocked", "Heavy Attack");
+                    StartCoroutine(ShowAbilityUnlocked("Heavy Attack"));
                 }
 
                 break;
@@ -154,7 +154,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
                     Destroy(other.gameObject);
                     InteractionUI.SetActive(false);
 
-                    StartCoroutine("ShowAbilityUnlocked", "Shield");
+                    StartCoroutine(ShowAbilityUnlocked("Shield"));
                 }
 
                 break;
