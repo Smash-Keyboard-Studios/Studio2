@@ -12,6 +12,7 @@ public class FloatingText : MonoBehaviour
     void Start()
     {
         //moveDirection = Random.insideUnitSphere;
+        transform.LookAt(transform.position - (Camera.main.transform.position - transform.position));
     }
 
     // Update is called once per frame
