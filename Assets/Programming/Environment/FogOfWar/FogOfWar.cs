@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class FogOfWar : MonoBehaviour
 {
     Renderer fogRenderer;
+    public Renderer miniMapFogRenderer;
 
     [Header("Fade-out Speed")]
     [SerializeField] private float fadeOutSpeed = 0.05f;
@@ -34,6 +35,7 @@ public class FogOfWar : MonoBehaviour
         {
             yield return new WaitForSeconds(0.01f);
             fogRenderer.material.SetFloat("_Opacity", fogRenderer.material.GetFloat("_Opacity") - fadeOutSpeed);
+            miniMapFogRenderer.material.SetFloat("_Opacity", fogRenderer.material.GetFloat("_Opacity"));
         }
 
         yield return new WaitForSeconds(2f); // Wait for SFX to finish, very hardbaked
