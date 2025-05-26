@@ -75,17 +75,17 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnHeavyAttack(InputValue input)
     {
-        if (lightAttacking || 
-            heavyAttacking || 
+        if (lightAttacking ||
+            heavyAttacking ||
             !unlockedHeavyAttack) return;
 
-        StartCoroutine (HeavyAttack());
+        StartCoroutine(HeavyAttack());
     }
 
     public void OnChargedHeavyAttack(InputValue input)
     {
-        if (lightAttacking || 
-            heavyAttacking || 
+        if (lightAttacking ||
+            heavyAttacking ||
             !unlockedHeavyAttack) return;
 
         if (input.isPressed) { StartCoroutine("ChargeChargedHeavyAttack"); } //if pressed then start charging
@@ -247,12 +247,16 @@ public class PlayerAttack : MonoBehaviour
 
         if (showHeavyRadius)
         {
-            Gizmos.DrawSphere(transform.position, heavyAttackRadius);
+            Gizmos.matrix = Matrix4x4.identity;
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireSphere(transform.position, heavyAttackRadius);
         }
 
         if (showChargedHeavyRadius)
         {
-            Gizmos.DrawSphere(transform.position, chargedHeavyAttackRadius);
+            Gizmos.matrix = Matrix4x4.identity;
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, chargedHeavyAttackRadius);
         }
     }
 }
