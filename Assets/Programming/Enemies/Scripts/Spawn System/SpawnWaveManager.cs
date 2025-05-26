@@ -64,13 +64,19 @@ public class SpawnWaveManager : MonoBehaviour
 
         if (playerTransform == null)
         {
-            throw new NullReferenceException("Cannot locate the player and get transform!");
+            Debug.LogError("Cannot locate the player and get transform!");
         }
     }
 
     void Update()
     {
         //print(enemyCount);
+
+        if (playerTransform == null)
+        {
+            Debug.LogError("Cannot locate the player and get transform! Trying again.");
+            playerTransform = GameObject.Find("Player").transform;
+        }
     }
 
 
