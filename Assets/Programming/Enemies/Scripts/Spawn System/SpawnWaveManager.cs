@@ -70,7 +70,7 @@ public class SpawnWaveManager : MonoBehaviour
 
     void Update()
     {
-        print(enemyCount);
+        //print(enemyCount);
     }
 
 
