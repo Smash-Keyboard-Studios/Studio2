@@ -3034,9 +3034,7 @@ MonoBehaviour:
   PlayerMaxStamina: 100
   PlayerHealAmount: 25
   isDead: 0
-  InteractionUI: {fileID: 0}
   AbilityUnlockedUI: {fileID: 0}
-  HooverModel: {fileID: 6764947534684146016}
   audioSource: {fileID: 0}
   MainCharacter: {fileID: 27083249097777768}
   playerRotation: {fileID: 2829685357577232280}
@@ -3118,6 +3116,7 @@ MonoBehaviour:
   unlockedShield: 0
   shieldUsageSec: 3
   coolDownSec: 5
+  HooverModel: {fileID: 6764947534684146016}
 --- !u!114 &8801687776631732312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5780,6 +5779,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BackPackHolder
+      objectReference: {fileID: 0}
+    - target: {fileID: 3286663208650143064, guid: fe305a1575fbb7e47b2412543c318661,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8538547988146206683, guid: fe305a1575fbb7e47b2412543c318661,
         type: 3}

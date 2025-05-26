@@ -14,6 +14,8 @@ public class ShieldAbility : MonoBehaviour
     public float shieldUsageSec = 3f;
     public float coolDownSec = 5f;
 
+    public GameObject HooverModel;
+
     void Start()
     {
         inputHandler = PlayerInputHandler.Instance;
@@ -37,6 +39,8 @@ public class ShieldAbility : MonoBehaviour
                 }
             }
         }
+
+        HooverModel.SetActive(unlockedShield);
     }
 
     IEnumerator ShieldUsage()
