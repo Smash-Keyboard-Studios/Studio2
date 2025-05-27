@@ -565,6 +565,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 7286b77f2d6c8d441a49a4b9e544cbe8, type: 2}
   - {fileID: 2100000, guid: 7e876d255ca833d4bb76c49d32b7dd5e, type: 2}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1061,6 +1062,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: b4aaa242eba63204f955c1be9989cb35, type: 2}
   - {fileID: 2100000, guid: 7e876d255ca833d4bb76c49d32b7dd5e, type: 2}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1670,6 +1672,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b4aaa242eba63204f955c1be9989cb35, type: 2}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1855,6 +1858,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 36c894d427c6f0a48b38642d7e03b1d4, type: 2}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2457,6 +2461,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 36c894d427c6f0a48b38642d7e03b1d4, type: 2}
   - {fileID: 2100000, guid: 7e876d255ca833d4bb76c49d32b7dd5e, type: 2}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2732,6 +2737,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b4aaa242eba63204f955c1be9989cb35, type: 2}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3004,15 +3010,16 @@ GameObject:
   - component: {fileID: 770932355983826125}
   - component: {fileID: 7613845529211925136}
   - component: {fileID: 2470002677059597800}
-  - component: {fileID: 533977030738716872}
+  - component: {fileID: 8656545188935216562}
   - component: {fileID: 788834500746778170}
   - component: {fileID: 7923543069423568450}
   - component: {fileID: 8236928788153488819}
   - component: {fileID: 7694880310181773891}
-  - component: {fileID: 8801687776631732312}
   - component: {fileID: 774508971772862245}
   - component: {fileID: 5980035394998752889}
   - component: {fileID: 501272729311254531}
+  - component: {fileID: 975215719065056197}
+  - component: {fileID: 5600486302336137985}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3155,13 +3162,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WalkSpeed: 4
   SprintMultiplier: 2
+  MaxStamina: 100
   StaminaDecrease: 7
   StaminaIncrease: 10
   StaminaChargeRate: 1.5
   Gravity: 9.81
+  currentStamina: 0
   MainCharacter: {fileID: 27083249097777768}
   rotation: {fileID: 1469664648306775198}
---- !u!114 &533977030738716872
+--- !u!114 &8656545188935216562
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3170,19 +3179,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5005257603024285522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65bcd4e1142ca2a4a8e3dce38f7b3570, type: 3}
+  m_Script: {fileID: 11500000, guid: 75afc6843d2c0e7488b9f3b039df49f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerHealth: 100
-  PlayerStamina: 100
-  PlayerMaxHealth: 100
-  PlayerMaxStamina: 100
-  PlayerHealAmount: 25
-  isDead: 0
-  AbilityUnlockedUI: {fileID: 0}
-  audioSource: {fileID: 0}
-  MainCharacter: {fileID: 27083249097777768}
-  playerRotation: {fileID: 2829685357577232280}
+  maxHealth: 100
+  topColor: {r: 1, g: 0.8, b: 0.1, a: 1}
+  bottomColor: {r: 1, g: 0, b: 0, a: 1}
+  shieldObject: {fileID: 1194959756969462176}
+  startShieldAsActive: 0
+  shieldActive: 1
+  shieldTopColor: {r: 0.7, g: 1, b: 1, a: 1}
+  shieldBottomColor: {r: 0, g: 0.6, b: 1, a: 1}
 --- !u!114 &788834500746778170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3272,28 +3279,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201d1e2528590aa45974384ec3efc295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeShield: {fileID: 1194959756969462176}
   isShieldInCoolDown: 0
   isShieldActive: 0
   unlockedShield: 0
   shieldUsageSec: 3
   coolDownSec: 5
   HooverModel: {fileID: 6764947534684146016}
---- !u!114 &8801687776631732312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5005257603024285522}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 100ffcdd0d68e7f40839d1d2358a8269, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkIntensity: 2
-  blinkDuration: 0.1
-  flashTime: 0.15
 --- !u!82 &774508971772862245
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3421,6 +3412,33 @@ MonoBehaviour:
   MaxDistance: 0.4
   MaxRotationOffsetHorizontal: 180
   MaxRotationOffsetVertical: 60
+--- !u!114 &975215719065056197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005257603024285522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee6ef1fa45e31b4a83bc1491744b5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5600486302336137985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005257603024285522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8974864d88eb72041b5fa3b50537c52e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialName: HurtColor
+  opacity: 150
+  hurtDuration: 0.2
 --- !u!1 &5031218017895963573
 GameObject:
   m_ObjectHideFlags: 0
@@ -3474,6 +3492,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 36c894d427c6f0a48b38642d7e03b1d4, type: 2}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3688,6 +3707,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 6664358993437552698, guid: beb6132cff46fb6479fbbdea246a784b, type: 3}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4126,6 +4146,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 36c894d427c6f0a48b38642d7e03b1d4, type: 2}
   - {fileID: 2100000, guid: 7e876d255ca833d4bb76c49d32b7dd5e, type: 2}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4357,6 +4378,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: b4aaa242eba63204f955c1be9989cb35, type: 2}
   - {fileID: 2100000, guid: 7e876d255ca833d4bb76c49d32b7dd5e, type: 2}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4631,6 +4653,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 36c894d427c6f0a48b38642d7e03b1d4, type: 2}
   - {fileID: 2100000, guid: 7e876d255ca833d4bb76c49d32b7dd5e, type: 2}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5264,6 +5287,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: b4aaa242eba63204f955c1be9989cb35, type: 2}
   - {fileID: 2100000, guid: 7e876d255ca833d4bb76c49d32b7dd5e, type: 2}
+  - {fileID: 2100000, guid: 0ca180495c22b304a9acfad8c938f857, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
