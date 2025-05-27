@@ -770,6 +770,7 @@ RectTransform:
   - {fileID: 6794813792578123553}
   - {fileID: 1082135400519010674}
   - {fileID: 3190900059318579358}
+  - {fileID: 4243581791190966019}
   - {fileID: 7345961434981045310}
   - {fileID: 5062404627825534178}
   - {fileID: 8769860900752040235}
@@ -777,7 +778,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -35, y: 35}
+  m_AnchoredPosition: {x: -35, y: 36}
   m_SizeDelta: {x: 234.0002, y: 235}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3752350058689421806
@@ -1033,10 +1034,16 @@ MonoBehaviour:
   dangerLightIndicatorImage: {fileID: 8566216284542343385}
   dangerLightOn: {fileID: 21300000, guid: b98f0717c2c334e46a39fb68a4622bb1, type: 3}
   dangerLightOff: {fileID: 21300000, guid: 7839a4866e29d954383ec08e6e8ebbe5, type: 3}
+  dangerLightIsOn: 0
   itemLightIndicatorImage: {fileID: 7614814321948116384}
   itemLightOn: {fileID: 21300000, guid: 6757e0086e5d75947b223ce6828a3a0c, type: 3}
   itemLightOff: {fileID: 21300000, guid: 24e55039a1075e24a90e6ad78875d76a, type: 3}
+  itemLightIsOn: 0
+  blinkRate: 4
   pointerImage: {fileID: 3190900059318579358}
+  SweepImage: {fileID: 4243581791190966019}
+  rotationSpeed: 40
+  entityDetectionRangeRadius: 20
 --- !u!1 &2324804226719688765
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,7 +2051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5176471}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.078431375}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2269,7 +2276,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d28a78fbb09416543bc0fdb83d7f529e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3a49369f579b52644b5636d1d9f9dd8d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3804,6 +3811,81 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!1 &7981983574329175363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4243581791190966019}
+  - component: {fileID: 1465927956068904136}
+  - component: {fileID: 1471273095301070428}
+  m_Layer: 5
+  m_Name: Minimap Sweep
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4243581791190966019
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7981983574329175363}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5228680696097944960}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1465927956068904136
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7981983574329175363}
+  m_CullTransparentMesh: 1
+--- !u!114 &1471273095301070428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7981983574329175363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0.9339623, b: 0.2357369, a: 0.05490196}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 0bf1b6743b4eb6a4fa9ebf13f489bb58, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8590708322373499338
 GameObject:
   m_ObjectHideFlags: 0

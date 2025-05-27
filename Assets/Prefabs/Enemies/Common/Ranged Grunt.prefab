@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8983775168675799407}
-  - component: {fileID: 8897304238968218981}
+  - component: {fileID: 8336834048070901204}
   - component: {fileID: 3222878168228818675}
-  - component: {fileID: 6754516033712081943}
   - component: {fileID: 1595968694445084054}
   - component: {fileID: 5225559723827089388}
   - component: {fileID: 1134480095389972997}
@@ -47,7 +46,7 @@ Transform:
   - {fileID: 1813575920592918985}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8897304238968218981
+--- !u!114 &8336834048070901204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,34 +55,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 66097493073879181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282f227a3cbd4ff409aa3870071a4fdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e4e70eba54bc904da96d137f88e85be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 4.25
-  currentAIState: 0
-  lightAttackRate: 0.75
-  minDistanceForAttack: 8
-  globalAttackCoolDown: 0.41666666
-  maxDetectionRange: 8
-  rangedDamage: 9
-  rangedLifespan: 1.25
-  rangedSpeed: 10
-  rangedGravity: 1
-  isBeam: 0
-  projectilePrefab: {fileID: 3761678875516936036, guid: 69c9cafc9d150514881727da3970eb67,
-    type: 3}
-  projectileSpawnPoint:
-  - {fileID: 8494952796967733763}
-  beamPrefab: {fileID: 0}
-  beamSpawnPoint:
-  - {fileID: 0}
-  beamWindUp: 1
-  retreatDistance: 4
-  retreatCooldown: 8
-  chaseTimer: 4
+  maxSpeed: 5
+  currentAIState: 1
+  projectileAttackSettings:
+    maxAttackRange: 7
+    attackCoolDown: 1
+    projectileSpeed: 10
+    projectileDamage: 5
+    projectilePrefab: {fileID: 1214869180728453124, guid: 0d66f9aa92792674ab4b2557118ff665,
+      type: 3}
+  minDistanceForPlayerToRetreat: 5
+  retreatDuration: 5
+  delayUntilRetreatAgain: 5
+  defaultStoppingDistance: 0
+  maxDetectionRange: 30
+  maxTurningDegreesDelta: 0.5
+  speedWhileNextToPlayer: 0.4
   enableVisualDetectionRadius: 0
   enableVisualDetectionLine: 0
-  distanceFromPlayer: 6.242662
 --- !u!114 &3222878168228818675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,19 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1056453067620913096}
---- !u!114 &6754516033712081943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 66097493073879181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e88ed2003887341974acc7ef16b535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSFXPlayDelay: 1
 --- !u!114 &1595968694445084054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,13 +537,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3167375138865106179}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6, y: 4, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8983775168675799407}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &7343895048357647688
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -606,8 +585,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 045b15ec09bba42448d89db77fa6f20a,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6d0bd9019eab95045921880097ebe536, type: 3}
   m_Color: {r: 1, g: 0.49622637, b: 0.8163829, a: 1}
   m_FlipX: 0
   m_FlipY: 0

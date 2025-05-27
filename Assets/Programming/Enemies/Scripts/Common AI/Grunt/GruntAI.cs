@@ -128,7 +128,7 @@ public class GruntAI : AIBase
 	/// <summary>
 	/// The path used for AI navigation and calculation.
 	/// </summary>
-	protected NavMeshPath path;
+	// protected NavMeshPath path;
 
 	/// <summary>
 	/// The target location for the AI to head to.
@@ -191,7 +191,7 @@ public class GruntAI : AIBase
 	{
 		base.Awake();
 
-		path = new NavMeshPath();
+		// path = new NavMeshPath();
 
 		try
 		{
