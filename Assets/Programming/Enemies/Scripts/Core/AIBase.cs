@@ -145,7 +145,7 @@ public class AIBase : MonoBehaviour
 
 		onStateChanged += OnStateChanged;
 
-		GetComponent<Health>().onNoHealthLeft += KillAI;
+		GetComponent<Health>().onDeathEvent += KillAI;
 	}
 	#endregion
 

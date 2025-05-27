@@ -26,7 +26,7 @@ public class PlayerDeathScreen : MonoBehaviour
         playerObject = GameObject.Find("Player");
 
         if (playerObject != null)
-            playerObject.GetComponent<PlayerStats>().onDeathEvent += OpenDeathScreen;
+            playerObject.GetComponent<Health>().onDeathEvent += OpenDeathScreen;
         else
             throw new NullReferenceException("Cannot find the player!");
     }
@@ -34,7 +34,7 @@ public class PlayerDeathScreen : MonoBehaviour
     void OnDisable()
     {
         // remove the event to prevent any errors. This should be killed with the player anyway but in case something changes.
-        if (playerObject != null) playerObject.GetComponent<PlayerStats>().onDeathEvent -= OpenDeathScreen;
+        if (playerObject != null) playerObject.GetComponent<Health>().onDeathEvent -= OpenDeathScreen;
     }
 
     private void OpenDeathScreen()

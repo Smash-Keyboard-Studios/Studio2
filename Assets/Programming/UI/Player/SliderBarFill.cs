@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// unknown owner.
+
+// Modified by domibron.
+
+
 public class SliderBarFill : MonoBehaviour
 {
-    PlayerStats playerStats;
+    PlayerMovement playerMovement;
+    Health playerHealth;
     PlayerAttack playerAttack;
 
     private Slider sliderBar;
 
     public enum SliderType
     {
-        Health, 
+        Health,
         Stamina,
         ChargedButtonTimeHeld
     }
@@ -23,17 +29,19 @@ public class SliderBarFill : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+        playerMovement = PlayerReferenceFetcher.instance.GetPlayerReference().GetComponent<PlayerMovement>();
+        playerHealth = PlayerReferenceFetcher.instance.GetPlayerReference().GetComponent<Health>();
+        playerAttack = PlayerReferenceFetcher.instance.GetPlayerReference().GetComponent<PlayerAttack>();
+
         sliderBar = GetComponent<Slider>();
 
         switch (whichSlider)
         {
             case SliderType.Health:
-                sliderBar.maxValue = playerStats.PlayerMaxHealth;
+                sliderBar.maxValue = 1;
                 break;
             case SliderType.Stamina:
-                sliderBar.maxValue = playerStats.PlayerMaxStamina;
+                sliderBar.maxValue = playerMovement.MaxStamina;
                 break;
             case SliderType.ChargedButtonTimeHeld:
                 sliderBar.maxValue = playerAttack.MaxChargedHeavyDmg;
@@ -49,10 +57,10 @@ public class SliderBarFill : MonoBehaviour
         switch (whichSlider)
         {
             case SliderType.Health:
-                sliderBar.value = playerStats.PlayerHealth;
+                sliderBar.value = playerHealth.GetHealthNormalized();
                 break;
             case SliderType.Stamina:
-                sliderBar.value = playerStats.PlayerStamina;
+                sliderBar.value = playerMovement.currentStamina;
                 break;
             case SliderType.ChargedButtonTimeHeld:
                 //if heavy attack is unlocked then set slider bar value
@@ -67,7 +75,7 @@ public class SliderBarFill : MonoBehaviour
                 {
                     sliderBar.value = 0;
                 }
-                
+
                 break;
             default:
                 break;

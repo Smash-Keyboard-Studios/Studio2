@@ -16,11 +16,11 @@ public class PlayerAbilityUnlock : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        PlayerStats pStats = other.GetComponent<PlayerStats>();
+        Health playerHealth = other.GetComponent<Health>();
 
-        if (pStats == null) return;
+        if (playerHealth == null) return;
 
-        if (pStats.isDead) return;
+        if (playerHealth.GetHealthNormalized() <= 0) return;
 
         switch (abilityType)
         {

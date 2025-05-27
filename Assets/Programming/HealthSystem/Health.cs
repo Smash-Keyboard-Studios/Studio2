@@ -26,7 +26,7 @@ public class Health : MonoBehaviour, IDamageable
 
 
 
-    public event Action onNoHealthLeft;
+    public event Action onDeathEvent;
 
     protected bool calledOnDeathEvent = false;
 
@@ -75,7 +75,7 @@ public class Health : MonoBehaviour, IDamageable
         if (currentHealth <= 0 && !calledOnDeathEvent)
         {
             calledOnDeathEvent = true;
-            onNoHealthLeft?.Invoke();
+            onDeathEvent?.Invoke();
         }
     }
 
@@ -117,6 +117,11 @@ public class Health : MonoBehaviour, IDamageable
     public virtual float GetHealthNormalized()
     {
         return currentHealth / maxHealth;
+    }
+
+    public virtual float ReturnHealthValue()
+    {
+        return currentHealth;
     }
 
     protected virtual void InvokeOnTakenDamageSFXPlayOnce()

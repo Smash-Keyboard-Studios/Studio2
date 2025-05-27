@@ -19,6 +19,8 @@ public class HealthWithBasicShield : Health, IShieldObject
 	[SerializeField]
 	protected GameObject shieldObject;
 
+	public bool startShieldAsActive = true;
+
 	[HideInInspector]
 	public bool shieldActive = true;
 
@@ -37,9 +39,23 @@ public class HealthWithBasicShield : Health, IShieldObject
 
 	protected override void Start()
 	{
+		hurtIndicator = GetComponent<HurtIndicatorAuto>();
+		floatingTextSystem = GetComponent<FloatingTextSystem>();
+
 		shieldHitIndicator = GetComponent<ShieldHitIndicator>();
 
-		base.Start();
+		if (!startShieldAsActive)
+		{
+			currentHealth = maxHealth;
+			calledOnDeathEvent = false;
+
+			shieldActive = false;
+			shieldObject.SetActive(false);
+		}
+		else
+		{
+			Reset();
+		}
 	}
 
 	public override void Reset()
@@ -105,7 +121,7 @@ public class HealthWithBasicShield : Health, IShieldObject
 		{
 			floatingTextSystem.SpawnTwoToneText("Blocked",
 			shieldTopColor, shieldBottomColor,
-			textSize: (baseSize + (numberSizeMultiply * Mathf.Sqrt(5))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount), 
+			textSize: (baseSize + (numberSizeMultiply * Mathf.Sqrt(5))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount),
 			characterSpacing: 0);
 		}
 	}

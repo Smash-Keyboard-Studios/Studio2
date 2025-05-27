@@ -1,16 +1,25 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //Script by Aaron Wing
 
+// Modified by domibron.
+
 //HOW TO USE: In order for the player to move make sure you have both the Player and PlayerInputHandler prefabs in the scene. The scripts should already be attached to the individual game objects.
 //This script should be attached to the Player.
+/// <summary>
+/// Handles movement of the player.
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     //The different movement speeds for the player
     [Header("Movement Speeds")]
-    [SerializeField] public float WalkSpeed = 3.0f;
+    public float WalkSpeed = 3.0f;
     [SerializeField] private float SprintMultiplier = 2.0f;
+
+    [Header("Player Stamina")]
+    public float MaxStamina = 100f;
     [SerializeField] private float StaminaDecrease = 5.0f;
     [SerializeField] private float StaminaIncrease = 2.5f;
     [SerializeField] private float StaminaChargeRate = 1.5f;
@@ -19,15 +28,19 @@ public class PlayerMovement : MonoBehaviour
     [Header("Gravity Parameters")]
     [SerializeField] private float Gravity = 9.81f * 2;
 
-    //Any extra things
+
     private CharacterController CharacterController;
     private PlayerInputHandler InputHandler;
-    private PlayerStats Stats;
 
+    public float currentStamina = 0f;
+
+
+    // movement private variables
     private Vector3 CurrentMovement;
     private bool CanSprint;
     private bool IsSprinting;
 
+    // animations.
     private Animator MyAnim;
     public GameObject MainCharacter;
     public Transform rotation;
@@ -39,10 +52,12 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         CharacterController = GetComponent<CharacterController>(); //Gets the CharacterController from the component
-        Stats = GetComponent<PlayerStats>(); //Gets the Stats from the component
+        //Stats = GetComponent<PlayerStats>(); //Gets the Stats from the component
 
         audioSource = GetComponent<AudioSource>(); //sets audiosource
         playingWalkSound = false;
+
+        currentStamina = MaxStamina;
     }
 
     private void Start()
@@ -64,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         float Speed = WalkSpeed; //The speed the player moves
 
         //Player can only sprint while they have stamina
-        if (Stats.PlayerStamina > 0)
+        if (currentStamina > 0)
         {
             Speed = WalkSpeed * (InputHandler.SprintValue > 0 ? SprintMultiplier : 1f); //Walkspeed gets multiplied by 2 when the sprint button is pressed otherwise it stays at its original value.
         }
@@ -79,13 +94,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //If player is pressing the sprint button and CanSprint is true then the player can sprint and it drains 
-        if (InputHandler.SprintValue > 0 && IsSprinting)
+        if (InputHandler.SprintValue > 0 && IsSprinting && CharacterController.velocity.magnitude > 0)
         {
-            Stats.PlayerStamina = Stats.PlayerStamina - StaminaDecrease * (StaminaChargeRate * Time.deltaTime); //Player stamina is decreased by the StaminaDecrease value over the course of StaminaChargeRate times by Time.deltaTime
+            currentStamina -= StaminaDecrease * (StaminaChargeRate * Time.deltaTime); //Player stamina is decreased by the StaminaDecrease value over the course of StaminaChargeRate times by Time.deltaTime
         }
         else if (!IsSprinting) //When the player is not sprinting and if the sprint value is bigger or equal to 0 then the sprint value will recharge.
         {
-            Stats.PlayerStamina = Stats.PlayerStamina + StaminaIncrease * (StaminaChargeRate * Time.deltaTime); //Player stamina is increased by the StaminaIncrease value over the course of StaminaChargeRate times by Time.deltaTime
+            currentStamina += StaminaIncrease * (StaminaChargeRate * Time.deltaTime); //Player stamina is increased by the StaminaIncrease value over the course of StaminaChargeRate times by Time.deltaTime
         }
 
         MyAnim.SetBool("Running", IsSprinting);
@@ -141,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //calculate move speed to set the sound delay
         float moveSpeed = Mathf.Max(Mathf.Abs(CurrentMovement.z), Mathf.Abs(CurrentMovement.x));
-        
+
         //check if moving and not currently playing walking sound
         if (moveSpeed > Mathf.Epsilon && !playingWalkSound)
         {
