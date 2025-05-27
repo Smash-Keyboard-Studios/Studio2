@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShieldAbility : MonoBehaviour
 {
     private PlayerInputHandler inputHandler;
-    public GameObject activeShield;
+    // public GameObject activeShield;
 
     public bool isShieldInCoolDown;
     public bool isShieldActive;
@@ -20,7 +20,7 @@ public class ShieldAbility : MonoBehaviour
     {
         inputHandler = PlayerInputHandler.Instance;
 
-        activeShield.SetActive(false);
+        // activeShield.SetActive(false);
         isShieldActive = false;
         isShieldInCoolDown = false;
     }
@@ -33,7 +33,7 @@ public class ShieldAbility : MonoBehaviour
             {
                 if (inputHandler.BlockTriggered)
                 {
-                    activeShield.SetActive(true);
+                    // activeShield.SetActive(true);
                     isShieldActive = true;
                     StartCoroutine(ShieldUsage());
                 }
@@ -46,7 +46,7 @@ public class ShieldAbility : MonoBehaviour
     IEnumerator ShieldUsage()
     {
         yield return new WaitForSeconds(shieldUsageSec);
-        activeShield.SetActive(false);
+        // activeShield.SetActive(false);
         isShieldActive = false;
         isShieldInCoolDown = true;
         StartCoroutine(CoolDown());

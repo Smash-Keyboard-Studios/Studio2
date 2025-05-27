@@ -158,8 +158,8 @@ public class BaseCommands
 #nullable restore
             if (go != null && go.transform.name == "Player")
             {
-                go.transform.GetComponent<PlayerStats>().PlayerHealth -= damage;
-                console.TextToConsole($"player hp is now at {go.transform.GetComponent<PlayerStats>().PlayerHealth}");
+                go.transform.GetComponent<IDamageable>().TakeDamage(damage);
+                console.TextToConsole($"player hp is now at {go.transform.GetComponent<Health>().ReturnHealthValue()}");
 
             }
             else
@@ -180,8 +180,8 @@ public class BaseCommands
 #nullable restore
             if (go != null && go.transform.name == "Player")
             {
-                go.transform.GetComponent<PlayerStats>().PlayerHealth += health;
-                console.TextToConsole($"player hp is now at {go.transform.GetComponent<PlayerStats>().PlayerHealth}");
+                go.transform.GetComponent<Health>().AddToHealth(health);
+                console.TextToConsole($"player hp is now at {go.transform.GetComponent<Health>().ReturnHealthValue()}");
 
             }
             else

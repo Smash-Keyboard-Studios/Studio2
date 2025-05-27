@@ -11,19 +11,19 @@ public class HealthObject : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        PlayerStats pStats = other.GetComponent<PlayerStats>();
+        Health playerHealth = other.GetComponent<Health>();
 
-        if (pStats == null) return;
+        if (playerHealth == null) return;
 
-        if (pStats.isDead) return;
+        if (playerHealth.GetHealthNormalized() <= 0) return;
 
-        if (pStats.PlayerHealth < pStats.PlayerMaxHealth)
+        if (playerHealth.GetHealthNormalized() < 1f)
         {
             Debug.Log("Healed player");
 
-            AudioManager.Instance.PlayAudio(false, false, pStats.audioSource, "Plr_Heal");
+            AudioManager.Instance.PlayAudio(false, false, other.GetComponent<AudioSource>(), "Plr_Heal");
 
-            pStats.PlayerHealth += healAmount;
+            playerHealth.AddToHealth(healAmount);
 
             Destroy(gameObject);
         }

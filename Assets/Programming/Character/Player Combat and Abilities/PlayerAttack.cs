@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
+// Owner unknown
+
+// Modified by domibron
+
 public class PlayerAttack : MonoBehaviour
 {
     [Header("Heavy Attack Unlockable")]
@@ -47,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
     //audio stuff for ability sounds
     private AudioSource audioSource;
 
-    private PlayerStats stats;
+    private Health health;
 
     private enum AttackType
     {
@@ -63,9 +67,8 @@ public class PlayerAttack : MonoBehaviour
 
         MyAnim = MainCharacter.GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        stats = GetComponent<PlayerStats>();
+        health = GetComponent<Health>();
     }
-
 
     public void OnAttack(InputValue input)
     {
@@ -95,12 +98,12 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator LightAttack()
     {
-        if (!stats.isDead)
+        if (health.GetHealthNormalized() > 0)
         {
             lightAttacking = true;
             MyAnim.SetBool("Attacking", lightAttacking);
 
-            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_SwordUse");
+            // AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_SwordUse");
             DamageEnemy(Physics.OverlapBox(transform.position + MainCharacter.transform.forward, Vector3.one, MainCharacter.transform.rotation), AttackType.Light);
 
             yield return new WaitForSeconds(LightAttackDelay);
@@ -112,7 +115,7 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator HeavyAttack()
     {
-        if (!stats.isDead)
+        if (health.GetHealthNormalized() > 0)
         {
             //we arent charging heavy attack
             isChargingChargedHeavyAttack = false;
@@ -123,7 +126,7 @@ public class PlayerAttack : MonoBehaviour
             heavyAttacking = true;
             MyAnim.SetBool("HeavyAttacking", heavyAttacking);
 
-            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_SwordUse"); //##########################################################TO BE CHANGED to heavy attack sound
+            // AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_SwordUse"); //##########################################################TO BE CHANGED to heavy attack sound
             DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AttackType.Heavy);
 
             yield return new WaitForSeconds(HeavyAttackDelay);
@@ -141,7 +144,7 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator ChargedHeavyAttack()
     {
-        if (!stats.isDead)
+        if (health.GetHealthNormalized() > 0)
         {
             isChargingChargedHeavyAttack = false; //stop charging the attack
             MyAnim.SetBool("ChargingHeavyAttack", isChargingChargedHeavyAttack);
@@ -154,7 +157,7 @@ public class PlayerAttack : MonoBehaviour
             heavyAttacking = true;
             MyAnim.SetBool("HeavyAttacking", heavyAttacking);
 
-            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_SwordUse"); //##########################################################TO BE CHANGED to heavy attack sound
+            // AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_SwordUse"); //##########################################################TO BE CHANGED to heavy attack sound
             DamageEnemy(Physics.OverlapSphere(transform.position, chargedHeavyAttackRadius), AttackType.ChargedHeavy);
 
             yield return new WaitForSeconds(HeavyAttackDelay);
@@ -172,7 +175,7 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator ChargeChargedHeavyAttack()
     {
-        if (!stats.isDead)
+        if (health.GetHealthNormalized() > 0)
         {
             //sets hammer model to active and other vars to true since we are charging heavy attack
             HammerModel.SetActive(true);
@@ -185,7 +188,7 @@ public class PlayerAttack : MonoBehaviour
             playerMovement.WalkSpeed = 0;
 
             //start playing charging sound
-            AudioManager.Instance.PlayAudio(true, false, audioSource, "Plr_SwordUse"); //##########################################################TO BE CHANGED to charging heavy sound
+            // AudioManager.Instance.PlayAudio(true, false, audioSource, "Plr_SwordUse"); //##########################################################TO BE CHANGED to charging heavy sound
 
             //increase heavy attack per 0.5 secs that it is being charged
             while (!heavyAttacking && isChargingChargedHeavyAttack && ChargedHeavyDmg < MaxChargedHeavyDmg)
@@ -205,34 +208,34 @@ public class PlayerAttack : MonoBehaviour
 
     private void DamageEnemy(Collider[] enemiesToAttack, AttackType atkType)
     {
-        if (!stats.isDead)
-        {
-            if (enemiesToAttack.Length > 1)
-            {
-                foreach (var hitObject in enemiesToAttack)
-                {
-                    var DamageComp = hitObject.GetComponent<IDamageable>();
+        if (health.GetHealthNormalized() <= 0) return;
 
-                    if (DamageComp != null && DamageComp.GetType() != typeof(PlayerStats))
-                    {
-                        switch (atkType)
-                        {
-                            case AttackType.Light:
-                                DamageComp.TakeDamage(LightDmg);
-                                break;
-                            case AttackType.Heavy:
-                                DamageComp.TakeDamage(HeavyDmg);
-                                hitObject.transform.GetComponent<IShieldObject>()?.BreakShield();
-                                break;
-                            case AttackType.ChargedHeavy:
-                                DamageComp.TakeDamage(ChargedHeavyDmg);
-                                hitObject.transform.GetComponent<IShieldObject>()?.BreakShield();
-                                break;
-                        }
-                    }
+        if (enemiesToAttack.Length <= 0) return;
+
+        foreach (var hitObject in enemiesToAttack)
+        {
+            var DamageComp = hitObject.GetComponent<IDamageable>();
+
+            if (DamageComp != null && !hitObject.gameObject.CompareTag("Player"))
+            {
+                switch (atkType)
+                {
+                    case AttackType.Light:
+                        DamageComp.TakeDamage(LightDmg);
+                        break;
+                    case AttackType.Heavy:
+                        DamageComp.TakeDamage(HeavyDmg);
+                        hitObject.transform.GetComponent<IShieldObject>()?.BreakShield();
+                        break;
+                    case AttackType.ChargedHeavy:
+                        DamageComp.TakeDamage(ChargedHeavyDmg);
+                        hitObject.transform.GetComponent<IShieldObject>()?.BreakShield();
+                        break;
                 }
 
             }
+
+
         }
     }
 
