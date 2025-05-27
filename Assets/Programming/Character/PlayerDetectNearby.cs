@@ -1,0 +1,56 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerDetectNearby : MonoBehaviour
+{
+    //soph
+
+    public float entityDetectionRangeRadius = 10f;
+
+    public bool boss1Nearby;
+    public bool boss2Nearby;
+    public bool enemiesNearby;
+    public bool itemsNearby;
+
+    // Update is called once per frame
+    void Update()
+    {
+        HandleEntityDetection();
+    }
+
+    private void HandleEntityDetection()
+    {
+        Collider[] results = Physics.OverlapSphere(transform.position, entityDetectionRangeRadius, Physics.AllLayers, QueryTriggerInteraction.Collide);
+
+        if (results.Length > 0)
+        {
+            bool enemy = false;
+            bool item = false;
+
+            foreach (Collider c in results)
+            {
+                if (c.gameObject.CompareTag("Item"))
+                {
+                    item = true;
+                }
+                else if (c.gameObject.CompareTag("Enemy"))
+                {
+                    //check for bosses
+                    if (c.gameObject.GetComponent<KnightAI>()) { boss1Nearby = true; }
+                    if (c.gameObject.GetComponent<PriestAI>()) { boss2Nearby = true; }
+
+                    enemy = true;
+                }
+            }
+
+            enemiesNearby = enemy;
+            itemsNearby = item;
+        }
+        else
+        {
+            enemiesNearby = false;
+            itemsNearby = false;
+        }
+    }
+}

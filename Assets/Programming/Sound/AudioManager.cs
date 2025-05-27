@@ -56,12 +56,16 @@ public class AudioManager : MonoBehaviour
         {
             int currentAudioTime = loopFromStart? 0 : audioSource.timeSamples; //gets current point where music is playing at if not looping from the start of the song
 
-            StopAudio(audioSource); //stops what is currently playing if its a looping audio
-            audioSource.loop = true;
-            audioSource.clip = clipToPlay;
+            if (audioSource.clip != clipToPlay) //if not already playing the current clip
+            {
+                StopAudio(audioSource); //stops what is currently playing if its a looping audio
+                audioSource.loop = true;
 
-            audioSource.Play(); //play the clip!!
-            audioSource.timeSamples = currentAudioTime;
+                audioSource.clip = clipToPlay;
+
+                audioSource.Play(); //play the clip!!
+                audioSource.timeSamples = currentAudioTime;
+            }
         }
         else
         {
