@@ -33,6 +33,9 @@ public class MinimapController : MonoBehaviour
 
     public Vector3? targetPoint = null;
 
+    public RectTransform SweepImage;
+
+    public float rotationSpeed = 40f;
 
     public float entityDetectionRangeRadius = 20f;
 
@@ -64,6 +67,9 @@ public class MinimapController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SweepImage.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+
+
         HandleEntityDetection();
 
         // dangerLightIndicatorImage.sprite = (dangerLightIsOn) ? dangerLightOn : dangerLightOff;

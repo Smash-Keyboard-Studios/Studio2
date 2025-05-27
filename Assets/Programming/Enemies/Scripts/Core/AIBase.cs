@@ -181,7 +181,7 @@ public class AIBase : MonoBehaviour
 	protected virtual void KillAI()
 	{
 
-		onDeathSFXPlayOnce();
+		DeathSFXPlayOnce();
 		onDeath?.Invoke(transform);
 
 
