@@ -42,6 +42,7 @@ public class MinimapController : MonoBehaviour
     // private bool enemyDetected = false;
     // private bool itemDetected = false;
 
+    private PlayerDetectNearby playerDetectNearby;
     private Transform playerTransform;
 
 
@@ -61,7 +62,8 @@ public class MinimapController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerTransform = GameObject.Find("Player").transform;
+        playerDetectNearby = GameObject.Find("Player").GetComponent<PlayerDetectNearby>();
+        playerTransform = playerDetectNearby.transform;
     }
 
     // Update is called once per frame
@@ -70,7 +72,7 @@ public class MinimapController : MonoBehaviour
         SweepImage.Rotate(0, 0, rotationSpeed * Time.deltaTime);
 
 
-        HandleEntityDetection();
+        GetLightStatus();
 
         // dangerLightIndicatorImage.sprite = (dangerLightIsOn) ? dangerLightOn : dangerLightOff;
         // itemLightIndicatorImage.sprite = (itemLightIsOn) ? itemLightOn : itemLightOff;
@@ -80,35 +82,10 @@ public class MinimapController : MonoBehaviour
         HandlePointer();
     }
 
-    private void HandleEntityDetection()
+    private void GetLightStatus()
     {
-        Collider[] results = Physics.OverlapSphere(playerTransform.position, entityDetectionRangeRadius, Physics.AllLayers, QueryTriggerInteraction.Collide);
-
-        if (results.Length > 0)
-        {
-            bool enemy = false;
-            bool item = false;
-
-            foreach (Collider c in results)
-            {
-                if (c.gameObject.CompareTag("Item"))
-                {
-                    item = true;
-                }
-                else if (c.gameObject.CompareTag("Enemy"))
-                {
-                    enemy = true;
-                }
-            }
-
-            dangerLightIsOn = enemy;
-            itemLightIsOn = item;
-        }
-        else
-        {
-            dangerLightIsOn = false;
-            itemLightIsOn = false;
-        }
+        dangerLightIsOn = playerDetectNearby.enemiesNearby;
+        itemLightIsOn = playerDetectNearby.itemsNearby;
     }
 
     private void HandleLightBlinking()
