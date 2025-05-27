@@ -2358,46 +2358,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ranged Grunt
       objectReference: {fileID: 0}
-    - target: {fileID: 1813575920592918985, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1813575920592918985, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1813575920592918985, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1813575920592918985, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1813575920592918985, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1813575920592918985, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1813575920592918985, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1813575920592918985, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3095590433221106273, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2408,12 +2368,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7343895048357647688, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 6d0bd9019eab95045921880097ebe536,
-        type: 3}
     - target: {fileID: 8983775168675799407, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2464,16 +2418,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8897304238968218981, guid: 29e4edd3b221e1b4fabf45c30390f4e3, type: 3}
-    - {fileID: 6754516033712081943, guid: 29e4edd3b221e1b4fabf45c30390f4e3, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 66097493073879181, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
-        type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 1995517865}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29e4edd3b221e1b4fabf45c30390f4e3, type: 3}
 --- !u!1001 &1333392046
 PrefabInstance:
@@ -3262,42 +3210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962451a252d13764d9de14f892c55218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1995517853 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 66097493073879181, guid: 29e4edd3b221e1b4fabf45c30390f4e3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1258341491}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1995517865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1995517853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e4e70eba54bc904da96d137f88e85be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 5
-  currentAIState: 1
-  projectileAttackSettings:
-    maxAttackRange: 7
-    attackCoolDown: 1
-    projectileSpeed: 10
-    projectileDamage: 5
-    projectilePrefab: {fileID: 1214869180728453124, guid: 0d66f9aa92792674ab4b2557118ff665,
-      type: 3}
-  minDistanceForPlayerToRetreat: 5
-  retreatDuration: 5
-  delayUntilRetreatAgain: 5
-  defaultStoppingDistance: 0
-  maxDetectionRange: 30
-  maxTurningDegreesDelta: 0.5
-  speedWhileNextToPlayer: 0.4
-  enableVisualDetectionRadius: 0
-  enableVisualDetectionLine: 0
 --- !u!1001 &689272886965996917
 PrefabInstance:
   m_ObjectHideFlags: 0
