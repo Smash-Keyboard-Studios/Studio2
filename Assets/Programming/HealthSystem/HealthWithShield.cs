@@ -49,7 +49,7 @@ public class HealthWithShield : HealthWithBasicShield
         {
             InvokeOnShieldHitSFXPlayOnce();
 
-            SpawnShieldBlockedText(amount);
+            SpawnShieldBlockedText();
 
             if (shieldHitIndicator != null) shieldHitIndicator.ShieldHit();
             return false;

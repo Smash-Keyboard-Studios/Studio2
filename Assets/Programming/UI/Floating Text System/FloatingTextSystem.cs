@@ -77,7 +77,8 @@ public class FloatingTextSystem : MonoBehaviour
     /// <param name="text">The message or number to display.</param>
     /// <param name="textColor">The colour for the text.</param>
     /// <param name="textSize">How large the text should be.</param>
-    public void SpawnText(string text, Color textColor, float textSize = 10f)
+    /// /// <param name="characterSpacing">Spacing between each character</param>
+    public void SpawnText(string text, Color textColor, float textSize = 10f, int characterSpacing = -30)
     {
         Vector3 directionTowardsCamera = (cameraTransform.position - transform.position).normalized;
         directionTowardsCamera.y = 0f;
@@ -95,10 +96,10 @@ public class FloatingTextSystem : MonoBehaviour
         textComp.text = text;
 
         textComp.color = textColor;
-
         textComp.enableVertexGradient = false;
 
         textComp.fontSize = textSize;
+        textComp.characterSpacing = characterSpacing;
     }
     #endregion
 
@@ -112,7 +113,8 @@ public class FloatingTextSystem : MonoBehaviour
     /// <param name="color2">The second color in the two tone color.</param>
     /// <param name="gradientDirection">The direction of the gradient.</param>
     /// <param name="textSize">The size of the text.</param>
-    public void SpawnTwoToneText(string text, Color color1, Color color2, GradientDirection gradientDirection = GradientDirection.Vertical, float textSize = 10f)
+    /// <param name="characterSpacing">Spacing between each character</param>
+    public void SpawnTwoToneText(string text, Color color1, Color color2, GradientDirection gradientDirection = GradientDirection.Vertical, float textSize = 10f, int characterSpacing = -30)
     {
         Vector3 directionTowardsCamera = (cameraTransform.position - transform.position).normalized;
         directionTowardsCamera.y = 0f;
@@ -150,6 +152,7 @@ public class FloatingTextSystem : MonoBehaviour
         }
 
         textComp.fontSize = textSize;
+        textComp.characterSpacing = characterSpacing;
     }
     #endregion
 
@@ -164,7 +167,8 @@ public class FloatingTextSystem : MonoBehaviour
     /// <param name="bottomLeft">The bottom left vertex color.</param>
     /// <param name="bottomRight">The bottom right vertex color.</param>
     /// <param name="textSize">The size of the text.</param>
-    public void SpawnFourToneText(string text, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight, float textSize = 10f)
+    /// <param name="characterSpacing">Spacing between each character</param>
+    public void SpawnFourToneText(string text, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight, float textSize = 10f, int characterSpacing = -30)
     {
         Vector3 directionTowardsCamera = (cameraTransform.position - transform.position).normalized;
         directionTowardsCamera.y = 0f;
@@ -185,11 +189,10 @@ public class FloatingTextSystem : MonoBehaviour
 
         textComp.enableVertexGradient = true;
 
-
         textComp.colorGradientPreset = CreateColorGradient(topLeft, topRight, bottomLeft, bottomRight);
 
-
         textComp.fontSize = textSize;
+        textComp.characterSpacing = characterSpacing;
     }
     #endregion
 
