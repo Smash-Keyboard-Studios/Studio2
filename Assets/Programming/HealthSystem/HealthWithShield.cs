@@ -67,7 +67,7 @@ public class HealthWithShield : HealthWithBasicShield
         return true;
     }
 
-    protected override void ActivateShield(bool playSFX = true)
+    public override void ActivateShield(bool playSFX = true)
     {
         //currentShieldHealth = maxShieldHealth;
         resetShield = false;

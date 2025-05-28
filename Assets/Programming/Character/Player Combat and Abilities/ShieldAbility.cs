@@ -5,54 +5,52 @@ using UnityEngine.InputSystem;
 
 public class ShieldAbility : MonoBehaviour
 {
-    private PlayerInputHandler inputHandler;
-    // public GameObject activeShield;
+    public bool unlockedShield;
 
     public bool isShieldInCoolDown;
     public bool isShieldActive;
-    public bool unlockedShield;
 
     public float shieldUsageSec = 3f;
     public float coolDownSec = 5f;
 
     public GameObject HooverModel;
 
+    private HealthWithBasicShield healthWithBasicShield;
+
     void Start()
     {
-        inputHandler = PlayerInputHandler.Instance;
+        healthWithBasicShield = GetComponent<HealthWithBasicShield>();
 
-        // activeShield.SetActive(false);
         isShieldActive = false;
         isShieldInCoolDown = false;
     }
 
     void Update()
     {
-        if (unlockedShield)
-        {
-            if (!isShieldInCoolDown)
-            {
-                if (inputHandler.BlockTriggered)
-                {
-                    // activeShield.SetActive(true);
-                    isShieldActive = true;
-                    StartCoroutine(ShieldUsage());
-                }
-            }
-        }
+
 
         HooverModel.SetActive(unlockedShield);
     }
 
     public void OnBlock()
     {
-        print("PLAYER BLOCKING");
+        if (unlockedShield)
+        {
+            if (!isShieldInCoolDown)
+            {
+                healthWithBasicShield.ActivateShield();
+                isShieldActive = true;
+                StartCoroutine(ShieldUsage());
+            }
+        }
     }
 
     IEnumerator ShieldUsage()
     {
         yield return new WaitForSeconds(shieldUsageSec);
-        // activeShield.SetActive(false);
+
+        healthWithBasicShield.BreakShield();
+
         isShieldActive = false;
         isShieldInCoolDown = true;
         StartCoroutine(CoolDown());
