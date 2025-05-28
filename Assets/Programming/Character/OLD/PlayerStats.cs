@@ -3,130 +3,132 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-//Script by Aaron Wing
+// removed or well commented code because this code was still causing errors after removing.
 
-//HOW TO USE: In order for the player to gain any of these stats the Player and PlayerInputHandler prefabs should be in the scene. The scripts themselves should already be attached to the indvivdual Game Object.
-//This script is attached to the player.
+// //Script by Aaron Wing
+
+// //HOW TO USE: In order for the player to gain any of these stats the Player and PlayerInputHandler prefabs should be in the scene. The scripts themselves should already be attached to the indvivdual Game Object.
+// //This script is attached to the player.
 [Obsolete("Old system architecture.", true)]
-public class PlayerStats : MonoBehaviour, IDamageable
+public class PlayerStats : MonoBehaviour
 {
-    //Player stats value such as current stamina/health and max/min stamina/health
-    [Header("Player Stats")]
-    public float PlayerHealth = 100;
-    public float PlayerStamina = 100;
-    public float PlayerMaxHealth = 100;
-    public float PlayerMaxStamina = 100;
-    public float PlayerHealAmount = 25;
+    //     //Player stats value such as current stamina/health and max/min stamina/health
+    //     [Header("Player Stats")]
+    //     public float PlayerHealth = 100;
+    //     public float PlayerStamina = 100;
+    //     public float PlayerMaxHealth = 100;
+    //     public float PlayerMaxStamina = 100;
+    //     public float PlayerHealAmount = 25;
 
-    public bool isDead;
+    //     public bool isDead;
 
-    [Header("Interaction")]
-    public GameObject AbilityUnlockedUI; // TODO relocate to its own system.
-
-
+    //     [Header("Interaction")]
+    //     public GameObject AbilityUnlockedUI; // TODO relocate to its own system.
 
 
-    private PlayerInputHandler InputHandler;
 
-    protected Animator MyAnim; // ! protected? mmm, typo?
 
-    [HideInInspector] public AudioSource audioSource;
+    //     private PlayerInputHandler InputHandler;
 
-    [Header("Other GameObject References")]
-    public GameObject MainCharacter;
-    public GameObject playerRotation;
+    //     protected Animator MyAnim; // ! protected? mmm, typo?
 
-    public event Action onDeathEvent;
+    //     [HideInInspector] public AudioSource audioSource;
 
-    private PlayerAttack attackScript;
-    private ShieldAbility shieldScript;
-    private DamageIndicator indicator;
+    //     [Header("Other GameObject References")]
+    //     public GameObject MainCharacter;
+    //     public GameObject playerRotation;
 
-    private FloatingTextSystem floatingTextSystem;
+    //     public event Action onDeathEvent;
 
-    private void Start()
-    {
-        //Gets the InputHandler from the PlayerInputHandler instance
-        InputHandler = PlayerInputHandler.Instance;
+    //     private PlayerAttack attackScript;
+    //     private ShieldAbility shieldScript;
+    //     private DamageIndicator indicator;
 
-        //animator
-        MyAnim = MainCharacter.GetComponent<Animator>();
+    //     private FloatingTextSystem floatingTextSystem;
 
-        //audio
-        audioSource = GetComponent<AudioSource>();
+    //     private void Start()
+    //     {
+    //         //Gets the InputHandler from the PlayerInputHandler instance
+    //         InputHandler = PlayerInputHandler.Instance;
 
-        //script references
-        attackScript = GetComponent<PlayerAttack>();
-        shieldScript = GetComponent<ShieldAbility>();
-        indicator = GetComponent<DamageIndicator>();
+    //         //animator
+    //         MyAnim = MainCharacter.GetComponent<Animator>();
 
-        floatingTextSystem = GetComponent<FloatingTextSystem>();
-    }
+    //         //audio
+    //         audioSource = GetComponent<AudioSource>();
 
-    public bool TakeDamage(float Amount)
-    {
-        if (!shieldScript.isShieldActive)
-        {
-            PlayerHealth -= Amount;
-            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_GetHit");
-            if (indicator.enabled) indicator.FlashStart(); // ! domibron ~ I added a check because this breaks the AI somehow.
-            floatingTextSystem.SpawnText(Amount.ToString("F0"), new Color(0.8f, 0.5f, 0f),
-            (6 + (3 * Mathf.Sqrt(Amount))) * UnityEngine.Random.Range(0.4f, 0.4f));
-            return true;
-        }
-        else if (shieldScript.isShieldActive)
-        {
-            //if shield has blocked damage play the shield deflect sound
-            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_ShieldHit"); // ! domibron ~ add shield hit VFX too. 
-            if (indicator.enabled) indicator.FlashStart(); // ! domibron ~ I added a check because this breaks the AI somehow.
-            floatingTextSystem.SpawnText("Blocked", Color.cyan,
-            (6 + (3 * Mathf.Sqrt(Amount))) * UnityEngine.Random.Range(0.4f, 0.4f));
-        }
-        return false;
-    }
+    //         //script references
+    //         attackScript = GetComponent<PlayerAttack>();
+    //         shieldScript = GetComponent<ShieldAbility>();
+    //         indicator = GetComponent<DamageIndicator>();
 
-    private void Update()
-    {
+    //         floatingTextSystem = GetComponent<FloatingTextSystem>();
+    //     }
 
-        PlayerStamina = Mathf.Clamp(PlayerStamina, 0, PlayerMaxStamina); //Clamps the PlayerStamina between the min and max stamina values
-        PlayerHealth = Mathf.Clamp(PlayerHealth, 0, PlayerMaxHealth); //Clamps the PlayerHealth between the min and max health values
+    //     public bool TakeDamage(float Amount)
+    //     {
+    //         if (!shieldScript.isShieldActive)
+    //         {
+    //             PlayerHealth -= Amount;
+    //             AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_GetHit");
+    //             if (indicator.enabled) indicator.FlashStart(); // ! domibron ~ I added a check because this breaks the AI somehow.
+    //             floatingTextSystem.SpawnText(Amount.ToString("F0"), new Color(0.8f, 0.5f, 0f),
+    //             (6 + (3 * Mathf.Sqrt(Amount))) * UnityEngine.Random.Range(0.4f, 0.4f));
+    //             return true;
+    //         }
+    //         else if (shieldScript.isShieldActive)
+    //         {
+    //             //if shield has blocked damage play the shield deflect sound
+    //             AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_ShieldHit"); // ! domibron ~ add shield hit VFX too. 
+    //             if (indicator.enabled) indicator.FlashStart(); // ! domibron ~ I added a check because this breaks the AI somehow.
+    //             floatingTextSystem.SpawnText("Blocked", Color.cyan,
+    //             (6 + (3 * Mathf.Sqrt(Amount))) * UnityEngine.Random.Range(0.4f, 0.4f));
+    //         }
+    //         return false;
+    //     }
 
-        //When the player loses all of their Health they will die.
-        if (PlayerHealth == 0)
-        {
-            if (!isDead)
-            {
-                isDead = true;
+    //     private void Update()
+    //     {
 
-                playerRotation.GetComponent<PlayerRotation>().enabled = false;
-                GetComponent<PlayerMovement>().enabled = false;
-                GetComponent<PlayerAttack>().enabled = false;
+    //         PlayerStamina = Mathf.Clamp(PlayerStamina, 0, PlayerMaxStamina); //Clamps the PlayerStamina between the min and max stamina values
+    //         PlayerHealth = Mathf.Clamp(PlayerHealth, 0, PlayerMaxHealth); //Clamps the PlayerHealth between the min and max health values
 
-                MyAnim.SetTrigger("Dead");
-                MyAnim.SetBool("isDead", true);
-                onDeathEvent?.Invoke();
-            }
-        }
-        else
-        {
-            isDead = false; // ! domibron ~ this will allow the player to revive themselves. What is the point of this else? could be removed.
+    //         //When the player loses all of their Health they will die.
+    //         if (PlayerHealth == 0)
+    //         {
+    //             if (!isDead)
+    //             {
+    //                 isDead = true;
 
-            playerRotation.GetComponent<PlayerRotation>().enabled = true;
-            GetComponent<PlayerMovement>().enabled = true;
-            GetComponent<PlayerAttack>().enabled = true;
+    //                 playerRotation.GetComponent<PlayerRotation>().enabled = false;
+    //                 GetComponent<PlayerMovement>().enabled = false;
+    //                 GetComponent<PlayerAttack>().enabled = false;
 
-            MyAnim.SetBool("isDead", false);
-        }
-    }
+    //                 MyAnim.SetTrigger("Dead");
+    //                 MyAnim.SetBool("isDead", true);
+    //                 onDeathEvent?.Invoke();
+    //             }
+    //         }
+    //         else
+    //         {
+    //             isDead = false; // ! domibron ~ this will allow the player to revive themselves. What is the point of this else? could be removed.
 
-    // TODO relocate on a UI popup manager than on player stats. planning to remove player stats and uncouple player scripts.
-    private IEnumerator ShowAbilityUnlocked(string whichAbility)
-    {
-        AbilityUnlockedUI.SetActive(true);
-        AbilityUnlockedUI.GetComponentInChildren<TextMeshProUGUI>().text = whichAbility + " Unlocked!";
+    //             playerRotation.GetComponent<PlayerRotation>().enabled = true;
+    //             GetComponent<PlayerMovement>().enabled = true;
+    //             GetComponent<PlayerAttack>().enabled = true;
 
-        yield return new WaitForSeconds(2);
+    //             MyAnim.SetBool("isDead", false);
+    //         }
+    //     }
 
-        AbilityUnlockedUI.SetActive(false);
-    }
+    //     // TODO relocate on a UI popup manager than on player stats. planning to remove player stats and uncouple player scripts.
+    //     private IEnumerator ShowAbilityUnlocked(string whichAbility)
+    //     {
+    //         AbilityUnlockedUI.SetActive(true);
+    //         AbilityUnlockedUI.GetComponentInChildren<TextMeshProUGUI>().text = whichAbility + " Unlocked!";
+
+    //         yield return new WaitForSeconds(2);
+
+    //         AbilityUnlockedUI.SetActive(false);
+    //     }
 }
