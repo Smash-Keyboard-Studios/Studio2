@@ -62,5 +62,21 @@ public class ShieldAbility : MonoBehaviour
         }
     }
 
+    // and with theses we can do UI hooks :3
+    public float GetCoolDownNormalized()
+    {
+        return shieldCoolDownTimer / shieldCoolDownTime;
+    }
+
+    public float GetShieldDurationNormalized()
+    {
+        return shieldDurationTimer / shieldDurationTime;
+    }
+
+    public bool IsShieldReady()
+    {
+        return shieldCoolDownTimer <= 0 && shieldDurationTimer <= 0 && unlockedShield;
+    }
+
 
 }
