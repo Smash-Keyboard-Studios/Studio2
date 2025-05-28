@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShieldHitIndicator : MonoBehaviour
 {
+    // TODO change this into hooking into health rather than health hooking into this.
 
     [SerializeField]
     private string shieldMaterialName = "Shield";
@@ -28,6 +29,7 @@ public class ShieldHitIndicator : MonoBehaviour
         {
             foreach (var material in renderer.materials)
             {
+                // print(material.name + " is on " + transform.name);
                 if (!material.name.Contains(shieldMaterialName)) continue;
 
                 shieldMaterial = material;
@@ -49,7 +51,7 @@ public class ShieldHitIndicator : MonoBehaviour
 
 
 
-        if (shieldMaterial.color.a != alpha) shieldMaterial.color = new Color(shieldMaterial.color.r, shieldMaterial.color.g, shieldMaterial.color.b, alpha);
+        if (shieldMaterial.color.a != alpha) shieldMaterial.SetColor("_Color", new Color(shieldMaterial.color.r, shieldMaterial.color.g, shieldMaterial.color.b, alpha));
 
     }
 
