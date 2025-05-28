@@ -5,6 +5,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Owner Soph
+
 public class AbilityCooldownUI : MonoBehaviour
 {
     //ui stuff
@@ -79,8 +81,8 @@ public class AbilityCooldownUI : MonoBehaviour
                 case AbilityType.Shield:
                     if (playerShieldScript.unlockedShield) //if unlocked, set cooldown to whether using shield
                     {
-                        abilityInUse = playerShieldScript.isShieldActive || playerShieldScript.isShieldInCoolDown;
-                        cooldownBar.maxValue = playerShieldScript.shieldUsageSec + playerShieldScript.coolDownSec;
+                        // abilityInUse = playerShieldScript.isShieldActive || playerShieldScript.isShieldInCoolDown;
+                        // cooldownBar.maxValue = playerShieldScript.shieldUsageSec + playerShieldScript.coolDownSec;
                     }
                     else //otherwise set slider to max so it looks disabled
                     {
@@ -100,6 +102,7 @@ public class AbilityCooldownUI : MonoBehaviour
         if (abilityInUse && !inCooldown) { StartCoroutine("TriggerCooldown"); } //trgger cooldown is ability is in use
     }
 
+    // holy :/
     private IEnumerator TriggerCooldown()
     {
         inCooldown = true;

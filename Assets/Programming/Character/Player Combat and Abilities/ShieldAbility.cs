@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//by    _                 _ _                     
+//     | |               (_) |                    
+//   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
+//  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
+// | (_| | (_) | | | | | | | |_) | | | (_) | | | |
+//  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+
 public class ShieldAbility : MonoBehaviour
 {
     public bool unlockedShield;
 
-    public bool isShieldInCoolDown;
-    public bool isShieldActive;
+    public float shieldCoolDownTime = 5f;
 
-    public float shieldUsageSec = 3f;
-    public float coolDownSec = 5f;
+    public float shieldDurationTime = 5f;
+
+    private float shieldCoolDownTimer = 0f;
+    private float shieldDurationTimer = 0f;
 
     public GameObject HooverModel;
 
@@ -20,45 +28,39 @@ public class ShieldAbility : MonoBehaviour
     void Start()
     {
         healthWithBasicShield = GetComponent<HealthWithBasicShield>();
-
-        isShieldActive = false;
-        isShieldInCoolDown = false;
     }
 
     void Update()
     {
-
-
         HooverModel.SetActive(unlockedShield);
+
+        if (shieldDurationTimer > 0)
+        {
+            shieldDurationTimer -= Time.deltaTime;
+        }
+        else if (healthWithBasicShield.shieldActive)
+        {
+            shieldCoolDownTimer = shieldCoolDownTime;
+            healthWithBasicShield.BreakShield();
+        }
+
+        if (shieldCoolDownTimer > 0)
+        {
+            shieldCoolDownTimer -= Time.deltaTime;
+        }
     }
 
     public void OnBlock()
     {
         if (unlockedShield)
         {
-            if (!isShieldInCoolDown)
+            if (shieldCoolDownTimer <= 0)
             {
+                shieldDurationTimer = shieldDurationTime;
                 healthWithBasicShield.ActivateShield();
-                isShieldActive = true;
-                StartCoroutine(ShieldUsage());
             }
         }
     }
 
-    IEnumerator ShieldUsage()
-    {
-        yield return new WaitForSeconds(shieldUsageSec);
 
-        healthWithBasicShield.BreakShield();
-
-        isShieldActive = false;
-        isShieldInCoolDown = true;
-        StartCoroutine(CoolDown());
-    }
-
-    IEnumerator CoolDown()
-    {
-        yield return new WaitForSeconds(coolDownSec);
-        isShieldInCoolDown = false;
-    }
 }
