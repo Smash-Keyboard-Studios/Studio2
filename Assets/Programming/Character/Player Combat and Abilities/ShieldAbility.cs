@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ShieldAbility : MonoBehaviour
 {
@@ -41,6 +42,11 @@ public class ShieldAbility : MonoBehaviour
         }
 
         HooverModel.SetActive(unlockedShield);
+    }
+
+    public void OnBlock()
+    {
+        print("PLAYER BLOCKING");
     }
 
     IEnumerator ShieldUsage()
