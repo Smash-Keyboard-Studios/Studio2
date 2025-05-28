@@ -1155,12 +1155,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1194959756969462176}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.557, z: 0}
-  m_LocalScale: {x: 2.41595, y: 3.2909958, z: 2.192531}
+  m_LocalRotation: {x: -0.00032784717, y: -0, z: -0, w: 0.99999994}
+  m_LocalPosition: {x: 0.00014257431, y: -0.50384617, z: -0.05350876}
+  m_LocalScale: {x: 2.41595, y: 3.2909963, z: 2.1925313}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 324882715119290167}
+  m_Father: {fileID: 6586798735416910705}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1459531854623295260
 MeshFilter:
@@ -3020,6 +3020,7 @@ GameObject:
   - component: {fileID: 501272729311254531}
   - component: {fileID: 975215719065056197}
   - component: {fileID: 5600486302336137985}
+  - component: {fileID: 5523411198689757485}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3042,7 +3043,7 @@ Transform:
   m_Children:
   - {fileID: 7239325182561395409}
   - {fileID: 5874732954943412082}
-  - {fileID: 324882715119290167}
+  - {fileID: 5666257538004472297}
   - {fileID: 1469664648306775198}
   - {fileID: 6124624632797496000}
   - {fileID: 7593647566820675704}
@@ -3279,11 +3280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201d1e2528590aa45974384ec3efc295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isShieldInCoolDown: 0
-  isShieldActive: 0
   unlockedShield: 0
-  shieldUsageSec: 3
-  coolDownSec: 5
+  shieldCoolDownTime: 5
+  shieldDurationTime: 5
   HooverModel: {fileID: 6764947534684146016}
 --- !u!82 &774508971772862245
 AudioSource:
@@ -3438,6 +3437,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialName: HurtColor
   opacity: 150
+  hurtDuration: 0.2
+--- !u!114 &5523411198689757485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005257603024285522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a15bed9df9ec8488ae0993adc1c4d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldMaterialName: PlayerShield
+  opacity: 210
   hurtDuration: 0.2
 --- !u!1 &5031218017895963573
 GameObject:
@@ -4703,38 +4717,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.011969484, y: 0.3634094, z: 0.021451466}
     m_Extent: {x: 0.08673496, y: 0.10678099, z: 0.08613507}
   m_DirtyAABB: 0
---- !u!1 &6641696292246180322
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 324882715119290167}
-  m_Layer: 6
-  m_Name: ShieldHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &324882715119290167
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6641696292246180322}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.00032784717, y: -0, z: -0, w: 0.99999994}
-  m_LocalPosition: {x: 0.00014263153, y: 0.053153634, z: -0.05387271}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5666257538004472297}
-  m_Father: {fileID: 6586798735416910705}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6692561666145940853
 GameObject:
   m_ObjectHideFlags: 0
