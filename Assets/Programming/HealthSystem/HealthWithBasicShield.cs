@@ -90,7 +90,7 @@ public class HealthWithBasicShield : Health, IShieldObject
 		return base.TakeDamage(amount);
 	}
 
-	protected virtual void ActivateShield(bool playSFX = true)
+	public virtual void ActivateShield(bool playSFX = true)
 	{
 		shieldActive = true;
 		shieldObject.SetActive(true);
