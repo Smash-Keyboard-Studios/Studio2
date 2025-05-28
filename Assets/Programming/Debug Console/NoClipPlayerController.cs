@@ -1,28 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class NoClipPlayerController : MonoBehaviour
 {
-    private PlayerInputHandler inputHandler;
+    private Vector2 inputVector;
+    private bool isSprinting;
+
     private Vector3 currentMovement;
 
     // Start is called before the first frame update
     void Start()
     {
-        inputHandler = PlayerInputHandler.Instance;
+        // inputHandler = PlayerInputHandler.Instance;
+    }
+
+    public void OnMove(InputValue value)
+    {
+        inputVector = value.Get<Vector2>();
+    }
+
+    public void OnSprint(InputValue value)
+    {
+        isSprinting = value.isPressed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 InputDirection = new Vector3(inputHandler.MoveInput.x, 0f, inputHandler.MoveInput.y);
+        Vector3 InputDirection = new Vector3(inputVector.x, 0f, inputVector.y);
         Vector3 WorldDirection = transform.TransformDirection(InputDirection);
         WorldDirection.Normalize();
 
         float speed = 3f;
 
-        if (inputHandler.SprintValue > 0)
+        if (isSprinting)
         {
             speed = 9f;
         }

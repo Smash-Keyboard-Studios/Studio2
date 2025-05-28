@@ -3009,7 +3009,7 @@ GameObject:
   - component: {fileID: 4183672919623993217}
   - component: {fileID: 770932355983826125}
   - component: {fileID: 7613845529211925136}
-  - component: {fileID: 2470002677059597800}
+  - component: {fileID: 2073445359581214944}
   - component: {fileID: 8656545188935216562}
   - component: {fileID: 788834500746778170}
   - component: {fileID: 7923543069423568450}
@@ -3149,7 +3149,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2470002677059597800
+--- !u!114 &2073445359581214944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3158,19 +3158,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5005257603024285522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d00fa85d1284c074a93cf19fe8ee1f1c, type: 3}
+  m_Script: {fileID: 11500000, guid: c34fbf3c10d0ee64195612e035555a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkSpeed: 4
-  SprintMultiplier: 2
-  MaxStamina: 100
-  StaminaDecrease: 7
-  StaminaIncrease: 10
-  StaminaChargeRate: 1.5
-  Gravity: 9.81
-  currentStamina: 0
-  MainCharacter: {fileID: 27083249097777768}
-  rotation: {fileID: 1469664648306775198}
+  walkSpeed: 4
+  sprintMultiplier: 2
+  maxStamina: 100
+  staminaDecrease: 7
+  staminaIncrease: 10
+  staminaChargeRate: 1.5
+  gravity: 9.81
 --- !u!114 &8656545188935216562
 MonoBehaviour:
   m_ObjectHideFlags: 0
