@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 // Modified by domibron.
 
-
+[Obsolete("Going to replace with new system at some point.", false)]
 public class SliderBarFill : MonoBehaviour
 {
     PlayerMovementHandler playerMovement;
@@ -35,20 +36,6 @@ public class SliderBarFill : MonoBehaviour
 
         sliderBar = GetComponent<Slider>();
 
-        switch (whichSlider)
-        {
-            case SliderType.Health:
-                sliderBar.maxValue = 1;
-                break;
-            case SliderType.Stamina:
-                sliderBar.maxValue = playerMovement.maxStamina;
-                break;
-            case SliderType.ChargedButtonTimeHeld:
-                sliderBar.maxValue = 1;
-                break;
-            default:
-                break;
-        }
     }
 
     // Update is called once per frame

@@ -52,13 +52,12 @@ public class ShieldAbility : MonoBehaviour
 
     public void OnBlock()
     {
-        if (unlockedShield)
+        if (IsShieldReady())
         {
-            if (shieldCoolDownTimer <= 0)
-            {
-                shieldDurationTimer = shieldDurationTime;
-                healthWithBasicShield.ActivateShield();
-            }
+
+            shieldDurationTimer = shieldDurationTime;
+            healthWithBasicShield.ActivateShield();
+
         }
     }
 
@@ -68,15 +67,24 @@ public class ShieldAbility : MonoBehaviour
         return shieldCoolDownTimer / shieldCoolDownTime;
     }
 
-    public float GetShieldDurationNormalized()
+    public float GetDurationNormalized()
     {
         return shieldDurationTimer / shieldDurationTime;
     }
 
     public bool IsShieldReady()
     {
-        return shieldCoolDownTimer <= 0 && shieldDurationTimer <= 0 && unlockedShield;
+        return shieldCoolDownTimer <= 0 && shieldDurationTimer <= 0 && unlockedShield && !healthWithBasicShield.shieldActive;
     }
 
+    public bool IsShieldOnCoolDown()
+    {
+        return shieldCoolDownTimer > 0;
+    }
+
+    public bool IsShieldActive()
+    {
+        return shieldDurationTimer > 0;
+    }
 
 }
