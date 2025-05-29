@@ -24,6 +24,9 @@ public class PlayerMovementHandler : MonoBehaviour
 
     public float gravity = 9.81f;
 
+    [Header("no touch. will fuck.")]
+    public bool canSprint = true;
+
     private Transform playerRotationObject;
 
     private CharacterController cc;
@@ -67,12 +70,12 @@ public class PlayerMovementHandler : MonoBehaviour
     {
         float speed = walkSpeed;
 
-        if (isSprinting && inputVector.magnitude > 0 && currentStamina > 0)
+        if (isSprinting && inputVector.magnitude > 0 && currentStamina > 0 && canSprint)
         {
             speed = walkSpeed * sprintMultiplier;
         }
 
-        if (isSprinting && inputVector.magnitude > 0 && isSprinting && cc.velocity.magnitude > 0)
+        if (isSprinting && inputVector.magnitude > 0 && canSprint && cc.velocity.magnitude > 0)
         {
             currentStamina -= staminaDecrease * (staminaChargeRate * Time.deltaTime);
         }
@@ -80,6 +83,8 @@ public class PlayerMovementHandler : MonoBehaviour
         {
             currentStamina += staminaIncrease * (staminaChargeRate * Time.deltaTime);
         }
+
+        currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
 
         Vector3 playerMoveVector = transform.TransformDirection(new Vector3(inputVector.x, 0, inputVector.y)).normalized * speed;
         playerVelocity.x = playerMoveVector.x;
@@ -116,6 +121,11 @@ public class PlayerMovementHandler : MonoBehaviour
     public void OnSprint(InputValue value)
     {
         isSprinting = value.isPressed;
+    }
+
+    public float GetStaminaNormalized()
+    {
+        return currentStamina / maxStamina;
     }
 
     public void Warp(Vector3 newPos)

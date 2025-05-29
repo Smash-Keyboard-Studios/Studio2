@@ -53,21 +53,16 @@ public class AbilityCooldownUI : MonoBehaviour
     {
         if (playerObject != null) //if weve found player object then set ability in use to the correct ability type
         {
-            PlayerAttack playerAttackScript = playerObject.GetComponent<PlayerAttack>();
+            PlayerAttackHandler playerAttackScript = playerObject.GetComponent<PlayerAttackHandler>();
             ShieldAbility playerShieldScript = playerObject.GetComponent<ShieldAbility>();
 
             switch (abilityType)
             {
-                case AbilityType.LightAttack:
-                    abilityInUse = playerAttackScript.lightAttacking;
-                    cooldownBar.maxValue = playerAttackScript.LightAttackDelay;
-                    break;
-
                 case AbilityType.HeavyAttack:
-                    if (playerAttackScript.unlockedHeavyAttack) //if unlocked, set cooldown to whether heavy attacking
+                    if (playerAttackScript.heavyAttackUnlocked) //if unlocked, set cooldown to whether heavy attacking
                     {
-                        abilityInUse = playerAttackScript.heavyAttacking;
-                        cooldownBar.maxValue = playerAttackScript.HeavyAttackDelay;
+                        abilityInUse = playerAttackScript.GetChargedHeavyAmountNormalized() > 0;
+                        cooldownBar.maxValue = 1;
                     }
                     else //otherwise set slider to max so it looks disabled
                     {

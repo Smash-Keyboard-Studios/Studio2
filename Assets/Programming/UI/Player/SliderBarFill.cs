@@ -10,9 +10,9 @@ using UnityEngine.UI;
 
 public class SliderBarFill : MonoBehaviour
 {
-    PlayerMovement playerMovement;
+    PlayerMovementHandler playerMovement;
     Health playerHealth;
-    PlayerAttack playerAttack;
+    PlayerAttackHandler playerAttack;
 
     private Slider sliderBar;
 
@@ -29,9 +29,9 @@ public class SliderBarFill : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerMovement = PlayerReferenceFetcher.instance.GetPlayerReference().GetComponent<PlayerMovement>();
+        playerMovement = PlayerReferenceFetcher.instance.GetPlayerReference().GetComponent<PlayerMovementHandler>();
         playerHealth = PlayerReferenceFetcher.instance.GetPlayerReference().GetComponent<Health>();
-        playerAttack = PlayerReferenceFetcher.instance.GetPlayerReference().GetComponent<PlayerAttack>();
+        playerAttack = PlayerReferenceFetcher.instance.GetPlayerReference().GetComponent<PlayerAttackHandler>();
 
         sliderBar = GetComponent<Slider>();
 
@@ -41,10 +41,10 @@ public class SliderBarFill : MonoBehaviour
                 sliderBar.maxValue = 1;
                 break;
             case SliderType.Stamina:
-                sliderBar.maxValue = playerMovement.MaxStamina;
+                sliderBar.maxValue = playerMovement.maxStamina;
                 break;
             case SliderType.ChargedButtonTimeHeld:
-                sliderBar.maxValue = playerAttack.MaxChargedHeavyDmg;
+                sliderBar.maxValue = 1;
                 break;
             default:
                 break;
@@ -60,15 +60,15 @@ public class SliderBarFill : MonoBehaviour
                 sliderBar.value = playerHealth.GetHealthNormalized();
                 break;
             case SliderType.Stamina:
-                sliderBar.value = playerMovement.currentStamina;
+                sliderBar.value = playerMovement.GetStaminaNormalized();
                 break;
             case SliderType.ChargedButtonTimeHeld:
                 //if heavy attack is unlocked then set slider bar value
-                if (playerAttack.unlockedHeavyAttack)
+                if (playerAttack.heavyAttackUnlocked)
                 {
                     //if not currently in the heavy attack set value to charge value
                     //this check is to stop the charging whenever the normal heavy is pressed
-                    sliderBar.value = playerAttack.heavyAttacking ? 0 : playerAttack.ChargedHeavyDmg;
+                    sliderBar.value = playerAttack.GetChargedHeavyAmountNormalized();
                 }
                 //otherwise slider bar value is always 0
                 else

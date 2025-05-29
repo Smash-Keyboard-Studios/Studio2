@@ -118,7 +118,7 @@ public class BaseCommands
 #nullable restore
             if (go != null && go.transform.name == "Player")
             {
-                go.transform.GetComponent<PlayerMovement>().WalkSpeed = newSpeed;
+                go.transform.GetComponent<PlayerMovementHandler>().walkSpeed = newSpeed;
                 console.TextToConsole("Set sprint speed of the player to " + newSpeed);
             }
             else
@@ -258,7 +258,7 @@ public class BaseCommands
             {
 
                 go.GetComponent<ShieldAbility>().unlockedShield = true;
-                go.GetComponent<PlayerAttack>().unlockedHeavyAttack = true;
+                go.GetComponent<PlayerAttackHandler>().heavyAttackUnlocked = true;
 
                 console.TextToConsole($"Unlocked all abilities");
 

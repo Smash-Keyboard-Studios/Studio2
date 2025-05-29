@@ -143,10 +143,10 @@ public class PlayerCheckpointManager : MonoBehaviour
 
         // playerObject.transform.position = playerLastPosition;
 
-        playerObject.GetComponent<PlayerAttack>().unlockedHeavyAttack = hasHeavyAttack;
+        playerObject.GetComponent<PlayerAttackHandler>().heavyAttackUnlocked = hasHeavyAttack;
         playerObject.GetComponent<ShieldAbility>().unlockedShield = hasShield;
 
-        playerObject.GetComponent<PlayerMovement>().Warp(playerLastPosition);
+        playerObject.GetComponent<PlayerMovementHandler>().Warp(playerLastPosition);
 
         Debug.Log("Loaded player's last state");
     }
