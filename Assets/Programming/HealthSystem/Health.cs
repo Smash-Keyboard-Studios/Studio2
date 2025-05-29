@@ -35,10 +35,10 @@ public class Health : MonoBehaviour, IDamageable
 
     public event Action onTakenDamageSFXPlayOnce;
 
-    protected float baseSize = 6f;
-    protected float numberSizeMultiply = 3f;
-    protected float minRandomMultiplyAmount = 0.4f;
-    protected float maxRandomMultiplyAmount = 0.4f;
+    public float baseSize = 6f;
+    public float numberSizeMultiply = 3f;
+    public float minRandomMultiplyAmount = 0.4f;
+    public float maxRandomMultiplyAmount = 0.4f;
 
     public Color topColor = new Color(1, 0.8f, 0.1f);
     public Color bottomColor = new Color(1, 0, 0);

@@ -5579,10 +5579,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbc7e2400dda745ad4d0aa673350c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 80
+  maxHealth: 320
   topColor: {r: 1, g: 0.8, b: 0.1, a: 1}
   bottomColor: {r: 1, g: 0, b: 0, a: 1}
   shieldObject: {fileID: 2485080906551701511}
+  startShieldAsActive: 1
   shieldActive: 1
   shieldTopColor: {r: 0.7, g: 1, b: 1, a: 1}
   shieldBottomColor: {r: 0, g: 0.6, b: 1, a: 1}

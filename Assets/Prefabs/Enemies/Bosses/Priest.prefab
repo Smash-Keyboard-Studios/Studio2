@@ -99,7 +99,7 @@ MonoBehaviour:
   volleyRunDuration: 2
   beamAttackCooldown: 15
   beamDamage: 1
-  beamTurnSpeed: 0.2
+  beamTurnSpeed: 0.5
   projectileSpread: 15
   volleyDelay: 0.1
 --- !u!114 &3348174629075526740
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c369e918ef61bcb418ac140dab0f87e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 90
+  maxHealth: 360
   topColor: {r: 1, g: 0.8, b: 0.1, a: 1}
   bottomColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &-9150303543506523908

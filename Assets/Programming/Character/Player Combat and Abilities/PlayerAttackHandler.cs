@@ -119,7 +119,11 @@ public class PlayerAttackHandler : MonoBehaviour
         if (currentCharge != GetChargedHeavyAmount() && GetChargedHeavyAmount() > 0)
         {
             // show ring
-            ringIndicator.ShowRing(0.1f, GetChargedHeavyAmount(), currentCharge);
+            if (GetChargedHeavyAmount() <= heavyAttackSegments.Length)
+            {
+                ringIndicator.ShowRing(0.1f, heavyAttackSegments[GetChargedHeavyAmount() - 1].Range, (currentCharge == 0 ? 0 : heavyAttackSegments[currentCharge - 1].Range));
+            }
+
             currentCharge = GetChargedHeavyAmount();
         }
         else if (currentCharge != GetChargedHeavyAmount())
@@ -220,8 +224,12 @@ public class PlayerAttackHandler : MonoBehaviour
 
             if (collider.GetComponent<IShieldObject>() != null)
             {
-                collider.GetComponent<IShieldObject>().BreakShield();
-                collider.GetComponent<IDamageable>()?.TakeDamage(heavyAttackSegments[chargeAmount].DamageWithShield);
+                if (collider.GetComponent<IShieldObject>().isShieldActive)
+                {
+                    collider.GetComponent<IShieldObject>().BreakShield();
+                    collider.GetComponent<IDamageable>()?.TakeDamage(heavyAttackSegments[chargeAmount].DamageWithShield);
+                }
+                else collider.GetComponent<IDamageable>()?.TakeDamage(heavyAttackSegments[chargeAmount].Damage);
             }
             else
             {
