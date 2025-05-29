@@ -209,7 +209,7 @@ public class PlayerAttackHandler : MonoBehaviour
         playerAnimator.SetBool("HeavyAttacking", true);
 
         yield return new WaitForSeconds(heavyAttackDelayForAnimations);
-        print(chargeAmount);
+        // print(chargeAmount);
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, heavyAttackSegments[chargeAmount].Range);
 
@@ -241,6 +241,11 @@ public class PlayerAttackHandler : MonoBehaviour
     public float GetChargedHeavyAmountNormalized()
     {
         return Mathf.Floor((currentChargeTime / timeToChargeHeavyAttackFully) / (1f / heavyAttackSegments.Length)) / heavyAttackSegments.Length;
+    }
+
+    public float GetChargedHeavyNormalized()
+    {
+        return currentChargeTime / timeToChargeHeavyAttackFully;
     }
 
     private void OnDrawGizmos()
