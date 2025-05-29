@@ -171,7 +171,15 @@ public class PlayerAttackHandler : MonoBehaviour
         isHeavyAttackKeyDown = value.isPressed;
     }
 
+    public bool IsHeavyAttackOnCoolDown()
+    {
+        return currentHeavyAttackCoolDown > 0;
+    }
 
+    public float GetHeavyAttackCoolDownNormalized()
+    {
+        return currentHeavyAttackCoolDown / heavyAttackCoolDown;
+    }
 
     private IEnumerator DealLightAttack()
     {
