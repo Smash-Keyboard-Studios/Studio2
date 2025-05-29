@@ -3062,11 +3062,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34fbf3c10d0ee64195612e035555a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 4
-  sprintMultiplier: 2
+  walkSpeed: 3
+  sprintMultiplier: 2.6
   maxStamina: 100
   staminaDecrease: 7
-  staminaIncrease: 10
+  staminaIncrease: 12
   staminaChargeRate: 1.5
   gravity: 9.81
   canSprint: 1
@@ -3083,13 +3083,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  topColor: {r: 1, g: 0.8, b: 0.1, a: 1}
-  bottomColor: {r: 1, g: 0, b: 0, a: 1}
+  baseSize: 6
+  numberSizeMultiply: 5
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
+  topColor: {r: 0.6603774, g: 0.022549473, b: 0, a: 1}
+  bottomColor: {r: 0.2905661, g: 0, b: 0, a: 1}
   shieldObject: {fileID: 1194959756969462176}
   startShieldAsActive: 0
   shieldActive: 1
-  shieldTopColor: {r: 0.7, g: 1, b: 1, a: 1}
-  shieldBottomColor: {r: 0, g: 0.6, b: 1, a: 1}
+  shieldTopColor: {r: 0.85660374, g: 0.11475258, b: 0.7474552, a: 1}
+  shieldBottomColor: {r: 0.5924529, g: 0.0033534584, b: 0.3813248, a: 1}
 --- !u!114 &3734973043025581920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3104,7 +3108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heavyAttackUnlocked: 0
   hammerModel: {fileID: 5644760467099071960}
-  lightAttackDamage: 3
+  lightAttackDamage: 8
   lightAttackDelay: 0.6
   lightAttackDelayForAnimations: 0.2
   boxCastDepth: 1.2
@@ -3112,21 +3116,21 @@ MonoBehaviour:
   boxCastHeight: 1
   boxCastForwardOffset: 0.9
   heavyAttackSegments:
-  - Damage: 5
-    DamageWithShield: 1
-    Range: 1
-  - Damage: 10
-    DamageWithShield: 2
-    Range: 2
-  - Damage: 15
-    DamageWithShield: 3
-    Range: 3
+  - Damage: 16
+    DamageWithShield: 0
+    Range: 1.1
+  - Damage: 18
+    DamageWithShield: 0
+    Range: 1.3
   - Damage: 20
     DamageWithShield: 4
-    Range: 4
-  - Damage: 25
-    DamageWithShield: 5
-    Range: 5
+    Range: 1.5
+  - Damage: 24
+    DamageWithShield: 8
+    Range: 1.8
+  - Damage: 32
+    DamageWithShield: 16
+    Range: 2
   heavyAttackCoolDown: 3
   timeToChargeHeavyAttackFully: 3
   heavyAttackDelayForAnimations: 0.2
@@ -3319,7 +3323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60080a26aeea06947bcf521ea61149f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magicNumberPrefab: {fileID: 7122786255667809930, guid: 5a049595a9d51de41a0ff67badff996b,
+  magicNumberPrefab: {fileID: 7122786255667809930, guid: 81b2dfa09d3fcef40a7f6d3d805aaf88,
     type: 3}
   MinDistance: 0.3
   MaxDistance: 0.4
@@ -4996,13 +5000,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8060437892089305559}
-  m_LocalRotation: {x: 0, y: 0, z: 0.309017, w: 0.95105654}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5874732954943412082}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
