@@ -25,7 +25,7 @@ public class PlayerAbilityUnlock : MonoBehaviour
         switch (abilityType)
         {
             case AbilityType.heavyAttack:
-                other.GetComponent<PlayerAttack>().unlockedHeavyAttack = true;
+                other.GetComponent<PlayerAttackHandler>().heavyAttackUnlocked = true;
                 break;
 
             case AbilityType.shieldAbility:

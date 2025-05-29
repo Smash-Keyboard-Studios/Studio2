@@ -37,6 +37,8 @@ public class HealthWithBasicShield : Health, IShieldObject
 	public Color shieldTopColor = new Color(0.7f, 1f, 1f);
 	public Color shieldBottomColor = new Color(0f, 0.6f, 1f);
 
+	bool IShieldObject.isShieldActive { get => shieldActive; }
+
 	protected override void Start()
 	{
 		hurtIndicator = GetComponent<HurtIndicatorAuto>();

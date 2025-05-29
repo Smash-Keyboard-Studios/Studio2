@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Handles movement of the player.
 /// </summary>
-[Obsolete("Please use " + nameof(PlayerMovementHandler) + " now.", false)]
+[Obsolete("Please use " + nameof(PlayerMovementHandler) + " now.", true)]
 public class PlayerMovement : MonoBehaviour
 {
     //The different movement speeds for the player

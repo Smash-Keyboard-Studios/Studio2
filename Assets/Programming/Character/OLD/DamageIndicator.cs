@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Obsolete("Please use the " + nameof(HurtIndicatorAuto) + " instead!", false)]
+[Obsolete("Please use the " + nameof(HurtIndicatorAuto) + " instead!", true)]
 public class DamageIndicator : MonoBehaviour
 {
     public float blinkIntensity;
