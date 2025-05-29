@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//by    _                 _ _                     
+//     | |               (_) |                    
+//   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
+//  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
+// | (_| | (_) | | | | | | | |_) | | | (_) | | | |
+//  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+
 
 [Serializable]
 public struct HeavyAttackSegment
@@ -61,9 +68,13 @@ public class PlayerAttackHandler : MonoBehaviour
 
     public float heavyAttackDelayForAnimations = 0.2f;
 
+    private int currentCharge = 0;
+
     public Transform rotation;
     private Health health;
     private PlayerMovementHandler playerMovementHandler;
+    private RingIndicator ringIndicator;
+    private Animator playerAnimator;
 
     // input related.
     private bool isLightAttackKeyDown = false;
@@ -80,6 +91,8 @@ public class PlayerAttackHandler : MonoBehaviour
     {
         health = GetComponent<Health>();
         playerMovementHandler = GetComponent<PlayerMovementHandler>();
+        ringIndicator = GetComponent<RingIndicator>();
+        playerAnimator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -91,6 +104,8 @@ public class PlayerAttackHandler : MonoBehaviour
 
         if (currentHeavyAttackCoolDown > 0) currentHeavyAttackCoolDown -= Time.deltaTime;
 
+
+
         if (heavyAttacking || lightAttacking)
         {
             playerMovementHandler.canSprint = false;
@@ -100,10 +115,26 @@ public class PlayerAttackHandler : MonoBehaviour
             playerMovementHandler.canSprint = true;
         }
 
+        // naughty naught directly hooking like this, this can cause problems.
+        if (currentCharge != GetChargedHeavyAmount() && GetChargedHeavyAmount() > 0)
+        {
+            // show ring
+            ringIndicator.ShowRing(0.1f, GetChargedHeavyAmount(), currentCharge);
+            currentCharge = GetChargedHeavyAmount();
+        }
+        else if (currentCharge != GetChargedHeavyAmount())
+        {
+            // hide ring
+            ringIndicator.HideRing(16f);
+            currentCharge = GetChargedHeavyAmount();
+        }
 
-        if (isHeavyAttackKeyDown && currentHeavyAttackCoolDown <= 0 && heavyAttackUnlocked && !heavyAttacking)
+
+
+        if (isHeavyAttackKeyDown && currentHeavyAttackCoolDown <= 0 && heavyAttackUnlocked)
         {
             heavyAttacking = true;
+            playerAnimator.SetBool("ChargingHeavyAttack", true);
 
             if (currentChargeTime <= 0)
             {
@@ -122,7 +153,7 @@ public class PlayerAttackHandler : MonoBehaviour
             currentChargeTime = 0;
             currentHeavyAttackCoolDown = heavyAttackCoolDown;
         }
-        else if (isLightAttackKeyDown && currentLightAttackCoolDown <= 0 && !lightAttacking)
+        else if (isLightAttackKeyDown && currentLightAttackCoolDown <= 0)
         {
             lightAttacking = true;
             StartCoroutine(DealLightAttack());
@@ -144,6 +175,8 @@ public class PlayerAttackHandler : MonoBehaviour
 
     private IEnumerator DealLightAttack()
     {
+        playerAnimator.SetBool("Attacking", true);
+
         yield return new WaitForSeconds(lightAttackDelayForAnimations);
 
 
@@ -157,12 +190,15 @@ public class PlayerAttackHandler : MonoBehaviour
             collider.GetComponent<IDamageable>()?.TakeDamage(lightAttackDamage);
         }
 
+        playerAnimator.SetBool("Attacking", false);
         lightAttacking = false; // release after animation.
     }
 
     private IEnumerator DealHeavyAttack(int chargeAmount)
     {
         chargeAmount--; // we reduce it by one max charge is one to high for arrays.
+        playerAnimator.SetBool("ChargingHeavyAttack", false);
+        playerAnimator.SetBool("HeavyAttacking", true);
 
         yield return new WaitForSeconds(heavyAttackDelayForAnimations);
         print(chargeAmount);
@@ -185,6 +221,7 @@ public class PlayerAttackHandler : MonoBehaviour
             }
         }
 
+        playerAnimator.SetBool("HeavyAttacking", false);
         heavyAttacking = false; // release after animations.
     }
 
