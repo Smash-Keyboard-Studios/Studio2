@@ -11,14 +11,14 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 346c5989fd7ebfc43a09f3d3c88a5909,
     type: 3}
   m_Parent: {fileID: 2100000, guid: 359fc1f5385d6b040b10929cecaf4357, type: 2}
-  m_ModifiedSerializedProperties: 2
+  m_ModifiedSerializedProperties: 18
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3001
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -31,6 +31,7 @@ Material:
     - _NoiseDensity: 0.03
     - _Opacity: 1
     - _Particles: 1.55
+    - _QueueOffset: 1
     - _SecondaryNosieDensity: 7.37
     - _Speed: 1
     m_Colors:
