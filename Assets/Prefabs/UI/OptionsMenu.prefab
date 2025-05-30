@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 5891930809335342501}
   - component: {fileID: 9222176678480267242}
   m_Layer: 5
-  m_Name: SoundVolSlider
+  m_Name: MusicVolSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -677,7 +677,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 135179527962112051}
         m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
-        m_MethodName: SetGameplayVolume
+        m_MethodName: SetMusicVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1565,7 +1565,7 @@ GameObject:
   - component: {fileID: 2460102918640828088}
   - component: {fileID: 1490848824188274081}
   m_Layer: 5
-  m_Name: MusicVolSlider
+  m_Name: GPVolSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1646,7 +1646,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 135179527962112051}
         m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
-        m_MethodName: SetMusicVolume
+        m_MethodName: SetGameplayVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
