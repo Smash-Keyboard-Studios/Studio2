@@ -37,7 +37,9 @@ public class MinimapController : MonoBehaviour
 
     public float rotationSpeed = 40f;
 
-    public float entityDetectionRangeRadius = 20f;
+    // public float entityDetectionRangeRadius = 20f;
+
+    public float PointerRotationSpeed = 20f;
 
     // private bool enemyDetected = false;
     // private bool itemDetected = false;
@@ -124,6 +126,8 @@ public class MinimapController : MonoBehaviour
         // left is positive, right is negative.
         if (targetPoint.HasValue)
         {
+            pointerImage.gameObject.SetActive(true);
+
             Vector3 dir = (targetPoint.Value - playerTransform.position).normalized;
 
             // 1 is forward, 0 is left or right, and -1 is back.
@@ -133,7 +137,7 @@ public class MinimapController : MonoBehaviour
 
             float rotation = (90f - (90f * rotationAmount)) * (isRight ? -1f : 1f);
 
-            pointerImage.rotation = Quaternion.Euler(0, 0, rotation);
+            pointerImage.rotation = Quaternion.Lerp(pointerImage.rotation, Quaternion.Euler(0, 0, rotation), PointerRotationSpeed * Time.deltaTime);
         }
         else
         {
