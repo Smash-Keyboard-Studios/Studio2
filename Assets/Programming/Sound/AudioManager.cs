@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -56,16 +57,13 @@ public class AudioManager : MonoBehaviour
         {
             int currentAudioTime = loopFromStart? 0 : audioSource.timeSamples; //gets current point where music is playing at if not looping from the start of the song
 
-            if (audioSource.clip != clipToPlay) //if not already playing the current clip
-            {
-                StopAudio(audioSource); //stops what is currently playing if its a looping audio
-                audioSource.loop = true;
+            StopAudio(audioSource); //stops what is currently playing if its a looping audio
+            audioSource.loop = true;
 
-                audioSource.clip = clipToPlay;
+            audioSource.clip = clipToPlay;
 
-                audioSource.Play(); //play the clip!!
-                audioSource.timeSamples = currentAudioTime;
-            }
+            audioSource.Play(); //play the clip!!
+            audioSource.timeSamples = currentAudioTime;
         }
         else
         {
@@ -87,6 +85,9 @@ public class AudioManager : MonoBehaviour
         //if found the clips to play
         if (clipsToPlay != null)
         {
+            //if looping and already playing one of the clips then return
+            if (looping && clipsToPlay.Contains<AudioClip>(audioSource.clip)){ return; }
+
             Debug.Log("Playing " + clipName); //we found the clips to play
             AudioClip clipToPlay = clipsToPlay[UnityEngine.Random.Range(0, clipsToPlay.Length)]; //choose a random clip from the selection of audio clips
 

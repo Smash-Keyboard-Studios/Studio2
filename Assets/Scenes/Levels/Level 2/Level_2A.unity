@@ -31873,7 +31873,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3916d6b1c5e63a4984326d13dab5794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  additiveScenes: []
+  additiveScenes:
+  - 6
 --- !u!4 &713696700
 Transform:
   m_ObjectHideFlags: 0
@@ -51129,6 +51130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3734973043025581920, guid: d110e1c34e83ce247a08b9455a2744c8,
+        type: 3}
+      propertyPath: heavyAttackUnlocked
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5005257603024285522, guid: d110e1c34e83ce247a08b9455a2744c8,
         type: 3}

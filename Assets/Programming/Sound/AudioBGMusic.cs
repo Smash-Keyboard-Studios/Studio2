@@ -42,11 +42,11 @@ public class AudioBGMusic : MonoBehaviour
     {
         if (inBoss2)
         {
-            AudioManager.Instance.PlayAudio(true, false, audioSource, "Boss2");
+            AudioManager.Instance.PlayAudio(true, true, audioSource, "Boss2");
         } 
         else if (inBoss1)
         {
-            AudioManager.Instance.PlayAudio(true, false, audioSource, "Boss1");
+            AudioManager.Instance.PlayAudio(true, true, audioSource, "Boss1");
         }
         else
         {
