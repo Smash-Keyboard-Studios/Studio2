@@ -37,14 +37,14 @@ public class MinimapController : MonoBehaviour
 
     public float rotationSpeed = 40f;
 
-    // public float entityDetectionRangeRadius = 20f;
+    public float entityDetectionRangeRadius = 20f;
 
     public float PointerRotationSpeed = 20f;
 
     // private bool enemyDetected = false;
     // private bool itemDetected = false;
 
-    private PlayerDetectNearby playerDetectNearby;
+    private EntityDetectNearby entityDetectNearby;
     private Transform playerTransform;
 
 
@@ -64,8 +64,8 @@ public class MinimapController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerDetectNearby = GameObject.Find("Player").GetComponent<PlayerDetectNearby>();
-        playerTransform = playerDetectNearby.transform;
+        playerTransform = PlayerReferenceFetcher.instance.GetPlayerReference().transform;
+        entityDetectNearby = playerTransform.GetComponent<EntityDetectNearby>();
     }
 
     // Update is called once per frame
@@ -79,6 +79,8 @@ public class MinimapController : MonoBehaviour
         // dangerLightIndicatorImage.sprite = (dangerLightIsOn) ? dangerLightOn : dangerLightOff;
         // itemLightIndicatorImage.sprite = (itemLightIsOn) ? itemLightOn : itemLightOff;
 
+
+
         HandleLightBlinking();
 
         HandlePointer();
@@ -86,8 +88,9 @@ public class MinimapController : MonoBehaviour
 
     private void GetLightStatus()
     {
-        dangerLightIsOn = playerDetectNearby.enemiesNearby;
-        itemLightIsOn = playerDetectNearby.itemsNearby;
+        // layer mask checking so we can optimise physics a little.
+        dangerLightIsOn = entityDetectNearby.CheckWithinRadius(entityDetectionRangeRadius, "Enemy", layerMask: LayerMask.GetMask("Enemy"));
+        itemLightIsOn = entityDetectNearby.CheckWithinRadius(entityDetectionRangeRadius, "Item", layerMask: LayerMask.GetMask("Item"));
     }
 
     private void HandleLightBlinking()

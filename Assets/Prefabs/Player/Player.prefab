@@ -325,6 +325,7 @@ GameObject:
   - component: {fileID: 8066169734526881863}
   - component: {fileID: 8423949506482384344}
   - component: {fileID: 6519467194219644607}
+  - component: {fileID: 6251033078474733187}
   m_Layer: 6
   m_Name: ChargedAttackCanvas
   m_TagString: Untagged
@@ -415,6 +416,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6251033078474733187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404025992144213989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce9f8ef328bc6f42b54a595a634ea5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetGraphic: {fileID: 4211187697589241511}
+  throbColor: {r: 1, g: 0.945616, b: 0.8349056, a: 1}
+  throbSpeed: 6
+  scaleUpSize: 1.6
 --- !u!1 &406480669243767839
 GameObject:
   m_ObjectHideFlags: 0
@@ -2921,6 +2938,7 @@ GameObject:
   - component: {fileID: 5600486302336137985}
   - component: {fileID: 5523411198689757485}
   - component: {fileID: 6109847945268430093}
+  - component: {fileID: 1708644854712459076}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3118,16 +3136,16 @@ MonoBehaviour:
   heavyAttackSegments:
   - Damage: 16
     DamageWithShield: 0
-    Range: 1.1
+    Range: 1.5
   - Damage: 18
     DamageWithShield: 0
-    Range: 1.3
+    Range: 1.6
   - Damage: 20
     DamageWithShield: 4
-    Range: 1.5
+    Range: 1.7
   - Damage: 24
     DamageWithShield: 8
-    Range: 1.8
+    Range: 1.9
   - Damage: 32
     DamageWithShield: 16
     Range: 2
@@ -3384,6 +3402,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageRingGameObject: {fileID: 8108918884838095781}
+--- !u!114 &1708644854712459076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005257603024285522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a1cfb1c2cfb9b4091d827273a9d698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5031218017895963573
 GameObject:
   m_ObjectHideFlags: 0
@@ -5002,7 +5032,7 @@ RectTransform:
   m_GameObject: {fileID: 8060437892089305559}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5874732954943412082}
@@ -5033,7 +5063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.67058825, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.67058825, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
