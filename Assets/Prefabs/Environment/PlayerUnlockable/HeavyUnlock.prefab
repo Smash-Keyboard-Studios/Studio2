@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3535470906419739276}
   - component: {fileID: 5696174685068630647}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 6231977346123998344}
   - component: {fileID: 7195286101846185183}
   - component: {fileID: 4129984187387917410}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 5320785212622099613}
   - component: {fileID: 7926073440948716257}
   - component: {fileID: 9191465689202455366}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HeavyUnlock
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -241,6 +241,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3535470906419739276}
     m_Modifications:
+    - target: {fileID: 7225753318387617386, guid: c61d98bd74e74394bbfcb16a540a0924,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7406029594645688406, guid: c61d98bd74e74394bbfcb16a540a0924,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -315,6 +320,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HAMMER LP V3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893772216030112492, guid: c61d98bd74e74394bbfcb16a540a0924,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

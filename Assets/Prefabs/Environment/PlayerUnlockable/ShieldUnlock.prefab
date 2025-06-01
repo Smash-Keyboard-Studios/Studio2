@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5320785212622099613}
   - component: {fileID: 6363545673026706925}
   - component: {fileID: -8800628015503188254}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShieldUnlock
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -76,10 +76,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5320785212622099613}
     m_Modifications:
+    - target: {fileID: 1978118375854234091, guid: fe305a1575fbb7e47b2412543c318661,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3286663208650143064, guid: fe305a1575fbb7e47b2412543c318661,
         type: 3}
       propertyPath: m_Name
       value: BackPackHolder
+      objectReference: {fileID: 0}
+    - target: {fileID: 3286663208650143064, guid: fe305a1575fbb7e47b2412543c318661,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929740079554794970, guid: fe305a1575fbb7e47b2412543c318661,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370857684830690417, guid: fe305a1575fbb7e47b2412543c318661,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8538547988146206683, guid: fe305a1575fbb7e47b2412543c318661,
         type: 3}
