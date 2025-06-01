@@ -5475,6 +5475,7 @@ GameObject:
   - component: {fileID: 6855098570431426246}
   - component: {fileID: 1723901489230906852}
   - component: {fileID: 6509453713498881600}
+  - component: {fileID: 945033288345369602}
   m_Layer: 7
   m_Name: Knight
   m_TagString: Enemy
@@ -5580,6 +5581,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 320
+  baseSize: 6
+  numberSizeMultiply: 3
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
   topColor: {r: 1, g: 0.8, b: 0.1, a: 1}
   bottomColor: {r: 1, g: 0, b: 0, a: 1}
   shieldObject: {fileID: 2485080906551701511}
@@ -5808,6 +5813,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &945033288345369602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9086637893552779497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a83d44b83947a4985b07b5d764f69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subTags:
+  - Boss1
 --- !u!1001 &1915182254492227860
 PrefabInstance:
   m_ObjectHideFlags: 0
