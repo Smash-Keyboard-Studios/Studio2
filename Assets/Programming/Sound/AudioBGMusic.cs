@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,25 +41,35 @@ public class AudioBGMusic : MonoBehaviour
 
     private void playBGM()
     {
-        if (inBoss2)
+        switch (whichLevel)
         {
-            AudioManager.Instance.PlayAudio(true, true, audioSource, "Boss2");
-        } 
-        else if (inBoss1)
-        {
-            AudioManager.Instance.PlayAudio(true, true, audioSource, "Boss1");
-        }
-        else
-        {
-            switch (whichLevel)
-            {
-                case LevelNumber.One:
+            case LevelNumber.One:
+
+                if (inBoss1)
+                {
+                    AudioManager.Instance.PlayAudio(true, true, audioSource, "Boss1");
+                    
+                }
+                else
+                {
                     AudioManager.Instance.PlayAudio(true, false, audioSource, inCombat ? "L1_Combat" : "L1_NonCombat");
-                    break;
-                case LevelNumber.Two:
+                }
+
+                break;
+
+            case LevelNumber.Two:
+
+                if (inBoss2)
+                {
+                    AudioManager.Instance.PlayAudio(true, true, audioSource, "Boss2");
+                }
+                else
+                {
                     AudioManager.Instance.PlayAudio(true, false, audioSource, inCombat ? "L2_Combat" : "L2_NonCombat");
-                    break;
-            }
+                }
+
+                break;
+
         }
     }
 }
