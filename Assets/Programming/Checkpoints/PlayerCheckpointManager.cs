@@ -148,7 +148,19 @@ public class PlayerCheckpointManager : MonoBehaviour
 
         playerObject.GetComponent<PlayerMovementHandler>().Warp(playerLastPosition);
 
+        StartCoroutine(WaitUntilLevelLoadsFully(playerObject));
+
         Debug.Log("Loaded player's last state");
+    }
+
+    IEnumerator WaitUntilLevelLoadsFully(GameObject playerObject)
+    {
+        playerObject.GetComponent<PlayerMovementHandler>().enabled = false;
+        while (LevelLoading.instance.loading) yield return null;
+        playerObject.GetComponent<PlayerMovementHandler>().enabled = true;
+
+        Debug.Log("Freeing player");
+
     }
 }
 
