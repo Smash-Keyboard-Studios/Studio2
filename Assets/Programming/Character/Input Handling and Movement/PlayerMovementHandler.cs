@@ -48,12 +48,14 @@ public class PlayerMovementHandler : MonoBehaviour
         playerRotationObject = transform.Find("PlayerRotation");
 
         currentStamina = maxStamina;
+
+        GetComponent<Health>().onDeathEvent += OnDeath;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnDeath()
     {
-
+        playerAnimator.SetBool("isDead", true);
+        enabled = false;
     }
 
     // Update is called once per frame

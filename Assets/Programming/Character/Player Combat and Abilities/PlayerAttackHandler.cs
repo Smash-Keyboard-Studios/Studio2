@@ -90,9 +90,15 @@ public class PlayerAttackHandler : MonoBehaviour
     void Awake()
     {
         health = GetComponent<Health>();
+        health.onDeathEvent += OnDeath;
         playerMovementHandler = GetComponent<PlayerMovementHandler>();
         ringIndicator = GetComponent<RingIndicator>();
         playerAnimator = GetComponentInChildren<Animator>();
+    }
+
+    private void OnDeath()
+    {
+        enabled = false;
     }
 
     // Update is called once per frame

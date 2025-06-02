@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,16 @@ public class PlayerRotation : MonoBehaviour
     public float rotationSpeed = 10f;
 
     private Quaternion currentRotation;
+
+    void Start()
+    {
+        GetComponentInParent<Health>().onDeathEvent += OnDeath;
+    }
+
+    private void OnDeath()
+    {
+        enabled = false;
+    }
 
     void Update()
     {

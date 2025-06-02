@@ -28,6 +28,12 @@ public class ShieldAbility : MonoBehaviour
     void Start()
     {
         healthWithBasicShield = GetComponent<HealthWithBasicShield>();
+        healthWithBasicShield.onDeathEvent += OnDeath;
+    }
+
+    private void OnDeath()
+    {
+        enabled = false;
     }
 
     void Update()
