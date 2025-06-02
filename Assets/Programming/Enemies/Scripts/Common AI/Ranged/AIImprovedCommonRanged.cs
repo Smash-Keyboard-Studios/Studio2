@@ -88,10 +88,7 @@ public class AIImprovedCommonRanged : AIBase
 
     #region Turning Variables 
     [Header("Turning Variables and movement"), SerializeField]
-    protected float maxTurningDegreesDelta = 0.5f;
-
-    [SerializeField]
-    protected float speedWhileNextToPlayer = 0.4f;
+    protected float turningSpeed = 5f;
     #endregion
 
 
@@ -236,9 +233,13 @@ public class AIImprovedCommonRanged : AIBase
     {
         //Vector3 lead = Vector3.Distance(transform.position, playerTarget.position) < 3f ? Vector3.zero : playerTarget.GetComponent<CharacterController>().velocity;
 
-        if (!isAttacking)
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up), turningSpeed);
+
+        if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForPlayerToRetreat && retreatCoolDown <= 0f)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), maxTurningDegreesDelta);
+            ChangeState(AIState.Retreating);
+            return;
         }
 
         if (Vector3.Distance(playerTarget.position, transform.position) < projectileAttackSettings.maxAttackRange || isAttacking)
@@ -261,11 +262,7 @@ public class AIImprovedCommonRanged : AIBase
 
         }
 
-        if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForPlayerToRetreat && retreatCoolDown <= 0f)
-        {
-            ChangeState(AIState.Retreating);
-            return;
-        }
+
 
     }
     #endregion
