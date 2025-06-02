@@ -39,6 +39,7 @@ public class RangedProjectilePhysicsBased : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<IDamageable>().TakeDamage(projectileDamage);
+            Destroy(gameObject);
         }
 
         Destroy(gameObject);
