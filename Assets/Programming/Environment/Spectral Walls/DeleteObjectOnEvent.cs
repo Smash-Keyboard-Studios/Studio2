@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Vince
+
 public class DeleteObjectOnEvent : MonoBehaviour
 {
     // Removes the object this script is attached to when called.

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent (typeof (AudioSource))]
+// Vince
+
+[RequireComponent(typeof(AudioSource))]
 public class TriggerAudio : MonoBehaviour
 {
     AudioSource source;

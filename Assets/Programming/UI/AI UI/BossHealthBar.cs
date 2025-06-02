@@ -3,7 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KnightBossHealthBar : MonoBehaviour
+//by    _                 _ _                     
+//     | |               (_) |                    
+//   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
+//  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
+// | (_| | (_) | | | | | | | |_) | | | (_) | | | |
+//  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+
+
+public class BossHealthBar : MonoBehaviour
 {
     [SerializeField]
     private GameObject canvas;
