@@ -40,7 +40,9 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos:
-  - logo: {fileID: 21300000, guid: 56a3d2e5d90172e4191bb1bbc1acff82, type: 3}
+  - logo: {fileID: 21300000, guid: 8f2fa210864fd4244bbbc276ab985046, type: 3}
+    duration: 2
+  - logo: {fileID: 21300000, guid: 0571f1c7c0072ae4d80450034cbc7d7b, type: 3}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
@@ -141,8 +143,9 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.12.1
-  preloadedAssets: []
+  bundleVersion: 0.13.0
+  preloadedAssets:
+  - {fileID: 11400000, guid: 02c02251f340c954b8459563da06d3ba, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -788,10 +791,9 @@ PlayerSettings:
   ps4IncludedModules: []
   ps4attribVROutputEnabled: 0
   monoEnv: 
-  splashScreenBackgroundSourceLandscape: {fileID: 21300000, guid: 8f2fa210864fd4244bbbc276ab985046,
-    type: 3}
+  splashScreenBackgroundSourceLandscape: {fileID: 0}
   splashScreenBackgroundSourcePortrait: {fileID: 0}
-  blurSplashScreenBackground: 1
+  blurSplashScreenBackground: 0
   spritePackerPolicy: 
   webGLMemorySize: 32
   webGLExceptionSupport: 1
