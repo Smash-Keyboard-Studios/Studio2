@@ -16,27 +16,22 @@ using UnityEngine;
 
 
 
-public class RangedAttackingStateUpdator : MonoBehaviour
+public class RangedAttackingStateUpdater : MonoBehaviour
 {
-	AICommonRangedCombat animationStateUpdator;
+	AIImprovedCommonRanged animationStateUpdater;
 
 	void Awake()
 	{
-		animationStateUpdator = GetComponentInParent<AICommonRangedCombat>();
+		animationStateUpdater = GetComponentInParent<AIImprovedCommonRanged>();
 	}
 
 	public void EndAttack()
 	{
-		animationStateUpdator.EndAttack();
+		animationStateUpdater.EndAttack();
 	}
 
 	public void DealAttack()
 	{
-		animationStateUpdator.DealAttack();
-	}
-
-	public void StartAttack()
-	{
-
+		animationStateUpdater.DealAttack();
 	}
 }

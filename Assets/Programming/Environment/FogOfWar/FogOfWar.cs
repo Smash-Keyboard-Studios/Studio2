@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+// Vince
+
 public class FogOfWar : MonoBehaviour
 {
     Renderer fogRenderer;
@@ -21,14 +23,14 @@ public class FogOfWar : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject.GetComponent<BoxCollider>()); // Destroys the box collider to prevent it from occurring again
             StartCoroutine(fadeOut()); // Activates the fadeout
             fadingOut.Invoke();
         }
     }
-    
+
     IEnumerator fadeOut()
     {
         while (fogRenderer.material.GetFloat("_Opacity") > 0)

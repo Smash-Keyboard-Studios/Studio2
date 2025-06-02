@@ -197,6 +197,8 @@ public class AIImprovedCommonRanged : AIBase
         {
             IdleThinking();
         }
+
+        animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
     }
     #endregion
 
@@ -219,6 +221,8 @@ public class AIImprovedCommonRanged : AIBase
             {
                 //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), 45);
                 ChangeState(AIState.Alerted);
+
+
             }
         }
     }
@@ -232,10 +236,10 @@ public class AIImprovedCommonRanged : AIBase
     {
         //Vector3 lead = Vector3.Distance(transform.position, playerTarget.position) < 3f ? Vector3.zero : playerTarget.GetComponent<CharacterController>().velocity;
 
-
-
-
-
+        if (!isAttacking)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), maxTurningDegreesDelta);
+        }
 
         if (Vector3.Distance(playerTarget.position, transform.position) < projectileAttackSettings.maxAttackRange || isAttacking)
         {
@@ -246,16 +250,15 @@ public class AIImprovedCommonRanged : AIBase
             // coroutine
             if (!isAttacking && attackCoolDownTimer <= 0)
             {
-                BasicProjectileAttack();
+                StartCoroutine(BasicProjectileAttack());
             }
 
             return;
         }
         else
         {
-            pathTarget = playerTarget.position;// + lead;
+            pathTarget = playerTarget.position;
 
-            //agent.stoppingDistance = de;
         }
 
         if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForPlayerToRetreat && retreatCoolDown <= 0f)
@@ -296,23 +299,35 @@ public class AIImprovedCommonRanged : AIBase
     }
     #endregion
 
-    private void BasicProjectileAttack()
+    #region BasicProjectileAttack
+    private IEnumerator BasicProjectileAttack()
     {
         isAttacking = true;
+        animatorController.SetBool("IsAttacking", true);
+        attackAnimationPlaying = true;
 
+
+
+        attackCoolDownTimer = projectileAttackSettings.attackCoolDown;
+
+        while (attackAnimationPlaying) yield return null;
+
+        isAttacking = false;
+    }
+    #endregion
+
+    #region SpawnProjectile
+
+    private void SpawnProjectile()
+    {
         Vector3 targetVel = (playerTarget.position - transform.position + transform.forward).normalized * projectileAttackSettings.projectileSpeed;
 
 
         GameObject projectile = Instantiate(projectileAttackSettings.projectilePrefab, transform.position + transform.forward, Quaternion.identity);
 
         projectile.GetComponent<RangedProjectilePhysicsBased>().SetUpProjectile(targetVel, projectileAttackSettings.projectileDamage);
-
-        attackCoolDownTimer = projectileAttackSettings.attackCoolDown;
-
-        // yield return null;
-
-        isAttacking = false;
     }
+    #endregion
 
     #region ResetRetreatingThinking
 
@@ -324,6 +339,25 @@ public class AIImprovedCommonRanged : AIBase
         }
     }
     #endregion
+
+
+
+    #region Animation Functions
+
+    public void EndAttack()
+    {
+        animatorController.SetBool("IsAttacking", false);
+        attackAnimationPlaying = false;
+    }
+
+    public void DealAttack()
+    {
+        SpawnProjectile();
+    }
+
+    #endregion
+
+
 
     #region OnDrawGizmos
     protected virtual void OnDrawGizmos()
