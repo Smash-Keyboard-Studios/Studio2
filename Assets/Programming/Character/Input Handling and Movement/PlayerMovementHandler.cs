@@ -54,7 +54,7 @@ public class PlayerMovementHandler : MonoBehaviour
 
     private void OnDeath()
     {
-        playerAnimator.SetBool("isDead", true);
+        playerAnimator.SetBool("IsDead", true);
         enabled = false;
     }
 
