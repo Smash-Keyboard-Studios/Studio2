@@ -34,13 +34,16 @@ public class PlayerDetectNearby : MonoBehaviour
                 {
                     item = true;
                 }
-                else if (c.gameObject.CompareTag("Enemy"))
+                else if (c.gameObject.GetComponent<AIBase>())
                 {
                     //check for bosses - once boss music starts it doesnt stop again
                     if (c.gameObject.GetComponent<KnightAI>()) { boss1Nearby = true; }
                     if (c.gameObject.GetComponent<PriestAI>()) { boss2Nearby = true; }
 
-                    enemy = true;
+                    if (c.gameObject.GetComponent<AIBase>().currentAIState == AIState.Alerted)
+                    {
+                        enemy = true;
+                    }
                 }
             }
 
