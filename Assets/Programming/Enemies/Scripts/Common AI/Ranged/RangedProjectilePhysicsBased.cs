@@ -34,11 +34,11 @@ public class RangedProjectilePhysicsBased : MonoBehaviour
 
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collider.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<IDamageable>().TakeDamage(projectileDamage);
+            collider.gameObject.GetComponent<IDamageable>().TakeDamage(projectileDamage);
             Destroy(gameObject);
         }
 
