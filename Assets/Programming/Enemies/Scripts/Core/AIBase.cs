@@ -195,6 +195,10 @@ public class AIBase : MonoBehaviour
 		currentAIState = newState;
 	}
 
+	public virtual AIState GetAIState()
+	{
+		return currentAIState;
+	}
 
 	// #region IDamageable.TakeDamage
 	// bool IDamageable.TakeDamage(float amount)
