@@ -16,9 +16,15 @@ public class DialogueHandler : MonoBehaviour
     //for playing audio
     private AudioSource audioSource;
 
+    //for waiting between dialogue so it doesn't cut to new dialogue too fast
+    private bool waitingBetweenDialogue;
+
     private void OnEnable()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.loop = false;
+
+        waitingBetweenDialogue = false;
 
         GetTreeData();
     }
@@ -55,10 +61,21 @@ public class DialogueHandler : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!audioSource.isPlaying)
         {
-            GetNextDialogueData(currentData);
+            if (!waitingBetweenDialogue)
+            {
+                StartCoroutine("ProgressDialogueAfterXSeconds", 1);
+            }
         }
+    }
+
+    private IEnumerator ProgressDialogueAfterXSeconds(float seconds)
+    {
+        waitingBetweenDialogue = true;
+        yield return new WaitForSeconds(seconds);
+        GetNextDialogueData(currentData);
+        waitingBetweenDialogue = false;
     }
 
     private void GetTreeData()
@@ -92,7 +109,8 @@ public class DialogueHandler : MonoBehaviour
                 //stop anything currently playing
                 //then play the npc dialogue sound for the new data
                 audioSource.Stop();
-                audioSource.PlayOneShot(currentData.dialogueItem.SoundToPlay);
+                audioSource.clip = currentData.dialogueItem.SoundToPlay;
+                audioSource.Play();
             }
         }
 
