@@ -72,7 +72,7 @@ public class AIBase : MonoBehaviour
 	/// </summary>
 	[Header("AI State")]
 	[SerializeField]
-	protected AIState currentAIState = AIState.Alerted;
+	public AIState currentAIState = AIState.Alerted;
 
 	#endregion
 	/********************************************************************/
