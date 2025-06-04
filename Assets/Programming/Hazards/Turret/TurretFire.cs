@@ -14,6 +14,7 @@ using UnityEngine;
 
 public class TurretFire : MonoBehaviour
 {
+    [Header("Turret firing settings")]
     public GameObject projectileObject;
 
     public float projectileDamage = 10f;
@@ -39,15 +40,20 @@ public class TurretFire : MonoBehaviour
             fireTimer -= Time.deltaTime;
         }
 
+        if (isFiring && windUpTimer > 0)
+        {
+            windUpTimer -= Time.deltaTime;
+        }
+
+        TryAndFire();
+    }
+
+    protected virtual void TryAndFire()
+    {
         if (fireTimer <= 0 && !isFiring)
         {
             windUpTimer = windUpTime;
             isFiring = true;
-        }
-
-        if (isFiring && windUpTimer > 0)
-        {
-            windUpTimer -= Time.deltaTime;
         }
 
         if (isFiring && windUpTimer <= 0)
@@ -55,11 +61,16 @@ public class TurretFire : MonoBehaviour
             isFiring = false;
             fireTimer = fireEvery;
 
-            Vector3 targetVel = transform.forward * projectileSpeed;
-
-            GameObject projectile = Instantiate(projectileObject, transform.position + transform.forward, Quaternion.identity);
-
-            projectile.GetComponent<RangedProjectilePhysicsBased>().SetUpProjectile(targetVel, projectileDamage);
+            FireTurret();
         }
+    }
+
+    protected virtual void FireTurret()
+    {
+        Vector3 targetVel = transform.forward * projectileSpeed;
+
+        GameObject projectile = Instantiate(projectileObject, transform.position + transform.forward, Quaternion.identity);
+
+        projectile.GetComponent<RangedProjectilePhysicsBased>().SetUpProjectile(targetVel, projectileDamage);
     }
 }
