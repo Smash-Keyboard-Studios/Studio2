@@ -47,7 +47,7 @@ public class RangedProjectilePhysicsBased : MonoBehaviour
 
     public void SetUpProjectile(Vector3 force, float damage)
     {
-        rb.AddForce(force, ForceMode.Impulse);
+        rb.AddForce(force, ForceMode.VelocityChange);
         projectileDamage = damage;
     }
 }
