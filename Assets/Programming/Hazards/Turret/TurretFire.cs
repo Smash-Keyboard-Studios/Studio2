@@ -35,6 +35,13 @@ public class TurretFire : MonoBehaviour
 
     protected virtual void Update()
     {
+        DealWithTimers();
+
+        TryAndFire();
+    }
+
+    protected virtual void DealWithTimers()
+    {
         if (fireTimer > 0 && !isFiring)
         {
             fireTimer -= Time.deltaTime;
@@ -44,8 +51,6 @@ public class TurretFire : MonoBehaviour
         {
             windUpTimer -= Time.deltaTime;
         }
-
-        TryAndFire();
     }
 
     protected virtual void TryAndFire()
@@ -61,11 +66,11 @@ public class TurretFire : MonoBehaviour
             isFiring = false;
             fireTimer = fireEvery;
 
-            FireTurret();
+            SpawnProjectile();
         }
     }
 
-    protected virtual void FireTurret()
+    protected virtual void SpawnProjectile()
     {
         Vector3 targetVel = transform.forward * projectileSpeed;
 
