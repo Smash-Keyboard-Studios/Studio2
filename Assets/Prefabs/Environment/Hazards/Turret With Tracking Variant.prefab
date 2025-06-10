@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5123126623313087999
 Transform:
   m_ObjectHideFlags: 0
@@ -163,6 +163,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7160405385794710529, guid: 71b4fefacf9482048b519e19ae95b694,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 35f4285aa60ac0940bfdb97d6d3ecfef, type: 2}
     - target: {fileID: 8375345874468924530, guid: 71b4fefacf9482048b519e19ae95b694,
         type: 3}
       propertyPath: m_Name
@@ -200,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f183f3fe82cb5854eaefd5a5e6cc322f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileObject: {fileID: 1214869180728453124, guid: 0d66f9aa92792674ab4b2557118ff665,
+  projectileObject: {fileID: 1214869180728453124, guid: 047a8cfc1803d224bb6b9a6ad2eea439,
     type: 3}
   projectileDamage: 10
   windUpTime: 0.3
