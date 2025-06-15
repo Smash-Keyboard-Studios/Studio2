@@ -1,40 +1,27 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
-
-//by    _                 _ _                     
-//     | |               (_) |                    
-//   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
-//  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
-// | (_| | (_) | | | | | | | |_) | | | (_) | | | |
-//  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
-
-[Serializable]
-public class ProjectileAttackSettings
+public class AICommonBeam : AIBase
 {
+
     public float maxAttackRange = 7f;
 
-    public float attackCoolDown = 1f;
+    public float beamAttackCoolDown = 1f;
 
-    public float projectileSpeed = 10f;
+    public float beamAttackTickDamage = 5f;
 
-    public float projectileDamage = 5f;
+    public float beamAttackTickRate = 0.5f;
 
-    public GameObject projectilePrefab;
-}
+    public float beamAttackWindUp = 1f;
 
+    public float beamAttackDuration = 2f;
 
-/// <summary>
-/// Replacement for the current common ranged AI.
-/// </summary>
-public class AIImprovedCommonRanged : AIBase
-{
-    [SerializeField]
-    protected ProjectileAttackSettings projectileAttackSettings;
+    public float beamRadius = 1f;
 
+    public LineRenderer lineRenderer;
 
     public float minDistanceForPlayerToRetreat = 3f;
 
@@ -51,6 +38,7 @@ public class AIImprovedCommonRanged : AIBase
 
 
     protected bool isAttacking = false;
+
 
     protected float attackCoolDownTimer = 0f;
 
@@ -148,6 +136,8 @@ public class AIImprovedCommonRanged : AIBase
 
         base.Start();
 
+        lineRenderer.enabled = false;
+
         onStateChanged += ResetRetreatingThinking;
     }
     #endregion
@@ -241,9 +231,9 @@ public class AIImprovedCommonRanged : AIBase
             return;
         }
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up), turningSpeed);
+        if (!isAttacking) transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up), turningSpeed);
 
-        if (Vector3.Distance(playerTarget.position, transform.position) < projectileAttackSettings.maxAttackRange || isAttacking)
+        if (Vector3.Distance(playerTarget.position, transform.position) < maxAttackRange || isAttacking)
         {
             // attack
             pathTarget = transform.position;
@@ -252,7 +242,7 @@ public class AIImprovedCommonRanged : AIBase
             // coroutine
             if (!isAttacking && attackCoolDownTimer <= 0)
             {
-                StartCoroutine(BasicProjectileAttack());
+                StartCoroutine(BeamAttack());
             }
 
             return;
@@ -298,15 +288,91 @@ public class AIImprovedCommonRanged : AIBase
     #endregion
 
     #region BasicProjectileAttack
-    protected virtual IEnumerator BasicProjectileAttack()
+    protected virtual IEnumerator BeamAttack()
     {
         isAttacking = true;
-        animatorController.SetBool("IsAttacking", true);
         attackAnimationPlaying = true;
 
+        animatorController.SetBool("IsAttacking", true);
+        animatorController.SetBool("IsCharging", true);
+
+        var curve = new AnimationCurve();
+        curve.AddKey(0.0f, beamRadius * 2f);
+        lineRenderer.widthCurve = curve;
+
+        lineRenderer.colorGradient = new Gradient()
+        {
+            colorKeys = new GradientColorKey[] { new GradientColorKey(Color.yellow, 0), new GradientColorKey(Color.yellow, 1) },
+            alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
+        };
+
+        lineRenderer.enabled = true;
+
+        float localTimer = 0;
+        while (localTimer < beamAttackWindUp)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up), turningSpeed);
+
+            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, 999f, LayerMask.GetMask("Default"));
 
 
-        attackCoolDownTimer = projectileAttackSettings.attackCoolDown;
+            lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSomething ? hitReturn.point : transform.position + transform.forward * 999f));
+
+            localTimer += Time.deltaTime;
+            yield return null;
+        }
+
+
+        yield return new WaitForSeconds(beamAttackWindUp); // wind up time.
+
+        animatorController.SetBool("IsCharging", false);
+
+        // lock rotation.
+
+        bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 999f, LayerMask.GetMask("Default"));
+        if (hitSuccess)
+            print(hit.collider.gameObject.name);
+        // beam attack 
+
+        lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSuccess ? hit.point : transform.position + transform.forward * 999f));
+        lineRenderer.colorGradient = new Gradient()
+        {
+            colorKeys = new GradientColorKey[] { new GradientColorKey(Color.red, 0), new GradientColorKey(Color.red, 1) },
+            alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
+        };
+
+        Debug.DrawLine(transform.position, (hitSuccess ? hit.point : transform.position + transform.forward * 999f), Color.cyan, 10f);
+
+        localTimer = 0;
+        while (localTimer < beamAttackDuration)
+        {
+
+            Collider[] colliders = Physics.OverlapCapsule(transform.position, (hitSuccess ? hit.point : transform.position + transform.forward * 999f), beamRadius, LayerMask.GetMask("Player"), QueryTriggerInteraction.Collide);
+            print(colliders.Length);
+            // yes, I know that the player is basically the only thing that can be in here.
+            foreach (Collider collider in colliders)
+            {
+                if (collider.gameObject.CompareTag("Player"))
+                {
+                    // Using IDamageable when we have heal class default on everything now. Why?
+                    collider.GetComponent<IDamageable>().TakeDamage(beamAttackTickDamage);
+                    break;
+                }
+            }
+
+            yield return new WaitForSeconds(beamAttackTickRate);
+            localTimer += beamAttackTickRate;
+        }
+
+
+
+        // end attack
+
+        lineRenderer.enabled = false;
+
+        animatorController.SetBool("IsAttacking", false);
+
+        attackCoolDownTimer = beamAttackCoolDown;
 
         while (attackAnimationPlaying) yield return null;
 
@@ -314,20 +380,10 @@ public class AIImprovedCommonRanged : AIBase
     }
     #endregion
 
-    #region SpawnProjectile
 
-    protected virtual void SpawnProjectile()
-    {
-        Vector3 targetVel = (playerTarget.position - transform.position + transform.forward).normalized * projectileAttackSettings.projectileSpeed;
-
-
-        GameObject projectile = Instantiate(projectileAttackSettings.projectilePrefab, transform.position + transform.forward, Quaternion.identity);
-
-        projectile.GetComponent<RangedProjectilePhysicsBased>().SetUpProjectile(targetVel, projectileAttackSettings.projectileDamage);
-    }
-    #endregion
 
     #region ResetRetreatingThinking
+    #endregion
 
     protected virtual void ResetRetreatingThinking(AIState newState)
     {
@@ -336,7 +392,6 @@ public class AIImprovedCommonRanged : AIBase
             retreatTimer = 0f;
         }
     }
-    #endregion
 
 
 
@@ -350,7 +405,7 @@ public class AIImprovedCommonRanged : AIBase
 
     public virtual void DealAttack()
     {
-        SpawnProjectile();
+        // SpawnProjectile();
     }
 
     #endregion
@@ -376,4 +431,5 @@ public class AIImprovedCommonRanged : AIBase
         }
     }
     #endregion
+
 }
