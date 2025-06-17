@@ -71,7 +71,6 @@ public class AIBase : MonoBehaviour
 	/// The current state the AI is in, at the current time. This Dictates what thinking process it will do.
 	/// </summary>
 	[Header("AI State")]
-	[SerializeField]
 	public AIState currentAIState = AIState.Alerted;
 
 	#endregion
