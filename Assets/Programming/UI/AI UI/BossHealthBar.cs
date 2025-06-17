@@ -26,7 +26,7 @@ public class BossHealthBar : MonoBehaviour
     private CanvasGroup Mask;
 
     [SerializeField]
-    private HealthWithShield healthWithShield;
+    private Health health;
 
     [SerializeField]
     private float fadeRate = 1f;
@@ -40,9 +40,14 @@ public class BossHealthBar : MonoBehaviour
     {
         canvas.SetActive(overlayVisible);
 
-        healthBar.fillAmount = healthWithShield.GetHealthNormalized();
+        healthBar.fillAmount = health.GetHealthNormalized();
 
-        shieldOverlay.SetActive(healthWithShield.shieldActive);
+        print(health.GetType().Name);
+
+        if (health.GetType() == typeof(HealthWithBasicShield))
+            shieldOverlay.SetActive(((HealthWithBasicShield)health).shieldActive);
+        else
+            shieldOverlay.SetActive(false);
     }
 
     // Update is called once per frame
@@ -56,9 +61,10 @@ public class BossHealthBar : MonoBehaviour
         canvas.SetActive(overlayVisible);
 
 
-        healthBar.fillAmount = healthWithShield.GetHealthNormalized();
+        healthBar.fillAmount = health.GetHealthNormalized();
 
-        shieldOverlay.SetActive(healthWithShield.shieldActive);
+        if (health.GetType() == typeof(HealthWithBasicShield))
+            shieldOverlay.SetActive(((HealthWithBasicShield)health).shieldActive);
     }
 
     public void ShowHealthBar()
