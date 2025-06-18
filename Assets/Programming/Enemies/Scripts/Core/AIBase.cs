@@ -94,9 +94,9 @@ public class AIBase : MonoBehaviour
 	public event EntityEventHandler onSpawn;
 
 	/// <summary>
-	/// Called when the AI state was changed.
+	/// Called when the AI state was changed. T1 is old state and T2 is new state.
 	/// </summary>
-	public event Action<AIState> onStateChanged;
+	public event Action<AIState, AIState> onStateChanged;
 
 	#endregion
 	/*********************************/
@@ -189,7 +189,7 @@ public class AIBase : MonoBehaviour
 	#endregion
 
 
-	protected virtual void OnStateChanged(AIState newState)
+	protected virtual void OnStateChanged(AIState prevState, AIState newState)
 	{
 		currentAIState = newState;
 	}
@@ -258,7 +258,7 @@ public class AIBase : MonoBehaviour
 	/// <param name="newState"></param>
 	public virtual void ChangeState(AIState newState)
 	{
-		onStateChanged?.Invoke(newState);
+		onStateChanged?.Invoke(currentAIState, newState);
 
 	}
 	#endregion

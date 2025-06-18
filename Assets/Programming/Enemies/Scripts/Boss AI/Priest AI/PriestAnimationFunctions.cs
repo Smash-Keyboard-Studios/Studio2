@@ -11,22 +11,23 @@ using UnityEngine;
 
 
 
-public class BeamAttackingStateUpdater : MonoBehaviour
+public class PriestAnimationFunctions : MonoBehaviour
 {
-    AICommonBeam animationStateUpdater;
+    ImprovedPriestAI priestAI;
 
-    void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
-        animationStateUpdater = GetComponentInParent<AICommonBeam>();
+        priestAI = GetComponentInParent<ImprovedPriestAI>();
     }
 
     public void EndAttack()
     {
-        animationStateUpdater.EndAttack();
+        priestAI.AnimationAttackFinished();
     }
 
-    public void DealAttack()
+    public void DealMeleeAttack()
     {
-        animationStateUpdater.DealAttack();
+        priestAI.MeleeAttackCheckAndDamage();
     }
 }

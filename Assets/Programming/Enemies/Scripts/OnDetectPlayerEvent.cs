@@ -28,9 +28,9 @@ public class OnDetectPlayerEvent : MonoBehaviour
             aIToSubscribeTo.onStateChanged += InvokeOnDetectPlayer;
     }
 
-    private void InvokeOnDetectPlayer(AIState state)
+    private void InvokeOnDetectPlayer(AIState prevState, AIState newState)
     {
-        if (state == AIState.Alerted)
+        if (newState == AIState.Alerted)
         {
             onDetectPlayer?.Invoke();
         }
