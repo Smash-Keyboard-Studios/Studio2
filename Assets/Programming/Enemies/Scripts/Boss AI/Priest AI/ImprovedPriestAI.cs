@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 
 //by    _                 _ _                     
@@ -12,48 +11,37 @@ using UnityEngine.AI;
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
 
-[Serializable]
-public class ProjectileAttackSettings
+
+
+public class ImprovedPriestAI : AIBase
 {
-    public float maxAttackRange = 7f;
-
-    public float attackCoolDown = 1f;
-
-    public float projectileSpeed = 10f;
-
-    public float projectileDamage = 5f;
-
-    public GameObject projectilePrefab;
-}
 
 
-/// <summary>
-/// Replacement for the current common ranged AI.
-/// </summary>
-public class AIImprovedCommonRanged : AIBase
-{
-    [SerializeField]
-    protected ProjectileAttackSettings projectileAttackSettings;
+    #region Light Attack Variables
+    [Header("Light Attack Settings"), SerializeField]
+    protected LightAttack lightAttackClass;
 
+    /// <summary>
+    /// Remaining time left before the AI can attack again.
+    /// </summary>
+    protected float lightAttackCoolDown = 0f;
 
-    public float minDistanceForPlayerToRetreat = 3f;
+    #endregion
 
+    // Global attack variables
 
-    public float retreatDuration = 5f;
+    /// <summary>
+    /// Weather the AI is currently attacking the player. Used by the IEnumerator.
+    /// </summary>
+    protected bool attacking = false;
 
-    protected float retreatTimer = 0f;
+    protected float globalAttackCoolDown = 0f;
 
-    public float delayUntilRetreatAgain = 5f;
-
-    protected float retreatCoolDown = 0f;
-
-    public float defaultStoppingDistance = 0f;
-
-
-    protected bool isAttacking = false;
-
-    protected float attackCoolDownTimer = 0f;
-
+    /// <summary>
+    /// The layers it will look for to deal damage to.
+    /// </summary>
+    [Header("Combat Detection Layer"), SerializeField]
+    protected LayerMask layersToCheckFor = Physics.AllLayers;
 
     #region Detection Variables
     /* The limits for detecting the player */
@@ -84,15 +72,6 @@ public class AIImprovedCommonRanged : AIBase
 
     #endregion
 
-
-
-    #region Turning Variables 
-    [Header("Turning Variables and movement"), SerializeField]
-    protected float turningSpeed = 5f;
-    #endregion
-
-
-
     #region Debugging Variables
     /* Debugging */
 
@@ -120,6 +99,8 @@ public class AIImprovedCommonRanged : AIBase
     #endregion
 
 
+
+
     #region Awake
     protected override void Awake()
     {
@@ -142,18 +123,8 @@ public class AIImprovedCommonRanged : AIBase
     }
     #endregion
 
-    #region Start
-    protected override void Start()
-    {
-
-        base.Start();
-
-        onStateChanged += ResetRetreatingThinking;
-    }
-    #endregion
 
     #region Update
-    // Update is called once per frame
     protected virtual void Update()
     {
         if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
@@ -177,10 +148,6 @@ public class AIImprovedCommonRanged : AIBase
 
         // set values and deal with timers.
         agent.speed = currentSpeed;
-
-
-        if (retreatCoolDown > 0) retreatCoolDown -= Time.deltaTime;
-        if (attackCoolDownTimer > 0) attackCoolDownTimer -= Time.deltaTime;
 
         if (currentAIState == AIState.Alerted)
         {
@@ -231,37 +198,13 @@ public class AIImprovedCommonRanged : AIBase
     /// </summary>
     protected virtual void AlertedThinking()
     {
-        //Vector3 lead = Vector3.Distance(transform.position, playerTarget.position) < 3f ? Vector3.zero : playerTarget.GetComponent<CharacterController>().velocity;
-
-
-
-        if (Vector3.Distance(playerTarget.position, transform.position) < minDistanceForPlayerToRetreat && retreatCoolDown <= 0f && !isAttacking)
-        {
-            ChangeState(AIState.Retreating);
-            return;
-        }
-
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up), turningSpeed);
-
-        if (Vector3.Distance(playerTarget.position, transform.position) < projectileAttackSettings.maxAttackRange || isAttacking)
-        {
-            // attack
-            pathTarget = transform.position;
-
-            // begin attack.
-            // coroutine
-            if (!isAttacking && attackCoolDownTimer <= 0)
-            {
-                StartCoroutine(BasicProjectileAttack());
-            }
-
-            return;
-        }
-        else
-        {
-            pathTarget = playerTarget.position;
-
-        }
+        /*
+        AI checklist
+        Melee attack for when all attacks are on cool down.
+        Beam attack with 4 cannons. 2 each side. fire in sequence. separate firing class with Fire function.
+        Barrage attack.
+        Warp away to keep distance.
+        */
 
 
 
@@ -275,87 +218,73 @@ public class AIImprovedCommonRanged : AIBase
     /// </summary>
     protected virtual void RetreatingThinking()
     {
-        retreatTimer += Time.deltaTime;
 
-        if (retreatTimer >= retreatDuration)
-        {
-            retreatCoolDown = delayUntilRetreatAgain;
-            ChangeState(AIState.Alerted);
-            return;
-        }
-
-        Vector3 fleeDirection = (transform.position - playerTarget.position).normalized;
-
-        //agent.stoppingDistance = defaultStoppingDistance;
-        pathTarget = fleeDirection * 10f;
-
-        // if (Vector3.Distance(agent.pathEndPosition, transform.position) < 2f)
-        // {
-        //     ChangeState(AIState.Alerted);
-        //     return;
-        // }
     }
     #endregion
 
-    #region BasicProjectileAttack
-    protected virtual IEnumerator BasicProjectileAttack()
+    #region LightAttack
+    /// <summary>
+    /// Dealing with attacking the player and dealing damage.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual IEnumerator LightAttack()
     {
-        isAttacking = true;
-        animatorController.SetBool("IsAttacking", true);
+        attacking = true;
+        lightAttackCoolDown = lightAttackClass.lightAttackRate;
+
         attackAnimationPlaying = true;
 
 
+        // we start the attack.
+        animatorController.SetBool("IsMeleeAttacking", true);
 
-        attackCoolDownTimer = projectileAttackSettings.attackCoolDown;
+        // we wait for the animation to finish.
 
         while (attackAnimationPlaying) yield return null;
 
-        isAttacking = false;
+        attacking = false;
+
+        currentSpeed = maxSpeed;
     }
     #endregion
 
-    #region SpawnProjectile
-
-    protected virtual void SpawnProjectile()
+    #region AnimationAttackFinished
+    /// <summary>
+    /// Reset animation variables once the attack is finished.
+    /// </summary>
+    public virtual void AnimationAttackFinished()
     {
-        Vector3 targetVel = (playerTarget.position - transform.position + transform.forward).normalized * projectileAttackSettings.projectileSpeed;
+        animatorController.SetBool("IsMeleeAttacking", false);
+        attackAnimationPlaying = false;
 
-
-        GameObject projectile = Instantiate(projectileAttackSettings.projectilePrefab, transform.position + transform.forward, Quaternion.identity);
-
-        projectile.GetComponent<RangedProjectilePhysicsBased>().SetUpProjectile(targetVel, projectileAttackSettings.projectileDamage);
     }
     #endregion
 
-    #region ResetRetreatingThinking
-
-    protected virtual void ResetRetreatingThinking(AIState prevState, AIState newState)
+    #region LightAttackCheckAndDamage
+    /// <summary>
+    /// Creates a box cast and deals damage to the player if there is one in the box cast.
+    /// </summary>
+    public virtual void MeleeAttackCheckAndDamage()
     {
-        if (newState == AIState.Alerted)
+        Collider[] HitObjects = Physics.OverlapBox(transform.position + (transform.forward * lightAttackClass.boxCastForwardOffset), new Vector3(lightAttackClass.boxCastLength, lightAttackClass.boxCastHeight, lightAttackClass.boxCastDepth) / 2f,
+                 transform.rotation, layersToCheckFor);
+
+
+        //AttackSFXPlayOnce(animatorController.GetBool("IsHardAttack"));
+
+        if (HitObjects.Length > 0)
         {
-            retreatTimer = 0f;
+            foreach (var hitObject in HitObjects)
+            {
+                //print(hitObject.name);
+                if (hitObject.gameObject.CompareTag("Player"))
+                {
+                    hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackClass.lightAttackDamage);
+                }
+            }
         }
     }
     #endregion
-
-
-
-    #region Animation Functions
-
-    public virtual void EndAttack()
-    {
-        animatorController.SetBool("IsAttacking", false);
-        attackAnimationPlaying = false;
-    }
-
-    public virtual void DealAttack()
-    {
-        SpawnProjectile();
-    }
-
-    #endregion
-
-
 
     #region OnDrawGizmos
     protected virtual void OnDrawGizmos()

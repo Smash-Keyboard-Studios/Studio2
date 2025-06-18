@@ -4,11 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class AICommonBeam : AIBase
+//by    _                 _ _                     
+//     | |               (_) |                    
+//   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
+//  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
+// | (_| | (_) | | | | | | | |_) | | | (_) | | | |
+//  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+
+
+[Serializable]
+public class BeamAttackSettings
 {
-
-    public float maxAttackRange = 7f;
-
     public float beamAttackCoolDown = 1f;
 
     public float beamAttackTickDamage = 5f;
@@ -22,6 +28,16 @@ public class AICommonBeam : AIBase
     public float beamRadius = 1f;
 
     public LineRenderer lineRenderer;
+}
+
+
+public class AICommonBeam : AIBase
+{
+
+    public float maxAttackRange = 7f;
+
+    public BeamAttackSettings beamAttackSettings;
+
 
     public float minDistanceForPlayerToRetreat = 3f;
 
@@ -136,7 +152,7 @@ public class AICommonBeam : AIBase
 
         base.Start();
 
-        lineRenderer.enabled = false;
+        beamAttackSettings.lineRenderer.enabled = false;
 
         onStateChanged += ResetRetreatingThinking;
     }
@@ -290,64 +306,86 @@ public class AICommonBeam : AIBase
     #region BasicProjectileAttack
     protected virtual IEnumerator BeamAttack()
     {
+        // we set the initial variables.
         isAttacking = true;
         attackAnimationPlaying = true;
 
         animatorController.SetBool("IsAttacking", true);
         animatorController.SetBool("IsCharging", true);
 
+        // prep the line renderer. might be able to remove as this is also done whilst charging.
         var curve = new AnimationCurve();
-        curve.AddKey(0.0f, beamRadius * 2f);
-        lineRenderer.widthCurve = curve;
+        // curve.AddKey(0.0f, 0f);
+        // lineRenderer.widthCurve = curve;
 
-        lineRenderer.colorGradient = new Gradient()
-        {
-            colorKeys = new GradientColorKey[] { new GradientColorKey(Color.yellow, 0), new GradientColorKey(Color.yellow, 1) },
-            alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
-        };
+        // lineRenderer.colorGradient = new Gradient()
+        // {
+        //     colorKeys = new GradientColorKey[] { new GradientColorKey(Color.yellow, 0), new GradientColorKey(Color.yellow, 1) },
+        //     alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
+        // };
 
-        lineRenderer.enabled = true;
+        beamAttackSettings.lineRenderer.enabled = true;
 
+        // while we are charging the attack
         float localTimer = 0;
-        while (localTimer < beamAttackWindUp)
+        while (localTimer < beamAttackSettings.beamAttackWindUp)
         {
+            curve = new();
+            curve.AddKey(0.0f, Mathf.Lerp(0, beamAttackSettings.beamRadius * 2f, localTimer / beamAttackSettings.beamAttackWindUp));
+            beamAttackSettings.lineRenderer.widthCurve = curve;
+
+            Color colorLerp = Color.Lerp(Color.yellow, Color.red, localTimer / (beamAttackSettings.beamAttackWindUp + 1f));
+
+            beamAttackSettings.lineRenderer.colorGradient = new Gradient()
+            {
+                colorKeys = new GradientColorKey[] { new GradientColorKey(colorLerp, 0), new GradientColorKey(colorLerp, 1) },
+                alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
+            };
+
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up), turningSpeed);
 
             bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, 999f, LayerMask.GetMask("Default"));
 
 
-            lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSomething ? hitReturn.point : transform.position + transform.forward * 999f));
+            beamAttackSettings.lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSomething ? hitReturn.point : transform.position + transform.forward * 999f));
 
             localTimer += Time.deltaTime;
             yield return null;
         }
 
 
-        yield return new WaitForSeconds(beamAttackWindUp); // wind up time.
+        //yield return new WaitForSeconds(beamAttackWindUp); // wind up time.
+
+        // We stop charging and we now do that attack.
 
         animatorController.SetBool("IsCharging", false);
 
-        // lock rotation.
 
+
+        // We see if we hit then environment so the beam does not go through the wall.
         bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 999f, LayerMask.GetMask("Default"));
-        if (hitSuccess)
-            print(hit.collider.gameObject.name);
-        // beam attack 
 
-        lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSuccess ? hit.point : transform.position + transform.forward * 999f));
-        lineRenderer.colorGradient = new Gradient()
+        // we then set the line render.
+        curve = new();
+        curve.AddKey(0.0f, beamAttackSettings.beamRadius * 2f);
+        beamAttackSettings.lineRenderer.widthCurve = curve;
+
+        beamAttackSettings.lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSuccess ? hit.point : transform.position + transform.forward * 999f));
+        beamAttackSettings.lineRenderer.colorGradient = new Gradient()
         {
             colorKeys = new GradientColorKey[] { new GradientColorKey(Color.red, 0), new GradientColorKey(Color.red, 1) },
             alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
         };
 
-        Debug.DrawLine(transform.position, (hitSuccess ? hit.point : transform.position + transform.forward * 999f), Color.cyan, 10f);
+        // Debug to show if the raycast hit something.
+        //Debug.DrawLine(transform.position, (hitSuccess ? hit.point : transform.position + transform.forward * 999f), Color.cyan, 10f);
 
+        // deals the actual attack.
         localTimer = 0;
-        while (localTimer < beamAttackDuration)
+        while (localTimer < beamAttackSettings.beamAttackDuration)
         {
 
-            Collider[] colliders = Physics.OverlapCapsule(transform.position, (hitSuccess ? hit.point : transform.position + transform.forward * 999f), beamRadius, LayerMask.GetMask("Player"), QueryTriggerInteraction.Collide);
+            Collider[] colliders = Physics.OverlapCapsule(transform.position, (hitSuccess ? hit.point : transform.position + transform.forward * 999f), beamAttackSettings.beamRadius, LayerMask.GetMask("Player"), QueryTriggerInteraction.Collide);
             print(colliders.Length);
             // yes, I know that the player is basically the only thing that can be in here.
             foreach (Collider collider in colliders)
@@ -355,24 +393,24 @@ public class AICommonBeam : AIBase
                 if (collider.gameObject.CompareTag("Player"))
                 {
                     // Using IDamageable when we have heal class default on everything now. Why?
-                    collider.GetComponent<IDamageable>().TakeDamage(beamAttackTickDamage);
+                    collider.GetComponent<IDamageable>().TakeDamage(beamAttackSettings.beamAttackTickDamage);
                     break;
                 }
             }
 
-            yield return new WaitForSeconds(beamAttackTickRate);
-            localTimer += beamAttackTickRate;
+            yield return new WaitForSeconds(beamAttackSettings.beamAttackTickRate);
+            localTimer += beamAttackSettings.beamAttackTickRate;
         }
 
 
 
         // end attack
 
-        lineRenderer.enabled = false;
+        beamAttackSettings.lineRenderer.enabled = false;
 
         animatorController.SetBool("IsAttacking", false);
 
-        attackCoolDownTimer = beamAttackCoolDown;
+        attackCoolDownTimer = beamAttackSettings.beamAttackCoolDown;
 
         while (attackAnimationPlaying) yield return null;
 
@@ -385,7 +423,7 @@ public class AICommonBeam : AIBase
     #region ResetRetreatingThinking
     #endregion
 
-    protected virtual void ResetRetreatingThinking(AIState newState)
+    protected virtual void ResetRetreatingThinking(AIState prevState, AIState newState)
     {
         if (newState == AIState.Alerted)
         {
@@ -418,9 +456,7 @@ public class AICommonBeam : AIBase
         if (enableVisualDetectionRadius)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(transform.position, maxDetectionRange);
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(pathTarget, 1);
+            Gizmos.DrawWireSphere(transform.position, maxDetectionRange);
         }
 
         if (enableVisualDetectionLine && GameObject.FindWithTag("Player") != null)

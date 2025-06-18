@@ -214,7 +214,7 @@ public class GruntAI : AIBase
 	protected override void Start()
 	{
 
-		InvokeRepeating(nameof(RunPathFinding), 0, 0.25f);
+		//InvokeRepeating(nameof(RunPathFinding), 0, 0.25f);
 
 		base.Start();
 
@@ -241,6 +241,8 @@ public class GruntAI : AIBase
 		{
 			animatorController.enabled = true;
 		}
+
+		agent.destination = pathTarget;
 
 
 		// set values and deal with timers.
@@ -393,7 +395,7 @@ public class GruntAI : AIBase
 
 
 
-	#region AttackAndDamage
+	#region LightAttackCheckAndDamage
 	/// <summary>
 	/// Creates a box cast and deals damage to the player if there is one in the box cast.
 	/// </summary>
@@ -451,7 +453,7 @@ public class GruntAI : AIBase
 		if (enableVisualDetectionRadius)
 		{
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawSphere(transform.position, maxDetectionRange);
+			Gizmos.DrawWireSphere(transform.position, maxDetectionRange);
 		}
 
 		if (enableVisualDetectionLine && GameObject.FindWithTag("Player") != null)
