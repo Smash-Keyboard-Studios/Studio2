@@ -241,7 +241,9 @@ public class AIImprovedCommonRanged : AIBase
             return;
         }
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up), turningSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation,
+            Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up),
+            turningSpeed);
 
         if (Vector3.Distance(playerTarget.position, transform.position) < projectileAttackSettings.maxAttackRange || isAttacking)
         {

@@ -327,7 +327,9 @@ public class GruntAI : AIBase
 
 			if (!attacking && lightAttackCoolDown <= 0f) StartCoroutine(LightAttack());
 
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), maxTurningDegreesDelta);
+			transform.rotation = Quaternion.RotateTowards(transform.rotation,
+				Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up),
+				maxTurningDegreesDelta);
 
 		}
 
@@ -401,8 +403,9 @@ public class GruntAI : AIBase
 	/// </summary>
 	public virtual void LightAttackCheckAndDamage()
 	{
-		Collider[] HitObjects = Physics.OverlapBox(transform.position + (transform.forward * lightAttackClass.boxCastForwardOffset), new Vector3(lightAttackClass.boxCastLength, lightAttackClass.boxCastHeight, lightAttackClass.boxCastDepth) / 2f,
-				 transform.rotation, layersToCheckFor);
+		Collider[] HitObjects = Physics.OverlapBox(transform.position + (transform.forward * lightAttackClass.boxCastForwardOffset), new Vector3(lightAttackClass.boxCastLength,
+			lightAttackClass.boxCastHeight, lightAttackClass.boxCastDepth) / 2f,
+			transform.rotation, layersToCheckFor);
 
 
 		AttackSFXPlayOnce(animatorController.GetBool("IsHardAttack"));
