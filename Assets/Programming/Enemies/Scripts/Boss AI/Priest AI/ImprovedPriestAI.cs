@@ -16,10 +16,11 @@ using UnityEngine;
 public class ImprovedPriestAI : AIBase
 {
 
+    public float maxAttackRange = 30f;
 
     #region Light Attack Variables
-    [Header("Light Attack Settings"), SerializeField]
-    protected LightAttack lightAttackClass;
+    [Header("Light Attack Settings")]
+    public LightAttack lightAttackSettings;
 
     /// <summary>
     /// Remaining time left before the AI can attack again.
@@ -27,6 +28,33 @@ public class ImprovedPriestAI : AIBase
     protected float lightAttackCoolDown = 0f;
 
     #endregion
+
+    public BeamAttackSettings beamAttackSettings;
+
+
+    protected float beamAttackCoolDownTimer = 0;
+
+
+    public Transform barrageSpawnPoint;
+
+    public float forceForProjectile = 15f;
+
+    public GameObject barrageProjectile;
+
+    public float barrageAttackCoolDown = 5f;
+
+    public int barrageCount = 6;
+
+    public float verticalOffset = 10f;
+
+    public float horizontalDisplacement = 10f;
+
+    public float verticalDisplacement = 10f;
+
+    protected float barrageAttackCoolDownTimer = 0f;
+
+    public float barrageDelayPerShot = 1f;
+
 
     // Global attack variables
 
@@ -36,6 +64,14 @@ public class ImprovedPriestAI : AIBase
     protected bool attacking = false;
 
     protected float globalAttackCoolDown = 0f;
+
+    protected bool isAttacking = false;
+
+
+    #region Turning Variables 
+    [Header("Turning Variables and movement"), SerializeField]
+    protected float turningSpeed = 5f;
+    #endregion
 
     /// <summary>
     /// The layers it will look for to deal damage to.
@@ -123,6 +159,19 @@ public class ImprovedPriestAI : AIBase
     }
     #endregion
 
+    #region Start
+    protected override void Start()
+    {
+
+        base.Start();
+
+        beamAttackSettings.lineRenderer.enabled = false;
+
+        // onStateChanged += ResetRetreatingThinking;
+    }
+    #endregion
+
+
 
     #region Update
     protected virtual void Update()
@@ -143,8 +192,15 @@ public class ImprovedPriestAI : AIBase
             animatorController.enabled = true;
         }
 
+        // print(GetAngleForFireProjectile(5, Mathf.Abs(Physics.gravity.y), Vector3.Distance(transform.position, playerTarget.position)));
+
+        if (barrageAttackCoolDownTimer > 0) barrageAttackCoolDownTimer -= Time.deltaTime;
+
+
+
         agent.destination = pathTarget;
 
+        if (beamAttackCoolDownTimer > 0) beamAttackCoolDownTimer -= Time.deltaTime;
 
         // set values and deal with timers.
         agent.speed = currentSpeed;
@@ -206,7 +262,51 @@ public class ImprovedPriestAI : AIBase
         Warp away to keep distance.
         */
 
+        if (!isAttacking)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation,
+                Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up),
+                turningSpeed * Time.deltaTime);
+        }
 
+        float playerDistance = Vector3.Distance(playerTarget.position, transform.position);
+
+        if (playerDistance < maxAttackRange && !isAttacking)
+        {
+            pathTarget = transform.position;
+
+            // range attackable
+            if (playerDistance < maxAttackRange && playerDistance > lightAttackSettings.minDistanceForAttack)
+            {
+                int attackType = UnityEngine.Random.Range(1, 2);
+                if ((attackType == 1 && barrageAttackCoolDownTimer <= 0) || (attackType == 2 && beamAttackCoolDownTimer > 0))
+                {
+                    StartCoroutine(BarrageAttack());
+                }
+                else if ((attackType == 2 && beamAttackCoolDownTimer <= 0) || (attackType == 1 && barrageAttackCoolDownTimer > 0))
+                {
+                    StartCoroutine(BeamAttack());
+                }
+            }
+            else if (playerDistance < lightAttackSettings.minDistanceForAttack)
+            {
+                StartCoroutine(LightAttack());
+
+            }
+
+            return;
+        }
+        else if (playerDistance < maxAttackRange && isAttacking)
+        {
+            pathTarget = transform.position;
+
+            return;
+        }
+        else
+        {
+            pathTarget = playerTarget.position;
+
+        }
 
     }
     #endregion
@@ -230,7 +330,7 @@ public class ImprovedPriestAI : AIBase
     protected virtual IEnumerator LightAttack()
     {
         attacking = true;
-        lightAttackCoolDown = lightAttackClass.lightAttackRate;
+        lightAttackCoolDown = lightAttackSettings.lightAttackRate;
 
         attackAnimationPlaying = true;
 
@@ -254,7 +354,10 @@ public class ImprovedPriestAI : AIBase
     /// </summary>
     public virtual void AnimationAttackFinished()
     {
+        animatorController.SetBool("IsBeamAttacking", false);
         animatorController.SetBool("IsMeleeAttacking", false);
+        animatorController.SetBool("IsCharging", false);
+
         attackAnimationPlaying = false;
 
     }
@@ -266,8 +369,9 @@ public class ImprovedPriestAI : AIBase
     /// </summary>
     public virtual void MeleeAttackCheckAndDamage()
     {
-        Collider[] HitObjects = Physics.OverlapBox(transform.position + (transform.forward * lightAttackClass.boxCastForwardOffset), new Vector3(lightAttackClass.boxCastLength, lightAttackClass.boxCastHeight, lightAttackClass.boxCastDepth) / 2f,
-                 transform.rotation, layersToCheckFor);
+        Collider[] HitObjects = Physics.OverlapBox(transform.position + (transform.forward * lightAttackSettings.boxCastForwardOffset),
+            new Vector3(lightAttackSettings.boxCastLength, lightAttackSettings.boxCastHeight, lightAttackSettings.boxCastDepth) / 2f,
+            transform.rotation, layersToCheckFor);
 
 
         //AttackSFXPlayOnce(animatorController.GetBool("IsHardAttack"));
@@ -279,10 +383,195 @@ public class ImprovedPriestAI : AIBase
                 //print(hitObject.name);
                 if (hitObject.gameObject.CompareTag("Player"))
                 {
-                    hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackClass.lightAttackDamage);
+                    hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackSettings.lightAttackDamage);
                 }
             }
         }
+    }
+    #endregion
+
+
+
+    #region BeamAttack
+    protected virtual IEnumerator BeamAttack()
+    {
+        // we set the initial variables.
+        isAttacking = true;
+        attackAnimationPlaying = true;
+
+        animatorController.SetBool("IsBeamAttacking", true);
+        animatorController.SetBool("IsCharging", true);
+
+        // prep the line renderer. might be able to remove as this is also done whilst charging.
+        var curve = new AnimationCurve();
+
+        beamAttackSettings.lineRenderer.enabled = true;
+
+        // while we are charging the attack
+        float localTimer = 0;
+        while (localTimer < beamAttackSettings.windUpTime)
+        {
+            beamAttackSettings.lineRenderer.startWidth = Mathf.Lerp(0, beamAttackSettings.beamRadius * 2f, localTimer / beamAttackSettings.windUpTime);
+
+
+            Color colorLerp = Color.Lerp(Color.yellow, Color.red, localTimer / (beamAttackSettings.windUpTime + 1f));
+
+            beamAttackSettings.lineRenderer.colorGradient = new Gradient()
+            {
+                colorKeys = new GradientColorKey[] { new GradientColorKey(colorLerp, 0), new GradientColorKey(colorLerp, 1) },
+                alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
+            };
+
+            transform.rotation = Quaternion.Lerp(transform.rotation,
+                Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up),
+                beamAttackSettings.turnSpeedWhileCharging * Time.deltaTime);
+
+            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, 999f, LayerMask.GetMask("Default"));
+
+
+            beamAttackSettings.lineRenderer.SetPosition(1,
+                transform.InverseTransformPoint(hitSomething ? hitReturn.point - (-transform.forward.normalized * beamAttackSettings.beamRadius)
+                : transform.position + transform.forward * 999f));
+
+            localTimer += Time.deltaTime;
+            yield return null;
+        }
+
+
+
+        // We stop charging and we now do that attack.
+
+        animatorController.SetBool("IsCharging", false);
+
+
+
+        // We see if we hit then environment so the beam does not go through the wall.
+        bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 999f, LayerMask.GetMask("Default"));
+
+        // we then set the line render.
+        beamAttackSettings.lineRenderer.startWidth = beamAttackSettings.beamRadius * 2f;
+
+
+        beamAttackSettings.lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSuccess ? hit.point : transform.position + transform.forward * 999f));
+        beamAttackSettings.lineRenderer.colorGradient = new Gradient()
+        {
+            colorKeys = new GradientColorKey[] { new GradientColorKey(Color.red, 0), new GradientColorKey(Color.red, 1) },
+            alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
+        };
+
+
+
+        // deals the actual attack.
+        localTimer = 0;
+        while (localTimer < beamAttackSettings.attackDuration)
+        {
+
+            Collider[] colliders = Physics.OverlapCapsule(beamAttackSettings.lineRenderer.transform.position,
+                (hitSuccess ? hit.point - ((-transform.forward) * beamAttackSettings.beamRadius) : transform.position + transform.forward * 999f),
+                beamAttackSettings.beamRadius, LayerMask.GetMask("Player"),
+                QueryTriggerInteraction.Collide);
+
+
+            // print(colliders.Length);
+            // yes, I know that the player is basically the only thing that can be in here.
+            foreach (Collider collider in colliders)
+            {
+                if (collider.gameObject.CompareTag("Player"))
+                {
+                    // Using IDamageable when we have heal class default on everything now. Why?
+                    collider.GetComponent<IDamageable>().TakeDamage(beamAttackSettings.tickDamage);
+                    break;
+                }
+            }
+
+            yield return new WaitForSeconds(beamAttackSettings.tickRate);
+            localTimer += beamAttackSettings.tickRate;
+        }
+
+
+
+        // end attack
+
+        beamAttackSettings.lineRenderer.enabled = false;
+
+        animatorController.SetBool("IsBeamAttacking", false);
+
+        beamAttackCoolDownTimer = beamAttackSettings.coolDown;
+
+        while (attackAnimationPlaying) yield return null;
+
+        isAttacking = false;
+    }
+    #endregion
+
+    #region BarrageAttack
+    protected IEnumerator BarrageAttack()
+    {
+        isAttacking = true;
+        attackAnimationPlaying = true;
+
+        // animatorController.SetBool("IsBeamAttacking", false);
+
+        animatorController.SetBool("IsBeamAttacking", true);
+        animatorController.SetBool("IsCharging", true);
+
+        yield return new WaitForSeconds(2f);
+
+        animatorController.SetBool("IsCharging", false);
+
+        barrageSpawnPoint.rotation = Quaternion.LookRotation(playerTarget.position - transform.position);
+        // player target - up is so we can hit the floor, this is a AOE attack not a direct attack.
+        barrageSpawnPoint.localRotation = Quaternion.Euler(GetAngleForFireProjectile(barrageSpawnPoint.position, playerTarget.position - Vector3.up, forceForProjectile), 0, 0);
+
+        Quaternion baseRotation = barrageSpawnPoint.rotation;
+
+
+        for (int i = 0; i < barrageCount; i++)
+        {
+            barrageSpawnPoint.rotation = baseRotation
+                * Quaternion.AngleAxis(verticalOffset, barrageSpawnPoint.right)
+                * Quaternion.AngleAxis(UnityEngine.Random.Range(-horizontalDisplacement, horizontalDisplacement), barrageSpawnPoint.up)
+                * Quaternion.AngleAxis(UnityEngine.Random.Range(-verticalDisplacement, verticalDisplacement), barrageSpawnPoint.right);
+
+
+            GameObject go = Instantiate(barrageProjectile, barrageSpawnPoint.position, barrageSpawnPoint.rotation);
+            go.GetComponent<Rigidbody>().AddForce(go.transform.forward * forceForProjectile, ForceMode.Impulse);
+            yield return new WaitForSeconds(barrageDelayPerShot);
+        }
+
+
+        animatorController.SetBool("IsBeamAttacking", false);
+        barrageAttackCoolDownTimer = barrageAttackCoolDown;
+
+        while (attackAnimationPlaying) yield return null;
+
+        isAttacking = false;
+    }
+    #endregion
+
+    #region GetAngleForFireProjectile
+    protected float GetAngleForFireProjectile(Vector3 startPos, Vector3 targetPos, float force)
+    {
+        float gravity = Mathf.Abs(Physics.gravity.y);
+
+        float distance = Vector2.Distance(new Vector2(startPos.x, startPos.z), new Vector2(targetPos.x, targetPos.z));
+        float heightOffset = targetPos.y - startPos.y;
+        //subtract to get direct curve and adding is high curve.
+        //A = arctan((v^2 ± SQRT(v^4 - g(gx^2 + 2yv^2)))/gx)
+
+        //float angle01 = Mathf.Atan((Mathf.Pow(force, 2) + Mathf.Sqrt(Mathf.Pow(force, 4) - (Physics.gravity.y * (Physics.gravity.y * Mathf.Pow(distance, 2) + (2 * heightOffset) * Mathf.Pow(force, 2))))) / (Physics.gravity.y * distance));
+
+        //print("Angle 01 : " + angle01);
+
+        float angle02 = Mathf.Atan((Mathf.Pow(force, 2) - Mathf.Sqrt(Mathf.Pow(force, 4) - (Physics.gravity.y * (Physics.gravity.y * Mathf.Pow(distance, 2) + (2 * heightOffset) * Mathf.Pow(force, 2))))) / (Physics.gravity.y * distance));
+
+        //print("Angle 02 : " + angle02);
+
+        //float angleResult = Mathf.Min(angle01, angle02);
+        float angleResult = angle02;
+
+        //print("Angle : " + angleResult * Mathf.Rad2Deg);
+        return angleResult * Mathf.Rad2Deg;
     }
     #endregion
 
