@@ -47,7 +47,7 @@ public class AIImprovedCommonRanged : AIBase
 
     protected float retreatCoolDown = 0f;
 
-    public float defaultStoppingDistance = 0f;
+    // public float defaultStoppingDistance = 0f;
 
 
     protected bool isAttacking = false;

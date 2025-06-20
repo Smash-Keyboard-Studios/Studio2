@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3372203923770791018}
   - component: {fileID: 7794361633322313189}
   - component: {fileID: 4058185774341532433}
+  - component: {fileID: 3199100942250008710}
   m_Layer: 10
   m_Name: Barrage Projectile
   m_TagString: Untagged
@@ -74,7 +75,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 1984
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -82,6 +83,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &3199100942250008710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413190209063640159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5d34d35ca316e4e9571eee7c997054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireProjectile: {fileID: 4787057800825685418, guid: 30789bddcd01c374c912c632a13498dd,
+    type: 3}
 --- !u!1 &6710771869479753273
 GameObject:
   m_ObjectHideFlags: 0
