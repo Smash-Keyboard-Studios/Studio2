@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Obsolete("Will replace with new system", false)]
 public class PlayerDetectNearby : MonoBehaviour
 {
     //soph
@@ -38,7 +40,7 @@ public class PlayerDetectNearby : MonoBehaviour
                 {
                     //check for bosses - once boss music starts it doesnt stop again
                     if (c.gameObject.GetComponent<KnightAI>()) { boss1Nearby = true; }
-                    if (c.gameObject.GetComponent<PriestAI>()) { boss2Nearby = true; }
+                    if (c.gameObject.GetComponent<ImprovedPriestAI>()) { boss2Nearby = true; }
 
                     if (c.gameObject.GetComponent<AIBase>().currentAIState == AIState.Alerted)
                     {
