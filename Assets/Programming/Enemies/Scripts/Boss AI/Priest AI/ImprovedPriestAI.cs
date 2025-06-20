@@ -41,7 +41,7 @@ public class ImprovedPriestAI : AIBase
     public float maxAttackRange = 30f;
 
     #region Light Attack Variables
-    [Header("Light Attack Settings")]
+    [Header("Attack Settings")]
     public LightAttack lightAttackSettings;
 
     /// <summary>
@@ -76,7 +76,7 @@ public class ImprovedPriestAI : AIBase
     protected bool isAttacking = false;
 
 
-
+    [Header("Teleport Settings")]
 
     public float timePlayerCloseBeforeRetreating = 5f;
 
@@ -151,6 +151,9 @@ public class ImprovedPriestAI : AIBase
     /// </summary>
     [SerializeField]
     protected bool enableVisualDetectionLine = false;
+
+    [SerializeField]
+    protected bool showMelee = false;
 
     #endregion
 
@@ -698,6 +701,11 @@ public class ImprovedPriestAI : AIBase
     #region OnDrawGizmos
     protected virtual void OnDrawGizmos()
     {
+        if (showMelee)
+        {
+            Gizmos.DrawWireCube(transform.position + transform.forward * lightAttackSettings.boxCastForwardOffset, new Vector3(lightAttackSettings.boxCastLength, lightAttackSettings.boxCastHeight, lightAttackSettings.boxCastDepth));
+        }
+
         if (enableVisualDetectionRadius)
         {
             Gizmos.color = Color.yellow;

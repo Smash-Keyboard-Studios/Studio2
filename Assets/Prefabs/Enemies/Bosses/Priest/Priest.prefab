@@ -76,16 +76,24 @@ MonoBehaviour:
     beamRadius: 1
     turnSpeedWhileCharging: 1
     lineRenderer: {fileID: 2550191943753270926}
-  barrageSpawnPoint: {fileID: 672964371900445091}
-  forceForProjectile: 15
-  barrageProjectile: {fileID: 1413190209063640159, guid: 40200f8c300d24b40b3b1400f9ed390a,
-    type: 3}
-  barrageAttackCoolDown: 5
-  barrageCount: 6
-  verticalOffset: 10
-  horizontalDisplacement: 10
-  verticalDisplacement: 10
-  barrageDelayPerShot: 0.1
+  barrageAttackSettings:
+    spawnPoint: {fileID: 672964371900445091}
+    forceForProjectile: 15
+    projectilePrefab: {fileID: 1413190209063640159, guid: 40200f8c300d24b40b3b1400f9ed390a,
+      type: 3}
+    attackCoolDown: 5
+    projectileCount: 6
+    verticalOffset: 10
+    horizontalDisplacement: 10
+    verticalDisplacement: 10
+    delayPerShot: 1
+    windUpTime: 2
+  globalAttackDelay: 0.5
+  timePlayerCloseBeforeRetreating: 5
+  distanceTooCloseToPlayer: 2
+  warpPoints:
+  - {fileID: 0}
+  - {fileID: 0}
   turningSpeed: 5
   layersToCheckFor:
     serializedVersion: 2
@@ -1586,7 +1594,7 @@ Animator:
   m_GameObject: {fileID: 5541830534671406741}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6f91d65a35bff0742bf7702eb6ef9c68, type: 2}
+  m_Controller: {fileID: 9100000, guid: ab7ed8204e6184645b2b8fb53647b9b1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
