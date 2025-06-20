@@ -30,4 +30,14 @@ public class PriestAnimationFunctions : MonoBehaviour
     {
         priestAI.MeleeAttackCheckAndDamage();
     }
+
+    public void Teleport()
+    {
+        priestAI.Teleport();
+    }
+
+    public void EndTeleport()
+    {
+        priestAI.EndTeleportAnimation();
+    }
 }

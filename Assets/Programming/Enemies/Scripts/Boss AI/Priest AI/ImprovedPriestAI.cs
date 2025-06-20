@@ -68,6 +68,26 @@ public class ImprovedPriestAI : AIBase
     protected bool isAttacking = false;
 
 
+
+
+    public float timePlayerCloseBeforeRetreating = 5f;
+
+    protected float playerCloseTimer = 0f;
+
+    public float distanceTooCloseToPlayer = 2f;
+
+
+
+
+    public Transform[] warpPoints;
+
+    protected bool isTeleporting = false;
+
+    protected bool isAnimationPlaying = false;
+
+    protected Transform teleportPoint;
+
+
     #region Turning Variables 
     [Header("Turning Variables and movement"), SerializeField]
     protected float turningSpeed = 5f;
@@ -271,6 +291,22 @@ public class ImprovedPriestAI : AIBase
 
         float playerDistance = Vector3.Distance(playerTarget.position, transform.position);
 
+        if (playerDistance < distanceTooCloseToPlayer)
+        {
+            if (playerCloseTimer < timePlayerCloseBeforeRetreating)
+            {
+                playerCloseTimer += Time.deltaTime;
+            }
+            else if (playerCloseTimer >= timePlayerCloseBeforeRetreating && !isAttacking)
+            {
+                ChangeState(AIState.Retreating);
+            }
+        }
+        else
+        {
+            if (playerCloseTimer > 0) playerCloseTimer -= Time.deltaTime;
+        }
+
         if (playerDistance < maxAttackRange && !isAttacking)
         {
             pathTarget = transform.position;
@@ -318,9 +354,65 @@ public class ImprovedPriestAI : AIBase
     /// </summary>
     protected virtual void RetreatingThinking()
     {
-
+        if (!isTeleporting)
+            StartCoroutine(StartTeleport());
     }
     #endregion
+
+    protected virtual IEnumerator StartTeleport()
+    {
+        isTeleporting = true;
+        isAnimationPlaying = true;
+        pathTarget = transform.position;
+
+        while (teleportPoint == null)
+        {
+            teleportPoint = GetRandomFurthestTeleportPoint();
+            yield return new WaitForSeconds(1f);
+        }
+
+        teleportPoint.GetComponent<BossTeleportingEvent>()?.StartTeleport();
+
+
+        animatorController.SetBool("IsTeleporting", true);
+
+        while (isAnimationPlaying) yield return null;
+
+        teleportPoint = null;
+
+        ChangeState(AIState.Alerted);
+
+        isTeleporting = false;
+    }
+
+    protected Transform GetRandomFurthestTeleportPoint()
+    {
+        List<Transform> possiblePoint = new List<Transform>();
+
+        foreach (var point in warpPoints)
+        {
+            if (Vector3.Distance(playerTarget.position, point.position) < 10f) continue;
+
+            possiblePoint.Add(point);
+        }
+
+        if (possiblePoint.Count > 0)
+            return possiblePoint[UnityEngine.Random.Range(0, possiblePoint.Count - 1)];
+        else return null;
+    }
+
+    public virtual void Teleport()
+    {
+        teleportPoint.GetComponent<BossTeleportingEvent>()?.EndTeleport();
+        transform.position = teleportPoint.position;
+        pathTarget = transform.position;
+    }
+
+    public virtual void EndTeleportAnimation()
+    {
+        animatorController.SetBool("IsTeleporting", false);
+        isAnimationPlaying = false;
+    }
 
     #region LightAttack
     /// <summary>
@@ -373,8 +465,6 @@ public class ImprovedPriestAI : AIBase
             new Vector3(lightAttackSettings.boxCastLength, lightAttackSettings.boxCastHeight, lightAttackSettings.boxCastDepth) / 2f,
             transform.rotation, layersToCheckFor);
 
-
-        //AttackSFXPlayOnce(animatorController.GetBool("IsHardAttack"));
 
         if (HitObjects.Length > 0)
         {

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8983775168675799407}
   - component: {fileID: 328791737137622582}
-  - component: {fileID: 3348174629075526740}
   - component: {fileID: 1595968694445084054}
   - component: {fileID: -9150303543506523908}
   - component: {fileID: 5131899843466703531}
@@ -69,45 +68,31 @@ MonoBehaviour:
     boxCastHeight: 1
     boxCastForwardOffset: 1
   beamAttackSettings:
-    maxBeamAttackRange: 7
-    beamAttackCoolDown: 1
-    beamAttackTickDamage: 5
-    beamAttackTickRate: 0.5
-    beamAttackWindUp: 1
-    beamAttackDuration: 2
+    coolDown: 5
+    tickDamage: 5
+    tickRate: 0.5
+    windUpTime: 1
+    attackDuration: 2
     beamRadius: 1
-    beamTurnSpeed: 1
+    turnSpeedWhileCharging: 1
     lineRenderer: {fileID: 2550191943753270926}
-  minimumRangeForBeamAttack: 5
   barrageSpawnPoint: {fileID: 672964371900445091}
   forceForProjectile: 15
   barrageProjectile: {fileID: 1413190209063640159, guid: 40200f8c300d24b40b3b1400f9ed390a,
     type: 3}
   barrageAttackCoolDown: 5
   barrageCount: 6
+  verticalOffset: 10
   horizontalDisplacement: 10
   verticalDisplacement: 10
-  barrageDelayPerShot: 1
+  barrageDelayPerShot: 0.1
   turningSpeed: 5
   layersToCheckFor:
     serializedVersion: 2
     m_Bits: 4294967295
   maxDetectionRange: 30
-  enableVisualDetectionRadius: 1
+  enableVisualDetectionRadius: 0
   enableVisualDetectionLine: 0
---- !u!114 &3348174629075526740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 66097493073879181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c789489b5a5d95e49ba5baf3b44d503e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSFXPlayDelay: 1
 --- !u!114 &1595968694445084054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,7 +345,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.37899995, z: 0}
-  m_LocalScale: {x: 4.2999997, y: 4.2999997, z: 4.2999997}
+  m_LocalScale: {x: 1.1999999, y: 1.1999999, z: 1.1999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8070430880823626535}
@@ -475,8 +460,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6789232414495430395}
   - {fileID: 3495284389657625544}
@@ -645,7 +630,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.50399995, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8070430880823626535}

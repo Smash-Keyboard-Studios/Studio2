@@ -23,6 +23,13 @@ public class RemoveAfterTimeWithEasing : MonoBehaviour
 
     private float localTime = 0f;
 
+    private Vector3 targetScale;
+
+    void Awake()
+    {
+        targetScale = transform.localScale;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,12 +44,12 @@ public class RemoveAfterTimeWithEasing : MonoBehaviour
         if (localTime <= easeInTime)
         {
             easingTime += Time.deltaTime;
-            transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, easeOutQuint(easingTime / easeInTime));
+            transform.localScale = Vector3.Lerp(Vector3.zero, targetScale, easeOutQuint(easingTime / easeInTime));
         }
         else if (timeToWaitBeforeRemoving - localTime >= 0 && timeToWaitBeforeRemoving - localTime <= easeOutTime + 0.1f)
         {
             easingTime -= Time.deltaTime;
-            transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, easeOutQuint(easingTime / easeOutTime));
+            transform.localScale = Vector3.Lerp(Vector3.zero, targetScale, easeOutQuint(easingTime / easeOutTime));
         }
 
 
