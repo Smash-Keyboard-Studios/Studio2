@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -63,7 +64,7 @@ public class FloatingTextSystem : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1.1f);
-            SpawnTwoToneText("test", Color.cyan, Color.magenta);
+            //SpawnTwoToneText("test", Color.cyan, Color.magenta);
         }
     }
     #endregion
@@ -77,16 +78,16 @@ public class FloatingTextSystem : MonoBehaviour
     /// <param name="text">The message or number to display.</param>
     /// <param name="textColor">The colour for the text.</param>
     /// <param name="textSize">How large the text should be.</param>
-    /// /// <param name="characterSpacing">Spacing between each character</param>
-    public void SpawnText(string text, Color textColor, float textSize = 10f, int characterSpacing = -30)
+    /// <param name="characterSpacing">Spacing between each character</param>
+    public void SpawnText(string text, Color textColor, float textSize = 10f, float characterSpacing = -30)
     {
         Vector3 directionTowardsCamera = (cameraTransform.position - transform.position).normalized;
         directionTowardsCamera.y = 0f;
 
-        Vector3 horizontalDisplacement = Quaternion.AngleAxis(Random.Range(-MaxRotationOffsetHorizontal, MaxRotationOffsetHorizontal), transform.up) * directionTowardsCamera;
-        Vector3 verticalDisplacement = Quaternion.AngleAxis(Random.Range(-MaxRotationOffsetVertical, MaxRotationOffsetVertical), transform.right) * directionTowardsCamera;
+        Vector3 horizontalDisplacement = Quaternion.AngleAxis(UnityEngine.Random.Range(-MaxRotationOffsetHorizontal, MaxRotationOffsetHorizontal), transform.up) * directionTowardsCamera;
+        Vector3 verticalDisplacement = Quaternion.AngleAxis(UnityEngine.Random.Range(-MaxRotationOffsetVertical, MaxRotationOffsetVertical), transform.right) * directionTowardsCamera;
 
-        Vector3 targetSpawnPoint = transform.position + (horizontalDisplacement + verticalDisplacement) * Random.Range(MinDistance, MaxDistance);
+        Vector3 targetSpawnPoint = transform.position + (horizontalDisplacement + verticalDisplacement) * UnityEngine.Random.Range(MinDistance, MaxDistance);
 
         GameObject spawnedNumber = Instantiate(magicNumberPrefab, targetSpawnPoint, Quaternion.identity);
 
@@ -97,6 +98,40 @@ public class FloatingTextSystem : MonoBehaviour
 
         textComp.color = textColor;
         textComp.enableVertexGradient = false;
+
+        textComp.fontSize = textSize;
+        textComp.characterSpacing = characterSpacing;
+    }
+    #endregion
+
+    #region SpawnText
+    /// <summary>
+    /// Spawns a magic floating number.
+    /// </summary>
+    /// <param name="text">The message or number to display.</param>
+    /// <param name="textColorGradient">The colour for the text.</param>
+    /// <param name="textSize">How large the text should be.</param>
+    /// <param name="characterSpacing">Spacing between each character</param>
+    public void SpawnText(string text, TMP_ColorGradient textColorGradient, float textSize = 10f, float characterSpacing = -30)
+    {
+        Vector3 directionTowardsCamera = (cameraTransform.position - transform.position).normalized;
+        directionTowardsCamera.y = 0f;
+
+        Vector3 horizontalDisplacement = Quaternion.AngleAxis(UnityEngine.Random.Range(-MaxRotationOffsetHorizontal, MaxRotationOffsetHorizontal), transform.up) * directionTowardsCamera;
+        Vector3 verticalDisplacement = Quaternion.AngleAxis(UnityEngine.Random.Range(-MaxRotationOffsetVertical, MaxRotationOffsetVertical), transform.right) * directionTowardsCamera;
+
+        Vector3 targetSpawnPoint = transform.position + (horizontalDisplacement + verticalDisplacement) * UnityEngine.Random.Range(MinDistance, MaxDistance);
+
+        GameObject spawnedNumber = Instantiate(magicNumberPrefab, targetSpawnPoint, Quaternion.identity);
+
+        // then we can do cool UI stuff.
+        TMP_Text textComp = spawnedNumber.GetComponent<TMP_Text>();
+
+        textComp.text = text;
+
+        textComp.color = Color.white;
+        textComp.enableVertexGradient = true;
+        textComp.colorGradientPreset = textColorGradient;
 
         textComp.fontSize = textSize;
         textComp.characterSpacing = characterSpacing;
@@ -114,15 +149,16 @@ public class FloatingTextSystem : MonoBehaviour
     /// <param name="gradientDirection">The direction of the gradient.</param>
     /// <param name="textSize">The size of the text.</param>
     /// <param name="characterSpacing">Spacing between each character</param>
-    public void SpawnTwoToneText(string text, Color color1, Color color2, GradientDirection gradientDirection = GradientDirection.Vertical, float textSize = 10f, int characterSpacing = -30)
+    [Obsolete("Please use SpawnText functions", false)]
+    public void SpawnTwoToneText(string text, Color color1, Color color2, GradientDirection gradientDirection = GradientDirection.Vertical, float textSize = 10f, float characterSpacing = -30)
     {
         Vector3 directionTowardsCamera = (cameraTransform.position - transform.position).normalized;
         directionTowardsCamera.y = 0f;
 
-        Vector3 horizontalDisplacement = Quaternion.AngleAxis(Random.Range(-MaxRotationOffsetHorizontal, MaxRotationOffsetHorizontal), transform.up) * directionTowardsCamera;
-        Vector3 verticalDisplacement = Quaternion.AngleAxis(Random.Range(-MaxRotationOffsetVertical, MaxRotationOffsetVertical), transform.right) * directionTowardsCamera;
+        Vector3 horizontalDisplacement = Quaternion.AngleAxis(UnityEngine.Random.Range(-MaxRotationOffsetHorizontal, MaxRotationOffsetHorizontal), transform.up) * directionTowardsCamera;
+        Vector3 verticalDisplacement = Quaternion.AngleAxis(UnityEngine.Random.Range(-MaxRotationOffsetVertical, MaxRotationOffsetVertical), transform.right) * directionTowardsCamera;
 
-        Vector3 targetSpawnPoint = transform.position + (horizontalDisplacement + verticalDisplacement) * Random.Range(MinDistance, MaxDistance);
+        Vector3 targetSpawnPoint = transform.position + (horizontalDisplacement + verticalDisplacement) * UnityEngine.Random.Range(MinDistance, MaxDistance);
 
         GameObject spawnedNumber = Instantiate(magicNumberPrefab, targetSpawnPoint, Quaternion.identity);
 
@@ -168,15 +204,16 @@ public class FloatingTextSystem : MonoBehaviour
     /// <param name="bottomRight">The bottom right vertex color.</param>
     /// <param name="textSize">The size of the text.</param>
     /// <param name="characterSpacing">Spacing between each character</param>
-    public void SpawnFourToneText(string text, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight, float textSize = 10f, int characterSpacing = -30)
+    [Obsolete("Please use SpawnText functions", false)]
+    public void SpawnFourToneText(string text, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight, float textSize = 10f, float characterSpacing = -30)
     {
         Vector3 directionTowardsCamera = (cameraTransform.position - transform.position).normalized;
         directionTowardsCamera.y = 0f;
 
-        Vector3 horizontalDisplacement = Quaternion.AngleAxis(Random.Range(-MaxRotationOffsetHorizontal, MaxRotationOffsetHorizontal), transform.up) * directionTowardsCamera;
-        Vector3 verticalDisplacement = Quaternion.AngleAxis(Random.Range(-MaxRotationOffsetVertical, MaxRotationOffsetVertical), transform.right) * directionTowardsCamera;
+        Vector3 horizontalDisplacement = Quaternion.AngleAxis(UnityEngine.Random.Range(-MaxRotationOffsetHorizontal, MaxRotationOffsetHorizontal), transform.up) * directionTowardsCamera;
+        Vector3 verticalDisplacement = Quaternion.AngleAxis(UnityEngine.Random.Range(-MaxRotationOffsetVertical, MaxRotationOffsetVertical), transform.right) * directionTowardsCamera;
 
-        Vector3 targetSpawnPoint = transform.position + (horizontalDisplacement + verticalDisplacement) * Random.Range(MinDistance, MaxDistance);
+        Vector3 targetSpawnPoint = transform.position + (horizontalDisplacement + verticalDisplacement) * UnityEngine.Random.Range(MinDistance, MaxDistance);
 
         GameObject spawnedNumber = Instantiate(magicNumberPrefab, targetSpawnPoint, Quaternion.identity);
 

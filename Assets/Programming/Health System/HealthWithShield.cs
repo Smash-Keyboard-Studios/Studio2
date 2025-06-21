@@ -47,22 +47,22 @@ public class HealthWithShield : HealthWithBasicShield
     {
         if (shieldActive)
         {
-            InvokeOnShieldHitSFXPlayOnce();
+            InvokeOnShieldHit();
 
-            SpawnShieldBlockedText();
+            // SpawnShieldBlockedText();
 
-            if (shieldHitIndicator != null) shieldHitIndicator.ShieldHit();
+            // if (shieldHitIndicator != null) shieldHitIndicator.ShieldHit();
             return false;
         }
 
         AddToHealth(-amount);
 
-        SpawnDamageText(amount);
+        // SpawnDamageText(amount);
 
-        if (hurtIndicator != null)
-        {
-            hurtIndicator.TakenDamage();
-        }
+        // if (hurtIndicator != null)
+        // {
+        //     hurtIndicator.TakenDamage();
+        // }
 
         return true;
     }

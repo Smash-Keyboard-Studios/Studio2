@@ -5468,7 +5468,6 @@ GameObject:
   - component: {fileID: 1339921657510950557}
   - component: {fileID: 424587004156832933}
   - component: {fileID: 1013276433663460835}
-  - component: {fileID: 6925100915833262026}
   - component: {fileID: 3589648385036302975}
   - component: {fileID: 1540274914076019151}
   - component: {fileID: 5155038419371565631}
@@ -5477,6 +5476,7 @@ GameObject:
   - component: {fileID: 1723901489230906852}
   - component: {fileID: 6509453713498881600}
   - component: {fileID: 945033288345369602}
+  - component: {fileID: 1987441813757924341}
   m_Layer: 7
   m_Name: Knight
   m_TagString: Enemy
@@ -5594,19 +5594,6 @@ MonoBehaviour:
   shieldTopColor: {r: 0.7, g: 1, b: 1, a: 1}
   shieldBottomColor: {r: 0, g: 0.6, b: 1, a: 1}
   coolDownTime: 7
---- !u!114 &6925100915833262026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9086637893552779497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f638aeaf9106864cb82bf612f8eee89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageRingGameObject: {fileID: 7010083681889091249}
 --- !u!114 &3589648385036302975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5828,6 +5815,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subTags:
   - Boss1
+--- !u!114 &1987441813757924341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9086637893552779497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c1da547bbdef84bb1ed7bc1f62e053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageRingGameObject: {fileID: 7010083681889091249}
 --- !u!1001 &1915182254492227860
 PrefabInstance:
   m_ObjectHideFlags: 0

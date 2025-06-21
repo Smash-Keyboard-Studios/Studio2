@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 5706574705448098848}
   - component: {fileID: 2816139239098249734}
   - component: {fileID: 3879582724163978896}
+  - component: {fileID: 1822892655630410327}
   m_Layer: 7
   m_Name: Ranged Grunt
   m_TagString: Enemy
@@ -70,7 +71,6 @@ MonoBehaviour:
   minDistanceForPlayerToRetreat: 5
   retreatDuration: 5
   delayUntilRetreatAgain: 5
-  defaultStoppingDistance: 0
   maxDetectionRange: 30
   turningSpeed: 0.1
   enableVisualDetectionRadius: 0
@@ -334,6 +334,26 @@ MonoBehaviour:
   MaxDistance: 0.4
   MaxRotationOffsetHorizontal: 180
   MaxRotationOffsetVertical: 60
+--- !u!114 &1822892655630410327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66097493073879181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d96cc26ee2f2a442870c933d0e33c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthUseGradient: 1
+  healthTextGradient: {fileID: 11400000, guid: 4564b6ba0df02634fbf39c366dfd81b1, type: 2}
+  healthTextColor: {r: 0, g: 0, b: 0, a: 0}
+  baseSize: 6
+  numberSizeMultiply: 3
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
+  healthCharacterSpacing: -30
 --- !u!1 &2488701281553755158
 GameObject:
   m_ObjectHideFlags: 0

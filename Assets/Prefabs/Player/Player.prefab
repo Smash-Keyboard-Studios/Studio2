@@ -2932,13 +2932,13 @@ GameObject:
   - component: {fileID: 8236928788153488819}
   - component: {fileID: 7694880310181773891}
   - component: {fileID: 774508971772862245}
-  - component: {fileID: 5980035394998752889}
   - component: {fileID: 501272729311254531}
   - component: {fileID: 975215719065056197}
   - component: {fileID: 5600486302336137985}
   - component: {fileID: 5523411198689757485}
   - component: {fileID: 6109847945268430093}
   - component: {fileID: 1708644854712459076}
+  - component: {fileID: 1884647640742460552}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3316,19 +3316,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5980035394998752889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5005257603024285522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f638aeaf9106864cb82bf612f8eee89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageRingGameObject: {fileID: 5644760467099071960}
 --- !u!114 &501272729311254531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3414,6 +3401,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a1cfb1c2cfb9b4091d827273a9d698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1884647640742460552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005257603024285522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e40f560c7e838754581d389330fe0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthUseGradient: 1
+  healthTextGradient: {fileID: 11400000, guid: 7f56901af513b7b4cb37c15fe3bd8108, type: 2}
+  healthTextColor: {r: 0, g: 0, b: 0, a: 0}
+  baseSize: 6
+  numberSizeMultiply: 3
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
+  healthCharacterSpacing: -30
+  shieldUseGradient: 1
+  shieldTextGradient: {fileID: 11400000, guid: 91aed1ab9b0d7854d81fdafc41cf402c, type: 2}
+  shieldTextColor: {r: 0, g: 0, b: 0, a: 0}
+  shieldBlockedText: Blocked
+  shieldCharacterSpacing: 0
 --- !u!1 &5031218017895963573
 GameObject:
   m_ObjectHideFlags: 0

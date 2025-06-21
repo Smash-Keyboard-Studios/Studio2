@@ -638,6 +638,7 @@ GameObject:
   - component: {fileID: -1224240333922569538}
   - component: {fileID: 2223605082561628224}
   - component: {fileID: 5009405342800116570}
+  - component: {fileID: 3647192361855919540}
   m_Layer: 7
   m_Name: Melee Shield
   m_TagString: Enemy
@@ -987,6 +988,31 @@ MonoBehaviour:
   MaxDistance: 0.4
   MaxRotationOffsetHorizontal: 180
   MaxRotationOffsetVertical: 60
+--- !u!114 &3647192361855919540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6083788038602741258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e40f560c7e838754581d389330fe0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthUseGradient: 1
+  healthTextGradient: {fileID: 11400000, guid: 4564b6ba0df02634fbf39c366dfd81b1, type: 2}
+  healthTextColor: {r: 0, g: 0, b: 0, a: 0}
+  baseSize: 6
+  numberSizeMultiply: 3
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
+  healthCharacterSpacing: -30
+  shieldUseGradient: 1
+  shieldTextGradient: {fileID: 11400000, guid: 3256cbf1a60c851469e105cbd9a72cc4, type: 2}
+  shieldTextColor: {r: 0, g: 0, b: 0, a: 0}
+  shieldBlockedText: Blocked
+  shieldCharacterSpacing: 0
 --- !u!1 &6390804886517192784
 GameObject:
   m_ObjectHideFlags: 0

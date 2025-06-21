@@ -26,27 +26,28 @@ public class Health : MonoBehaviour, IDamageable
 
 
 
-    public event Action onDeathEvent;
 
     protected bool calledOnDeathEvent = false;
 
-    protected HurtIndicatorAuto hurtIndicator;
-    protected FloatingTextSystem floatingTextSystem;
+    // protected HurtIndicatorAuto hurtIndicator;
+    // protected FloatingTextSystem floatingTextSystem;
 
-    public event Action onTakenDamageSFXPlayOnce;
+    public event Action onDeath;
+    public event Action<float> onTakeDamage;
+    public event Action<float> onAddToHealth;
 
-    public float baseSize = 6f;
-    public float numberSizeMultiply = 3f;
-    public float minRandomMultiplyAmount = 0.4f;
-    public float maxRandomMultiplyAmount = 0.4f;
+    // public float baseSize = 6f;
+    // public float numberSizeMultiply = 3f;
+    // public float minRandomMultiplyAmount = 0.4f;
+    // public float maxRandomMultiplyAmount = 0.4f;
 
-    public Color topColor = new Color(1, 0.8f, 0.1f);
-    public Color bottomColor = new Color(1, 0, 0);
+    // public Color topColor = new Color(1, 0.8f, 0.1f);
+    // public Color bottomColor = new Color(1, 0, 0);
 
     protected virtual void Start()
     {
-        hurtIndicator = GetComponent<HurtIndicatorAuto>();
-        floatingTextSystem = GetComponent<FloatingTextSystem>();
+        // hurtIndicator = GetComponent<HurtIndicatorAuto>();
+        // floatingTextSystem = GetComponent<FloatingTextSystem>();
 
 
         Reset();
@@ -70,12 +71,14 @@ public class Health : MonoBehaviour, IDamageable
     {
         currentHealth += amount;
 
+        InvokeOnAddToHealth(amount);
+
         if (currentHealth > maxHealth) currentHealth = maxHealth;
 
         if (currentHealth <= 0 && !calledOnDeathEvent)
         {
             calledOnDeathEvent = true;
-            onDeathEvent?.Invoke();
+            InvokeOnDeath();
         }
     }
 
@@ -84,31 +87,31 @@ public class Health : MonoBehaviour, IDamageable
         AddToHealth(-amount);
 
 
-        SpawnDamageText(amount);
+        // SpawnDamageText(amount);
 
 
 
-        if (hurtIndicator != null)
-        {
-            hurtIndicator.TakenDamage();
-        }
+        // if (hurtIndicator != null)
+        // {
+        //     hurtIndicator.TakenDamage();
+        // }
 
 
-        InvokeOnTakenDamageSFXPlayOnce();
+        InvokeOnTakeDamage(amount);
 
 
         return true;
     }
 
-    protected void SpawnDamageText(float amount)
-    {
-        if (floatingTextSystem != null)
-        {
-            floatingTextSystem.SpawnTwoToneText(amount.ToString("F0"),
-            topColor, bottomColor,
-            textSize: (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
-        }
-    }
+    // protected void SpawnDamageText(float amount)
+    // {
+    //     if (floatingTextSystem != null)
+    //     {
+    //         floatingTextSystem.SpawnTwoToneText(amount.ToString("F0"),
+    //         topColor, bottomColor,
+    //         textSize: (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
+    //     }
+    // }
 
     /// <summary>
     /// Gets a normalized version of the health aka as a percentage from 0 to 1.
@@ -124,8 +127,18 @@ public class Health : MonoBehaviour, IDamageable
         return currentHealth;
     }
 
-    protected virtual void InvokeOnTakenDamageSFXPlayOnce()
+    protected void InvokeOnTakeDamage(float amount)
     {
-        onTakenDamageSFXPlayOnce?.Invoke();
+        onTakeDamage?.Invoke(amount);
+    }
+
+    protected void InvokeOnAddToHealth(float amount)
+    {
+        onAddToHealth?.Invoke(amount);
+    }
+
+    protected void InvokeOnDeath()
+    {
+        onDeath?.Invoke();
     }
 }

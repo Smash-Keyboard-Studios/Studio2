@@ -24,27 +24,24 @@ public class HealthWithBasicShield : Health, IShieldObject
 	[HideInInspector]
 	public bool shieldActive = true;
 
+	// protected ShieldHitIndicator shieldHitIndicator;
+
+	// audio events
+	public event Action onShieldHit;
 	public event Action onShieldBreak;
 	public event Action onShieldActivate;
 
-	protected ShieldHitIndicator shieldHitIndicator;
-
-	// audio events
-	public event Action onShieldHitSFXPlayOnce;
-	public event Action onShieldBreakSFXPlayOnce;
-	public event Action onShieldActiveSFXPlayOnce;
-
-	public Color shieldTopColor = new Color(0.7f, 1f, 1f);
-	public Color shieldBottomColor = new Color(0f, 0.6f, 1f);
+	// public Color shieldTopColor = new Color(0.7f, 1f, 1f);
+	// public Color shieldBottomColor = new Color(0f, 0.6f, 1f);
 
 	bool IShieldObject.isShieldActive { get => shieldActive; }
 
 	protected override void Start()
 	{
-		hurtIndicator = GetComponent<HurtIndicatorAuto>();
-		floatingTextSystem = GetComponent<FloatingTextSystem>();
+		// hurtIndicator = GetComponent<HurtIndicatorAuto>();
+		// floatingTextSystem = GetComponent<FloatingTextSystem>();
 
-		shieldHitIndicator = GetComponent<ShieldHitIndicator>();
+		// shieldHitIndicator = GetComponent<ShieldHitIndicator>();
 
 		if (!startShieldAsActive)
 		{
@@ -73,19 +70,19 @@ public class HealthWithBasicShield : Health, IShieldObject
 
 		shieldObject.SetActive(false);
 
-		InvokeShieldBreak();
+		InvokeOnShieldBreak();
 	}
 
 	public override bool TakeDamage(float amount)
 	{
 		if (shieldActive)
 		{
-			InvokeOnShieldHitSFXPlayOnce();
+			InvokeOnShieldHit();
 
-			SpawnShieldBlockedText();
+			// SpawnShieldBlockedText();
 
 
-			if (shieldHitIndicator != null) shieldHitIndicator.ShieldHit();
+			// if (shieldHitIndicator != null) shieldHitIndicator.ShieldHit();
 			return false;
 		}
 
@@ -96,19 +93,7 @@ public class HealthWithBasicShield : Health, IShieldObject
 	{
 		shieldActive = true;
 		shieldObject.SetActive(true);
-		InvokeShieldActivate();
-		if (playSFX) InvokeOnShieldActivateSFXPlayOnce();
-	}
-
-	protected void InvokeShieldBreak()
-	{
-		onShieldBreak?.Invoke();
-		InvokeOnShieldBreakSFXPlayOnce();
-	}
-
-	protected void InvokeShieldActivate()
-	{
-		onShieldActivate?.Invoke();
+		InvokeOnShieldActivate();
 	}
 
 	public virtual float GetShieldNormalized()
@@ -117,32 +102,32 @@ public class HealthWithBasicShield : Health, IShieldObject
 	}
 
 
-	protected void SpawnShieldBlockedText()
+	// protected void SpawnShieldBlockedText()
+	// {
+	// 	if (floatingTextSystem != null)
+	// 	{
+	// 		floatingTextSystem.SpawnTwoToneText("Blocked",
+	// 		shieldTopColor, shieldBottomColor,
+	// 		textSize: (baseSize + (numberSizeMultiply * Mathf.Sqrt(5))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount),
+	// 		characterSpacing: 0);
+	// 	}
+	// }
+
+
+
+	protected void InvokeOnShieldHit()
 	{
-		if (floatingTextSystem != null)
-		{
-			floatingTextSystem.SpawnTwoToneText("Blocked",
-			shieldTopColor, shieldBottomColor,
-			textSize: (baseSize + (numberSizeMultiply * Mathf.Sqrt(5))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount),
-			characterSpacing: 0);
-		}
+		onShieldHit?.Invoke();
 	}
 
-
-
-	protected virtual void InvokeOnShieldHitSFXPlayOnce()
+	protected void InvokeOnShieldBreak()
 	{
-		onShieldHitSFXPlayOnce?.Invoke();
+		onShieldBreak?.Invoke();
 	}
 
-	protected virtual void InvokeOnShieldBreakSFXPlayOnce()
+	protected void InvokeOnShieldActivate()
 	{
-		onShieldBreakSFXPlayOnce?.Invoke();
-	}
-
-	protected virtual void InvokeOnShieldActivateSFXPlayOnce()
-	{
-		onShieldActiveSFXPlayOnce?.Invoke();
+		onShieldActivate?.Invoke();
 	}
 
 }
