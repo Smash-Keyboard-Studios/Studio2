@@ -29,7 +29,7 @@ public class HealthObject : MonoBehaviour
         {
             Debug.Log("Healed player");
 
-            AudioManager.Instance.PlayAudio(false, false, other.GetComponent<AudioSource>(), "Plr_Heal");
+            // AudioManager.Instance.PlayAudio(false, false, other.GetComponent<AudioSource>(), "Plr_Heal");
 
             playerHealth.AddToHealth(healAmount);
 

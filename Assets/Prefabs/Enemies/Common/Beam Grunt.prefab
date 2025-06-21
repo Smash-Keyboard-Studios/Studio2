@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8983775168675799407}
   - component: {fileID: 4760099265255702604}
   - component: {fileID: 3222878168228818675}
-  - component: {fileID: 6754516033712081943}
   - component: {fileID: 1595968694445084054}
   - component: {fileID: 8847805536133693472}
   - component: {fileID: 2872504794865671369}
@@ -22,6 +21,7 @@ GameObject:
   - component: {fileID: 3449337514029256079}
   - component: {fileID: 1308339082092308132}
   - component: {fileID: 8794962565198424082}
+  - component: {fileID: 5127228454745591142}
   m_Layer: 7
   m_Name: Beam Grunt
   m_TagString: Enemy
@@ -94,19 +94,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 5081037959220580394}
---- !u!114 &6754516033712081943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 66097493073879181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e88ed2003887341974acc7ef16b535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSFXPlayDelay: 1
 --- !u!114 &1595968694445084054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,6 +356,26 @@ MonoBehaviour:
     type: 3}
   spawnOffSetFromEnemy: {x: 0, y: 0, z: 0}
   spawnChance: 30
+--- !u!114 &5127228454745591142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66097493073879181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d96cc26ee2f2a442870c933d0e33c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthUseGradient: 1
+  healthTextGradient: {fileID: 11400000, guid: 4564b6ba0df02634fbf39c366dfd81b1, type: 2}
+  healthTextColor: {r: 0, g: 0, b: 0, a: 0}
+  baseSize: 6
+  numberSizeMultiply: 3
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
+  healthCharacterSpacing: -30
 --- !u!1 &1112882399550684292
 GameObject:
   m_ObjectHideFlags: 0
