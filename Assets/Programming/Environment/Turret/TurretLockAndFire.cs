@@ -41,7 +41,7 @@ public class TurretLockAndFire : TurretFire
         }
         else
         {
-            targetRotation = Quaternion.LookRotation(Quaternion.AngleAxis(maxRotationFromCentre * Mathf.Cos(Time.time), Vector3.up) * forwardVector);
+            targetRotation = Quaternion.LookRotation(Quaternion.AngleAxis(maxRotationFromCentre * Mathf.Cos(Time.time), transform.up) * forwardVector);
         }
 
 
