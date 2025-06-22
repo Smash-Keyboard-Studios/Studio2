@@ -72,7 +72,7 @@ MonoBehaviour:
     attackDuration: 2
     beamRadius: 1
     turnSpeedWhileCharging: 1
-    lineRenderer: {fileID: 0}
+    lineRenderer: {fileID: 1570688485577324582}
   minDistanceForPlayerToRetreat: 3
   retreatDuration: 5
   delayUntilRetreatAgain: 5
@@ -107,12 +107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 40
-  baseSize: 6
-  numberSizeMultiply: 3
-  minRandomMultiplyAmount: 0.4
-  maxRandomMultiplyAmount: 0.4
-  topColor: {r: 1, g: 0.8, b: 0.1, a: 1}
-  bottomColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &8847805536133693472
 MonoBehaviour:
   m_ObjectHideFlags: 0
