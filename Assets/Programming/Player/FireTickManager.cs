@@ -1,6 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+//by    _                 _ _                     
+//     | |               (_) |                    
+//   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
+//  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
+// | (_| | (_) | | | | | | | |_) | | | (_) | | | |
+//  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+
+
 
 public class FireTickManager : MonoBehaviour
 {
@@ -16,6 +27,12 @@ public class FireTickManager : MonoBehaviour
     private float tickingTimer = 0f;
 
     private Health health;
+
+    private bool wasOnFire = false;
+
+    public event Action onFireTick;
+    public event Action onFireStart;
+    public event Action onFireEnd;
 
     // Start is called before the first frame update
     void Start()
@@ -42,8 +59,15 @@ public class FireTickManager : MonoBehaviour
             tickingTimer = 0f;
         }
 
+        if (timer <= 0 && wasOnFire)
+        {
+            onFireEnd?.Invoke();
+            wasOnFire = false;
+        }
+
         if (tickingTimer >= tickRate)
         {
+            onFireTick?.Invoke();
             health.TakeDamage(damage);
             tickingTimer = 0;
         }
@@ -52,11 +76,17 @@ public class FireTickManager : MonoBehaviour
 
     public void SetOnFire(float duration, float damage, float tickRate = -1)
     {
+        onFireStart?.Invoke();
+
+
         if (duration > timer) timer = duration;
 
         if (damage > this.damage) this.damage = damage;
 
         if (tickRate > 0) this.tickRate = tickRate;
         else this.tickRate = defaultTickRate;
+
+
+        wasOnFire = true;
     }
 }
