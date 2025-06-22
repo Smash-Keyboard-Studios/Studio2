@@ -76,7 +76,7 @@ public class TurretFire : MonoBehaviour
     {
         Vector3 targetVel = projectileSpawnPoint.forward * projectileSpeed;
 
-        GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position + projectileSpawnPoint.forward, Quaternion.identity);
+        GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, Quaternion.identity);
 
         projectile.GetComponent<RangedProjectilePhysicsBased>().SetUpProjectile(targetVel, projectileDamage);
     }

@@ -14,6 +14,9 @@ public class TurretLockAndFire : TurretFire
     private Transform player; // remove
     private CharacterController playerCC; // remove
 
+    public Transform SensorPoint;
+
+
     private Vector3 forwardVector; // because using a child instead is too hard :3.
 
     void Start()
@@ -29,11 +32,12 @@ public class TurretLockAndFire : TurretFire
         DealWithTimers();
 
         // Turret detection to player.
-        float angle = Quaternion.Angle(Quaternion.LookRotation(forwardVector), Quaternion.LookRotation((player.position - transform.position).normalized));
+        Vector3 directionXZ = new Vector3(player.position.x, 0, player.position.z) - new Vector3(SensorPoint.position.x, 0, SensorPoint.position.z);
+        float angle = Quaternion.Angle(Quaternion.LookRotation(forwardVector), Quaternion.LookRotation(directionXZ.normalized));
 
         Quaternion targetRotation = new Quaternion();
 
-        if (angle < maxRotationFromCentre && Vector3.Distance(player.position, transform.position) < maxDetectionRange)
+        if (angle < maxRotationFromCentre && Vector3.Distance(player.position, transform.position) < maxDetectionRange && !Physics.Linecast(SensorPoint.position, player.position, LayerMask.GetMask("Default")))
         {
             float projectileTravelTime = Vector3.Distance(player.position, transform.position) / projectileSpeed;
             targetRotation = Quaternion.LookRotation(((player.position + (playerCC.velocity.normalized * (projectileTravelTime + (playerCC.velocity.magnitude * Time.deltaTime)))) - transform.position).normalized);
