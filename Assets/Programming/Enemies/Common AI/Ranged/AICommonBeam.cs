@@ -153,7 +153,7 @@ public class AICommonBeam : AIBase
 
         base.Start();
 
-        beamAttackSettings.lineRenderer.enabled = false;
+        beamAttackSettings.lineRenderer.gameObject.SetActive(false);
 
         onStateChanged += ResetRetreatingThinking;
     }
@@ -322,7 +322,8 @@ public class AICommonBeam : AIBase
         // prep the line renderer. might be able to remove as this is also done whilst charging.
         var curve = new AnimationCurve();
 
-        beamAttackSettings.lineRenderer.enabled = true;
+        beamAttackSettings.lineRenderer.gameObject.SetActive(true);
+
 
         // while we are charging the attack
         float localTimer = 0;
@@ -402,7 +403,8 @@ public class AICommonBeam : AIBase
 
         // end attack
 
-        beamAttackSettings.lineRenderer.enabled = false;
+        beamAttackSettings.lineRenderer.gameObject.SetActive(false);
+
 
         animatorController.SetBool("IsAttacking", false);
 
