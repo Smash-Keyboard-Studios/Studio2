@@ -25,6 +25,8 @@ public class TurretFire : MonoBehaviour
 
     public float projectileSpeed = 5f;
 
+    public Transform projectileSpawnPoint;
+
     protected float windUpTimer = 0f;
 
     protected float fireTimer = 0;
@@ -72,9 +74,9 @@ public class TurretFire : MonoBehaviour
 
     protected virtual void SpawnProjectile()
     {
-        Vector3 targetVel = transform.forward * projectileSpeed;
+        Vector3 targetVel = projectileSpawnPoint.forward * projectileSpeed;
 
-        GameObject projectile = Instantiate(projectileObject, transform.position + transform.forward, Quaternion.identity);
+        GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position + projectileSpawnPoint.forward, Quaternion.identity);
 
         projectile.GetComponent<RangedProjectilePhysicsBased>().SetUpProjectile(targetVel, projectileDamage);
     }
