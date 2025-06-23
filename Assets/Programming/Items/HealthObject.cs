@@ -27,7 +27,7 @@ public class HealthObject : MonoBehaviour
 
         if (playerHealth.GetHealthNormalized() < 1f)
         {
-            Debug.Log("Healed player");
+            // Debug.Log("Healed player");
 
             // AudioManager.Instance.PlayAudio(false, false, other.GetComponent<AudioSource>(), "Plr_Heal");
 
