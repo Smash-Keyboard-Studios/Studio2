@@ -37,10 +37,15 @@ public class TurretLockAndFire : TurretFire
 
         Quaternion targetRotation = new Quaternion();
 
-        if (angle < maxRotationFromCentre && Vector3.Distance(player.position, transform.position) < maxDetectionRange && !Physics.Linecast(SensorPoint.position, player.position, LayerMask.GetMask("Default")))
+        if (angle < maxRotationFromCentre && Vector3.Distance(player.position, SensorPoint.position) < maxDetectionRange && !Physics.Linecast(SensorPoint.position, player.position, LayerMask.GetMask("Default")))
         {
-            float projectileTravelTime = Vector3.Distance(player.position, transform.position) / projectileSpeed;
-            targetRotation = Quaternion.LookRotation(((player.position + (playerCC.velocity.normalized * (projectileTravelTime + (playerCC.velocity.magnitude * Time.deltaTime)))) - transform.position).normalized);
+            float projectileTravelTime = Vector3.Distance(player.position, projectileSpawnPoint.position) / projectileSpeed;
+
+            Vector3 playerSameY = player.position;
+            playerSameY.y = transform.position.y;
+
+
+            targetRotation = Quaternion.LookRotation(((playerSameY + (playerCC.velocity.normalized * (projectileTravelTime + (playerCC.velocity.magnitude * Time.deltaTime)))) - transform.position).normalized);
             TryAndFire();
         }
         else
