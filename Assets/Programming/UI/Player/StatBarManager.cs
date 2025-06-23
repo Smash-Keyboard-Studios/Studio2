@@ -45,6 +45,9 @@ public class StatBarManager : MonoBehaviour
         health.onAddToHealth += AddToHealth;
 
         movementHandler = playerGO.GetComponent<PlayerMovementHandler>();
+
+        healthBarImage.fillAmount = health.GetHealthNormalized();
+        staminaBarImage.fillAmount = movementHandler.GetStaminaNormalized();
     }
 
     private void AddToHealth(float obj)
@@ -70,7 +73,7 @@ public class StatBarManager : MonoBehaviour
     {
         if (waitTimer <= 0 && health.GetHealthNormalized() <= currentValue)
         {
-            animationTimer += healthLossBarSmoothing * Time.deltaTime;
+            animationTimer += (1 - Mathf.Abs(targetValue - currentValue)) * healthLossBarSmoothing * Time.deltaTime;
             healthBarLossImage.fillAmount = Mathf.Lerp(currentValue, targetValue, animationTimer);
         }
         else if (waitTimer <= 0 && health.GetHealthNormalized() > currentValue)
