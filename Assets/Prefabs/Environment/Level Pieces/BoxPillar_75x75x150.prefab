@@ -45,6 +45,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Warehouse_And_PipesWarehouse_Collumn
       objectReference: {fileID: 0}
+    - target: {fileID: 6005901074263501692, guid: b1accd5d29eaeed45be5f7a09cb5d2f6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.75
+      objectReference: {fileID: 0}
     - target: {fileID: 6447186331669550064, guid: b1accd5d29eaeed45be5f7a09cb5d2f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -96,7 +101,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2371637735671408354, guid: b1accd5d29eaeed45be5f7a09cb5d2f6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1accd5d29eaeed45be5f7a09cb5d2f6, type: 3}
