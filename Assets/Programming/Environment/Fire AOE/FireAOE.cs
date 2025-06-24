@@ -31,6 +31,8 @@ public class FireAOE : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            if (fireTickManager == null) PlayerReferenceFetcher.instance.GetPlayerReference()?.GetComponent<FireTickManager>();
+
             fireTickManager.SetOnFire(fireDuration, fireTickDamage);
         }
     }
@@ -39,6 +41,8 @@ public class FireAOE : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            //if (fireTickManager == null) PlayerReferenceFetcher.instance.GetPlayerReference().GetComponent<FireTickManager>();
+
             fireTickManager.SetOnFire(fireDuration, fireTickDamage);
         }
     }

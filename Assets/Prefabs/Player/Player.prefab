@@ -2923,7 +2923,6 @@ GameObject:
   - component: {fileID: 6586798735416910705}
   - component: {fileID: 6592423040085223057}
   - component: {fileID: 4183672919623993217}
-  - component: {fileID: 770932355983826125}
   - component: {fileID: 7613845529211925136}
   - component: {fileID: 2073445359581214944}
   - component: {fileID: 8656545188935216562}
@@ -2940,6 +2939,7 @@ GameObject:
   - component: {fileID: 1708644854712459076}
   - component: {fileID: 1884647640742460552}
   - component: {fileID: 7017953065027804687}
+  - component: {fileID: 2731638991099968151}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3020,29 +3020,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &770932355983826125
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5005257603024285522}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.35
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &7613845529211925136
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3431,6 +3408,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccdb113ed28914a40873bf88a9cffb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2731638991099968151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005257603024285522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ef3a02ef26ae543bf35a29e1bc97cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultTickRate: 0.5
 --- !u!1 &5031218017895963573
 GameObject:
   m_ObjectHideFlags: 0
