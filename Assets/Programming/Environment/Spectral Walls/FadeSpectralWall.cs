@@ -40,7 +40,11 @@ public class FadeSpectralWall : MonoBehaviour
         // Make wall lose opacity through shader
         while (spectralRenderer.material.GetFloat("_Fade") < highestFadeValue)
         {
-            yield return new WaitForSeconds(0.01f);
+            if (UIManager.Instance.inDialogueMenu)
+                yield return new WaitForSecondsRealtime(0.01f);
+            else
+                yield return new WaitForSeconds(0.01f);
+
             spectralRenderer.material.SetFloat("_Fade", spectralRenderer.material.GetFloat("_Fade") + fadeSpeed);
         }
         spectralRenderer.material.SetFloat("_Fade", highestFadeValue);
@@ -53,7 +57,13 @@ public class FadeSpectralWall : MonoBehaviour
         // Make wall gain opacity through shader
         while (spectralRenderer.material.GetFloat("_Fade") > lowestFadeValue)
         {
-            yield return new WaitForSeconds(0.01f);
+            // so walls can disappear in cutscene.
+            if (UIManager.Instance.inDialogueMenu)
+                yield return new WaitForSecondsRealtime(0.01f);
+            else
+                yield return new WaitForSeconds(0.01f);
+
+
             spectralRenderer.material.SetFloat("_Fade", spectralRenderer.material.GetFloat("_Fade") - fadeSpeed);
         }
         spectralRenderer.material.SetFloat("_Fade", lowestFadeValue);
