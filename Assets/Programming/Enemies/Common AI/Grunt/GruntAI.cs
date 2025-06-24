@@ -170,6 +170,9 @@ public class GruntAI : AIBase
 	[SerializeField]
 	protected bool enableVisualDetectionLine = false;
 
+	[SerializeField]
+	protected bool showMelee = false;
+
 	#endregion
 
 	#region Animation Variables
@@ -453,6 +456,11 @@ public class GruntAI : AIBase
 	#region OnDrawGizmos
 	protected virtual void OnDrawGizmos()
 	{
+		if (showMelee)
+		{
+			Gizmos.DrawWireCube(transform.position + transform.forward * lightAttackClass.boxCastForwardOffset, new Vector3(lightAttackClass.boxCastLength, lightAttackClass.boxCastHeight, lightAttackClass.boxCastDepth));
+		}
+
 		if (enableVisualDetectionRadius)
 		{
 			Gizmos.color = Color.yellow;
