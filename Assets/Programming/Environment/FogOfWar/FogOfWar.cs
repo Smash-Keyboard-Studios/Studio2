@@ -35,7 +35,11 @@ public class FogOfWar : MonoBehaviour
     {
         while (fogRenderer.material.GetFloat("_Opacity") > 0)
         {
-            yield return new WaitForSeconds(0.01f);
+            if (UIManager.Instance.inDialogueMenu)
+                yield return new WaitForSecondsRealtime(0.01f);
+            else
+                yield return new WaitForSeconds(0.01f);
+
             fogRenderer.material.SetFloat("_Opacity", fogRenderer.material.GetFloat("_Opacity") - fadeOutSpeed);
             miniMapFogRenderer.material.SetFloat("_Opacity", fogRenderer.material.GetFloat("_Opacity"));
         }

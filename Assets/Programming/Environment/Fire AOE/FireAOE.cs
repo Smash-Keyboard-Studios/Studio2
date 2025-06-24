@@ -19,21 +19,26 @@ public class FireAOE : MonoBehaviour
     public float fireDuration = 3f;
 
     private FireTickManager fireTickManager;
+    private HealthWithBasicShield playerHealthWithBasicShield;
 
     void Start()
     {
         if (PlayerReferenceFetcher.instance == null) Debug.LogError($"Cannot get the player reference because the {nameof(PlayerReferenceFetcher)} was not found!");
 
-        fireTickManager = PlayerReferenceFetcher.instance.GetPlayerReference()?.GetComponent<FireTickManager>();
+        GameObject playerGO = PlayerReferenceFetcher.instance.GetPlayerReference();
+
+
+        fireTickManager = playerGO.GetComponent<FireTickManager>();
+        playerHealthWithBasicShield = playerGO.GetComponent<HealthWithBasicShield>();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (fireTickManager == null) PlayerReferenceFetcher.instance.GetPlayerReference()?.GetComponent<FireTickManager>();
+            //if (fireTickManager == null) PlayerReferenceFetcher.instance.GetPlayerReference()?.GetComponent<FireTickManager>();
 
-            fireTickManager.SetOnFire(fireDuration, fireTickDamage);
+            if (!playerHealthWithBasicShield.isActiveAndEnabled) fireTickManager.SetOnFire(fireDuration, fireTickDamage);
         }
     }
 
@@ -43,7 +48,7 @@ public class FireAOE : MonoBehaviour
         {
             //if (fireTickManager == null) PlayerReferenceFetcher.instance.GetPlayerReference().GetComponent<FireTickManager>();
 
-            fireTickManager.SetOnFire(fireDuration, fireTickDamage);
+            if (!playerHealthWithBasicShield.isActiveAndEnabled) fireTickManager.SetOnFire(fireDuration, fireTickDamage);
         }
     }
 }
