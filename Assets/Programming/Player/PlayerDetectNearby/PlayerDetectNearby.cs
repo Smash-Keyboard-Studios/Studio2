@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Obsolete("Will replace with new system", false)]
+
 public class PlayerDetectNearby : MonoBehaviour
 {
     //soph
