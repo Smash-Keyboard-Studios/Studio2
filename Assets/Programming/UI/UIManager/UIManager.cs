@@ -60,6 +60,17 @@ public class UIManager : MonoBehaviour
         inDialogueMenu = false;
     }
 
+    void Update() // DM added this so we can pause.
+    {
+        if (inDialogueMenu || inGameMenu)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
 
     //subroutines that aren't button presses
     private void EnterMenu()

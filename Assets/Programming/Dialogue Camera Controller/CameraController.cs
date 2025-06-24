@@ -33,7 +33,7 @@ public class CameraController : MonoBehaviour
 
             // redid most of this because it was in FUCKING FRAME TIME!!!!!!! 
 
-            if (cameraMoving == true) localTimer += Time.deltaTime * cameraMoveSpeed;
+            if (cameraMoving == true) localTimer += Time.unscaledDeltaTime * cameraMoveSpeed;
 
             if (localTimer >= 1) cameraMoving = false;
 
