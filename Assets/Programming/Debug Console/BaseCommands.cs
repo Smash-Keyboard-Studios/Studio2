@@ -30,6 +30,8 @@ public class BaseCommands
     public static Command unlockAllAbilities;
 
     public static Command removeDialog;
+    public static Command removeHud;
+
 
     public BaseCommands(DebugConsole console)
     {
@@ -279,6 +281,23 @@ public class BaseCommands
         });
 
 
+        removeHud = new Command("togglehud", "removes the hud", "togglehud", () =>
+        {
+            if (PlayerCanvasReference.instance == null)
+            {
+                console.TextToConsole("Cannot find the canvas!");
+                return;
+            }
+
+            GameObject playerCanvas = PlayerCanvasReference.instance.GetPlayerCanvasReference();
+
+            GameObject hudCanvas = playerCanvas.transform.Find("Player HUD").gameObject;
+
+            hudCanvas.SetActive(!hudCanvas.activeSelf);
+
+            console.TextToConsole("Toggled");
+        });
+
         // foreach
 
 
@@ -296,6 +315,7 @@ public class BaseCommands
             removeDialog,
             noClip,
             unlockAllAbilities,
+            removeHud,
         };
 
         foreach (var command in commandsToAdd)
