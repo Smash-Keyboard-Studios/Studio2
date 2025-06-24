@@ -340,14 +340,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d96cc26ee2f2a442870c933d0e33c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthUseGradient: 1
-  healthTextGradient: {fileID: 11400000, guid: 4564b6ba0df02634fbf39c366dfd81b1, type: 2}
-  healthTextColor: {r: 0, g: 0, b: 0, a: 0}
+  healthLossUseGradient: 1
+  healthLossTextGradient: {fileID: 11400000, guid: 4564b6ba0df02634fbf39c366dfd81b1,
+    type: 2}
+  healthLossTextColor: {r: 0, g: 0, b: 0, a: 0}
+  healthLossCharacterSpacing: -30
   baseSize: 6
   numberSizeMultiply: 3
   minRandomMultiplyAmount: 0.4
   maxRandomMultiplyAmount: 0.4
-  healthCharacterSpacing: -30
+  healthGainUseGradient: 0
+  healthGainTextGradient: {fileID: 0}
+  healthGainTextColor: {r: 0, g: 1, b: 0, a: 1}
+  healthGainCharacterSpacing: -30
 --- !u!1 &2488701281553755158
 GameObject:
   m_ObjectHideFlags: 0

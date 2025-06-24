@@ -12,7 +12,7 @@ public class HealthAndShieldFloatingNumberSystem : HealthFloatingNumberSystem
 
     public TMP_ColorGradient shieldTextGradient;
 
-    public Color shieldTextColor;
+    public Color shieldTextColor = Color.blue;
 
     protected HealthWithBasicShield healthWithBasicShield;
 

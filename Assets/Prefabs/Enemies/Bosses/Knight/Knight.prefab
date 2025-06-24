@@ -5477,6 +5477,8 @@ GameObject:
   - component: {fileID: 6509453713498881600}
   - component: {fileID: 945033288345369602}
   - component: {fileID: 1987441813757924341}
+  - component: {fileID: -4982002089863405453}
+  - component: {fileID: -6305246716208921820}
   m_Layer: 7
   m_Name: Knight
   m_TagString: Enemy
@@ -5582,17 +5584,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 320
-  baseSize: 6
-  numberSizeMultiply: 3
-  minRandomMultiplyAmount: 0.4
-  maxRandomMultiplyAmount: 0.4
-  topColor: {r: 1, g: 0.8, b: 0.1, a: 1}
-  bottomColor: {r: 1, g: 0, b: 0, a: 1}
   shieldObject: {fileID: 2485080906551701511}
   startShieldAsActive: 1
   shieldActive: 1
-  shieldTopColor: {r: 0.7, g: 1, b: 1, a: 1}
-  shieldBottomColor: {r: 0, g: 0.6, b: 1, a: 1}
   coolDownTime: 7
 --- !u!114 &3589648385036302975
 MonoBehaviour:
@@ -5828,6 +5822,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageRingGameObject: {fileID: 7010083681889091249}
+--- !u!114 &-4982002089863405453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9086637893552779497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60080a26aeea06947bcf521ea61149f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magicNumberPrefab: {fileID: 7122786255667809930, guid: 5a049595a9d51de41a0ff67badff996b,
+    type: 3}
+  MinDistance: 0.3
+  MaxDistance: 0.4
+  MaxRotationOffsetHorizontal: 180
+  MaxRotationOffsetVertical: 60
+--- !u!114 &-6305246716208921820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9086637893552779497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e40f560c7e838754581d389330fe0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthLossUseGradient: 1
+  healthLossTextGradient: {fileID: 11400000, guid: 4564b6ba0df02634fbf39c366dfd81b1,
+    type: 2}
+  healthLossTextColor: {r: 1, g: 0, b: 0, a: 1}
+  healthLossCharacterSpacing: -30
+  baseSize: 6
+  numberSizeMultiply: 3
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
+  healthGainUseGradient: 0
+  healthGainTextGradient: {fileID: 0}
+  healthGainTextColor: {r: 0, g: 1, b: 0, a: 1}
+  healthGainCharacterSpacing: -30
+  shieldUseGradient: 1
+  shieldTextGradient: {fileID: 11400000, guid: 3256cbf1a60c851469e105cbd9a72cc4, type: 2}
+  shieldTextColor: {r: 0, g: 0, b: 0, a: 0}
+  shieldBlockedText: Blocked
+  shieldCharacterSpacing: 0
 --- !u!1001 &1915182254492227860
 PrefabInstance:
   m_ObjectHideFlags: 0

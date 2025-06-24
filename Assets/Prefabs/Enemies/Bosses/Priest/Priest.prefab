@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 5706574705448098848}
   - component: {fileID: 5589102479190657725}
   - component: {fileID: -8905556615368017591}
+  - component: {fileID: 5183232459643738409}
+  - component: {fileID: 3617707216889742420}
   m_Layer: 7
   m_Name: Priest
   m_TagString: Enemy
@@ -321,6 +323,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subTags:
   - Boss2
+--- !u!114 &5183232459643738409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66097493073879181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60080a26aeea06947bcf521ea61149f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magicNumberPrefab: {fileID: 7122786255667809930, guid: 5a049595a9d51de41a0ff67badff996b,
+    type: 3}
+  MinDistance: 0.3
+  MaxDistance: 0.4
+  MaxRotationOffsetHorizontal: 180
+  MaxRotationOffsetVertical: 60
+--- !u!114 &3617707216889742420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66097493073879181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d96cc26ee2f2a442870c933d0e33c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthLossUseGradient: 1
+  healthLossTextGradient: {fileID: 11400000, guid: 4564b6ba0df02634fbf39c366dfd81b1,
+    type: 2}
+  healthLossTextColor: {r: 1, g: 0, b: 0, a: 1}
+  healthLossCharacterSpacing: -30
+  baseSize: 6
+  numberSizeMultiply: 3
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
+  healthGainUseGradient: 0
+  healthGainTextGradient: {fileID: 0}
+  healthGainTextColor: {r: 0, g: 1, b: 0, a: 1}
+  healthGainCharacterSpacing: -30
 --- !u!1 &728827259984431453
 GameObject:
   m_ObjectHideFlags: 0

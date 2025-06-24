@@ -3383,14 +3383,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40f560c7e838754581d389330fe0c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthUseGradient: 1
-  healthTextGradient: {fileID: 11400000, guid: 7f56901af513b7b4cb37c15fe3bd8108, type: 2}
-  healthTextColor: {r: 0, g: 0, b: 0, a: 0}
+  healthLossUseGradient: 1
+  healthLossTextGradient: {fileID: 11400000, guid: 7f56901af513b7b4cb37c15fe3bd8108,
+    type: 2}
+  healthLossTextColor: {r: 0, g: 0, b: 0, a: 0}
+  healthLossCharacterSpacing: -30
   baseSize: 6
   numberSizeMultiply: 3
   minRandomMultiplyAmount: 0.4
   maxRandomMultiplyAmount: 0.4
-  healthCharacterSpacing: -30
+  healthGainUseGradient: 1
+  healthGainTextGradient: {fileID: 11400000, guid: 2d7d967500f47da41b2b3f4ded3fdb72,
+    type: 2}
+  healthGainTextColor: {r: 0, g: 0, b: 0, a: 0}
+  healthGainCharacterSpacing: -30
   shieldUseGradient: 1
   shieldTextGradient: {fileID: 11400000, guid: 91aed1ab9b0d7854d81fdafc41cf402c, type: 2}
   shieldTextColor: {r: 0, g: 0, b: 0, a: 0}
