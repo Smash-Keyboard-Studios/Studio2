@@ -198,7 +198,7 @@ public class UIManager : MonoBehaviour
             EnterMenu();
 
             inGameMenu = true;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = false;
+            // GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = false;
             gameMenuObj.SetActive(true);
         }
     }
@@ -220,7 +220,12 @@ public class UIManager : MonoBehaviour
         if (wasInControls) { PressOptions(); } //reopen options if was in controls before
         else if (wasInControlsGameMenu) { PressGameMenu(); PressOptions(); } //reopen game menu and options if was in controls from game menu before
         else if (wasInOptionsGameMenu) { PressGameMenu(); } //reopen game menu if was in options from game menu before
-        else { GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true; }
+        else
+        {
+            // Added this to remove errors, error when returning to main menu and script tries to resume the player that was unloaded.
+            if (GameObject.FindGameObjectWithTag("Player")) GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true;
+
+        }
     }
 
     public void PressMainMenu()
