@@ -73,7 +73,7 @@ public class DialogueHandler : MonoBehaviour
     private IEnumerator ProgressDialogueAfterXSeconds(float seconds)
     {
         waitingBetweenDialogue = true;
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSecondsRealtime(seconds);
         GetNextDialogueData(currentData);
         waitingBetweenDialogue = false;
     }

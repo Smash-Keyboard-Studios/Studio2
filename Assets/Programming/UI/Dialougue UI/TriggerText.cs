@@ -10,7 +10,8 @@ public class TriggerText : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
 
     //class that contains dialogue name and dialogue text in it
-    [System.Serializable] public class Dialogue
+    [System.Serializable]
+    public class Dialogue
     {
         public string dialogueName;
         public string dialogueText;
@@ -72,10 +73,10 @@ public class TriggerText : MonoBehaviour
             string itemText = item.dialogueText;
 
             dialogueText.text = itemName + "\n" + itemText;
-            yield return new WaitForSeconds(itemText.Length/5); //just used a temp value for the delay
+            yield return new WaitForSecondsRealtime(itemText.Length / 5); //just used a temp value for the delay
 
             ClearText();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSecondsRealtime(0.5f);
         }
         Destroy(gameObject);
 
