@@ -163,6 +163,8 @@ public class AICommonBeam : AIBase
     // Update is called once per frame
     protected virtual void Update()
     {
+        agent.destination = pathTarget;
+
         if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
         {
             //agent.stoppingDistance = defaultStoppingDistance;
@@ -179,7 +181,6 @@ public class AICommonBeam : AIBase
             animatorController.enabled = true;
         }
 
-        agent.destination = pathTarget;
 
 
         // set values and deal with timers.
@@ -274,8 +275,6 @@ public class AICommonBeam : AIBase
             pathTarget = playerTarget.position;
 
         }
-
-
 
     }
     #endregion

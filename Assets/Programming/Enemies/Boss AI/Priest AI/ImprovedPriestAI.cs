@@ -207,6 +207,8 @@ public class ImprovedPriestAI : AIBase
     #region Update
     protected virtual void Update()
     {
+        agent.destination = pathTarget;
+
         if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
         {
             //agent.stoppingDistance = defaultStoppingDistance;
@@ -230,7 +232,6 @@ public class ImprovedPriestAI : AIBase
         if (globalAttackCoolDown > 0) globalAttackCoolDown -= Time.deltaTime;
 
 
-        agent.destination = pathTarget;
 
         if (beamAttackCoolDownTimer > 0) beamAttackCoolDownTimer -= Time.deltaTime;
 
@@ -380,7 +381,7 @@ public class ImprovedPriestAI : AIBase
         while (teleportPoint == null)
         {
             teleportPoint = GetRandomFurthestTeleportPoint();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1f); // magic number
         }
 
         teleportPoint.GetComponent<BossTeleportingEvent>()?.StartTeleport();

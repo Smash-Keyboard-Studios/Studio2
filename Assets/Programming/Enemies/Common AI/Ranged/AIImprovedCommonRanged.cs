@@ -156,10 +156,13 @@ public class AIImprovedCommonRanged : AIBase
     // Update is called once per frame
     protected virtual void Update()
     {
+        agent.destination = pathTarget;
+
         if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
         {
             //agent.stoppingDistance = defaultStoppingDistance;
             pathTarget = transform.position;
+            // agent.destination = pathTarget;
 
 
             animatorController.enabled = false;
@@ -172,7 +175,6 @@ public class AIImprovedCommonRanged : AIBase
             animatorController.enabled = true;
         }
 
-        agent.destination = pathTarget;
 
 
         // set values and deal with timers.
