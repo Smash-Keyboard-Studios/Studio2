@@ -9,11 +9,19 @@ using UnityEngine;
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
 
-
+/// <summary>
+/// Handles fetching audio clips by using a given key to look for the clip in the stored collection.
+/// </summary>
 public class AudioClipFetcher : MonoBehaviour
 {
+    /// <summary>
+    /// The singleton, use to get a reference to this object globally.
+    /// </summary>
     public static AudioClipFetcher instance { get; private set; }
 
+    /// <summary>
+    /// The a collection of audio collections.
+    /// </summary>
     public AudioCollectionSO[] audioCollection;
 
     void Awake()
@@ -28,6 +36,11 @@ public class AudioClipFetcher : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns either the audio clip associated with the key or null.
+    /// </summary>
+    /// <param name="key">The key to search the database "Collection.Clip".</param>
+    /// <returns>Either null or the audio clip.</returns>
     public AudioClip GetClipFromKey(string key)
     {
         string[] keys = key.Split('.');
@@ -65,6 +78,7 @@ public class AudioClipFetcher : MonoBehaviour
             }
         }
 
+        // if we dont return anything then we found nothing so we return null.
         return null;
     }
 }
