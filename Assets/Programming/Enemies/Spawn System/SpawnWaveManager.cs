@@ -11,7 +11,7 @@ using UnityEngine.Events;
 //  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
-
+// © 2025 Dominic McNeill dommcneill@outlook.com
 
 /// <summary>
 /// Alternative to using list or dictionary for spawn parameters.

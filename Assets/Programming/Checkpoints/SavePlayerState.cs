@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 //  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+// © 2025 Dominic McNeill dommcneill@outlook.com
 
 /// <summary>
 /// Stores the player's state into the player checkpoint manager.

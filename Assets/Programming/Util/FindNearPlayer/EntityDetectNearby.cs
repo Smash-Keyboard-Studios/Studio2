@@ -8,8 +8,11 @@ using UnityEngine;
 //  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+// © 2025 Dominic McNeill dommcneill@outlook.com
 
-
+/// <summary>
+/// Used as a util to find objects near the game object this is attached to.
+/// </summary>
 public class EntityDetectNearby : MonoBehaviour
 {
     /// <summary>
