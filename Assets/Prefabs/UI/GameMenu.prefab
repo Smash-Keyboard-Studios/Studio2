@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 12.5, y: -45}
+  m_AnchoredPosition: {x: 12.5, y: -52}
   m_SizeDelta: {x: 275, y: 105}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8990360360356425177
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4286950496
-  m_fontColor: {r: 0.37647063, g: 0.6745098, b: 0.52156866, a: 1}
+  m_fontColor: {r: 0.6169099, g: 0.8113208, b: 0.71220934, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -170,7 +170,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6549841703546415015
 CanvasRenderer:
@@ -383,7 +383,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 20, y: 36.2}
+  m_AnchoredPosition: {x: 15, y: 22}
   m_SizeDelta: {x: 300, y: 150}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &7032605575716292962
@@ -399,9 +399,84 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HintTexts:
-  - If you hold RMB you can charge your attack!
-  - You can break an enemy's shield using RMB!
-  - There are health kits scattered around the mall!
+  - If you hold RMB you can charge your attack
+  - Hold shift to sprint
+  - You can break an enemy's shield using the heavy attack (RMB)
+  - Some enemies require a heavy attack to break their defence
+  - Hold a heavy attack to deal more damage to enemies within a larger range
+  - Bonus damage will be dealt after breaking a shield when holding down the heavy
+    attack
+  - A heavy attack can effectively take out grouped enemies
+  - Heavy attacks are more effective but will slow you down
+  - You are unable to use abilities while they are on cooldown
+  - 'A shield will prevent all damage from any source '
+  - Your shield is invulnerable, but will not last forever
+  - Use your heavy attack whilst shielded for extra effect
+  - Press Ctrl + Alt + Del for a hidden jumpscare
+  - Green spectral walls will require all enemies to be defeated before vanishing
+  - The green bar is your stamina, you will struggle to sprint when it is emptied
+  - The red bar is your health, it is unadvised to let it drop to zero
+  - Avoid breaking the game, it will make some developers cry
+  - Look for a green plus on the map when at low HP, it may save you
+  - Some enemies may drop healthpacks when defeated, tougher enemies are more likely
+    to hold them
+  - Your health will only regen when using a healthpack
+  - Healthpacks float, spin and glow, is this the work of a ghost?
+  - There are health kits scattered around the mall
+  - Look for markings across surfaces, they may help you find your way
+  - Some ghosts will possess appliances, they are not friendly
+  - Avoid people looking at your pin at an ATM, also avoid ATMs which look at you
+  - Possessed vending machines do not serve beverages, they serve bullets
+  - Keep your eye on certain glowing machines, they may also have an eye on them
+  - Some turrets may actively look for a target before shooting
+  - Do not get in a staring contest with a turret, you will not win
+  - Your tools are too weak to damage possessed machines
+  - Contrary to common belief, ghosts can be smacked to deal damage
+  - Some ghosts are cowards and may run when confronted
+  - Lazers will change colour, while orange lazers will not damage you, red lazers
+    will
+  - Nuns can be quite dangerous in battle
+  - Blue projectiles will hurt you, so will green, just avoid projectiles
+  - Shielded enemies hit hard but are vulnerable without their shield
+  - 'You can attack and move at the same time, your enemies cannot '
+  - Dirty footsteps will reveal the source of your enemies
+  - A certain individual is not pleased by your arrival
+  - Obstacles will not break when hit, otherwise the mall staff would not be pleased
+  - This text is not temporary as otherwise it would not be here
+  - You are currently pausing the game, hello
+  - We are not all made strong
+  - All trees look the same, they are not real
+  - You cannot enter tree planters, otherwise the floor would get dirty
+  - Not all hints are useful
+  - Life is full of open doors, do not try the closed ones, they will not open for
+    you
+  - Their exists no spelling mistakes, only grammar
+  - Less reading, more playing
+  - You are not being paid by the hour, get a move on
+  - Escalators are elevators with extra steps
+  - Do not attempt to converse with your enemies
+  - Despite the title, none of the ghosts have experience in retail
+  - You are unable to use the arcade machines as you are already playing a game
+  - This game is a Hack and Slash. Wraiths do their best now and are preparing
+  - If you can't keep moving, start fighting
+  - Avoid falling down pits, your legs are not strong
+  - Avoid getting hit, your healthbar will thank you!
+  - Use the environment to your advantage
+  - Do not be still in combat, otherwise your enemies will gladly keep you in that
+    state
+  - Avoid getting cornered, it may not end well
+  - The minimap may reveal entrances not visible
+  - The minimap will only show the layout of visited areas
+  - 'The minimap will show more than you can see normally '
+  - Follow the marker on your map whilst outside of combat to find your goal
+  - Listen out for spectral walls disapearing
+  - Blue spectral walls require tougher enemies to be slain
+  - Red spectral walls are beyond your control
+  - Waves of enemies will know your exact position, your only option is to fight
+  - Each enemy type is unique on the minimap
+  - If the radar is flashing red, an enemy is close by
+  - If the radar is flashing green, a healthpack is near
+  - A disc icon will appear when you activate a checkpoint
   HintText: {fileID: 7802934577894052326}
 --- !u!1 &2322152998936388459
 GameObject:
@@ -923,9 +998,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6141139468060085444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -20}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -200, y: -30}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &2511628791422856705
@@ -956,7 +1031,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Paused.
+  m_text: '- PAUSED -
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cea0305405f0af746b966b8e43007add, type: 2}
   m_sharedMaterial: {fileID: 2776548512071347189, guid: cea0305405f0af746b966b8e43007add,
@@ -984,14 +1061,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44
-  m_fontSizeBase: 44
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1441,9 +1518,9 @@ RectTransform:
   - {fileID: 5811205712211176442}
   m_Father: {fileID: 6141139468060085444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -90}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 115.53827}
   m_SizeDelta: {x: 200, y: 231.0765}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6535886023793778083
