@@ -9,15 +9,14 @@ using UnityEngine.SceneManagement;
 //  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+// © 2025 Dominic McNeill dommcneill@outlook.com
 
 /// <summary>
 /// Its the checkpoint manager that deals with storing and loading data.
 /// </summary>
 public class PlayerCheckpointManager : MonoBehaviour
 {
-    // you can still follow technical doc with this style of singleton. -.-
-    public static PlayerCheckpointManager instance { get { return localInstance; } private set { localInstance = value; } }
-    private static PlayerCheckpointManager localInstance;
+    public static PlayerCheckpointManager instance { get; private set; }
 
     /// <summary>
     /// Does the checkpoint manage have any saved data.
@@ -63,7 +62,7 @@ public class PlayerCheckpointManager : MonoBehaviour
     void Update()
     {
         // silent error
-        try
+        try // this tries to reset the save data.
         {
             // do we have any data to reset.
             if (!hasPlayerState) return;
@@ -80,7 +79,7 @@ public class PlayerCheckpointManager : MonoBehaviour
         }
         catch
         {
-            return; // fail silently otherwise others will complain.
+            return; // fail silently otherwise others will complain. yes, me :3
         }
 
     }
@@ -153,6 +152,10 @@ public class PlayerCheckpointManager : MonoBehaviour
         Debug.Log("Loaded player's last state");
     }
 
+    /// <summary>
+    /// Waits until the level has fully loaded before releasing the player.
+    /// </summary>
+    /// <param name="playerObject">The player game object.</param>
     IEnumerator WaitUntilLevelLoadsFully(GameObject playerObject)
     {
         playerObject.GetComponent<PlayerMovementHandler>().enabled = false;
