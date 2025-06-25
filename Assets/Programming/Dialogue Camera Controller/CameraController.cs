@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// domibron modified.
 
-// DOMIBRON OWNS this now :3 basically re did most / all of this.
 public class CameraController : MonoBehaviour
 {
     const float cameraMoveSpeed = 0.05f;
@@ -21,18 +21,11 @@ public class CameraController : MonoBehaviour
     {
         CameraFollowObject();
     }
+
     private void CameraFollowObject()
     {
         if (objectToFollow != null)
         {
-            // //extra checks so camera doesnt nudge when moving
-            // if (Vector3.Distance(transform.position, objectToFollow.transform.position) < 0.1f)
-            // {
-            //     lerpSpeed = fastLerpSpeed;
-            // }
-
-            // redid most of this because it was in FUCKING FRAME TIME!!!!!!! 
-
             if (cameraMoving == true) localTimer += Time.unscaledDeltaTime * cameraMoveSpeed;
 
             if (localTimer >= 1) cameraMoving = false;

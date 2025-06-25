@@ -11,6 +11,7 @@ using UnityEngine.AI;
 //  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+// © 2025 Dominic McNeill dommcneill@outlook.com
 
 [Serializable]
 public class ProjectileAttackSettings

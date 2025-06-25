@@ -10,7 +10,7 @@ using UnityEngine.AI;
 //  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
-
+// © 2025 Dominic McNeill dommcneill@outlook.com
 
 #region AIState
 /// <summary>
@@ -63,6 +63,9 @@ public class AIBase : MonoBehaviour
 	[SerializeField]
 	protected float maxSpeed = 5f;
 
+	/// <summary>
+	/// Used to set the speed of the AI.
+	/// </summary>
 	protected float currentSpeed;
 
 
@@ -161,17 +164,6 @@ public class AIBase : MonoBehaviour
 
 
 
-	// #region Update
-	// protected virtual void Update()
-	// {
-	// 	if (currentHealth <= 0)
-	// 	{
-	// 		KillAI();
-	// 	}
-	// }
-	// #endregion
-
-
 
 	#region KillAI
 	/// <summary>
@@ -198,27 +190,6 @@ public class AIBase : MonoBehaviour
 	{
 		return currentAIState;
 	}
-
-	// #region IDamageable.TakeDamage
-	// bool IDamageable.TakeDamage(float amount)
-	// {
-	// 	return TakeDamage(amount);
-	// }
-	// #endregion
-
-	// #region TakeDamage
-	// /// <summary>
-	// /// Overridable method for taking damage. Will apply the damage to the AI.
-	// /// </summary>
-	// /// <param name="amount">The amount to take.</param>
-	// /// <returns>If it was successful.</returns>
-	// protected virtual bool TakeDamage(float amount)
-	// {
-	// 	TakeDamageSFXPlayOnce();
-	// 	currentHealth -= amount;
-	// 	return true;
-	// }
-	// #endregion
 
 
 

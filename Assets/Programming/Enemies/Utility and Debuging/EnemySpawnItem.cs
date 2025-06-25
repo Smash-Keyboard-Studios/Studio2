@@ -8,8 +8,11 @@ using UnityEngine;
 //  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+// © 2025 Dominic McNeill dommcneill@outlook.com
 
-
+/// <summary>
+/// Spawns the game object after the death of an enemy.
+/// </summary>
 public class EnemySpawnItem : MonoBehaviour
 {
     public GameObject prefabToSpawn;
@@ -26,7 +29,11 @@ public class EnemySpawnItem : MonoBehaviour
         GetComponent<AIBase>().onDeath += SpawnItem;
     }
 
-    public void SpawnItem(Transform deathLocation)
+    /// <summary>
+    /// Spawns the item.
+    /// </summary>
+    /// <param name="deathLocation">The location of the death.</param>
+    private void SpawnItem(Transform deathLocation)
     {
         if (Random.Range(0f, 100f) <= spawnChance)
             Instantiate(prefabToSpawn, deathLocation.position + spawnOffSetFromEnemy, Quaternion.identity);
