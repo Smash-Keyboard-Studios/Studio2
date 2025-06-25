@@ -9,9 +9,11 @@ using UnityEngine;
 //  / _` |/ _ \| '_ ` _ \| | '_ \| '__/ _ \| '_ \ 
 // | (_| | (_) | | | | | | | |_) | | | (_) | | | |
 //  \__,_|\___/|_| |_| |_|_|_.__/|_|  \___/|_| |_|
+// © 2025 Dominic McNeill dommcneill@outlook.com
 
 /// <summary>
-/// Checks for a saved player state and loads it.
+/// Checks for a saved player state and loads it. 
+/// Place in level (first section) and this is automatically detect for save data.
 /// </summary>
 public class LoadPlayerState : MonoBehaviour
 {
@@ -47,6 +49,7 @@ public class LoadPlayerState : MonoBehaviour
             return;
         }
 
+        // call the event.
         onLoadData?.Invoke();
 
         // load the checkpoint.
