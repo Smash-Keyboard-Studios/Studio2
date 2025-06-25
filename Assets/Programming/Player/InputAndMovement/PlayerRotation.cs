@@ -19,13 +19,13 @@ public class PlayerRotation : MonoBehaviour
 
     void Start()
     {
-        GetComponentInParent<Health>().onDeath += OnDeath;
+        // GetComponentInParent<Health>().onDeath += OnDeath;
     }
 
-    private void OnDeath()
-    {
-        enabled = false;
-    }
+    // private void OnDeath()
+    // {
+    //     enabled = false;
+    // }
 
     void Update()
     {

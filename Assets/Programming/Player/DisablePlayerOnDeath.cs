@@ -27,6 +27,7 @@ public class DisablePlayerOnDeath : MonoBehaviour
         GetComponentInChildren<Animator>().SetBool("IsDead", true);
 
         GetComponent<PlayerAttackHandler>().enabled = false;
+        GetComponent<PlayerRotation>().enabled = false;
         GetComponent<PlayerMovementHandler>().enabled = false;
         GetComponent<Health>().enabled = false;
         GetComponent<ShieldAbility>().enabled = false;
