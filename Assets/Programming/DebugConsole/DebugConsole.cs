@@ -71,7 +71,9 @@ public class DebugConsole : MonoBehaviour
 
 			consoleWindow.SetActive(consoleOpen);
 
-			Time.timeScale = consoleOpen ? 0 : 1;
+			//Time.timeScale = consoleOpen ? 0 : 1;
+			UIManager.Instance.inGameMenu = consoleOpen; // jank fix to get console to pause.
+
 
 			if (consoleOpen)
 			{
