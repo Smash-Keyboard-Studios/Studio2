@@ -22,39 +22,19 @@ public class RangedProjectilePhysicsBased : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void OnTriggerEnter(Collider collider)
     {
-        // rb = GetComponent<Rigidbody>();
-    }
+        // ignore all triggers, we are looking for colliders.
+        if (collider.isTrigger) return;
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collider.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<IDamageable>().TakeDamage(projectileDamage);
+            collider.gameObject.GetComponent<IDamageable>().TakeDamage(projectileDamage);
             Destroy(gameObject);
         }
 
         Destroy(gameObject);
     }
-
-    // public void OnTriggerEnter(Collider collider)
-    // {
-    //     if (collider.gameObject.CompareTag("Player"))
-    //     {
-    //         collider.gameObject.GetComponent<IDamageable>().TakeDamage(projectileDamage);
-    //         Destroy(gameObject);
-    //     }
-
-    //     Destroy(gameObject);
-    // }
 
     public void SetUpProjectile(Vector3 force, float damage)
     {
