@@ -3345,7 +3345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shieldMaterialName: PlayerShield
   opacity: 210
-  hurtDuration: 0.2
+  flashDuration: 0.2
 --- !u!114 &6109847945268430093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3383,15 +3383,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40f560c7e838754581d389330fe0c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseSize: 6
+  numberSizeMultiply: 3
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
   healthLossUseGradient: 1
   healthLossTextGradient: {fileID: 11400000, guid: 7f56901af513b7b4cb37c15fe3bd8108,
     type: 2}
   healthLossTextColor: {r: 0, g: 0, b: 0, a: 0}
   healthLossCharacterSpacing: -30
-  baseSize: 6
-  numberSizeMultiply: 3
-  minRandomMultiplyAmount: 0.4
-  maxRandomMultiplyAmount: 0.4
   healthGainUseGradient: 1
   healthGainTextGradient: {fileID: 11400000, guid: 2d7d967500f47da41b2b3f4ded3fdb72,
     type: 2}
@@ -4477,7 +4477,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 255
+    m_Bits: 1279
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
