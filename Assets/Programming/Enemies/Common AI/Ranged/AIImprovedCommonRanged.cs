@@ -351,6 +351,7 @@ public class AIImprovedCommonRanged : AIBase
     {
         animatorController.SetBool("IsAttacking", false);
         attackAnimationPlaying = false;
+
     }
 
     public virtual void DealAttack()
