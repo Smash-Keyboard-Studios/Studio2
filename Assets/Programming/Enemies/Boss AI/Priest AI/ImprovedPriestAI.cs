@@ -178,7 +178,7 @@ public class ImprovedPriestAI : AIBase
 
         try
         {
-            playerTarget = GameObject.FindWithTag("Player").transform;
+            playerTarget = GameObject.FindWithTag(Constants.PlayerTag).transform;
         }
         catch (NullReferenceException)
         {
@@ -271,7 +271,7 @@ public class ImprovedPriestAI : AIBase
         Vector3.Distance(transform.position, playerTarget.position) <= maxDetectionRange)
         {
             // print(hit.transform.name);
-            if (hit.collider.gameObject.CompareTag("Player"))
+            if (hit.collider.gameObject.CompareTag(Constants.PlayerTag))
             {
                 //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), 45);
                 ChangeState(AIState.Alerted);
@@ -291,7 +291,7 @@ public class ImprovedPriestAI : AIBase
         /*
         AI checklist
         Melee attack for when all attacks are on cool down.
-        Beam attack with 4 cannons. 2 each side. fire in sequence. separate firing class with Fire function.
+        Beam attack with 4 cannons. 2 each side. fire in sequence. separate firing class with Fire function. // Lol no, maybe later or never.
         Barrage attack.
         Warp away to keep distance.
         */
@@ -405,7 +405,7 @@ public class ImprovedPriestAI : AIBase
 
         foreach (var point in warpPoints)
         {
-            if (Vector3.Distance(playerTarget.position, point.position) < 10f) continue;
+            if (Vector3.Distance(playerTarget.position, point.position) < 10f) continue; // TODO figure out why 10f was chosen
 
             possiblePoint.Add(point);
         }
@@ -487,7 +487,7 @@ public class ImprovedPriestAI : AIBase
             foreach (var hitObject in HitObjects)
             {
                 //print(hitObject.name);
-                if (hitObject.gameObject.CompareTag("Player"))
+                if (hitObject.gameObject.CompareTag(Constants.PlayerTag))
                 {
                     hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackSettings.lightAttackDamage);
                 }
@@ -515,7 +515,7 @@ public class ImprovedPriestAI : AIBase
 
         // while we are charging the attack
         float localTimer = 0;
-        while (localTimer < beamAttackSettings.windUpTime)
+        while (localTimer < beamAttackSettings.windUpTime) // TODO WTF, beam needs to be standardised or something. maybe a separate script with event hooks and functions or something?
         {
             beamAttackSettings.lineRenderer.startWidth = Mathf.Lerp(0, beamAttackSettings.beamRadius * 2f, localTimer / beamAttackSettings.windUpTime);
 
@@ -532,7 +532,7 @@ public class ImprovedPriestAI : AIBase
                 Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up),
                 beamAttackSettings.turnSpeedWhileCharging * Time.deltaTime);
 
-            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, 999f, LayerMask.GetMask("Default"));
+            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, 999f, LayerMask.GetMask(Constants.DefaultLayer));
 
 
             beamAttackSettings.lineRenderer.SetPosition(1,
@@ -552,7 +552,7 @@ public class ImprovedPriestAI : AIBase
 
 
         // We see if we hit then environment so the beam does not go through the wall.
-        bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 999f, LayerMask.GetMask("Default"));
+        bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 999f, LayerMask.GetMask(Constants.DefaultLayer));
 
         // we then set the line render.
         beamAttackSettings.lineRenderer.startWidth = beamAttackSettings.beamRadius * 2f;
@@ -574,7 +574,7 @@ public class ImprovedPriestAI : AIBase
 
             Collider[] colliders = Physics.OverlapCapsule(beamAttackSettings.lineRenderer.transform.position,
                 (hitSuccess ? hit.point - ((-transform.forward) * beamAttackSettings.beamRadius) : transform.position + transform.forward * 999f),
-                beamAttackSettings.beamRadius, LayerMask.GetMask("Player"),
+                beamAttackSettings.beamRadius, LayerMask.GetMask(Constants.PlayerLayer),
                 QueryTriggerInteraction.Collide);
 
 
@@ -582,7 +582,7 @@ public class ImprovedPriestAI : AIBase
             // yes, I know that the player is basically the only thing that can be in here.
             foreach (Collider collider in colliders)
             {
-                if (collider.gameObject.CompareTag("Player"))
+                if (collider.gameObject.CompareTag(Constants.PlayerTag))
                 {
                     // Using IDamageable when we have heal class default on everything now. Why?
                     collider.GetComponent<IDamageable>().TakeDamage(beamAttackSettings.tickDamage);
@@ -714,10 +714,10 @@ public class ImprovedPriestAI : AIBase
             Gizmos.DrawWireSphere(transform.position, maxDetectionRange);
         }
 
-        if (enableVisualDetectionLine && GameObject.FindWithTag("Player") != null)
+        if (enableVisualDetectionLine && GameObject.FindWithTag(Constants.PlayerTag) != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + (GameObject.FindWithTag("Player").transform.position - transform.position).normalized * maxDetectionRange);
+            Gizmos.DrawLine(transform.position, transform.position + (GameObject.FindWithTag(Constants.PlayerTag).transform.position - transform.position).normalized * maxDetectionRange);
 
         }
     }

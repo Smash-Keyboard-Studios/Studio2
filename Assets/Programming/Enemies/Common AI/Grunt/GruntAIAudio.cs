@@ -25,7 +25,8 @@ public class GruntAIAudio : AIAudioBase
 
 	protected HealthWithBasicShield aiHealthWithBasicShield;
 
-	private string collectionKey = "EnemyMelee.";
+	private const string collectionKey = "EnemyMelee.";
+	// ? add a dictionary for all the clips? enum with dictionary to get the full key since collection key is a const?
 
 	// Start is called before the first frame update
 	protected override void Start()
@@ -41,7 +42,7 @@ public class GruntAIAudio : AIAudioBase
 
 	protected override void SubscribeToAudioEvents()
 	{
-		gruntAI.onAttackSFXPlayOnce += OnAttackSFXPlayOnce;
+		gruntAI.onAttack += OnAttackSFXPlayOnce;
 
 		// aiHealth.onTakeDamage += OnTakenDamageSFXPlayOnce;
 

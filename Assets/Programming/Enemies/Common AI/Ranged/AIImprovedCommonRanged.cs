@@ -130,7 +130,7 @@ public class AIImprovedCommonRanged : AIBase
 
         try
         {
-            playerTarget = GameObject.FindWithTag("Player").transform;
+            playerTarget = GameObject.FindWithTag(Constants.PlayerTag).transform;
         }
         catch (NullReferenceException)
         {
@@ -292,7 +292,7 @@ public class AIImprovedCommonRanged : AIBase
         Vector3 fleeDirection = (transform.position - playerTarget.position).normalized;
 
         //agent.stoppingDistance = defaultStoppingDistance;
-        pathTarget = fleeDirection * 10f;
+        pathTarget = fleeDirection * 10f; // TODO remove magic number, what does 10 mean? magic number.
 
         // if (Vector3.Distance(agent.pathEndPosition, transform.position) < 2f)
         // {
@@ -372,10 +372,10 @@ public class AIImprovedCommonRanged : AIBase
             Gizmos.DrawWireSphere(transform.position, maxDetectionRange);
         }
 
-        if (enableVisualDetectionLine && GameObject.FindWithTag("Player") != null)
+        if (enableVisualDetectionLine && GameObject.FindWithTag(Constants.PlayerTag) != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + (GameObject.FindWithTag("Player").transform.position - transform.position).normalized * maxDetectionRange);
+            Gizmos.DrawLine(transform.position, transform.position + (GameObject.FindWithTag(Constants.PlayerTag).transform.position - transform.position).normalized * maxDetectionRange);
 
         }
     }

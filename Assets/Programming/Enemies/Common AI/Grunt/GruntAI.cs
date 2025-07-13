@@ -83,7 +83,9 @@ public class GruntAI : AIBase
 	/// <summary>
 	/// Called when using weapon, boolean parameter, false is normal, true is variant.
 	/// </summary>
-	public event Action<bool> onAttackSFXPlayOnce;
+	public event Action<bool> onAttack;
+	public event Action<bool> onAlertedFirstTime;
+	public event Action<bool> onAlerted;
 
 
 	#endregion
@@ -198,7 +200,7 @@ public class GruntAI : AIBase
 
 		try
 		{
-			playerTarget = GameObject.FindWithTag("Player").transform;
+			playerTarget = GameObject.FindWithTag(Constants.PlayerTag).transform;
 		}
 		catch (NullReferenceException)
 		{
@@ -266,16 +268,16 @@ public class GruntAI : AIBase
 		}
 
 
-		// walking sfx player
-		if (agent.velocity.magnitude <= 0.1f)
-		{
-			WalkingSFXStop();
+		// walking sfx player // ! why when we can do this in the audio hook?
+		// if (agent.velocity.magnitude <= 0.1f)
+		// {
+		// 	WalkingSFXStop();
 
-		}
-		else
-		{
-			WalkingSFXPlay(agent.velocity.magnitude);
-		}
+		// }
+		// else
+		// {
+		// 	WalkingSFXPlay(agent.velocity.magnitude);
+		// }
 
 		// animations
 		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
@@ -299,7 +301,7 @@ public class GruntAI : AIBase
 		Vector3.Distance(transform.position, playerTarget.position) <= maxDetectionRange)
 		{
 			// print(hit.transform.name);
-			if (hit.collider.gameObject.CompareTag("Player"))
+			if (hit.collider.gameObject.CompareTag(Constants.PlayerTag))
 			{
 				//transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), 45);
 				ChangeState(AIState.Alerted);
@@ -418,7 +420,7 @@ public class GruntAI : AIBase
 			foreach (var hitObject in HitObjects)
 			{
 				//print(hitObject.name);
-				if (hitObject.gameObject.CompareTag("Player"))
+				if (hitObject.gameObject.CompareTag(Constants.PlayerTag))
 				{
 					hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackClass.lightAttackDamage);
 				}
@@ -467,10 +469,10 @@ public class GruntAI : AIBase
 			Gizmos.DrawWireSphere(transform.position, maxDetectionRange);
 		}
 
-		if (enableVisualDetectionLine && GameObject.FindWithTag("Player") != null)
+		if (enableVisualDetectionLine && GameObject.FindWithTag(Constants.PlayerTag) != null)
 		{
 			Gizmos.color = Color.red;
-			Gizmos.DrawLine(transform.position, transform.position + (GameObject.FindWithTag("Player").transform.position - transform.position).normalized * maxDetectionRange);
+			Gizmos.DrawLine(transform.position, transform.position + (GameObject.FindWithTag(Constants.PlayerTag).transform.position - transform.position).normalized * maxDetectionRange);
 
 		}
 	}
@@ -498,7 +500,7 @@ public class GruntAI : AIBase
 	/// <param name="value">True if this is a variant of the normal attack.</param>
 	protected virtual void AttackSFXPlayOnce(bool value)
 	{
-		onAttackSFXPlayOnce?.Invoke(value);
+		onAttack?.Invoke(value);
 	}
 
 	#endregion
