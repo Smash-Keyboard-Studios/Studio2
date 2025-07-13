@@ -308,7 +308,7 @@ public class AICommonBeam : AIBase
     }
     #endregion
 
-    #region BasicProjectileAttack
+    #region BeamAttack
     protected virtual IEnumerator BeamAttack()
     {
         // we set the initial variables.
@@ -412,6 +412,8 @@ public class AICommonBeam : AIBase
         attackCoolDownTimer = beamAttackSettings.coolDown;
 
         while (attackAnimationPlaying) yield return null;
+
+        ChangeState(AIState.Retreating);
 
         isAttacking = false;
     }
