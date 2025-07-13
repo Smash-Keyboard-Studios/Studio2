@@ -144,7 +144,7 @@ public class KnightAI : GruntAI
 
 	#region Audio Events
 
-	public event Action onSlamAttackStartSFXPlayOnce;
+	public event Action onSlamAttackStartSFXPlayOnce; // TODO replace with better universal events.
 	public event Action onSlamHitGroundSFXPlayOnce;
 
 	public event Action onSlashAttackSFXPlay;
@@ -375,7 +375,7 @@ public class KnightAI : GruntAI
 		{
 			foreach (var hitObject in HitObjects)
 			{
-				if (hitObject.gameObject.CompareTag("Player"))
+				if (hitObject.gameObject.CompareTag(Constants.PlayerTag))
 				{
 					float distanceFromPlayer = Vector3.Distance(hitObject.transform.position, transform.position);
 
@@ -405,7 +405,7 @@ public class KnightAI : GruntAI
 		{
 			foreach (var hitObject in HitObjects)
 			{
-				if (hitObject.gameObject.CompareTag("Player"))
+				if (hitObject.gameObject.CompareTag(Constants.PlayerTag))
 				{
 					float distanceFromPlayer = Vector3.Distance(hitObject.transform.position, transform.position);
 

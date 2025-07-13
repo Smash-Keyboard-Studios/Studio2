@@ -108,17 +108,17 @@ public class AIBase : MonoBehaviour
 	/// <summary>
 	/// Called when the AI moves, the value is velocity / speed.
 	/// </summary>
-	public event Action<float> onWalkingSFXPlay;
+	// public event Action<float> onWalkingSFXPlay; // ! not needed as we can use the velocity.
 
 	/// <summary>
 	/// Called when the AI stops moving.
 	/// </summary>
-	public event Action onWalkingSFXStop;
+	// public event Action onWalkingSFXStop;
 
 	/// <summary>
 	/// Called when the AI dies.
 	/// </summary>
-	public event Action onDeathSFXPlayOnce;
+	// public event Action onDeathSFXPlayOnce; // ! why? no need to duplicate the event, just use the existing one.
 	#endregion
 	/******************************************************************************/
 	#region Private variables.
@@ -141,7 +141,7 @@ public class AIBase : MonoBehaviour
 
 		currentSpeed = maxSpeed;
 
-		gameObject.tag = "Enemy";
+		gameObject.tag = Constants.EnemyTag;
 
 		agent = GetComponent<NavMeshAgent>();
 
@@ -172,8 +172,8 @@ public class AIBase : MonoBehaviour
 	protected virtual void KillAI()
 	{
 
-		DeathSFXPlayOnce();
-		onDeath?.Invoke(transform);
+		OnDeathInvoke();
+
 
 
 		Destroy(gameObject);
@@ -197,29 +197,14 @@ public class AIBase : MonoBehaviour
 	/* Needed as events cannot be inherited so base classes need to have a function
 	to invoke the event.*/
 
-	/// <summary>
-	/// Invokes the on walking play event and pass in speed of AI.
-	/// </summary>
-	/// <param name="value">The speed of the AI / Velocity</param>
-	protected virtual void WalkingSFXPlay(float value)
-	{
-		onWalkingSFXPlay?.Invoke(value);
-	}
 
-	/// <summary>
-	/// Invokes the on walking stop event.
-	/// </summary>
-	protected virtual void WalkingSFXStop()
-	{
-		onWalkingSFXStop?.Invoke();
-	}
 
 	/// <summary>
 	/// Invokes the on death event.
 	/// </summary>
-	protected virtual void DeathSFXPlayOnce()
+	protected virtual void OnDeathInvoke()
 	{
-		onDeathSFXPlayOnce?.Invoke();
+		onDeath?.Invoke(transform);
 	}
 
 

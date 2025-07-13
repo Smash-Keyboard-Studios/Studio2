@@ -27,6 +27,8 @@ public class BeamAttackSettings
 
     public float beamRadius = 1f;
 
+    public float beamMaxRange = 999f;
+
     public float turnSpeedWhileCharging = 1f;
 
     public LineRenderer lineRenderer;
@@ -134,7 +136,7 @@ public class AICommonBeam : AIBase
 
         try
         {
-            playerTarget = GameObject.FindWithTag("Player").transform;
+            playerTarget = GameObject.FindWithTag(Constants.PlayerTag).transform;
         }
         catch (NullReferenceException)
         {
@@ -222,7 +224,7 @@ public class AICommonBeam : AIBase
         Vector3.Distance(transform.position, playerTarget.position) <= maxDetectionRange)
         {
             // print(hit.transform.name);
-            if (hit.collider.gameObject.CompareTag("Player"))
+            if (hit.collider.gameObject.CompareTag(Constants.PlayerTag))
             {
                 //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), 45);
                 ChangeState(AIState.Alerted);
@@ -309,7 +311,7 @@ public class AICommonBeam : AIBase
     #endregion
 
     #region BeamAttack
-    protected virtual IEnumerator BeamAttack()
+    protected virtual IEnumerator BeamAttack() // TODO, fix this code, I cannot read it :c
     {
         // we set the initial variables.
         isAttacking = true;
@@ -343,10 +345,10 @@ public class AICommonBeam : AIBase
             Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up),
             beamAttackSettings.turnSpeedWhileCharging * Time.deltaTime);
 
-            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, 999f, LayerMask.GetMask("Default"));
+            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, beamAttackSettings.beamMaxRange, LayerMask.GetMask("Default"));
 
 
-            beamAttackSettings.lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSomething ? hitReturn.point : transform.position + transform.forward * 999f));
+            beamAttackSettings.lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSomething ? hitReturn.point : transform.position + transform.forward * beamAttackSettings.beamMaxRange));
 
             localTimer += Time.deltaTime;
             yield return null;
@@ -359,13 +361,13 @@ public class AICommonBeam : AIBase
 
 
         // We see if we hit then environment so the beam does not go through the wall.
-        bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 999f, LayerMask.GetMask("Default"));
+        bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, beamAttackSettings.beamMaxRange, LayerMask.GetMask("Default"));
 
         // we then set the line render.
         beamAttackSettings.lineRenderer.startWidth = beamAttackSettings.beamRadius * 2f;
 
 
-        beamAttackSettings.lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSuccess ? hit.point : transform.position + transform.forward * 999f));
+        beamAttackSettings.lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSuccess ? hit.point : transform.position + transform.forward * beamAttackSettings.beamMaxRange));
         beamAttackSettings.lineRenderer.colorGradient = new Gradient()
         {
             colorKeys = new GradientColorKey[] { new GradientColorKey(Color.red, 0), new GradientColorKey(Color.red, 1) },
@@ -379,15 +381,15 @@ public class AICommonBeam : AIBase
         while (localTimer < beamAttackSettings.attackDuration)
         {
 
-            Collider[] colliders = Physics.OverlapCapsule(transform.position, (hitSuccess ? hit.point : transform.position + transform.forward * 999f),
-                beamAttackSettings.beamRadius, LayerMask.GetMask("Player"), QueryTriggerInteraction.Collide);
+            Collider[] colliders = Physics.OverlapCapsule(transform.position, (hitSuccess ? hit.point : transform.position + transform.forward * beamAttackSettings.beamMaxRange),
+                beamAttackSettings.beamRadius, LayerMask.GetMask(Constants.PlayerLayer), QueryTriggerInteraction.Collide);
 
 
             // print(colliders.Length);
             // yes, I know that the player is basically the only thing that can be in here.
             foreach (Collider collider in colliders)
             {
-                if (collider.gameObject.CompareTag("Player"))
+                if (collider.gameObject.CompareTag(Constants.PlayerTag))
                 {
                     // Using IDamageable when we have heal class default on everything now. Why?
                     collider.GetComponent<IDamageable>().TakeDamage(beamAttackSettings.tickDamage);
@@ -460,10 +462,10 @@ public class AICommonBeam : AIBase
             Gizmos.DrawWireSphere(transform.position, maxDetectionRange);
         }
 
-        if (enableVisualDetectionLine && GameObject.FindWithTag("Player") != null)
+        if (enableVisualDetectionLine && GameObject.FindWithTag(Constants.PlayerTag) != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + (GameObject.FindWithTag("Player").transform.position - transform.position).normalized * maxDetectionRange);
+            Gizmos.DrawLine(transform.position, transform.position + (GameObject.FindWithTag(Constants.PlayerTag).transform.position - transform.position).normalized * maxDetectionRange);
 
         }
     }

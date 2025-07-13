@@ -27,7 +27,7 @@ public class RangedProjectilePhysicsBased : MonoBehaviour
         // ignore all triggers, we are looking for colliders.
         if (collider.isTrigger) return;
 
-        if (collider.gameObject.CompareTag("Player"))
+        if (collider.gameObject.CompareTag(Constants.PlayerTag))
         {
             collider.gameObject.GetComponent<IDamageable>().TakeDamage(projectileDamage);
             Destroy(gameObject);

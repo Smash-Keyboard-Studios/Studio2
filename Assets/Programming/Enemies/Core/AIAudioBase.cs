@@ -40,10 +40,10 @@ public class AIAudioBase : MonoBehaviour
 
 	protected virtual void SubscribeToAudioEvents()
 	{
-		aiBase.onDeathSFXPlayOnce += OnDeathSFXPlayOnce;
+		// aiBase.onDeathSFXPlayOnce += OnDeathSFXPlayOnce;
 
-		aiBase.onWalkingSFXPlay += OnWalkingSFXPlay;
-		aiBase.onWalkingSFXStop += OnWalkingSFXStop;
+		// aiBase.onWalkingSFXPlay += OnWalkingSFXPlay;
+		// aiBase.onWalkingSFXStop += OnWalkingSFXStop;
 	}
 
 	protected virtual void Update()
