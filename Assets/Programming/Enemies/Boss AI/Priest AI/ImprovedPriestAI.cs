@@ -532,12 +532,12 @@ public class ImprovedPriestAI : AIBase
                 Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up),
                 beamAttackSettings.turnSpeedWhileCharging * Time.deltaTime);
 
-            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, 999f, LayerMask.GetMask(Constants.DefaultLayer));
+            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, beamAttackSettings.beamMaxRange, LayerMask.GetMask(Constants.DefaultLayer));
 
 
             beamAttackSettings.lineRenderer.SetPosition(1,
                 transform.InverseTransformPoint(hitSomething ? hitReturn.point - (-transform.forward.normalized * beamAttackSettings.beamRadius)
-                : transform.position + transform.forward * 999f));
+                : transform.position + transform.forward * beamAttackSettings.beamMaxRange));
 
             localTimer += Time.deltaTime;
             yield return null;
@@ -552,7 +552,7 @@ public class ImprovedPriestAI : AIBase
 
 
         // We see if we hit then environment so the beam does not go through the wall.
-        bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 999f, LayerMask.GetMask(Constants.DefaultLayer));
+        bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, beamAttackSettings.beamMaxRange, LayerMask.GetMask(Constants.DefaultLayer));
 
         // we then set the line render.
         beamAttackSettings.lineRenderer.startWidth = beamAttackSettings.beamRadius * 2f;
