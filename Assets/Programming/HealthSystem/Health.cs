@@ -82,7 +82,7 @@ public class Health : MonoBehaviour, IDamageable
         }
     }
 
-    public virtual bool TakeDamage(float amount)
+    public virtual bool TakeDamage(float amount) // from the interface.
     {
         AddToHealth(-amount);
 
