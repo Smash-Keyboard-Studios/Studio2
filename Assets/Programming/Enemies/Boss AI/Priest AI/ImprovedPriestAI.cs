@@ -36,10 +36,8 @@ public class BarrageAttackSettings
     public float windUpTime = 2f;
 }
 
-public class ImprovedPriestAI : AIBase
+public class ImprovedPriestAI : AICommonBeam
 {
-
-    public float maxAttackRange = 30f;
 
     #region Light Attack Variables
     [Header("Attack Settings")]
@@ -52,10 +50,7 @@ public class ImprovedPriestAI : AIBase
 
     #endregion
 
-    public BeamAttackSettings beamAttackSettings;
 
-
-    protected float beamAttackCoolDownTimer = 0;
 
     public BarrageAttackSettings barrageAttackSettings;
 
@@ -74,7 +69,6 @@ public class ImprovedPriestAI : AIBase
 
     protected float globalAttackCoolDown = 0f;
 
-    protected bool isAttacking = false;
 
 
     [Header("Teleport Settings")]
@@ -97,74 +91,16 @@ public class ImprovedPriestAI : AIBase
     protected Transform teleportPoint;
 
 
-    #region Turning Variables 
-    [Header("Turning Variables and movement"), SerializeField]
-    protected float turningSpeed = 5f;
-    #endregion
-
     /// <summary>
     /// The layers it will look for to deal damage to.
     /// </summary>
     [Header("Combat Detection Layer"), SerializeField]
     protected LayerMask layersToCheckFor = Physics.AllLayers;
 
-    #region Detection Variables
-    /* The limits for detecting the player */
 
-    /// <summary>
-    /// The max range the player can be to be detected.
-    /// </summary>
-    [Header("AI Detecting Player")]
-    [SerializeField]
-    protected float maxDetectionRange = 30f;
-
-
-    /* Path finding */
-    /// <summary>
-    /// The path used for AI navigation and calculation.
-    /// </summary>
-    // protected NavMeshPath path;
-
-    /// <summary>
-    /// The target location for the AI to head to.
-    /// </summary>
-    protected Vector3 pathTarget;
-
-    /// <summary>
-    /// Player reference to compare distances and such.
-    /// </summary>
-    protected Transform playerTarget;
-
-    #endregion
-
-    #region Debugging Variables
-    /* Debugging */
-
-    /// <summary>
-    /// Display's a sphere over the AI to show it's max range.
-    /// </summary>
-    [Header("Debug Only")]
-    [SerializeField]
-    protected bool enableVisualDetectionRadius = false;
-
-    /// <summary>
-    /// Displays a line towards the player to see if the player can get detected, and to see if an object overlaps.
-    /// </summary>
-    [SerializeField]
-    protected bool enableVisualDetectionLine = false;
-
-    [SerializeField]
+    [Header("Debug Only"), SerializeField]
     protected bool showMelee = false;
 
-    #endregion
-
-    #region Animation Variables
-
-    protected bool attackAnimationPlaying = false;
-
-    protected Animator animatorController;
-
-    #endregion
 
 
 
@@ -197,7 +133,7 @@ public class ImprovedPriestAI : AIBase
 
         base.Start();
 
-        beamAttackSettings.lineRenderer.enabled = false;
+        beamAttack.lineRenderer.enabled = false;
 
         // onStateChanged += ResetRetreatingThinking;
     }
@@ -206,87 +142,25 @@ public class ImprovedPriestAI : AIBase
 
 
     #region Update
-    protected virtual void Update()
+    protected override void Update()
     {
-        agent.destination = pathTarget;
-
-        if (UIManager.Instance.inDialogueMenu || UIManager.Instance.inGameMenu)
-        {
-            //agent.stoppingDistance = defaultStoppingDistance;
-            pathTarget = transform.position;
-
-
-            animatorController.enabled = false;
-
-
-            return;
-        }
-        else
-        {
-            animatorController.enabled = true;
-        }
+        base.Update();
 
         // print(GetAngleForFireProjectile(5, Mathf.Abs(Physics.gravity.y), Vector3.Distance(transform.position, playerTarget.position)));
 
         if (barrageAttackCoolDownTimer > 0) barrageAttackCoolDownTimer -= Time.deltaTime;
 
         if (globalAttackCoolDown > 0) globalAttackCoolDown -= Time.deltaTime;
-
-
-
-        if (beamAttackCoolDownTimer > 0) beamAttackCoolDownTimer -= Time.deltaTime;
-
-        // set values and deal with timers.
-        agent.speed = currentSpeed;
-
-        if (currentAIState == AIState.Alerted)
-        {
-            AlertedThinking();
-        }
-        else if (currentAIState == AIState.Retreating)
-        {
-            RetreatingThinking();
-        }
-        else if (currentAIState == AIState.Idle)
-        {
-            IdleThinking();
-        }
-
-        animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
     }
     #endregion
 
-    #region IdleThinking
-    /// <summary>
-    /// How the AI acts when it's currently idle.
-    /// </summary>
-    protected virtual void IdleThinking()
-    {
-        //agent.stoppingDistance = defaultStoppingDistance;
-        pathTarget = transform.position;
 
-        // creates a line cast form the AI and player. and if it is not broken, then AI is in line of sight.
-
-        if (Physics.Linecast(transform.position, playerTarget.position, out RaycastHit hit) &&
-        Vector3.Distance(transform.position, playerTarget.position) <= maxDetectionRange)
-        {
-            // print(hit.transform.name);
-            if (hit.collider.gameObject.CompareTag(Constants.PlayerTag))
-            {
-                //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(pathTarget.x, transform.position.y, pathTarget.z) - transform.position, transform.up), 45);
-                ChangeState(AIState.Alerted);
-
-
-            }
-        }
-    }
-    #endregion
 
     #region AlertedThinking
     /// <summary>
     /// How the AI acts when it seen / detects the player.
     /// </summary>
-    protected virtual void AlertedThinking()
+    protected override void AlertedThinking()
     {
         /*
         AI checklist
@@ -366,7 +240,7 @@ public class ImprovedPriestAI : AIBase
     /// <summary>
     /// How the AI acts when it want to retreat from the player.
     /// </summary>
-    protected virtual void RetreatingThinking()
+    protected override void RetreatingThinking()
     {
         if (!isTeleporting)
             StartCoroutine(StartTeleport());
@@ -497,121 +371,6 @@ public class ImprovedPriestAI : AIBase
     #endregion
 
 
-
-    #region BeamAttack
-    protected virtual IEnumerator BeamAttack()
-    {
-        // we set the initial variables.
-        isAttacking = true;
-        attackAnimationPlaying = true;
-
-        animatorController.SetBool("IsBeamAttacking", true);
-        animatorController.SetBool("IsCharging", true);
-
-        // prep the line renderer. might be able to remove as this is also done whilst charging.
-        var curve = new AnimationCurve();
-
-        beamAttackSettings.lineRenderer.enabled = true;
-
-        // while we are charging the attack
-        float localTimer = 0;
-        while (localTimer < beamAttackSettings.windUpTime) // TODO WTF, beam needs to be standardised or something. maybe a separate script with event hooks and functions or something?
-        {
-            beamAttackSettings.lineRenderer.startWidth = Mathf.Lerp(0, beamAttackSettings.beamRadius * 2f, localTimer / beamAttackSettings.windUpTime);
-
-
-            Color colorLerp = Color.Lerp(Color.yellow, Color.red, localTimer / (beamAttackSettings.windUpTime + 1f));
-
-            beamAttackSettings.lineRenderer.colorGradient = new Gradient()
-            {
-                colorKeys = new GradientColorKey[] { new GradientColorKey(colorLerp, 0), new GradientColorKey(colorLerp, 1) },
-                alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
-            };
-
-            transform.rotation = Quaternion.Lerp(transform.rotation,
-                Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up),
-                beamAttackSettings.turnSpeedWhileCharging * Time.deltaTime);
-
-            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, beamAttackSettings.beamMaxRange, LayerMask.GetMask(Constants.DefaultLayer));
-
-
-            beamAttackSettings.lineRenderer.SetPosition(1,
-                transform.InverseTransformPoint(hitSomething ? hitReturn.point - (-transform.forward.normalized * beamAttackSettings.beamRadius)
-                : transform.position + transform.forward * beamAttackSettings.beamMaxRange));
-
-            localTimer += Time.deltaTime;
-            yield return null;
-        }
-
-
-
-        // We stop charging and we now do that attack.
-
-        animatorController.SetBool("IsCharging", false);
-
-
-
-        // We see if we hit then environment so the beam does not go through the wall.
-        bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, beamAttackSettings.beamMaxRange, LayerMask.GetMask(Constants.DefaultLayer));
-
-        // we then set the line render.
-        beamAttackSettings.lineRenderer.startWidth = beamAttackSettings.beamRadius * 2f;
-
-
-        beamAttackSettings.lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSuccess ? hit.point : transform.position + transform.forward * 999f));
-        beamAttackSettings.lineRenderer.colorGradient = new Gradient()
-        {
-            colorKeys = new GradientColorKey[] { new GradientColorKey(Color.red, 0), new GradientColorKey(Color.red, 1) },
-            alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
-        };
-
-
-
-        // deals the actual attack.
-        localTimer = 0;
-        while (localTimer < beamAttackSettings.attackDuration)
-        {
-
-            Collider[] colliders = Physics.OverlapCapsule(beamAttackSettings.lineRenderer.transform.position,
-                (hitSuccess ? hit.point - ((-transform.forward) * beamAttackSettings.beamRadius) : transform.position + transform.forward * 999f),
-                beamAttackSettings.beamRadius, LayerMask.GetMask(Constants.PlayerLayer),
-                QueryTriggerInteraction.Collide);
-
-
-            // print(colliders.Length);
-            // yes, I know that the player is basically the only thing that can be in here.
-            foreach (Collider collider in colliders)
-            {
-                if (collider.gameObject.CompareTag(Constants.PlayerTag))
-                {
-                    // Using IDamageable when we have heal class default on everything now. Why?
-                    collider.GetComponent<IDamageable>().TakeDamage(beamAttackSettings.tickDamage);
-                    break;
-                }
-            }
-
-            yield return new WaitForSeconds(beamAttackSettings.tickRate);
-            localTimer += beamAttackSettings.tickRate;
-        }
-
-
-
-        // end attack
-
-        beamAttackSettings.lineRenderer.enabled = false;
-
-        animatorController.SetBool("IsBeamAttacking", false);
-
-        beamAttackCoolDownTimer = beamAttackSettings.coolDown;
-
-        globalAttackCoolDown = globalAttackDelay;
-
-        while (attackAnimationPlaying) yield return null;
-
-        isAttacking = false;
-    }
-    #endregion
-
     #region BarrageAttack
     protected IEnumerator BarrageAttack()
     {
@@ -701,7 +460,7 @@ public class ImprovedPriestAI : AIBase
     #endregion
 
     #region OnDrawGizmos
-    protected virtual void OnDrawGizmos()
+    protected override void OnDrawGizmos()
     {
         if (showMelee)
         {
