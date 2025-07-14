@@ -17,9 +17,9 @@ using UnityEngine;
 
 public class AICommonBeam : AIBase
 {
-    public float maxBeamAttackRange = 7f;
+    public float maxAttackRange = 7f;
 
-    public BeamAttackSettings beamAttackSettings;
+    public BeamAttack beamAttack;
 
 
     public float minDistanceForPlayerToRetreat = 3f;
@@ -39,7 +39,7 @@ public class AICommonBeam : AIBase
     protected bool isAttacking = false;
 
 
-    protected float attackCoolDownTimer = 0f;
+    protected float beamAttackCoolDownTimer = 0f;
 
 
     #region Detection Variables
@@ -135,7 +135,7 @@ public class AICommonBeam : AIBase
 
         base.Start();
 
-        beamAttackSettings.lineRenderer.enabled = false;
+        beamAttack.lineRenderer.enabled = false;
 
         onStateChanged += ResetRetreatingThinking;
     }
@@ -170,7 +170,7 @@ public class AICommonBeam : AIBase
 
 
         if (retreatCoolDown > 0) retreatCoolDown -= Time.deltaTime;
-        if (attackCoolDownTimer > 0) attackCoolDownTimer -= Time.deltaTime;
+        if (beamAttackCoolDownTimer > 0) beamAttackCoolDownTimer -= Time.deltaTime;
 
         if (currentAIState == AIState.Alerted)
         {
@@ -238,14 +238,14 @@ public class AICommonBeam : AIBase
                 turningSpeed);
         }
 
-        if (Vector3.Distance(playerTarget.position, transform.position) < maxBeamAttackRange || isAttacking)
+        if (Vector3.Distance(playerTarget.position, transform.position) < maxAttackRange || isAttacking)
         {
             // attack
             pathTarget = transform.position;
 
             // begin attack.
             // coroutine
-            if (!isAttacking && attackCoolDownTimer <= 0)
+            if (!isAttacking && beamAttackCoolDownTimer <= 0)
             {
                 StartCoroutine(BeamAttack());
             }
@@ -291,7 +291,7 @@ public class AICommonBeam : AIBase
     #endregion
 
     #region BeamAttack
-    protected virtual IEnumerator BeamAttack() // TODO, fix this code, I cannot read it :c
+    protected virtual IEnumerator BeamAttack()
     {
         // we set the initial variables.
         isAttacking = true;
@@ -303,32 +303,27 @@ public class AICommonBeam : AIBase
         // prep the line renderer. might be able to remove as this is also done whilst charging.
         var curve = new AnimationCurve();
 
-        beamAttackSettings.lineRenderer.enabled = true;
-
+        beamAttack.SetBeamActive(true);
 
 
         // while we are charging the attack
         float localTimer = 0;
-        while (localTimer < beamAttackSettings.windUpTime)
+        while (localTimer < beamAttack.windUpTime)
         {
-            beamAttackSettings.lineRenderer.startWidth = Mathf.Lerp(0, beamAttackSettings.beamRadius * 2f, localTimer / beamAttackSettings.windUpTime);
+            beamAttack.SetWidth(Mathf.Lerp(0, beamAttack.beamRadius * 2f, localTimer / beamAttack.windUpTime));
 
-            Color colorLerp = Color.Lerp(Color.yellow, Color.red, localTimer / (beamAttackSettings.windUpTime + 1f));
+            Color colorLerp = Color.Lerp(Color.yellow, Color.red, localTimer / (beamAttack.windUpTime + 1f));
+            beamAttack.SetColor(colorLerp);
 
-            beamAttackSettings.lineRenderer.colorGradient = new Gradient()
-            {
-                colorKeys = new GradientColorKey[] { new GradientColorKey(colorLerp, 0), new GradientColorKey(colorLerp, 1) },
-                alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
-            };
 
             transform.rotation = Quaternion.Lerp(transform.rotation,
             Quaternion.LookRotation((new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z) - transform.position).normalized, transform.up),
-            beamAttackSettings.turnSpeedWhileCharging * Time.deltaTime);
+            beamAttack.turnSpeedWhileCharging * Time.deltaTime);
 
-            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, beamAttackSettings.beamMaxRange, LayerMask.GetMask("Default"));
-
-
-            beamAttackSettings.lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSomething ? hitReturn.point : transform.position + transform.forward * beamAttackSettings.beamMaxRange));
+            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, beamAttack.beamMaxRange, LayerMask.GetMask("Default"));
+            beamAttack.SetEndPosition(transform.InverseTransformPoint(hitSomething ? hitReturn.point - (-transform.forward.normalized * beamAttack.beamRadius)
+                : transform.position + transform.forward * beamAttack.beamMaxRange));
+            // TODO capsule cast!
 
             localTimer += Time.deltaTime;
             yield return null;
@@ -341,28 +336,24 @@ public class AICommonBeam : AIBase
 
 
         // We see if we hit then environment so the beam does not go through the wall.
-        bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, beamAttackSettings.beamMaxRange, LayerMask.GetMask("Default"));
+        bool hitSuccess = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, beamAttack.beamMaxRange, LayerMask.GetMask("Default"));
 
         // we then set the line render.
-        beamAttackSettings.lineRenderer.startWidth = beamAttackSettings.beamRadius * 2f;
-
-
-        beamAttackSettings.lineRenderer.SetPosition(1, transform.InverseTransformPoint(hitSuccess ? hit.point : transform.position + transform.forward * beamAttackSettings.beamMaxRange));
-        beamAttackSettings.lineRenderer.colorGradient = new Gradient()
-        {
-            colorKeys = new GradientColorKey[] { new GradientColorKey(Color.red, 0), new GradientColorKey(Color.red, 1) },
-            alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1) }
-        };
+        beamAttack.SetWidth(beamAttack.beamRadius * 2f);
+        beamAttack.SetEndPosition(transform.InverseTransformPoint(hitSuccess ? hit.point : transform.position + transform.forward * beamAttack.beamMaxRange));
+        beamAttack.SetColor(Color.red);
 
 
 
         // deals the actual attack.
         localTimer = 0;
-        while (localTimer < beamAttackSettings.attackDuration)
+        while (localTimer < beamAttack.attackDuration)
         {
 
-            Collider[] colliders = Physics.OverlapCapsule(transform.position, (hitSuccess ? hit.point : transform.position + transform.forward * beamAttackSettings.beamMaxRange),
-                beamAttackSettings.beamRadius, LayerMask.GetMask(Constants.PlayerLayer), QueryTriggerInteraction.Collide);
+            Collider[] colliders = Physics.OverlapCapsule(beamAttack.lineRenderer.transform.position,
+                (hitSuccess ? hit.point - ((-transform.forward) * beamAttack.beamRadius) : transform.position + transform.forward * beamAttack.beamMaxRange),
+                beamAttack.beamRadius, LayerMask.GetMask(Constants.PlayerLayer),
+                QueryTriggerInteraction.Collide);
 
 
             // print(colliders.Length);
@@ -372,26 +363,26 @@ public class AICommonBeam : AIBase
                 if (collider.gameObject.CompareTag(Constants.PlayerTag))
                 {
                     // Using IDamageable when we have heal class default on everything now. Why?
-                    collider.GetComponent<IDamageable>().TakeDamage(beamAttackSettings.tickDamage);
+                    collider.GetComponent<IDamageable>().TakeDamage(beamAttack.tickDamage);
                     break;
                 }
             }
 
-            yield return new WaitForSeconds(beamAttackSettings.tickRate);
-            localTimer += beamAttackSettings.tickRate;
+            yield return new WaitForSeconds(beamAttack.tickRate);
+            localTimer += beamAttack.tickRate;
         }
 
 
 
         // end attack
 
-        beamAttackSettings.lineRenderer.enabled = false;
+        beamAttack.SetBeamActive(false);
 
 
 
         animatorController.SetBool("IsAttacking", false);
 
-        attackCoolDownTimer = beamAttackSettings.coolDown;
+        beamAttackCoolDownTimer = beamAttack.coolDown;
 
         while (attackAnimationPlaying) yield return null;
 
