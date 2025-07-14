@@ -2749,7 +2749,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 178120660104152868}
+  - {fileID: 4783582893745138763}
   - {fileID: 2169762620763144485}
   m_Father: {fileID: 6586798735416910705}
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
@@ -2940,6 +2940,7 @@ GameObject:
   - component: {fileID: 1884647640742460552}
   - component: {fileID: 7017953065027804687}
   - component: {fileID: 2731638991099968151}
+  - component: {fileID: 6623470930321279432}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3427,6 +3428,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultTickRate: 0.5
+--- !u!114 &6623470930321279432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005257603024285522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b48f79e91d37034cb1f2cd4a3b62c70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5031218017895963573
 GameObject:
   m_ObjectHideFlags: 0
@@ -4430,13 +4443,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6343384960528026655}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -16}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3985373619111342890}
-  m_Father: {fileID: 6124624632797496000}
+  m_Father: {fileID: 4783582893745138763}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7594030017994700758
 Camera:
@@ -5767,6 +5780,38 @@ Transform:
   m_Children:
   - {fileID: 3713033014007523677}
   m_Father: {fileID: 2637880685756045332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9173601475291612423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4783582893745138763}
+  m_Layer: 6
+  m_Name: Camera Shake
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4783582893745138763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173601475291612423}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 178120660104152868}
+  m_Father: {fileID: 6124624632797496000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1254139681322835135
 PrefabInstance:
