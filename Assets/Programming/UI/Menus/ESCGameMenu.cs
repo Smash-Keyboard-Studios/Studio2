@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class ESCGameMenu : MonoBehaviour
 {
+    float pauseCooldown;
+
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        pauseCooldown -= Time.deltaTime;
+        if (pauseCooldown < 0 && Input.GetKeyUp(KeyCode.Escape))
         {
             UIManager.Instance.PressGameMenu();
+            pauseCooldown = 0.05f;
         }
     }
 }
