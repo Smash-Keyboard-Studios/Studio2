@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: IsAttacking
+    m_ConditionEvent: IsBeamAttacking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3391174302657116727}
@@ -86,7 +86,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IsAttacking
+    m_ConditionEvent: IsBeamAttacking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6274868856913459552}
@@ -136,7 +136,7 @@ AnimatorController:
   m_Name: RangedAIAnimatorController
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: IsAttacking
+  - m_Name: IsBeamAttacking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0

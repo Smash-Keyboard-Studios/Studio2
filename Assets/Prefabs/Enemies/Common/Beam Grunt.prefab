@@ -62,14 +62,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 5
   currentAIState: 0
-  maxBeamAttackRange: 7
-  beamAttackSettings:
+  maxAttackRange: 7
+  beamAttack:
     coolDown: 5
     tickDamage: 5
     tickRate: 0.5
     windUpTime: 1
     attackDuration: 2
     beamRadius: 0.5
+    beamMaxRange: 999
     turnSpeedWhileCharging: 1
     lineRenderer: {fileID: 1570688485577324582}
   minDistanceForPlayerToRetreat: 3

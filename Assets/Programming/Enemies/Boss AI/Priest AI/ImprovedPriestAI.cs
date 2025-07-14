@@ -133,7 +133,8 @@ public class ImprovedPriestAI : AICommonBeam
 
         base.Start();
 
-        beamAttack.lineRenderer.enabled = false;
+        beamAttack.SetBeamActive(false);
+
 
         // onStateChanged += ResetRetreatingThinking;
     }
@@ -242,8 +243,17 @@ public class ImprovedPriestAI : AICommonBeam
     /// </summary>
     protected override void RetreatingThinking()
     {
+        if (warpPoints.Length <= 0)
+        {
+            Debug.LogError($"You need teleport points in the level and assign it to the priest in {nameof(warpPoints)}!");
+            ChangeState(AIState.Alerted);
+            return;
+        }
+
         if (!isTeleporting)
+        {
             StartCoroutine(StartTeleport());
+        }
     }
     #endregion
 
@@ -253,24 +263,31 @@ public class ImprovedPriestAI : AICommonBeam
         isAnimationPlaying = true;
         pathTarget = transform.position;
 
-        while (teleportPoint == null)
+
+        teleportPoint = GetRandomFurthestTeleportPoint();
+
+
+        if (teleportPoint == null)
         {
-            teleportPoint = GetRandomFurthestTeleportPoint();
-            yield return new WaitForSeconds(1f); // magic number
+            Debug.LogError($"Failed to find a valid teleport point, make sure there are no null values in the {nameof(warpPoints)}!");
+            isTeleporting = false;
+
         }
+        else
+        {
+            teleportPoint.GetComponent<BossTeleportingEvent>()?.StartTeleport();
 
-        teleportPoint.GetComponent<BossTeleportingEvent>()?.StartTeleport();
 
+            animatorController.SetBool("IsTeleporting", true);
 
-        animatorController.SetBool("IsTeleporting", true);
+            while (isAnimationPlaying) yield return null;
 
-        while (isAnimationPlaying) yield return null;
+            teleportPoint = null;
 
-        teleportPoint = null;
+            ChangeState(AIState.Alerted);
 
-        ChangeState(AIState.Alerted);
-
-        isTeleporting = false;
+            isTeleporting = false;
+        }
     }
 
     protected Transform GetRandomFurthestTeleportPoint()
@@ -279,6 +296,8 @@ public class ImprovedPriestAI : AICommonBeam
 
         foreach (var point in warpPoints)
         {
+            if (point == null) continue;
+
             if (Vector3.Distance(playerTarget.position, point.position) < 10f) continue; // TODO figure out why 10f was chosen
 
             possiblePoint.Add(point);
@@ -403,7 +422,7 @@ public class ImprovedPriestAI : AICommonBeam
         Quaternion baseRotation = barrageAttackSettings.spawnPoint.rotation;
 
 
-        for (int i = 0; i < barrageAttackSettings.projectileCount; i++)
+        for (int i = 0; i < barrageAttackSettings.projectileCount; i++) // TODO WTF is this!!!, holy shit! redo for readability.
         {
             barrageAttackSettings.spawnPoint.rotation = baseRotation
                 * Quaternion.AngleAxis(barrageAttackSettings.verticalOffset, barrageAttackSettings.spawnPoint.right)

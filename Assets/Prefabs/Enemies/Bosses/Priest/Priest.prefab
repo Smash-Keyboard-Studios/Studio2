@@ -61,6 +61,24 @@ MonoBehaviour:
   maxSpeed: 5
   currentAIState: 0
   maxAttackRange: 30
+  beamAttack:
+    coolDown: 5
+    tickDamage: 5
+    tickRate: 0.5
+    windUpTime: 1
+    attackDuration: 2
+    beamRadius: 1
+    beamMaxRange: 999
+    turnSpeedWhileCharging: 1
+    lineRenderer: {fileID: 2550191943753270926}
+  minDistanceForPlayerToRetreat: 3
+  retreatDuration: 5
+  delayUntilRetreatAgain: 5
+  defaultStoppingDistance: 0
+  maxDetectionRange: 30
+  turningSpeed: 5
+  enableVisualDetectionRadius: 0
+  enableVisualDetectionLine: 0
   lightAttackSettings:
     lightAttackDamage: 20
     lightAttackRate: 1
@@ -69,15 +87,6 @@ MonoBehaviour:
     boxCastLength: 3
     boxCastHeight: 1
     boxCastForwardOffset: 1
-  beamAttackSettings:
-    coolDown: 5
-    tickDamage: 5
-    tickRate: 0.5
-    windUpTime: 1
-    attackDuration: 2
-    beamRadius: 1
-    turnSpeedWhileCharging: 2
-    lineRenderer: {fileID: 2550191943753270926}
   barrageAttackSettings:
     spawnPoint: {fileID: 672964371900445091}
     forceForProjectile: 15
@@ -93,16 +102,10 @@ MonoBehaviour:
   globalAttackDelay: 0.5
   timePlayerCloseBeforeRetreating: 5
   distanceTooCloseToPlayer: 2
-  warpPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  turningSpeed: 5
+  warpPoints: []
   layersToCheckFor:
     serializedVersion: 2
     m_Bits: 4294967295
-  maxDetectionRange: 30
-  enableVisualDetectionRadius: 0
-  enableVisualDetectionLine: 0
   showMelee: 0
 --- !u!114 &1595968694445084054
 MonoBehaviour:
@@ -353,15 +356,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d96cc26ee2f2a442870c933d0e33c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseSize: 6
+  numberSizeMultiply: 3
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
   healthLossUseGradient: 1
   healthLossTextGradient: {fileID: 11400000, guid: 4564b6ba0df02634fbf39c366dfd81b1,
     type: 2}
   healthLossTextColor: {r: 1, g: 0, b: 0, a: 1}
   healthLossCharacterSpacing: -30
-  baseSize: 6
-  numberSizeMultiply: 3
-  minRandomMultiplyAmount: 0.4
-  maxRandomMultiplyAmount: 0.4
   healthGainUseGradient: 0
   healthGainTextGradient: {fileID: 0}
   healthGainTextColor: {r: 0, g: 1, b: 0, a: 1}

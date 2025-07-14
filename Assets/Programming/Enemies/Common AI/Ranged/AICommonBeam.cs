@@ -135,7 +135,7 @@ public class AICommonBeam : AIBase
 
         base.Start();
 
-        beamAttack.lineRenderer.enabled = false;
+        beamAttack.SetBeamActive(false);
 
         onStateChanged += ResetRetreatingThinking;
     }
@@ -297,7 +297,7 @@ public class AICommonBeam : AIBase
         isAttacking = true;
         attackAnimationPlaying = true;
 
-        animatorController.SetBool("IsAttacking", true);
+        animatorController.SetBool("IsBeamAttacking", true);
         animatorController.SetBool("IsCharging", true);
 
         // prep the line renderer. might be able to remove as this is also done whilst charging.
@@ -321,7 +321,8 @@ public class AICommonBeam : AIBase
             beamAttack.turnSpeedWhileCharging * Time.deltaTime);
 
             bool hitSomething = Physics.Raycast(transform.position, transform.forward, out RaycastHit hitReturn, beamAttack.beamMaxRange, LayerMask.GetMask("Default"));
-            beamAttack.SetEndPosition(transform.InverseTransformPoint(hitSomething ? hitReturn.point - (-transform.forward.normalized * beamAttack.beamRadius)
+
+            beamAttack.SetEndPosition(transform.InverseTransformPoint(hitSomething ? hitReturn.point + (-transform.forward.normalized * beamAttack.beamRadius)
                 : transform.position + transform.forward * beamAttack.beamMaxRange));
             // TODO capsule cast!
 
@@ -340,7 +341,9 @@ public class AICommonBeam : AIBase
 
         // we then set the line render.
         beamAttack.SetWidth(beamAttack.beamRadius * 2f);
-        beamAttack.SetEndPosition(transform.InverseTransformPoint(hitSuccess ? hit.point : transform.position + transform.forward * beamAttack.beamMaxRange));
+        beamAttack.SetEndPosition(transform.InverseTransformPoint(hitSuccess ? hit.point + (-transform.forward.normalized * beamAttack.beamRadius)
+                : transform.position + transform.forward * beamAttack.beamMaxRange));
+
         beamAttack.SetColor(Color.red);
 
 
@@ -351,7 +354,7 @@ public class AICommonBeam : AIBase
         {
 
             Collider[] colliders = Physics.OverlapCapsule(beamAttack.lineRenderer.transform.position,
-                (hitSuccess ? hit.point - ((-transform.forward) * beamAttack.beamRadius) : transform.position + transform.forward * beamAttack.beamMaxRange),
+                (hitSuccess ? hit.point + ((-transform.forward.normalized) * beamAttack.beamRadius) : transform.position + transform.forward * beamAttack.beamMaxRange),
                 beamAttack.beamRadius, LayerMask.GetMask(Constants.PlayerLayer),
                 QueryTriggerInteraction.Collide);
 
@@ -380,7 +383,7 @@ public class AICommonBeam : AIBase
 
 
 
-        animatorController.SetBool("IsAttacking", false);
+        animatorController.SetBool("IsBeamAttacking", false);
 
         beamAttackCoolDownTimer = beamAttack.coolDown;
 
@@ -411,7 +414,7 @@ public class AICommonBeam : AIBase
 
     public virtual void EndAttack()
     {
-        animatorController.SetBool("IsAttacking", false);
+        animatorController.SetBool("IsBeamAttacking", false);
         attackAnimationPlaying = false;
     }
 
