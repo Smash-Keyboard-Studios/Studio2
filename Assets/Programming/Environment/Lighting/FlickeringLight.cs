@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 
@@ -24,13 +25,9 @@ public class FlickeringLight : MonoBehaviour
     private float _localTime = 0;
     private float _waitTime = 0;
 
-    private Color _emissionColor;
+    private Color _emissionColor; // was going to store the color of the light emission, TODO: figure out later.
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
 
     // Update is called once per frame
     void Update()
@@ -42,25 +39,13 @@ public class FlickeringLight : MonoBehaviour
             LightSource.enabled = !LightSource.enabled;
 
 
+            _waitTime = Random.Range(0, LightSource.enabled ? MaxOnTime : MaxOffTime);
 
-            if (LightSource.enabled)
+            if (LightMaterial != null)
             {
-                _waitTime = Random.Range(0, MaxOnTime);
-
-                if (LightMaterial != null)
-                {
-                    LightMaterial.material.SetColor("_EmissionColor", Color.white);
-                }
+                LightMaterial.material.SetColor("_EmissionColor", LightSource.enabled ? Color.white : Color.black);
             }
-            else
-            {
-                _waitTime = Random.Range(0, MaxOffTime);
 
-                if (LightMaterial != null)
-                {
-                    LightMaterial.material.SetColor("_EmissionColor", Color.black);
-                }
-            }
 
             _localTime = 0;
         }
