@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -44,6 +46,10 @@ public class PlayerCheckpointManager : MonoBehaviour
     /// </summary>
     public bool hasShield = false;
 
+    /// <summary>
+    /// The guid of the checkpoint the player will load to.
+    /// </summary>
+    public string targetCheckpointGuid = string.Empty;
 
 
     void Awake()
@@ -93,7 +99,7 @@ public class PlayerCheckpointManager : MonoBehaviour
     /// <param name="heavyUnlocked">If the heavy attack was unlocked.</param>
     /// <param name="shieldUnlocked">If the shield was unlocked.</param>
     /// <param name="level">What level did the save occur on.</param>
-    public void StorePlayerState(Vector3 playerPosition, bool heavyUnlocked, bool shieldUnlocked, int level)
+    public void StorePlayerState(Vector3 playerPosition, bool heavyUnlocked, bool shieldUnlocked, int level, string checkpointGuid)
     {
         playerLastPosition = playerPosition;
 
@@ -104,6 +110,9 @@ public class PlayerCheckpointManager : MonoBehaviour
         levelWithState = level;
 
         hasPlayerState = true;
+
+        targetCheckpointGuid = checkpointGuid;
+
 
         Debug.Log("Saved player's state");
     }
@@ -125,6 +134,7 @@ public class PlayerCheckpointManager : MonoBehaviour
 
         levelWithState = -1;
 
+        targetCheckpointGuid = string.Empty;
 
         Debug.Log("Last's player state was reset");
     }
@@ -161,6 +171,10 @@ public class PlayerCheckpointManager : MonoBehaviour
         playerObject.GetComponent<PlayerMovementHandler>().enabled = false;
         while (LevelLoading.instance.loading) yield return null;
         playerObject.GetComponent<PlayerMovementHandler>().enabled = true;
+
+        // get the target checkpoint and trigger the event attached to it.
+        GameObject targetCheckpoint = GameObject.FindGameObjectsWithTag(Constants.CheckpointTag).Single(x => x.GetComponent<SavePlayerState>()?.guid == targetCheckpointGuid);
+        targetCheckpoint.GetComponent<SavePlayerState>()?.InvokeLoadCheckpoint(); // TODO, rough way of doing this, should keep the loading level screen enabled.
 
         Debug.Log("Freeing player");
 

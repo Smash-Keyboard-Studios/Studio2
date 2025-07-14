@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 //by    _                 _ _                     
@@ -18,9 +19,30 @@ using UnityEngine.SceneManagement;
 public class SavePlayerState : MonoBehaviour
 {
     /// <summary>
+    /// A string to display the GUID to the inspector, that's it.
+    /// </summary>
+    public string guid = Guid.NewGuid().ToString();
+
+
+    /// <summary>
+    /// Called when the player is loading back to this checkpoint.
+    /// </summary>
+    public UnityEvent onLoadCheckpoint;
+
+
+    /// <summary>
     /// Called when a checkpoint was triggered successfully. Useful for UI display.
     /// </summary>
     public event Action onSaveData;
+
+
+    void OnValidate()
+    {
+        if (string.IsNullOrEmpty(guid)) // we create a new guid
+        {
+            guid = Guid.NewGuid().ToString();
+        }
+    }
 
     /// <summary>
     /// Saves the player's state to the checkpoint manager.
@@ -52,6 +74,11 @@ public class SavePlayerState : MonoBehaviour
 
         // pass in the player's data to be saved.
         PlayerCheckpointManager.instance.StorePlayerState(playerObject.transform.position, playerObject.GetComponent<PlayerAttackHandler>().heavyAttackUnlocked,
-        playerObject.GetComponent<ShieldAbility>().unlockedShield, SceneManager.GetSceneAt(1).buildIndex);
+        playerObject.GetComponent<ShieldAbility>().unlockedShield, SceneManager.GetSceneAt(1).buildIndex, guid);
+    }
+
+    public void InvokeLoadCheckpoint()
+    {
+        onLoadCheckpoint?.Invoke();
     }
 }

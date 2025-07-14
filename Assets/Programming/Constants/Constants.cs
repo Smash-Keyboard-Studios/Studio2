@@ -48,4 +48,6 @@ public class Constants
     public const string ItemLayer = "Item";
 
     public const string DefaultLayer = "Default";
+
+    public const string CheckpointTag = "Checkpoint";
 }
