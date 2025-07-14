@@ -19,11 +19,13 @@ public class FireAOE : MonoBehaviour
 
     public float fireDuration = 3f;
 
+    // we locally store the player refs so we dont do expensive calls multiple times.
     private FireTickManager fireTickManager;
     private IShieldObject playerShield;
 
     void Start()
     {
+        // we try and get the reference.
         if (PlayerReferenceFetcher.instance == null) Debug.LogError($"Cannot get the player reference because the {nameof(PlayerReferenceFetcher)} was not found!");
 
         GameObject playerGO = PlayerReferenceFetcher.instance.GetPlayerReference();
@@ -38,12 +40,12 @@ public class FireAOE : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Constants.PlayerTag))
         {
+            // if the failed to get a reference, try to get it again. // TODO: Error handling for both triggers.
             if (fireTickManager == null) PlayerReferenceFetcher.instance.GetPlayerReference()?.GetComponent<FireTickManager>();
             if (playerShield == null) PlayerReferenceFetcher.instance.GetPlayerReference()?.GetComponent<IShieldObject>();
 
             if (!playerShield.isShieldActive)
             {
-                // print("DAMAGE");
                 fireTickManager.SetOnFire(fireDuration, fireTickDamage);
             }
         }

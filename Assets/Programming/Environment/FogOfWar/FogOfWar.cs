@@ -44,7 +44,7 @@ public class FogOfWar : MonoBehaviour
             miniMapFogRenderer.material.SetFloat("_Opacity", fogRenderer.material.GetFloat("_Opacity"));
         }
 
-        yield return new WaitForSeconds(2f); // Wait for SFX to finish, very hardbaked
+        yield return new WaitForSeconds(2f); // Wait for SFX to finish, very hardbaked // magic number :3
 
         Destroy(this.gameObject); // tells object to stop existing :D
     }
