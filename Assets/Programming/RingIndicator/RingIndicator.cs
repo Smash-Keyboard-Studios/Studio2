@@ -50,30 +50,17 @@ public class RingIndicator : MonoBehaviour
         // stop divide by zero error.
         if (showRing)
         {
-            damageRingGameObject.transform.localScale = Vector3.LerpUnclamped(Vector3.one * startRingDiameter, Vector3.one * endRingDiameter, EaseOutBack(currentRingGrowTime / ringGrowTime));
+            damageRingGameObject.transform.localScale = Vector3.LerpUnclamped(Vector3.one * startRingDiameter, Vector3.one * endRingDiameter, EasingFunctions.EaseOutBack(currentRingGrowTime / ringGrowTime));
         }
         else if ((currentShrinkTime / shrinkTime) > 0)
         {
-            damageRingGameObject.transform.localScale = Vector3.one * endRingDiameter * EaseInOutCubic(currentShrinkTime / shrinkTime);
+            damageRingGameObject.transform.localScale = Vector3.one * endRingDiameter * EasingFunctions.EaseInOutCubic(currentShrinkTime / shrinkTime);
         }
 
 
     }
 
-    // TODO these should be in a static function on a tween class :3 not yet.
-    float EaseOutBack(float x)
-    {
 
-        float c1 = 1.70158f;
-        float c3 = c1 + 1;
-
-        return 1 + c3 * Mathf.Pow(x - 1, 3) + c1 * Mathf.Pow(x - 1, 2);
-    }
-
-    float EaseInOutCubic(float x)
-    {
-        return x < 0.5 ? 4 * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;
-    }
 
     public void ShowRing(float chargeTime, float endRadius, float startRadius = 0)
     {
