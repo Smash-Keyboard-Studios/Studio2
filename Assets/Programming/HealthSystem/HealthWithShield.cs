@@ -15,7 +15,9 @@ using UnityEngine;
 // Redistribution or modification outside of this project is prohibited without explicit written permission.
 // For full license terms, see DOMIBRON_CODE_LICENSE.md at the project root.
 
-
+/// <summary>
+/// Auto shield this should be renamed to, used on enemies.
+/// </summary>
 public class HealthWithShield : HealthWithBasicShield
 {
     [SerializeField]
@@ -24,19 +26,6 @@ public class HealthWithShield : HealthWithBasicShield
 
     private bool resetShield = false;
 
-    protected override void Start()
-    {
-        base.Start();
-    }
-
-
-    public override void Reset()
-    {
-        //currentShieldHealth = maxShieldHealth;
-
-
-        base.Reset();
-    }
 
     void Update()
     {
@@ -51,29 +40,19 @@ public class HealthWithShield : HealthWithBasicShield
         {
             InvokeOnShieldHit();
 
-            // SpawnShieldBlockedText();
-
-            // if (shieldHitIndicator != null) shieldHitIndicator.ShieldHit();
             return false;
         }
 
         AddToHealth(-amount);
 
-        // SpawnDamageText(amount);
-
-        // if (hurtIndicator != null)
-        // {
-        //     hurtIndicator.TakenDamage();
-        // }
-
         return true;
     }
 
-    public override void ActivateShield(bool playSFX = true)
+    public override void ActivateShield()
     {
         //currentShieldHealth = maxShieldHealth;
         resetShield = false;
-        base.ActivateShield(playSFX);
+        base.ActivateShield();
     }
 
     public override void BreakShield()

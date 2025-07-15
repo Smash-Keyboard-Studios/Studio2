@@ -22,31 +22,38 @@ public class HealthWithBasicShield : Health, IShieldObject
 	[SerializeField]
 	protected GameObject shieldObject;
 
-	public bool startShieldAsActive = true;
+	public bool shieldActiveOnStart = true;
 
 	[HideInInspector]
 	public bool shieldActive = true;
 
 	// protected ShieldHitIndicator shieldHitIndicator;
 
-	// audio events
+	/// <summary>
+	/// Called when the shield blocks the hit.
+	/// </summary>
 	public event Action onShieldHit;
+
+	/// <summary>
+	/// Called when the shield is broken.
+	/// </summary>
 	public event Action onShieldBreak;
+
+	/// <summary>
+	/// Called when the shield is activated.
+	/// </summary>
 	public event Action onShieldActivate;
 
-	// public Color shieldTopColor = new Color(0.7f, 1f, 1f);
-	// public Color shieldBottomColor = new Color(0f, 0.6f, 1f);
-
+	/// <summary>
+	/// Get whether the shield is active or not.
+	/// </summary>
+	// TODO remove unnecessary interfaces.
 	bool IShieldObject.isShieldActive { get => shieldActive; }
 
 	protected override void Start()
 	{
-		// hurtIndicator = GetComponent<HurtIndicatorAuto>();
-		// floatingTextSystem = GetComponent<FloatingTextSystem>();
 
-		// shieldHitIndicator = GetComponent<ShieldHitIndicator>();
-
-		if (!startShieldAsActive)
+		if (!shieldActiveOnStart)
 		{
 			currentHealth = maxHealth;
 			calledOnDeathEvent = false;
@@ -60,11 +67,14 @@ public class HealthWithBasicShield : Health, IShieldObject
 		}
 	}
 
+	/// <summary>
+	/// Resets both the health and the shield as well as the on death event.
+	/// </summary>
 	public override void Reset()
 	{
 		base.Reset();
 
-		ActivateShield(false);
+		ActivateShield();
 	}
 
 	public virtual void BreakShield()
@@ -92,29 +102,22 @@ public class HealthWithBasicShield : Health, IShieldObject
 		return base.TakeDamage(amount);
 	}
 
-	public virtual void ActivateShield(bool playSFX = true)
+
+	public virtual void ActivateShield()
 	{
 		shieldActive = true;
 		shieldObject.SetActive(true);
 		InvokeOnShieldActivate();
 	}
 
+	/// <summary>
+	/// Returns if the shield is active, originally was going to return shield health but that was scrapped.
+	/// </summary>
+	/// <returns>Returns 1 if the shield is active and 0 if not</returns>
 	public virtual float GetShieldNormalized()
 	{
 		return (shieldActive ? 1 : 0);
 	}
-
-
-	// protected void SpawnShieldBlockedText()
-	// {
-	// 	if (floatingTextSystem != null)
-	// 	{
-	// 		floatingTextSystem.SpawnTwoToneText("Blocked",
-	// 		shieldTopColor, shieldBottomColor,
-	// 		textSize: (baseSize + (numberSizeMultiply * Mathf.Sqrt(5))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount),
-	// 		characterSpacing: 0);
-	// 	}
-	// }
 
 
 

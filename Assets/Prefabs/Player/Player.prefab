@@ -3082,7 +3082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   shieldObject: {fileID: 1194959756969462176}
-  startShieldAsActive: 0
+  shieldActiveOnStart: 0
   shieldActive: 1
 --- !u!114 &3734973043025581920
 MonoBehaviour:
@@ -3441,7 +3441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b48f79e91d37034cb1f2cd4a3b62c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeAwayCutOffThreshold: 0.3
+  fadeAwayDurationThreshold: 0.05
 --- !u!114 &1525255648917634811
 MonoBehaviour:
   m_ObjectHideFlags: 0

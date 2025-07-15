@@ -62,7 +62,7 @@ public class BossHealthBar : MonoBehaviour
 
         Mask.alpha = fadeTimer;
 
-        canvas.SetActive(overlayVisible);
+        canvas.SetActive(overlayVisible || fadeTimer > 0);
 
 
         healthBar.fillAmount = health.GetHealthNormalized();
