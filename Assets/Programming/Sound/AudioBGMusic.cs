@@ -36,7 +36,10 @@ public class AudioBGMusic : MonoBehaviour
         inBoss2 = playerDetectNearby.boss2Nearby;
         inCombat = playerDetectNearby.enemiesNearby;
 
-        playBGM();
+        if (!LevelLoading.instance.loading)
+        {
+            playBGM();
+        }
     }
 
     private void playBGM()
