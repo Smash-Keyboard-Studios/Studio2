@@ -58,6 +58,11 @@ public class CameraShakeSystem : MonoBehaviour
         else
         {
             cameraShakeTransform.localPosition = cameraPosition;
+            totalShakeTime = 0f;
+            shakeTimer = 0f;
+            shakeIntensity = 0f;
+            verticalShakeFrequency = 50f;
+            horizontalShakeFrequency = 20f;
         }
     }
 
@@ -71,9 +76,12 @@ public class CameraShakeSystem : MonoBehaviour
     /// <param name="horizontalShakeFrequency">How much the camera should modulate horizontally (lest and right).</param>
     public void StartShake(float duration, float shakeIntensity = 0.05f, float verticalShakeFrequency = 50f, float horizontalShakeFrequency = 20f)
     {
-        shakeTimer = duration;
-        totalShakeTime = duration;
-        this.shakeIntensity = shakeIntensity;
+        // add to shake and combine.
+        shakeTimer += duration;
+        totalShakeTime += duration;
+        this.shakeIntensity += shakeIntensity;
+
+        // dont combine or strange things will occur.
         this.verticalShakeFrequency = verticalShakeFrequency;
         this.horizontalShakeFrequency = horizontalShakeFrequency;
     }

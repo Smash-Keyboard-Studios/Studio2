@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // domibron modified.
 
 public class CameraController : MonoBehaviour
 {
-    const float cameraMoveSpeed = 0.05f;
+    // TODO: camera lerps back to normal weirdly, need to fix.
+
+    public float cameraMoveSpeed = 0.05f;
 
 
     private bool cameraMoving = false;
@@ -29,6 +30,7 @@ public class CameraController : MonoBehaviour
             if (cameraMoving == true) localTimer += Time.unscaledDeltaTime * cameraMoveSpeed;
 
             if (localTimer >= 1) cameraMoving = false;
+
 
             transform.position = Vector3.Lerp(cameraCurrentTransform.position, objectToFollow.transform.position, localTimer);
             transform.rotation = Quaternion.Lerp(cameraCurrentTransform.rotation, objectToFollow.transform.rotation, localTimer);

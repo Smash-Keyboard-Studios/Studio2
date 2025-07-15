@@ -15,41 +15,47 @@ using UnityEngine;
 /// <summary>
 /// The health class to give objects health.
 /// </summary>
-
 public class Health : MonoBehaviour, IDamageable
 {
+    /// <summary>
+    /// The max health of the entity.
+    /// </summary>
     [Header("Health Settings")]
     [SerializeField]
     protected float maxHealth = 100;
 
+    /// <summary>
+    /// The current health of the entity.
+    /// </summary>
     protected float currentHealth;
 
 
 
-
+    /// <summary>
+    /// Used to only trigger the on death event once.
+    /// </summary>
     protected bool calledOnDeathEvent = false;
 
     // protected HurtIndicatorAuto hurtIndicator;
     // protected FloatingTextSystem floatingTextSystem;
 
+    /// <summary>
+    /// Called once when the entity has no more health left.
+    /// </summary>
+    /// 
     public event Action onDeath;
+    /// <summary>
+    /// Called when taking damage, provided float is how much damage to take (its positive).
+    /// </summary>
     public event Action<float> onTakeDamage;
+
+    /// <summary>
+    /// Called when adding to the health, the provided float is what to add to the health.
+    /// </summary>
     public event Action<float> onAddToHealth;
-
-    // public float baseSize = 6f;
-    // public float numberSizeMultiply = 3f;
-    // public float minRandomMultiplyAmount = 0.4f;
-    // public float maxRandomMultiplyAmount = 0.4f;
-
-    // public Color topColor = new Color(1, 0.8f, 0.1f);
-    // public Color bottomColor = new Color(1, 0, 0);
 
     protected virtual void Start()
     {
-        // hurtIndicator = GetComponent<HurtIndicatorAuto>();
-        // floatingTextSystem = GetComponent<FloatingTextSystem>();
-
-
         Reset();
     }
 
@@ -82,19 +88,14 @@ public class Health : MonoBehaviour, IDamageable
         }
     }
 
-    public virtual bool TakeDamage(float amount) // from the interface.
+    /// <summary>
+    /// Part of the IDamageable interface. Removes the amount from the current health.
+    /// </summary>
+    /// <param name="amount">How much damage to take (negative will heal).</param>
+    /// <returns>Whether taking damage was successful or not.</returns>
+    public virtual bool TakeDamage(float amount) // TODO: from the interface. Should be replaced with Add to health
     {
         AddToHealth(-amount);
-
-
-        // SpawnDamageText(amount);
-
-
-
-        // if (hurtIndicator != null)
-        // {
-        //     hurtIndicator.TakenDamage();
-        // }
 
 
         InvokeOnTakeDamage(amount);
@@ -102,16 +103,6 @@ public class Health : MonoBehaviour, IDamageable
 
         return true;
     }
-
-    // protected void SpawnDamageText(float amount)
-    // {
-    //     if (floatingTextSystem != null)
-    //     {
-    //         floatingTextSystem.SpawnTwoToneText(amount.ToString("F0"),
-    //         topColor, bottomColor,
-    //         textSize: (baseSize + (numberSizeMultiply * Mathf.Sqrt(amount))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount));
-    //     }
-    // }
 
     /// <summary>
     /// Gets a normalized version of the health aka as a percentage from 0 to 1.
@@ -122,21 +113,38 @@ public class Health : MonoBehaviour, IDamageable
         return currentHealth / maxHealth;
     }
 
+    /// <summary>
+    /// Returns the current health value.
+    /// </summary>
+    /// <returns>The health value.</returns>
     public virtual float ReturnHealthValue()
     {
         return currentHealth;
     }
 
+    // ! These functions exist as you cannot call these events when inheriting.
+
+    /// <summary>
+    /// Calls the onTakeDamage event.
+    /// </summary>
+    /// <param name="amount">The amount of damage to take (positive number).</param>
     protected void InvokeOnTakeDamage(float amount)
     {
         onTakeDamage?.Invoke(amount);
     }
 
+    /// <summary>
+    /// Calls the onAddToHealth event.
+    /// </summary>
+    /// <param name="amount">The amount to add to the current health value.</param>
     protected void InvokeOnAddToHealth(float amount)
     {
         onAddToHealth?.Invoke(amount);
     }
 
+    /// <summary>
+    /// Calls the onDeath event.
+    /// </summary>
     protected void InvokeOnDeath()
     {
         onDeath?.Invoke();

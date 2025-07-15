@@ -306,7 +306,7 @@ public class AIImprovedCommonRanged : AIBase
     protected virtual IEnumerator BasicProjectileAttack()
     {
         isAttacking = true;
-        animatorController.SetBool("IsAttacking", true);
+        animatorController.SetBool("IsRangeAttacking", true);
         attackAnimationPlaying = true;
 
 
@@ -349,7 +349,7 @@ public class AIImprovedCommonRanged : AIBase
 
     public virtual void EndAttack()
     {
-        animatorController.SetBool("IsAttacking", false);
+        animatorController.SetBool("IsRangeAttacking", false);
         attackAnimationPlaying = false;
 
     }

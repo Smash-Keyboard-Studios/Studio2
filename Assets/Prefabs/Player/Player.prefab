@@ -2941,6 +2941,7 @@ GameObject:
   - component: {fileID: 7017953065027804687}
   - component: {fileID: 2731638991099968151}
   - component: {fileID: 6623470930321279432}
+  - component: {fileID: 1525255648917634811}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3440,6 +3441,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b48f79e91d37034cb1f2cd4a3b62c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeAwayCutOffThreshold: 0.3
+--- !u!114 &1525255648917634811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005257603024285522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d31e5b1ee900fcb47ae90a5c64a5e24d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.3
+  shakeIntensity: 0.03
+  increaseIntensityFromDamage: 0.2
 --- !u!1 &5031218017895963573
 GameObject:
   m_ObjectHideFlags: 0
@@ -4567,6 +4584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 667fdf0f216fe7249865e8c345f9bfed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraMoveSpeed: 0.05
   objectToFollow: {fileID: 0}
 --- !u!1 &6351334737325526325
 GameObject:
