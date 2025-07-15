@@ -35,6 +35,8 @@ public class BaseCommands
     public static Command removeDialog;
     public static Command removeHud;
 
+    public static Command<float> setAttackDamage;
+
 
     public BaseCommands(DebugConsole console)
     {
@@ -301,6 +303,26 @@ public class BaseCommands
             console.TextToConsole("Toggled");
         });
 
+        setAttackDamage = new Command<float>("setdmg", "sets the player light attack damage", "setdmg", (x) =>
+        {
+#nullable enable
+            GameObject? go = GameObject.FindGameObjectWithTag("Player");
+#nullable restore
+            if (go != null && go.transform.name == "Player")
+            {
+
+                go.GetComponent<PlayerAttackHandler>().lightAttackDamage = x;
+
+                console.TextToConsole($"Setted the damage");
+
+            }
+            else
+            {
+                console.TextToConsole("Cannot find the player");
+                return;
+            }
+        });
+
         // foreach
 
 
@@ -319,6 +341,7 @@ public class BaseCommands
             noClip,
             unlockAllAbilities,
             removeHud,
+            setAttackDamage,
         };
 
         foreach (var command in commandsToAdd)

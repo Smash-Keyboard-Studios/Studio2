@@ -32,21 +32,16 @@ public class Health : MonoBehaviour, IDamageable
     /// </summary>
     protected float currentHealth;
 
-
-
     /// <summary>
     /// Used to only trigger the on death event once.
     /// </summary>
     protected bool calledOnDeathEvent = false;
 
-    // protected HurtIndicatorAuto hurtIndicator;
-    // protected FloatingTextSystem floatingTextSystem;
-
     /// <summary>
     /// Called once when the entity has no more health left.
     /// </summary>
-    /// 
     public event Action onDeath;
+
     /// <summary>
     /// Called when taking damage, provided float is how much damage to take (its positive).
     /// </summary>
@@ -61,7 +56,6 @@ public class Health : MonoBehaviour, IDamageable
     {
         Reset();
     }
-
 
     /// <summary>
     /// Resets the health and on death event. Used for re-spawning.
@@ -86,7 +80,7 @@ public class Health : MonoBehaviour, IDamageable
 
         if (currentHealth <= 0 && !calledOnDeathEvent)
         {
-            calledOnDeathEvent = true;
+            calledOnDeathEvent = true; // prevent spamming the event.
             InvokeOnDeath();
         }
     }
