@@ -355,7 +355,7 @@ public class ImprovedPriestAI : AICommonBeam
     /// </summary>
     public virtual void AnimationAttackFinished()
     {
-        animatorController.SetBool("IsBeamAttacking", false);
+        animatorController.SetBool("IsRangeAttacking", false);
         animatorController.SetBool("IsMeleeAttacking", false);
         animatorController.SetBool("IsCharging", false);
 
@@ -396,9 +396,9 @@ public class ImprovedPriestAI : AICommonBeam
         isAttacking = true;
         attackAnimationPlaying = true;
 
-        // animatorController.SetBool("IsBeamAttacking", false);
+        // animatorController.SetBool("IsRangeAttacking", false);
 
-        animatorController.SetBool("IsBeamAttacking", true);
+        animatorController.SetBool("IsRangeAttacking", true);
         animatorController.SetBool("IsCharging", true);
 
         while (barrageWindUpTimer < barrageAttackSettings.windUpTime)
@@ -438,7 +438,7 @@ public class ImprovedPriestAI : AICommonBeam
         }
 
 
-        animatorController.SetBool("IsBeamAttacking", false);
+        animatorController.SetBool("IsRangeAttacking", false);
         barrageAttackCoolDownTimer = barrageAttackSettings.attackCoolDown;
 
         globalAttackCoolDown = globalAttackDelay;

@@ -297,7 +297,7 @@ public class AICommonBeam : AIBase
         isAttacking = true;
         attackAnimationPlaying = true;
 
-        animatorController.SetBool("IsBeamAttacking", true);
+        animatorController.SetBool("IsRangeAttacking", true);
         animatorController.SetBool("IsCharging", true);
 
         // prep the line renderer. might be able to remove as this is also done whilst charging.
@@ -383,7 +383,7 @@ public class AICommonBeam : AIBase
 
 
 
-        animatorController.SetBool("IsBeamAttacking", false);
+        animatorController.SetBool("IsRangeAttacking", false);
 
         beamAttackCoolDownTimer = beamAttack.coolDown;
 
@@ -414,7 +414,7 @@ public class AICommonBeam : AIBase
 
     public virtual void EndAttack()
     {
-        animatorController.SetBool("IsBeamAttacking", false);
+        animatorController.SetBool("IsRangeAttacking", false);
         attackAnimationPlaying = false;
     }
 

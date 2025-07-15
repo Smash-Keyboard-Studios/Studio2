@@ -58,11 +58,12 @@ public class HealthFloatingNumberSystem : MonoBehaviour
         health.onAddToHealth += AddToHealth;
     }
 
-    protected virtual void AddToHealth(float amount)
+    protected virtual void AddToHealth(float amount) // TODO: redo for readability. Remove magic numbers
     {
-        if (amount == 0) return; // down want 0 or -1 on screen.
+        if (amount == 0) return; // we dont want 0 on screen.
 
-        if (amount < 0)
+        if (amount < 0) // did we take damage.
+        {
             if (healthLossUseGradient)
             {
                 floatingTextSystem.SpawnText(Mathf.Abs(amount).ToString("F0"),
@@ -77,7 +78,8 @@ public class HealthFloatingNumberSystem : MonoBehaviour
                     textSize: (baseSize + (numberSizeMultiply * Mathf.Sqrt(5))) * UnityEngine.Random.Range(minRandomMultiplyAmount, maxRandomMultiplyAmount),
                     characterSpacing: healthLossCharacterSpacing);
             }
-        else
+        }
+        else // we gotten heald.
         {
             if (healthGainUseGradient)
             {
