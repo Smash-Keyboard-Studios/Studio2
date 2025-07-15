@@ -18,14 +18,14 @@ public class CameraShakeSystem : MonoBehaviour
 {
     public static CameraShakeSystem instance;
 
-    public float fadeAwayCutOffThreshold = 0.3f;
+    public float fadeAwayDurationThreshold = 0.05f;
 
 
     private Transform cameraShakeTransform;
     private Vector3 cameraPosition;
 
     private float shakeTimer = 0f;
-    private float totalShakeTime = 0f;
+    //private float totalShakeTime = 0f;
     private float verticalShakeFrequency = 0f;
     private float horizontalShakeFrequency = 0f;
     private float shakeIntensity = 0f;
@@ -52,8 +52,8 @@ public class CameraShakeSystem : MonoBehaviour
         {
             shakeTimer -= Time.deltaTime;
 
-            float shakeFadeAway = shakeTimer / totalShakeTime;
-            if (shakeFadeAway < fadeAwayCutOffThreshold) shakeFadeAway = 0f; // we set to zero to get rid of micro shakes.
+            float shakeFadeAway = Mathf.Clamp01(shakeTimer / fadeAwayDurationThreshold);
+            //if (shakeFadeAway < fadeAwayDurationThreshold) shakeFadeAway = 0f; // we set to zero to get rid of micro shakes.
 
             cameraShakeTransform.localPosition = cameraPosition
                 + new Vector3(Mathf.Sin(shakeTimer * horizontalShakeFrequency) * shakeIntensity * shakeFadeAway, Mathf.Sin(shakeTimer * verticalShakeFrequency) * shakeIntensity * shakeFadeAway, 0);
@@ -62,7 +62,7 @@ public class CameraShakeSystem : MonoBehaviour
         else
         {
             cameraShakeTransform.localPosition = cameraPosition;
-            totalShakeTime = 0f;
+            //totalShakeTime = 0f;
             shakeTimer = 0f;
             shakeIntensity = 0f;
             verticalShakeFrequency = 50f;
@@ -80,9 +80,11 @@ public class CameraShakeSystem : MonoBehaviour
     /// <param name="horizontalShakeFrequency">How much the camera should modulate horizontally (lest and right).</param>
     public void StartShake(float duration, float shakeIntensity = 0.05f, float verticalShakeFrequency = 50f, float horizontalShakeFrequency = 20f)
     {
+        // ? maybe a frequency multiplier so frequencies can be combined? Then vert and horz can be parameters.
+
         // add to shake and combine.
-        shakeTimer += duration;
-        totalShakeTime += duration;
+        if (shakeTimer < duration) shakeTimer = duration;
+        //totalShakeTime += duration;
         this.shakeIntensity += shakeIntensity;
 
         // dont combine or strange things will occur.
