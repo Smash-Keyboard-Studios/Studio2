@@ -16,28 +16,13 @@ using UnityEngine.AI;
 // Redistribution or modification outside of this project is prohibited without explicit written permission.
 // For full license terms, see DOMIBRON_CODE_LICENSE.md at the project root.
 
-[Serializable]
-public class ProjectileAttackSettings
-{
-    public float maxAttackRange = 7f;
-
-    public float attackCoolDown = 1f;
-
-    public float projectileSpeed = 10f;
-
-    public float projectileDamage = 5f;
-
-    public GameObject projectilePrefab;
-}
-
-
 /// <summary>
 /// Replacement for the current common ranged AI.
 /// </summary>
 public class AIImprovedCommonRanged : AIBase
 {
     [SerializeField]
-    protected ProjectileAttackSettings projectileAttackSettings;
+    protected ProjectileAttack projectileAttackSettings;
 
 
     public float minDistanceForPlayerToRetreat = 3f;

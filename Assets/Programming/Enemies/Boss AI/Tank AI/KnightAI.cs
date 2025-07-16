@@ -16,75 +16,6 @@ using UnityEngine;
 // For full license terms, see DOMIBRON_CODE_LICENSE.md at the project root.
 
 
-[Serializable]
-public class SlamAttack
-{
-	#region Slam cool down settings
-	[Header("Tank Slam Attack")]
-
-	public float slamAttackRateCoolDown = 5f;
-
-	#endregion
-
-
-
-	#region Wind up for slam
-	[Header("Slam wind up settings")]
-	public float slamWindUpTime = 1f;
-
-	#endregion
-
-
-
-	#region Slam size and damage variables
-	[Header("Slam size and damage")]
-
-	public float slamMaxRadius = 8f;
-
-	public float slamAttackDamageAtMaxRange = 15f;
-
-	[Space]
-
-	public float slamMinRadius = 5;
-
-	public float slamAttackDamageAtMinRange = 55f;
-
-	#endregion
-
-
-
-	#region Slam Requirements for activating variables
-	[Header("Slam Requirements for activating")]
-
-	public float minimumDistanceForForceSlam = 5f;
-
-	public float timeWithinRadiusBeforeSlam = 3f;
-	#endregion
-}
-
-[Serializable]
-public class SerratedAttackSlash
-{
-	[Header("Serrated Slash Settings")]
-
-	// cool down
-	public float serratedSlashCoolDown = 10f;
-
-	// activation requirements
-	public float minimumDistanceForSerratedSlash = 4f;
-
-	// wind up
-	public float serratedSlashWindUpTime = 0.5f;
-
-	// damage and radius
-	public float serratedSlashRadius = 5f;
-
-	public float serratedSlashDamage = 2f;
-
-	public float serratedSlashTickLength = 0.25f;
-
-	public float serratedSlashAttackDuration = 1f;
-}
 
 /// <summary>
 /// Special Tank AI behavior class. Controls movement, attacking and thinking.
@@ -110,7 +41,7 @@ public class KnightAI : GruntAI
 	#region Serrated Slash
 	[Header("Serrated Slash Settings")]
 	[SerializeField]
-	protected SerratedAttackSlash serratedSlashAttackClass;
+	protected SerrateSlashAttack serratedSlashAttackClass;
 
 	protected float serratedSlashCoolDownTimer = 0f;
 	#endregion
@@ -146,13 +77,13 @@ public class KnightAI : GruntAI
 
 
 
-	#region Audio Events
+	#region Events
 
-	public event Action onSlamAttackStartSFXPlayOnce; // TODO replace with better universal events.
-	public event Action onSlamHitGroundSFXPlayOnce;
+	public event Action onSlamAttackStart;
+	public event Action onSlamHit;
 
-	public event Action onSlashAttackSFXPlay;
-	public event Action onSlashAttackSFXStop;
+	public event Action onStartSerratedAttack;
+	public event Action onEndSerratedAttack;
 
 	#endregion
 
@@ -321,7 +252,7 @@ public class KnightAI : GruntAI
 		slamWindUpTimer = slamAttackClass.slamWindUpTime;
 		isSlamWindingUp = true;
 
-		SpecialAttackStartSFXPlayOnce();
+		InvokeOnSlamAttackStart();
 
 		while (isSlamWindingUp) yield return null;
 
@@ -370,7 +301,7 @@ public class KnightAI : GruntAI
 	/// </summary>
 	protected virtual void SlamAttackCheckAndDamage()
 	{
-		SpecialHitGroundSFXPlayOnce();
+		InvokeOnSlamHit();
 
 		Collider[] HitObjects = Physics.OverlapSphere(transform.position, slamAttackClass.slamMaxRadius,
 					layersToCheckFor, QueryTriggerInteraction.Ignore);
@@ -400,24 +331,7 @@ public class KnightAI : GruntAI
 
 
 	#region DamageInRadius
-	private void DamageInRadius(float radius, float damage)
-	{
-		Collider[] HitObjects = Physics.OverlapSphere(transform.position, radius,
-					layersToCheckFor, QueryTriggerInteraction.Ignore);
 
-		if (HitObjects.Length > 0)
-		{
-			foreach (var hitObject in HitObjects)
-			{
-				if (hitObject.gameObject.CompareTag(Constants.PlayerTag))
-				{
-					float distanceFromPlayer = Vector3.Distance(hitObject.transform.position, transform.position);
-
-					hitObject.GetComponent<IDamageable>()?.TakeDamage(damage);
-				}
-			}
-		}
-	}
 	#endregion
 
 
@@ -435,7 +349,7 @@ public class KnightAI : GruntAI
 		attacking = true;
 
 		attackAnimationPlaying = true;
-
+		InvokeOnStartSerratedAttack();
 
 		damageRingIndicator.ShowRing(serratedSlashAttackClass.serratedSlashWindUpTime, serratedSlashAttackClass.serratedSlashRadius);
 
@@ -445,19 +359,23 @@ public class KnightAI : GruntAI
 		yield return new WaitForSeconds(serratedSlashAttackClass.serratedSlashWindUpTime);
 
 		animatorController.SetBool("IsCharging", false);
+		damageRingIndicator.HideRing();
 
+		// TODO display damage cone or something. either code or in animation.
 
 		localTimer = 0f;
 		while (localTimer < serratedSlashAttackClass.serratedSlashAttackDuration)
 		{
-			DamageInRadius(serratedSlashAttackClass.serratedSlashRadius, serratedSlashAttackClass.serratedSlashDamage);
+			serratedSlashAttackClass.DamageInRadius(transform, layersToCheckFor);
+
 			yield return new WaitForSeconds(serratedSlashAttackClass.serratedSlashTickLength);
+
 			localTimer += serratedSlashAttackClass.serratedSlashTickLength;
 		}
 
 		animatorController.SetBool("IsSlashAttack", false);
 
-		damageRingIndicator.HideRing();
+		InvokeEndOnSerratedAttack();
 
 		while (attackAnimationPlaying) yield return null;
 
@@ -507,19 +425,35 @@ public class KnightAI : GruntAI
 
 	#region Event Invoke Functions
 	/// <summary>
-	/// Invokes the onSpecialAttackStartSFXPlayOnce event;
+	/// Invokes the onSlamAttackStart event;
 	/// </summary>
-	protected virtual void SpecialAttackStartSFXPlayOnce()
+	protected virtual void InvokeOnSlamAttackStart()
 	{
-		onSlamAttackStartSFXPlayOnce?.Invoke();
+		onSlamAttackStart?.Invoke();
 	}
 
 	/// <summary>
-	/// Invokes the onSpecialHitGroundSFXPlayOnce event;
+	/// Invokes the onSlamHit event;
 	/// </summary>
-	protected virtual void SpecialHitGroundSFXPlayOnce()
+	protected virtual void InvokeOnSlamHit()
 	{
-		onSlamHitGroundSFXPlayOnce?.Invoke();
+		onSlamHit?.Invoke();
+	}
+
+	/// <summary>
+	/// Invokes the onStartSerratedAttack event;
+	/// </summary>
+	protected virtual void InvokeOnStartSerratedAttack()
+	{
+		onStartSerratedAttack?.Invoke();
+	}
+
+	/// <summary>
+	/// Invokes the onEndSerratedAttacks event;
+	/// </summary>
+	protected virtual void InvokeEndOnSerratedAttack()
+	{
+		onEndSerratedAttack?.Invoke();
 	}
 	#endregion
 }

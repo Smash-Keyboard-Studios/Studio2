@@ -35,12 +35,12 @@ public class KnightAIAudio : GruntAIAudio
 
 	protected override void SubscribeToAudioEvents()
 	{
-		knightAI.onSlamAttackStartSFXPlayOnce += OnSlamAttackStartSFXPlayOnce;
+		knightAI.onSlamAttackStart += OnSlamAttackStartSFXPlayOnce;
 
-		knightAI.onSlamHitGroundSFXPlayOnce += OnSlamHitGroundSFXPlayOnce;
+		knightAI.onSlamHit += OnSlamHitGroundSFXPlayOnce;
 
-		knightAI.onSlashAttackSFXPlay += OnSlashAttackSFXPlay;
-		knightAI.onSlashAttackSFXStop += OnSlashAttackSFXStop;
+		knightAI.onStartSerratedAttack += OnSlashAttackSFXPlay;
+		knightAI.onEndSerratedAttack += OnSlashAttackSFXStop;
 
 		base.SubscribeToAudioEvents();
 	}

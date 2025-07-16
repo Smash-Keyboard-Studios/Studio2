@@ -15,29 +15,6 @@ using UnityEngine;
 // Redistribution or modification outside of this project is prohibited without explicit written permission.
 // For full license terms, see DOMIBRON_CODE_LICENSE.md at the project root.
 
-[Serializable]
-public class BarrageAttackSettings
-{
-    public Transform spawnPoint;
-
-    public float forceForProjectile = 15f;
-
-    public GameObject projectilePrefab;
-
-    public float attackCoolDown = 5f;
-
-    public int projectileCount = 6;
-
-    public float verticalOffset = 10f;
-
-    public float horizontalDisplacement = 10f;
-
-    public float verticalDisplacement = 10f;
-
-    public float delayPerShot = 1f;
-
-    public float windUpTime = 2f;
-}
 
 public class ImprovedPriestAI : AICommonBeam
 {
@@ -55,7 +32,7 @@ public class ImprovedPriestAI : AICommonBeam
 
 
 
-    public BarrageAttackSettings barrageAttackSettings;
+    public BarrageAttack barrageAttackSettings;
 
     protected float barrageWindUpTimer = 0f;
 
@@ -166,13 +143,6 @@ public class ImprovedPriestAI : AICommonBeam
     /// </summary>
     protected override void AlertedThinking()
     {
-        /*
-        AI checklist
-        Melee attack for when all attacks are on cool down.
-        Beam attack with 4 cannons. 2 each side. fire in sequence. separate firing class with Fire function. // Lol no, maybe later or never.
-        Barrage attack.
-        Warp away to keep distance.
-        */
 
         if (!isAttacking)
         {
@@ -373,22 +343,7 @@ public class ImprovedPriestAI : AICommonBeam
     /// </summary>
     public virtual void MeleeAttackCheckAndDamage()
     {
-        Collider[] HitObjects = Physics.OverlapBox(transform.position + (transform.forward * lightAttackSettings.boxCastForwardOffset),
-            new Vector3(lightAttackSettings.boxCastLength, lightAttackSettings.boxCastHeight, lightAttackSettings.boxCastDepth) / 2f,
-            transform.rotation, layersToCheckFor);
-
-
-        if (HitObjects.Length > 0)
-        {
-            foreach (var hitObject in HitObjects)
-            {
-                //print(hitObject.name);
-                if (hitObject.gameObject.CompareTag(Constants.PlayerTag))
-                {
-                    hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackSettings.lightAttackDamage);
-                }
-            }
-        }
+        lightAttackSettings.CheckAndDamage(transform, layersToCheckFor);
     }
     #endregion
 
@@ -398,8 +353,6 @@ public class ImprovedPriestAI : AICommonBeam
     {
         isAttacking = true;
         attackAnimationPlaying = true;
-
-        // animatorController.SetBool("IsRangeAttacking", false);
 
         animatorController.SetBool("IsRangeAttacking", true);
         animatorController.SetBool("IsCharging", true);
@@ -418,25 +371,23 @@ public class ImprovedPriestAI : AICommonBeam
 
         barrageAttackSettings.spawnPoint.rotation = Quaternion.LookRotation((playerTarget.position + Vector3.down) - transform.position);
         // player target - up is so we can hit the floor, this is a AOE attack not a direct attack.
-        if (Vector3.Distance(playerTarget.position, transform.position) > 10f) // Dont know if we need this as the arc might hit directly now.
-            barrageAttackSettings.spawnPoint.localRotation = Quaternion.Euler(GetAngleForFireProjectile(barrageAttackSettings.spawnPoint.position,
+        if (Vector3.Distance(playerTarget.position, transform.position) > 10f)
+        { // Dont know if we need this as the arc might hit directly now.
+            barrageAttackSettings.spawnPoint.localRotation = Quaternion.Euler(barrageAttackSettings.GetAngleForFireProjectile(barrageAttackSettings.spawnPoint.position,
                 playerTarget.position + Vector3.down, barrageAttackSettings.forceForProjectile), 0, 0);
+        }
 
         Quaternion baseRotation = barrageAttackSettings.spawnPoint.rotation;
 
 
         for (int i = 0; i < barrageAttackSettings.projectileCount; i++) // TODO WTF is this!!!, holy shit! redo for readability.
         {
-            barrageAttackSettings.spawnPoint.rotation = baseRotation
-                * Quaternion.AngleAxis(barrageAttackSettings.verticalOffset, barrageAttackSettings.spawnPoint.right)
-                * Quaternion.AngleAxis(UnityEngine.Random.Range(-barrageAttackSettings.horizontalDisplacement, barrageAttackSettings.horizontalDisplacement),
-                    barrageAttackSettings.spawnPoint.up)
-                * Quaternion.AngleAxis(UnityEngine.Random.Range(-barrageAttackSettings.verticalDisplacement, barrageAttackSettings.verticalDisplacement),
-                    barrageAttackSettings.spawnPoint.right);
-
+            barrageAttackSettings.spawnPoint.rotation = baseRotation * barrageAttackSettings.GenerateProjectileAngle();
 
             GameObject go = Instantiate(barrageAttackSettings.projectilePrefab, barrageAttackSettings.spawnPoint.position, barrageAttackSettings.spawnPoint.rotation);
+
             go.GetComponent<Rigidbody>().AddForce(go.transform.forward * barrageAttackSettings.forceForProjectile, ForceMode.Impulse);
+
             yield return new WaitForSeconds(barrageAttackSettings.delayPerShot);
         }
 
@@ -452,32 +403,6 @@ public class ImprovedPriestAI : AICommonBeam
         while (attackAnimationPlaying) yield return null;
 
         isAttacking = false;
-    }
-    #endregion
-
-    #region GetAngleForFireProjectile
-    protected float GetAngleForFireProjectile(Vector3 startPos, Vector3 targetPos, float force)
-    {
-        float gravity = Mathf.Abs(Physics.gravity.y);
-
-        float distance = Vector2.Distance(new Vector2(startPos.x, startPos.z), new Vector2(targetPos.x, targetPos.z));
-        float heightOffset = startPos.y - targetPos.y;
-        //subtract to get direct curve and adding is high curve.
-        //A = arctan((v^2 ± SQRT(v^4 - g(gx^2 + 2yv^2)))/gx)
-
-        //float angle01 = Mathf.Atan((Mathf.Pow(force, 2) + Mathf.Sqrt(Mathf.Pow(force, 4) - (Physics.gravity.y * (Physics.gravity.y * Mathf.Pow(distance, 2) + (2 * heightOffset) * Mathf.Pow(force, 2))))) / (Physics.gravity.y * distance));
-
-        //print("Angle 01 : " + angle01);
-
-        float angle02 = Mathf.Atan((Mathf.Pow(force, 2) - Mathf.Sqrt(Mathf.Pow(force, 4) - (Physics.gravity.y * (Physics.gravity.y * Mathf.Pow(distance, 2) + (2 * heightOffset) * Mathf.Pow(force, 2))))) / (Physics.gravity.y * distance));
-
-        //print("Angle 02 : " + angle02);
-
-        //float angleResult = Mathf.Min(angle01, angle02);
-        float angleResult = angle02;
-
-        //print("Angle : " + angleResult * Mathf.Rad2Deg);
-        return angleResult * Mathf.Rad2Deg;
     }
     #endregion
 
