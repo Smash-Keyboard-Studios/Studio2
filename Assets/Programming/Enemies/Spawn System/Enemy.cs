@@ -1,3 +1,6 @@
+using System;
+using UnityEngine;
+
 //by    _                 _ _                     
 //     | |               (_) |                    
 //   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
@@ -11,11 +14,18 @@
 
 
 /// <summary>
-/// The AI States, should dictate thinking.
+/// Used to store data in the aiSpawnList, as dictionaries cannot serialize.
 /// </summary>
-public enum AIState
+[Serializable]
+public struct Enemy
 {
-    Idle,
-    Alerted,
-    Retreating,
+    /// <summary>
+    /// The id for the associated enemy prefab.
+    /// </summary>
+    public int id;
+
+    /// <summary>
+    /// The enemy prefab associated with the id.
+    /// </summary>
+    public GameObject prefab;
 }

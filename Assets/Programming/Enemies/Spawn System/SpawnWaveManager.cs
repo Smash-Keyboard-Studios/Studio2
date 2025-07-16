@@ -16,25 +16,8 @@ using UnityEngine.Events;
 // Redistribution or modification outside of this project is prohibited without explicit written permission.
 // For full license terms, see DOMIBRON_CODE_LICENSE.md at the project root.
 
-/// <summary>
-/// Alternative to using list or dictionary for spawn parameters.
-/// </summary>
-[Serializable]
-public struct EnemiesInWaveData
-{
-    public int id;
-    public int amount;
-}
 
-/// <summary>
-/// Stores the wait time for the wave and the enemies to spawn.
-/// </summary>
-[Serializable]
-public struct WaveData
-{
-    public float delayBeforeWaveStart;
-    public EnemiesInWaveData[] EnemiesInWave;
-}
+
 
 
 public class SpawnWaveManager : SpawnHandler

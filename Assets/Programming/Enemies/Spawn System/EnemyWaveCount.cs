@@ -1,3 +1,5 @@
+using System;
+
 //by    _                 _ _                     
 //     | |               (_) |                    
 //   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
@@ -11,11 +13,11 @@
 
 
 /// <summary>
-/// The AI States, should dictate thinking.
+/// Alternative to using list or dictionary for spawn parameters.
 /// </summary>
-public enum AIState
+[Serializable]
+public class EnemyWaveCount
 {
-    Idle,
-    Alerted,
-    Retreating,
+    public int id;
+    public int amount;
 }

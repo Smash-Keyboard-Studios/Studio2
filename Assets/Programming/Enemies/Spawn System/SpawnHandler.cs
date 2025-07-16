@@ -169,11 +169,11 @@ public class SpawnHandler : MonoBehaviour
     }
     #endregion
 
-    protected List<int> ConvertEnemiesInWaveToIDList(EnemiesInWaveData[] enemyInWaveData)
+    protected List<int> ConvertEnemiesInWaveToIDList(EnemyWaveCount[] enemyInWaveData)
     {
         // I swear there is a func or something built in to create a collection of the same value.
         List<int> listToReturn = new List<int>();
-        foreach (EnemiesInWaveData enemy in enemyInWaveData)
+        foreach (EnemyWaveCount enemy in enemyInWaveData)
         {
             for (int i = 0; i < enemy.amount; i++)
             {
