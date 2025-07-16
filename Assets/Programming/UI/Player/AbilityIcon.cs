@@ -19,18 +19,18 @@ using UnityEngine.UI;
 
 public class AbilityIcon : MonoBehaviour
 {
-    public Image coolDownOverlayImage;
-    public TMP_Text coolDownText;
+    [Header("Heavy Icon")]
+    public Image heavyCoolDownOverlayImage;
+    public TMP_Text heavyCoolDownText;
 
-    public GameObject iconObject;
+    public GameObject heavyIconObject;
 
-    public enum AbilityType
-    {
-        HeavyAttack,
-        Shield,
-    }
+    [Header("Shield Icon")]
+    public Image shieldCoolDownOverlayImage;
+    public TMP_Text shieldCoolDownText;
 
-    public AbilityType abilityType;
+    public GameObject shieldIconObject;
+
 
     private PlayerAttackHandler playerAttackHandler;
     private ShieldAbility shieldAbility;
@@ -46,78 +46,81 @@ public class AbilityIcon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (abilityType == AbilityType.HeavyAttack)
+        HandleHeavyIcon();
+        HandleShieldIcon();
+    }
+
+    private void HandleShieldIcon()
+    {
+        if (!shieldAbility.unlockedShield)
         {
-            if (!playerAttackHandler.heavyAttackUnlocked)
-            {
-                iconObject.SetActive(false);
+            shieldIconObject.SetActive(false);
 
-                // coolDownOverlayImage.fillAmount = 1;
-                // coolDownText.text = string.Empty;
+            // coolDownOverlayImage.fillAmount = 1;
+            // coolDownText.text = string.Empty;
 
-                return;
-            }
-            else
-            {
-                iconObject.SetActive(true);
-            }
-
-            if (playerAttackHandler.GetChargedHeavyAmountNormalized() > 0)
-            {
-                // if we are charging.
-                coolDownOverlayImage.fillAmount = 1 - playerAttackHandler.GetChargedHeavyAmountNormalized();
-                coolDownText.text = string.Empty;
-            }
-            else if (playerAttackHandler.IsHeavyAttackOnCoolDown())
-            {
-                // are we on cool down?
-                coolDownOverlayImage.fillAmount = playerAttackHandler.GetHeavyAttackCoolDownNormalized();
-                coolDownText.text = (playerAttackHandler.GetHeavyAttackCoolDownNormalized() * playerAttackHandler.heavyAttackCoolDown).ToString("F1");
-            }
-            else
-            {
-                // ability must be ready
-                coolDownOverlayImage.fillAmount = 0;
-                coolDownText.text = string.Empty;
-            }
+            return;
         }
-        else if (abilityType == AbilityType.Shield)
+        else
         {
-            if (!shieldAbility.unlockedShield)
-            {
-                iconObject.SetActive(false);
-
-                // coolDownOverlayImage.fillAmount = 1;
-                // coolDownText.text = string.Empty;
-
-                return;
-            }
-            else
-            {
-                iconObject.SetActive(true);
-            }
+            shieldIconObject.SetActive(true);
+        }
 
 
 
-            if (shieldAbility.IsShieldActive() && !shieldAbility.IsShieldOnCoolDown())
-            {
-                // if we are using the shield.
-                coolDownOverlayImage.fillAmount = 1 - shieldAbility.GetDurationNormalized();
-                coolDownText.text = (shieldAbility.GetDurationNormalized() * shieldAbility.shieldDurationTime).ToString("F1");
-            }
-            else if (shieldAbility.IsShieldOnCoolDown())
-            {
-                // are we on cool down?
-                coolDownOverlayImage.fillAmount = Mathf.Clamp(shieldAbility.GetCoolDownNormalized(), 0, 1);
-                coolDownText.text = (shieldAbility.GetCoolDownNormalized() * shieldAbility.shieldCoolDownTime).ToString("F1");
-            }
-            else if (shieldAbility.IsShieldReady())
-            {
-                // ability must be ready
-                coolDownOverlayImage.fillAmount = 0;
-                coolDownText.text = string.Empty;
-            }
+        if (shieldAbility.IsShieldActive() && !shieldAbility.IsShieldOnCoolDown())
+        {
+            // if we are using the shield.
+            shieldCoolDownOverlayImage.fillAmount = 1 - shieldAbility.GetDurationNormalized();
+            shieldCoolDownText.text = (shieldAbility.GetDurationNormalized() * shieldAbility.shieldDurationTime).ToString("F1");
+        }
+        else if (shieldAbility.IsShieldOnCoolDown())
+        {
+            // are we on cool down?
+            shieldCoolDownOverlayImage.fillAmount = Mathf.Clamp(shieldAbility.GetCoolDownNormalized(), 0, 1);
+            shieldCoolDownText.text = (shieldAbility.GetCoolDownNormalized() * shieldAbility.shieldCoolDownTime).ToString("F1");
+        }
+        else if (shieldAbility.IsShieldReady())
+        {
+            // ability must be ready
+            shieldCoolDownOverlayImage.fillAmount = 0;
+            shieldCoolDownText.text = string.Empty;
+        }
+    }
 
+    private void HandleHeavyIcon()
+    {
+        if (!playerAttackHandler.heavyAttackUnlocked)
+        {
+            heavyIconObject.SetActive(false);
+
+            // coolDownOverlayImage.fillAmount = 1;
+            // coolDownText.text = string.Empty;
+
+            return;
+        }
+        else
+        {
+            heavyIconObject.SetActive(true);
+        }
+
+        if (playerAttackHandler.GetChargedHeavyAmountNormalized() > 0)
+        {
+            // if we are charging.
+            heavyCoolDownOverlayImage.fillAmount = 1 - playerAttackHandler.GetChargedHeavyAmountNormalized();
+            heavyCoolDownText.text = string.Empty;
+        }
+        else if (playerAttackHandler.IsHeavyAttackOnCoolDown())
+        {
+            // are we on cool down?
+            heavyCoolDownOverlayImage.fillAmount = playerAttackHandler.GetHeavyAttackCoolDownNormalized();
+            heavyCoolDownText.text = (playerAttackHandler.GetHeavyAttackCoolDownNormalized() * playerAttackHandler.heavyAttackCoolDown).ToString("F1");
+        }
+        else
+        {
+            // ability must be ready
+            heavyCoolDownOverlayImage.fillAmount = 0;
+            heavyCoolDownText.text = string.Empty;
         }
     }
 }
