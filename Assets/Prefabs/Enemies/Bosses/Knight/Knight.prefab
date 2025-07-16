@@ -5537,6 +5537,7 @@ MonoBehaviour:
   speedWhileNextToPlayer: 0.4
   enableVisualDetectionRadius: 0
   enableVisualDetectionLine: 0
+  showMelee: 0
   slamAttackClass:
     slamAttackRateCoolDown: 10
     slamWindUpTime: 1.25
@@ -5583,7 +5584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbc7e2400dda745ad4d0aa673350c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 320
+  maxHealth: 300
   shieldObject: {fileID: 2485080906551701511}
   startShieldAsActive: 1
   shieldActive: 1
@@ -5631,7 +5632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shieldMaterialName: Shield
   opacity: 210
-  hurtDuration: 0.2
+  flashDuration: 0.2
 --- !u!195 &5986573266199650273
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5852,15 +5853,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40f560c7e838754581d389330fe0c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseSize: 6
+  numberSizeMultiply: 3
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
   healthLossUseGradient: 1
   healthLossTextGradient: {fileID: 11400000, guid: 4564b6ba0df02634fbf39c366dfd81b1,
     type: 2}
   healthLossTextColor: {r: 1, g: 0, b: 0, a: 1}
   healthLossCharacterSpacing: -30
-  baseSize: 6
-  numberSizeMultiply: 3
-  minRandomMultiplyAmount: 0.4
-  maxRandomMultiplyAmount: 0.4
   healthGainUseGradient: 0
   healthGainTextGradient: {fileID: 0}
   healthGainTextColor: {r: 0, g: 1, b: 0, a: 1}
