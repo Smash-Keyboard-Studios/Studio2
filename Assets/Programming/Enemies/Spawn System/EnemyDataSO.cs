@@ -14,22 +14,6 @@ using UnityEngine;
 // Redistribution or modification outside of this project is prohibited without explicit written permission.
 // For full license terms, see DOMIBRON_CODE_LICENSE.md at the project root.
 
-/// <summary>
-/// Used to store data in the aiSpawnList, as dictionaries cannot serialize.
-/// </summary>
-[Serializable]
-public struct Enemy
-{
-    /// <summary>
-    /// The id for the associated enemy prefab.
-    /// </summary>
-    public int id;
-
-    /// <summary>
-    /// The enemy prefab associated with the id.
-    /// </summary>
-    public GameObject prefab;
-}
 
 /// <summary>
 /// This is used to store data of all enemy prefabs and associate an id number with them.

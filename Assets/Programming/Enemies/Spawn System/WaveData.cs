@@ -1,3 +1,5 @@
+using System;
+
 //by    _                 _ _                     
 //     | |               (_) |                    
 //   __| | ___  _ __ ___  _| |__  _ __ ___  _ __  
@@ -11,11 +13,11 @@
 
 
 /// <summary>
-/// The AI States, should dictate thinking.
+/// Stores the wait time for the wave and the enemies to spawn.
 /// </summary>
-public enum AIState
+[Serializable]
+public struct WaveData
 {
-    Idle,
-    Alerted,
-    Retreating,
+    public float delayBeforeWaveStart;
+    public EnemyWaveCount[] EnemiesInWave;
 }
