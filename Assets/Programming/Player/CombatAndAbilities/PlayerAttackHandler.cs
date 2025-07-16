@@ -26,6 +26,8 @@ public struct HeavyAttackSegment
 
 public class PlayerAttackHandler : MonoBehaviour
 {
+    // I fear this script too.
+
     public bool heavyAttackUnlocked = false;
 
     public GameObject hammerModel; // for attack. (animation????)
@@ -43,7 +45,7 @@ public class PlayerAttackHandler : MonoBehaviour
 	/// (local Z)
 	/// </summary>
 	[Header("Box check for light attack")]
-    public float boxCastDepth = 1f;
+    public float boxCastDepth = 1f; // TODO replace with light attack in enemies?
 
     /// <summary>
     /// (local X)
@@ -75,14 +77,18 @@ public class PlayerAttackHandler : MonoBehaviour
     private int currentCharge = 0;
 
     public Transform rotation;
-    private Health health;
     private PlayerMovementHandler playerMovementHandler;
     private RingIndicator ringIndicator;
+    public float heavyAttackRingSizeOffset = 1f;
     private Animator playerAnimator;
 
     // input related.
     private bool isLightAttackKeyDown = false;
     private bool isHeavyAttackKeyDown = false;
+
+    private bool inCoyoteTime = false;
+    public float heavyAttackCoyoteTime = 0.1f;
+    private float heavyAttackDelayTimer = 0f;
 
     private bool heavyAttacking = false;
     private bool lightAttacking = false;
@@ -114,6 +120,8 @@ public class PlayerAttackHandler : MonoBehaviour
 
         if (currentHeavyAttackCoolDown > 0) currentHeavyAttackCoolDown -= Time.deltaTime;
 
+        if (heavyAttackDelayTimer > 0) heavyAttackDelayTimer -= Time.deltaTime;
+        inCoyoteTime = heavyAttackDelayTimer > 0;
 
 
         if (heavyAttacking || lightAttacking)
@@ -125,13 +133,13 @@ public class PlayerAttackHandler : MonoBehaviour
             playerMovementHandler.canSprint = true;
         }
 
-        // naughty naught directly hooking like this, this can cause problems.
+        // naughty naught directly hooking like this, this can cause problems. What?
         if (currentCharge != GetChargedHeavyAmount() && GetChargedHeavyAmount() > 0)
         {
             // show ring
             if (GetChargedHeavyAmount() <= heavyAttackSegments.Length)
             {
-                ringIndicator.ShowRing(0.1f, heavyAttackSegments[GetChargedHeavyAmount() - 1].Range, (currentCharge == 0 ? 0 : heavyAttackSegments[currentCharge - 1].Range));
+                ringIndicator.ShowRing(0.1f, heavyAttackSegments[GetChargedHeavyAmount() - 1].Range + heavyAttackRingSizeOffset, (currentCharge == 0 ? 0 : heavyAttackSegments[currentCharge - 1].Range + heavyAttackRingSizeOffset));
             }
 
             currentCharge = GetChargedHeavyAmount();
@@ -145,7 +153,7 @@ public class PlayerAttackHandler : MonoBehaviour
 
 
 
-        if (isHeavyAttackKeyDown && currentHeavyAttackCoolDown <= 0 && heavyAttackUnlocked)
+        if ((isHeavyAttackKeyDown || inCoyoteTime) && currentHeavyAttackCoolDown <= 0 && heavyAttackUnlocked)
         {
             heavyAttacking = true;
             playerAnimator.SetBool("ChargingHeavyAttack", true);
@@ -158,8 +166,10 @@ public class PlayerAttackHandler : MonoBehaviour
             currentChargeTime += Time.deltaTime;
 
             currentChargeTime = Mathf.Clamp(currentChargeTime, 0, timeToChargeHeavyAttackFully);
+
+            if (isHeavyAttackKeyDown) heavyAttackDelayTimer = heavyAttackCoyoteTime;
         }
-        else if (!isHeavyAttackKeyDown && currentChargeTime > 0)
+        else if (!isHeavyAttackKeyDown && !inCoyoteTime && currentChargeTime > 0)
         {
             // heavy attack
             // print("H Attack with " + GetChargedHeavyAmount());
