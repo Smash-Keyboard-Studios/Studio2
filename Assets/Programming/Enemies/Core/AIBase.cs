@@ -15,34 +15,7 @@ using UnityEngine.AI;
 // Redistribution or modification outside of this project is prohibited without explicit written permission.
 // For full license terms, see DOMIBRON_CODE_LICENSE.md at the project root.
 
-#region AIState
-/// <summary>
-/// The AI States, should dictate thinking.
-/// </summary>
-public enum AIState
-{
-	Idle,
-	Alerted,
-	Retreating,
-}
-#endregion
 
-
-#region AITier
-/// <summary>
-/// The rarity of the AI.
-/// </summary>
-//[Obsolete("No reason for it to be used at the moment.", false)]
-public enum AITier
-{
-	Common,
-	Uncommon,
-	Rare,
-	Epic,
-	Legendary,
-	Mythical,
-}
-#endregion
 
 /// <summary>
 /// Holds the core data of the AI.
