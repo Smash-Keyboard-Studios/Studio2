@@ -340,15 +340,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d96cc26ee2f2a442870c933d0e33c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseSize: 6
+  numberSizeMultiply: 3
+  minRandomMultiplyAmount: 0.4
+  maxRandomMultiplyAmount: 0.4
   healthLossUseGradient: 1
   healthLossTextGradient: {fileID: 11400000, guid: 4564b6ba0df02634fbf39c366dfd81b1,
     type: 2}
   healthLossTextColor: {r: 0, g: 0, b: 0, a: 0}
   healthLossCharacterSpacing: -30
-  baseSize: 6
-  numberSizeMultiply: 3
-  minRandomMultiplyAmount: 0.4
-  maxRandomMultiplyAmount: 0.4
   healthGainUseGradient: 0
   healthGainTextGradient: {fileID: 0}
   healthGainTextColor: {r: 0, g: 1, b: 0, a: 1}
@@ -606,7 +606,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6d0bd9019eab95045921880097ebe536, type: 3}
   m_Color: {r: 1, g: 0.49622637, b: 0.8163829, a: 1}
   m_FlipX: 0
