@@ -17,8 +17,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovementHandler : MonoBehaviour
 {
+
+
     public float walkSpeed = 4f;
     public float sprintMultiplier = 2f;
+
+    public float movementMultiplier = 1f;
 
     public float maxStamina = 100f;
     public float staminaDecrease = 7f;
@@ -73,7 +77,7 @@ public class PlayerMovementHandler : MonoBehaviour
 
     private void HandlePlayerMovement()
     {
-        float speed = walkSpeed;
+        float speed = walkSpeed * movementMultiplier;
 
         if (isSprinting && inputVector.magnitude > 0 && currentStamina > 0 && canSprint)
         {

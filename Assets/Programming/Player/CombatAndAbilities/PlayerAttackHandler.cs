@@ -76,6 +76,8 @@ public class PlayerAttackHandler : MonoBehaviour
 
     private int currentCharge = 0;
 
+    public float heavyChargeWalkSpeedMultiplier = 0.5f;
+
     public Transform rotation;
     private PlayerMovementHandler playerMovementHandler;
     private RingIndicator ringIndicator;
@@ -86,6 +88,7 @@ public class PlayerAttackHandler : MonoBehaviour
     private bool isLightAttackKeyDown = false;
     private bool isHeavyAttackKeyDown = false;
 
+    [Header("Heavy Attack Coyote Time")]
     private bool inCoyoteTime = false;
     public float heavyAttackCoyoteTime = 0.1f;
     private float heavyAttackDelayTimer = 0f;
@@ -106,11 +109,6 @@ public class PlayerAttackHandler : MonoBehaviour
         playerAnimator = GetComponentInChildren<Animator>();
     }
 
-    // private void OnDeath()
-    // {
-    //     enabled = false;
-    // }
-
     // Update is called once per frame
     void Update()
     {
@@ -127,13 +125,15 @@ public class PlayerAttackHandler : MonoBehaviour
         if (heavyAttacking || lightAttacking)
         {
             playerMovementHandler.canSprint = false;
+            playerMovementHandler.sprintMultiplier = heavyChargeWalkSpeedMultiplier;
         }
         else
         {
             playerMovementHandler.canSprint = true;
+            playerMovementHandler.sprintMultiplier = 1f;
         }
 
-        // naughty naught directly hooking like this, this can cause problems. What?
+        // naughty naught directly hooking like this, this can cause problems. What? This handles updating the charge heavy. Oh, you mean the ring is hooked directly into the player attack script.
         if (currentCharge != GetChargedHeavyAmount() && GetChargedHeavyAmount() > 0)
         {
             // show ring
@@ -185,6 +185,7 @@ public class PlayerAttackHandler : MonoBehaviour
         }
     }
 
+    #region Input hooks
     public void OnAttack(InputValue value)
     {
         isLightAttackKeyDown = value.isPressed;
@@ -194,16 +195,10 @@ public class PlayerAttackHandler : MonoBehaviour
     {
         isHeavyAttackKeyDown = value.isPressed;
     }
+    #endregion
 
-    public bool IsHeavyAttackOnCoolDown()
-    {
-        return currentHeavyAttackCoolDown > 0;
-    }
 
-    public float GetHeavyAttackCoolDownNormalized()
-    {
-        return currentHeavyAttackCoolDown / heavyAttackCoolDown;
-    }
+
 
     private IEnumerator DealLightAttack()
     {
@@ -225,6 +220,7 @@ public class PlayerAttackHandler : MonoBehaviour
         playerAnimator.SetBool("Attacking", false);
         lightAttacking = false; // release after animation.
     }
+
 
     private IEnumerator DealHeavyAttack(int chargeAmount)
     {
@@ -261,6 +257,17 @@ public class PlayerAttackHandler : MonoBehaviour
         heavyAttacking = false; // release after animations.
     }
 
+    #region Getters and helpers for other scripts
+    public bool IsHeavyAttackOnCoolDown()
+    {
+        return currentHeavyAttackCoolDown > 0;
+    }
+
+    public float GetHeavyAttackCoolDownNormalized()
+    {
+        return currentHeavyAttackCoolDown / heavyAttackCoolDown;
+    }
+
     public int GetChargedHeavyAmount()
     {
         return Mathf.FloorToInt((currentChargeTime / timeToChargeHeavyAttackFully) / (1f / heavyAttackSegments.Length));
@@ -275,7 +282,9 @@ public class PlayerAttackHandler : MonoBehaviour
     {
         return currentChargeTime / timeToChargeHeavyAttackFully;
     }
+    #endregion
 
+    #region OnDrawGizmos
     private void OnDrawGizmos()
     {
         if (showLightRadius)
@@ -307,4 +316,5 @@ public class PlayerAttackHandler : MonoBehaviour
             }
         }
     }
+    #endregion
 }
