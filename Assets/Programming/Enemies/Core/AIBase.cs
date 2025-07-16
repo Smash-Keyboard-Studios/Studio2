@@ -52,16 +52,6 @@ public class AIBase : MonoBehaviour
 {
 	#region Public variables
 
-	// [Header("Tier and stat multipliers")]
-	// [SerializeField]
-	// protected AITier TierOfAI = AITier.Common;
-
-	// [Header("Health")]
-	// [SerializeField]
-	// public float maxHealth = 100f;
-	// [SerializeField]
-	// public float currentHealth;
-
 	[Header("Movement Speed")]
 	[SerializeField]
 	protected float maxSpeed = 5f;
@@ -76,8 +66,8 @@ public class AIBase : MonoBehaviour
 	/// <summary>
 	/// The current state the AI is in, at the current time. This Dictates what thinking process it will do.
 	/// </summary>
-	[Header("AI State")]
-	public AIState currentAIState = AIState.Alerted;
+	[Header("AI State")] // ! This stays private to prevent other scripts from changing this value directly. Use GetAIState() to get the state.
+	protected AIState currentAIState = AIState.Alerted;
 
 	#endregion
 	/********************************************************************/
@@ -105,25 +95,6 @@ public class AIBase : MonoBehaviour
 	public event Action<AIState, AIState> onStateChanged;
 
 	#endregion
-	/*********************************/
-	#region  Public Events SFX
-
-	/// <summary>
-	/// Called when the AI moves, the value is velocity / speed.
-	/// </summary>
-	// public event Action<float> onWalkingSFXPlay; // ! not needed as we can use the velocity.
-
-	/// <summary>
-	/// Called when the AI stops moving.
-	/// </summary>
-	// public event Action onWalkingSFXStop;
-
-	/// <summary>
-	/// Called when the AI dies.
-	/// </summary>
-	// public event Action onDeathSFXPlayOnce; // ! why? no need to duplicate the event, just use the existing one.
-	#endregion
-	/******************************************************************************/
 	#region Private variables.
 
 	/// <summary>
@@ -174,22 +145,27 @@ public class AIBase : MonoBehaviour
 	/// </summary>
 	protected virtual void KillAI()
 	{
-
 		OnDeathInvoke();
-
-
 
 		Destroy(gameObject);
 	}
 	#endregion
 
-
+	/// <summary>
+	/// Called when the AI state was changed.
+	/// </summary>
+	/// <param name="prevState">The previous state the AI was in.</param>
+	/// <param name="newState">The new state the AI is switching to.</param>
 	protected virtual void OnStateChanged(AIState prevState, AIState newState)
 	{
 		currentAIState = newState;
 	}
 
-	public virtual AIState GetAIState()
+	/// <summary>
+	/// Gets the AI state.
+	/// </summary>
+	/// <returns>The current AI state.</returns>
+	public virtual AIState GetState()
 	{
 		return currentAIState;
 	}
@@ -212,9 +188,9 @@ public class AIBase : MonoBehaviour
 
 
 	/// <summary>
-	/// Invokes the on state changed event.
+	/// Changes the AI state to the new state and calls the onStateChanged event.
 	/// </summary>
-	/// <param name="newState"></param>
+	/// <param name="newState">The new state to switch to.</param>
 	public virtual void ChangeState(AIState newState)
 	{
 		onStateChanged?.Invoke(currentAIState, newState);

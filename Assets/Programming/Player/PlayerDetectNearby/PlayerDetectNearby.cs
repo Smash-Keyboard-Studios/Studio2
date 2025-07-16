@@ -42,7 +42,7 @@ public class PlayerDetectNearby : MonoBehaviour
                     if (c.gameObject.GetComponent<KnightAI>()) { boss1Nearby = true; }
                     if (c.gameObject.GetComponent<ImprovedPriestAI>()) { boss2Nearby = true; }
 
-                    if (c.gameObject.GetComponent<AIBase>().currentAIState == AIState.Alerted)
+                    if (c.gameObject.GetComponent<AIBase>().GetState() == AIState.Alerted)
                     {
                         enemy = true;
                     }

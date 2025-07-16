@@ -43,7 +43,6 @@ public class LightAttack
 	public float minDistanceForAttack = 2f;
 
 
-	//protected Coroutine lightAttackCoroutine;
 
 	#endregion
 
@@ -75,6 +74,30 @@ public class LightAttack
 
 
 	#endregion
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="entityTransform"></param>
+	/// <param name="layersToCheck"></param>
+	public void CheckAndDamage(Transform entityTransform, LayerMask layersToCheck)
+	{
+		Collider[] HitObjects = Physics.OverlapBox(entityTransform.position + (entityTransform.forward * boxCastForwardOffset), new Vector3(boxCastLength,
+			boxCastHeight, boxCastDepth) / 2f,
+			entityTransform.rotation, layersToCheck);
+
+
+		if (HitObjects.Length > 0)
+		{
+			foreach (var hitObject in HitObjects)
+			{
+				if (hitObject.gameObject.CompareTag(Constants.PlayerTag))
+				{
+					hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackDamage);
+				}
+			}
+		}
+	}
 }
 
 /// <summary>
@@ -82,19 +105,14 @@ public class LightAttack
 /// </summary>
 public class GruntAI : AIBase
 {
-	#region Events
+
 	/// <summary>
-	/// Called when using weapon, boolean parameter, false is normal, true is variant.
+	/// Called when attacking the player with an attack, the boolean parameter is false is normal for normal, true is for variant attacks (only animations).
 	/// </summary>
 	public event Action<bool> onAttack;
-	public event Action<bool> onAlertedFirstTime;
-	public event Action<bool> onAlerted;
 
 
-	#endregion
 
-	#region Variables
-	#endregion
 
 
 	#region Light Attack Variables
@@ -130,10 +148,6 @@ public class GruntAI : AIBase
 
 
 	/* Path finding */
-	/// <summary>
-	/// The path used for AI navigation and calculation.
-	/// </summary>
-	// protected NavMeshPath path;
 
 	/// <summary>
 	/// The target location for the AI to head to.
@@ -186,6 +200,9 @@ public class GruntAI : AIBase
 
 	protected Animator animatorController;
 
+	[SerializeField, Range(0, 1)]
+	protected float attackVariantChance = 0.375f;
+
 	#endregion
 
 
@@ -213,19 +230,6 @@ public class GruntAI : AIBase
 		animatorController = GetComponentInChildren<Animator>();
 
 		pathTarget = transform.position;
-	}
-	#endregion
-
-
-
-	#region Start
-	protected override void Start()
-	{
-
-		//InvokeRepeating(nameof(RunPathFinding), 0, 0.25f);
-
-		base.Start();
-
 	}
 	#endregion
 
@@ -270,18 +274,6 @@ public class GruntAI : AIBase
 			AlertedThinking();
 		}
 
-
-		// walking sfx player // ! why when we can do this in the audio hook?
-		// if (agent.velocity.magnitude <= 0.1f)
-		// {
-		// 	WalkingSFXStop();
-
-		// }
-		// else
-		// {
-		// 	WalkingSFXPlay(agent.velocity.magnitude);
-		// }
-
 		// animations
 		animatorController.SetFloat("MovementVel", agent.velocity.normalized.magnitude);
 
@@ -323,12 +315,12 @@ public class GruntAI : AIBase
 	{
 		//Vector3 lead = Vector3.Distance(transform.position, playerTarget.position) < 3f ? Vector3.zero : playerTarget.GetComponent<CharacterController>().velocity;
 
-		pathTarget = playerTarget.position;// + lead;
+		pathTarget = playerTarget.position;// + lead; // No lead, path-ing issues.
 
 
 		if (Vector3.Distance(playerTarget.position, transform.position) < lightAttackClass.minDistanceForAttack)
 		{
-			// attack // TODO Speed needs to be handled elsewhere. It breaks now with animations
+			// attack // TODO Speed needs to be handled elsewhere. It breaks now with animations. Oh no.
 			if (Vector3.Distance(playerTarget.position, transform.position) < 1.55f || attacking) currentSpeed = speedWhileNextToPlayer; // PathTarget = transform.position;
 			else currentSpeed = maxSpeed; // PathTarget = PlayerTarget.position;
 
@@ -340,10 +332,6 @@ public class GruntAI : AIBase
 				maxTurningDegreesDelta);
 
 		}
-
-
-
-
 
 	}
 	#endregion
@@ -365,7 +353,7 @@ public class GruntAI : AIBase
 		// this picks wither normal or rare light attack animations.
 		// this adds variety to attacks.
 
-		if (UnityEngine.Random.Range(0f, 4f) < 1.5f)
+		if (UnityEngine.Random.Range(0f, 1f) < attackVariantChance)
 		{
 			animatorController.SetBool("IsHardAttack", true);
 		}
@@ -411,24 +399,11 @@ public class GruntAI : AIBase
 	/// </summary>
 	public virtual void LightAttackCheckAndDamage()
 	{
-		Collider[] HitObjects = Physics.OverlapBox(transform.position + (transform.forward * lightAttackClass.boxCastForwardOffset), new Vector3(lightAttackClass.boxCastLength,
-			lightAttackClass.boxCastHeight, lightAttackClass.boxCastDepth) / 2f,
-			transform.rotation, layersToCheckFor);
 
+		InvokeOnAttack(animatorController.GetBool("IsHardAttack"));
 
-		AttackSFXPlayOnce(animatorController.GetBool("IsHardAttack"));
+		lightAttackClass.CheckAndDamage(transform, layersToCheckFor);
 
-		if (HitObjects.Length > 0)
-		{
-			foreach (var hitObject in HitObjects)
-			{
-				//print(hitObject.name);
-				if (hitObject.gameObject.CompareTag(Constants.PlayerTag))
-				{
-					hitObject.GetComponent<IDamageable>()?.TakeDamage(lightAttackClass.lightAttackDamage);
-				}
-			}
-		}
 	}
 	#endregion
 
@@ -501,7 +476,7 @@ public class GruntAI : AIBase
 	/// Invokes the on attack event.
 	/// </summary>
 	/// <param name="value">True if this is a variant of the normal attack.</param>
-	protected virtual void AttackSFXPlayOnce(bool value)
+	protected virtual void InvokeOnAttack(bool value)
 	{
 		onAttack?.Invoke(value);
 	}
