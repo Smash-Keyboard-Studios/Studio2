@@ -2068,7 +2068,7 @@ PrefabInstance:
     - target: {fileID: 66097493073879181, guid: 3e32f90458073f5489de2a10202037fd,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 128935872700689985, guid: 3e32f90458073f5489de2a10202037fd,
         type: 3}
@@ -3206,6 +3206,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Priest Boss Healthbar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7976786823295964014, guid: 09d04b9d47647854689e030384f0b003,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8094214229222966705, guid: 09d04b9d47647854689e030384f0b003,
         type: 3}
@@ -4478,6 +4483,79 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c518e1c9bb5d615448a69112f6f7b5ea, type: 3}
+--- !u!1001 &1611913103
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4078124854010288610, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.694782
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078124854010288610, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078124854010288610, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.357701
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078124854010288610, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078124854010288610, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078124854010288610, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078124854010288610, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078124854010288610, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078124854010288610, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078124854010288610, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086637893552779497, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_Name
+      value: Knight
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086637893552779497, guid: f7c3722b2d96f5645b6bc924b044709b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f7c3722b2d96f5645b6bc924b044709b, type: 3}
 --- !u!1001 &1653234484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4898,6 +4976,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret (Vending) (Collider fix)
       objectReference: {fileID: 0}
+    - target: {fileID: 4048950121963084061, guid: d7e20811416d0c04987381a2944775e4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7307810356653119951, guid: d7e20811416d0c04987381a2944775e4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5057,3 +5140,4 @@ SceneRoots:
   - {fileID: 1415290395}
   - {fileID: 1303298283}
   - {fileID: 3790533843834453195}
+  - {fileID: 1611913103}
