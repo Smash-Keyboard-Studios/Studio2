@@ -144,7 +144,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6812304901475929360}
-  - component: {fileID: 1648670214610520758}
   m_Layer: 5
   m_Name: Heavy Attack Holder
   m_TagString: Untagged
@@ -172,22 +171,6 @@ RectTransform:
   m_AnchoredPosition: {x: 170, y: 82}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1648670214610520758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 289613780624649788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 710868f49a5df514881893157d6ab4a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coolDownOverlayImage: {fileID: 5192961953026955229}
-  coolDownText: {fileID: 2576509190571154587}
-  iconObject: {fileID: 7390303757476417655}
-  abilityType: 0
 --- !u!1 &383726011982940279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1166,7 @@ GameObject:
   - component: {fileID: 809903974430052201}
   - component: {fileID: 4224269733327968827}
   - component: {fileID: 7931126042175121794}
+  - component: {fileID: 1190890156200979279}
   m_Layer: 5
   m_Name: PlayerCanvases
   m_TagString: Untagged
@@ -1281,6 +1265,24 @@ MonoBehaviour:
   healthBarImage: {fileID: 6602480133260597457}
   healthBarLossImage: {fileID: 2036932914454822439}
   staminaBarImage: {fileID: 33397311107092183}
+--- !u!114 &1190890156200979279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115958375053051335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 710868f49a5df514881893157d6ab4a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heavyCoolDownOverlayImage: {fileID: 5192961953026955229}
+  heavyCoolDownText: {fileID: 2576509190571154587}
+  heavyIconObject: {fileID: 7390303757476417655}
+  shieldCoolDownOverlayImage: {fileID: 3507841077385527262}
+  shieldCoolDownText: {fileID: 6592945271525209240}
+  shieldIconObject: {fileID: 2175488908077430900}
 --- !u!1 &2175488908077430900
 GameObject:
   m_ObjectHideFlags: 0
@@ -4162,7 +4164,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 153807930258547253}
-  - component: {fileID: 4441406563388326284}
   m_Layer: 5
   m_Name: Shield Icon Holder
   m_TagString: Untagged
@@ -4190,22 +4191,6 @@ RectTransform:
   m_AnchoredPosition: {x: 240, y: 82}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &4441406563388326284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7693552467207835687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 710868f49a5df514881893157d6ab4a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coolDownOverlayImage: {fileID: 3507841077385527262}
-  coolDownText: {fileID: 6592945271525209240}
-  iconObject: {fileID: 2175488908077430900}
-  abilityType: 1
 --- !u!1 &7793479396030103506
 GameObject:
   m_ObjectHideFlags: 0
@@ -4875,7 +4860,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8153939809493661681}
   - component: {fileID: 3888654641450783653}
-  - component: {fileID: 2894756818557071798}
   m_Layer: 5
   m_Name: Player HUD Panel
   m_TagString: Untagged
@@ -4915,36 +4899,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9087270041672379669}
   m_CullTransparentMesh: 1
---- !u!114 &2894756818557071798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9087270041672379669}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &9111473076669202600
 GameObject:
   m_ObjectHideFlags: 0
