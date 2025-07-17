@@ -1242,6 +1242,7 @@ GameObject:
   - component: {fileID: 4224269733327968827}
   - component: {fileID: 7931126042175121794}
   - component: {fileID: 1190890156200979279}
+  - component: {fileID: 1537140971119003497}
   m_Layer: 5
   m_Name: PlayerCanvases
   m_TagString: Untagged
@@ -1358,6 +1359,23 @@ MonoBehaviour:
   shieldCoolDownOverlayImage: {fileID: 3507841077385527262}
   shieldCoolDownText: {fileID: 6592945271525209240}
   shieldIconObject: {fileID: 2175488908077430900}
+--- !u!114 &1537140971119003497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115958375053051335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7c6f4e890857345b2b7e574e97a022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vignetteCanvasGroup: {fileID: 7288066487061922909}
+  percentageToStartFlashing: 0.2
+  lowHealthFlashRate: 5
+  lowHealthMinAlpha: 0.4
+  flashOnHitDuration: 0.3
 --- !u!1 &2175488908077430900
 GameObject:
   m_ObjectHideFlags: 0
