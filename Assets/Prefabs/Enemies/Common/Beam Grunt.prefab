@@ -61,7 +61,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 5
-  currentAIState: 0
   maxAttackRange: 7
   beamAttack:
     coolDown: 5
@@ -999,6 +998,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8391841003897274252}
   - component: {fileID: 8135838637805705527}
+  - component: {fileID: 1026467590916767907}
   m_Layer: 8
   m_Name: MinimapDot
   m_TagString: Untagged
@@ -1074,6 +1074,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1026467590916767907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8709134754743268131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9c3eae13c909c458a66a5dd6de163a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedAxis:
+    x: 0
+    y: 1
+    z: 0
+  resetToZero: 1
 --- !u!1 &9030536201279494183
 GameObject:
   m_ObjectHideFlags: 0

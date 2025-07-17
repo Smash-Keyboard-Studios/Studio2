@@ -271,6 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6338040478318445989}
   - component: {fileID: 758565293880372013}
+  - component: {fileID: 6402087368003531137}
   m_Layer: 8
   m_Name: Circle (1)
   m_TagString: Untagged
@@ -346,6 +347,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6402087368003531137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2965094681653963884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9c3eae13c909c458a66a5dd6de163a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedAxis:
+    x: 0
+    y: 1
+    z: 0
+  resetToZero: 1
 --- !u!1 &2969950179643449159
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +696,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 3.5
-  currentAIState: 0
   lightAttackClass:
     lightAttackDamage: 12
     lightAttackRate: 1
@@ -696,6 +713,7 @@ MonoBehaviour:
   enableVisualDetectionRadius: 0
   enableVisualDetectionLine: 0
   showMelee: 0
+  attackVariantChance: 0.375
 --- !u!114 &7046107696531932651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 24
   shieldObject: {fileID: 2969950179643449159}
-  startShieldAsActive: 1
+  shieldActiveOnStart: 1
   shieldActive: 1
 --- !u!114 &8923346942455427332
 MonoBehaviour:
@@ -1057,6 +1075,7 @@ GameObject:
   m_Component:
   - component: {fileID: 850940998406324079}
   - component: {fileID: 5109848184220302097}
+  - component: {fileID: 8290124025001893463}
   m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
@@ -1132,6 +1151,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8290124025001893463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7228151688167762766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9c3eae13c909c458a66a5dd6de163a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedAxis:
+    x: 0
+    y: 1
+    z: 0
+  resetToZero: 1
 --- !u!1 &7693765657989906676
 GameObject:
   m_ObjectHideFlags: 0
