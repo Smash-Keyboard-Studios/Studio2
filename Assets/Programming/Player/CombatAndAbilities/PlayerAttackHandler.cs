@@ -81,6 +81,7 @@ public class PlayerAttackHandler : MonoBehaviour
     public Transform rotation;
     private PlayerMovementHandler playerMovementHandler;
     private RingIndicator ringIndicator;
+
     public float heavyAttackRingSizeOffset = 1f;
     private Animator playerAnimator;
 
@@ -139,7 +140,7 @@ public class PlayerAttackHandler : MonoBehaviour
             // show ring
             if (GetChargedHeavyAmount() <= heavyAttackSegments.Length)
             {
-                ringIndicator.ShowRing(0.1f, heavyAttackSegments[GetChargedHeavyAmount() - 1].Range + heavyAttackRingSizeOffset, (currentCharge == 0 ? 0 : heavyAttackSegments[currentCharge - 1].Range + heavyAttackRingSizeOffset));
+                ringIndicator.ShowRing(0.1f, heavyAttackSegments[GetChargedHeavyAmount() - 1].Range, (currentCharge == 0 ? 0 : heavyAttackSegments[currentCharge - 1].Range));
             }
 
             currentCharge = GetChargedHeavyAmount();
@@ -231,7 +232,7 @@ public class PlayerAttackHandler : MonoBehaviour
         yield return new WaitForSeconds(heavyAttackDelayForAnimations);
         // print(chargeAmount);
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, heavyAttackSegments[chargeAmount].Range);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, heavyAttackSegments[chargeAmount].Range + heavyAttackRingSizeOffset);
 
 
         foreach (Collider collider in colliders)
