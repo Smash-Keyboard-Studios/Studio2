@@ -81,7 +81,7 @@ public class PlayerMovementHandler : MonoBehaviour
 
         if (isSprinting && inputVector.magnitude > 0 && currentStamina > 0 && canSprint)
         {
-            speed = walkSpeed * sprintMultiplier;
+            speed = walkSpeed * sprintMultiplier * movementMultiplier;
         }
 
         if (isSprinting && inputVector.magnitude > 0 && canSprint && cc.velocity.magnitude > 0)
@@ -96,7 +96,7 @@ public class PlayerMovementHandler : MonoBehaviour
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
 
         Vector3 playerMoveVector = transform.TransformDirection(new Vector3(inputVector.x, 0, inputVector.y)).normalized * speed;
-        playerVelocity.x = playerMoveVector.x;
+        playerVelocity.x = playerMoveVector.x; // what is the point of these?
         playerVelocity.z = playerMoveVector.z;
     }
 

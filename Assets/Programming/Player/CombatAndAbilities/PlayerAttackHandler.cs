@@ -125,12 +125,12 @@ public class PlayerAttackHandler : MonoBehaviour
         if (heavyAttacking || lightAttacking)
         {
             playerMovementHandler.canSprint = false;
-            playerMovementHandler.sprintMultiplier = heavyChargeWalkSpeedMultiplier;
+            playerMovementHandler.movementMultiplier = heavyChargeWalkSpeedMultiplier;
         }
         else
         {
             playerMovementHandler.canSprint = true;
-            playerMovementHandler.sprintMultiplier = 1f;
+            playerMovementHandler.movementMultiplier = 1f;
         }
 
         // naughty naught directly hooking like this, this can cause problems. What? This handles updating the charge heavy. Oh, you mean the ring is hooked directly into the player attack script.
