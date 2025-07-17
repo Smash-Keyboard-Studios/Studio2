@@ -60,7 +60,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 5
-  currentAIState: 0
   projectileAttackSettings:
     maxAttackRange: 7
     attackCoolDown: 1
@@ -544,6 +543,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1813575920592918985}
   - component: {fileID: 7343895048357647688}
+  - component: {fileID: 5131065646369122609}
   m_Layer: 8
   m_Name: MinimapDot
   m_TagString: Untagged
@@ -618,6 +618,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5131065646369122609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3167375138865106179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9c3eae13c909c458a66a5dd6de163a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedAxis:
+    x: 0
+    y: 1
+    z: 0
+  resetToZero: 1
 --- !u!1 &3337552335058830995
 GameObject:
   m_ObjectHideFlags: 0
