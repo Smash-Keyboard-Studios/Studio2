@@ -16,11 +16,25 @@ public class DialogueHandler : MonoBehaviour
     //for playing audio
     private AudioSource audioSource;
 
+    //for waiting between dialogue so it doesn't cut to new dialogue too fast
+    private bool waitingBetweenDialogue;
+
     private void OnEnable()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.loop = false;
+
+        waitingBetweenDialogue = false;
 
         GetTreeData();
+    }
+
+    void Start()
+    {
+        if (currentData.dialogueItem == null) // ! domibron ~ added check to fix a bug
+        {
+            CloseDialogue();
+        }
     }
 
     public void CloseDialogue()
@@ -47,14 +61,27 @@ public class DialogueHandler : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!audioSource.isPlaying)
         {
-            GetNextDialogueData(currentData);
+            if (!waitingBetweenDialogue)
+            {
+                StartCoroutine("ProgressDialogueAfterXSeconds", 1);
+            }
         }
+    }
+
+    private IEnumerator ProgressDialogueAfterXSeconds(float seconds)
+    {
+        waitingBetweenDialogue = true;
+        yield return new WaitForSecondsRealtime(seconds);
+        GetNextDialogueData(currentData);
+        waitingBetweenDialogue = false;
     }
 
     private void GetTreeData()
     {
+        if (string.IsNullOrEmpty(ConversationAsset)) return;
+
         dialogueTreeData = Resources.Load(ConversationAsset) as DialogueTreeSaveData; //loads the example conversation from resources
 
         //first foreach loop to find what the root dialogue is
@@ -82,15 +109,17 @@ public class DialogueHandler : MonoBehaviour
                 //stop anything currently playing
                 //then play the npc dialogue sound for the new data
                 audioSource.Stop();
-                audioSource.PlayOneShot(currentData.dialogueItem.SoundToPlay);
+                audioSource.clip = currentData.dialogueItem.SoundToPlay;
+                audioSource.Play();
             }
         }
 
         //disable this if no more data
-        if(currentData == null) {
+        if (currentData == null)
+        {
             CloseDialogue();
         }
-        
+
         //update player options
         SetPlayerDialogueOptions();
     }

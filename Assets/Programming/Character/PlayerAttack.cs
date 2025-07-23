@@ -89,7 +89,7 @@ public class PlayerAttack : MonoBehaviour
             !unlockedHeavyAttack) return;
 
         if (input.isPressed) { StartCoroutine("ChargeChargedHeavyAttack"); } //if pressed then start charging
-        else { StartCoroutine(ChargedHeavyAttack()); } //if released then stop charging and do attack
+        else { StartCoroutine("ChargedHeavyAttack"); } //if released then stop charging and do attack
     }
 
 
@@ -207,7 +207,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!stats.isDead)
         {
-            if (enemiesToAttack.Length > 1)
+            if (enemiesToAttack.Length > 0)
             {
                 foreach (var hitObject in enemiesToAttack)
                 {
