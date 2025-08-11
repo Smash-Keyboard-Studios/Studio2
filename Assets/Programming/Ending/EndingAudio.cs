@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EndingAudio : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
+
     [SerializeField] private AudioClip startEngineClip;
     [SerializeField] private AudioClip runningEngineClip;
 
@@ -11,20 +13,27 @@ public class EndingAudio : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+        animator.SetBool("road?", false);
+
         audioSource = GetComponent<AudioSource>();
-        audioSource.clip = startEngineClip;
         audioSource.loop = false;
-        audioSource.Play();
+        
+        StartCoroutine("PlayEndingAudio");
     }
 
-    private void Update()
+    private IEnumerator PlayEndingAudio()
     {
-        //once stopped playing is detected we can play running engine clip looping
-        if (!audioSource.isPlaying)
-        {
-            audioSource.clip = runningEngineClip;
-            audioSource.loop = true;
-            audioSource.Play();
-        }
+        yield return new WaitForSeconds(2f);
+
+        animator.SetBool("road?", true);
+
+        audioSource.clip = startEngineClip;
+        audioSource.Play();
+
+        yield return new WaitForSeconds(startEngineClip.length);
+
+        audioSource.clip = runningEngineClip;
+        audioSource.Play();
     }
 }
