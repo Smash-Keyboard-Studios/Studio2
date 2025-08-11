@@ -5155,7 +5155,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4616847991055122877, guid: 89ebef302e5dc5b44b9de23ccf24f487,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1618348749}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 781429325500691246, guid: 89ebef302e5dc5b44b9de23ccf24f487,
         type: 3}
@@ -5311,6 +5315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295d91b8c853f804d9300f300196d4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 449867381}
   startEngineClip: {fileID: 8300000, guid: fe0407aa0096cb34ca0954941f60dbf7, type: 3}
   runningEngineClip: {fileID: 8300000, guid: ca5c9d8e5e2f2404a85e2ac03e0e6dd4, type: 3}
 --- !u!1001 &452941118
@@ -18940,11 +18945,11 @@ Transform:
   m_GameObject: {fileID: 1618348748}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0109616015, y: -0, z: -0, w: 0.9999399}
-  m_LocalPosition: {x: -4.929, y: 1.77, z: -38.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.08160931, y: 1.6471266, z: 2.4666665}
+  m_LocalScale: {x: 1.1494253, y: 1.1494253, z: 1.1494253}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1973903568}
+  m_Father: {fileID: 449867378}
   m_LocalEulerAnglesHint: {x: -1.256, y: 0, z: 0}
 --- !u!114 &1618348750
 MonoBehaviour:
@@ -19020,7 +19025,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -23122,7 +23127,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1618348749}
   - {fileID: 1691053853}
   - {fileID: 112875824}
   - {fileID: 529615552}
