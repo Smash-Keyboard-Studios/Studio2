@@ -115,7 +115,11 @@ public class LevelLoading : MonoBehaviour
 		{
 			LoadScene(LevelCollections.Level2);
 		}
-		else
+        else if (levelID == 3)
+        {
+            LoadScene(LevelCollections.LevelEnding);
+        }
+        else
 		{
 			Debug.LogError($"Failed to find level with id of {levelID}", this);
 		}

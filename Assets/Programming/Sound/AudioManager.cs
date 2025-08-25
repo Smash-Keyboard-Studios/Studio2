@@ -83,6 +83,15 @@ public class AudioManager : MonoBehaviour
         //if found the clips to play
         if (clipsToPlay != null)
         {
+            //if looping and playing one of the clips to play then return
+            if (looping)
+            {
+                foreach (AudioClip clip in clipsToPlay)
+                {
+                    if(clip == audioSource.clip) { return; }
+                }
+            }
+
             Debug.Log("Playing " + clipName); //we found the clips to play
             AudioClip clipToPlay = clipsToPlay[UnityEngine.Random.Range(0, clipsToPlay.Length)]; //choose a random clip from the selection of audio clips
 
