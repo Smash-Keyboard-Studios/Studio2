@@ -173,7 +173,7 @@ public class KnightAI : GruntAI
 		healthWithShield.onShieldBreak += OnShieldBreak;
 		healthWithShield.onShieldActivate += OnShieldActivate;
 
-		base.Awake();
+        base.Awake();
 	}
 	#endregion
 
@@ -266,18 +266,18 @@ public class KnightAI : GruntAI
 			// Slam attack if the player stays too close or gets really close.
 			if (serratedSlashCoolDownTimer <= 0f && Vector3.Distance(playerTarget.position, transform.position) < serratedSlashAttackClass.minimumDistanceForSerratedSlash)
 			{
-				StartCoroutine(SerratedSlashAttack());
+				StartCoroutine("SerratedSlashAttack");
 				print(gameObject.name + " is attacking with serrated slash");
 			}
 			else if (slamAttackCoolDownTimer <= 0f && (Vector3.Distance(playerTarget.position, transform.position) < slamAttackClass.minimumDistanceForForceSlam || slamTimer <= 0f))
 			{
-				StartCoroutine(SlamAttack());
+				StartCoroutine("SlamAttack");
 				print(gameObject.name + " is attacking with slam");
 			}
 			// light attack
 			else if (lightAttackCoolDown <= 0f && globalAttackCoolDown <= 0f && slamTimer > 0f)
 			{
-				StartCoroutine(LightAttack());
+				StartCoroutine("LightAttack");
 				print(gameObject.name + " is attacking light");
 			}
 		}
@@ -310,6 +310,7 @@ public class KnightAI : GruntAI
 		attackAnimationPlaying = true;
 
 		damageRingIndicator.ShowRing(slamAttackClass.slamWindUpTime, slamAttackClass.slamMaxRadius);
+		Debug.Log("Slam Started");
 
 		animatorController.SetBool("IsCharging", true);
 		animatorController.SetBool("IsSlamAttack", true);
@@ -388,6 +389,7 @@ public class KnightAI : GruntAI
 			}
 		}
 
+		Debug.Log("Slam Ended");
 		damageRingIndicator.HideRing();
 
 	}
@@ -433,6 +435,7 @@ public class KnightAI : GruntAI
 
 
 		damageRingIndicator.ShowRing(serratedSlashAttackClass.serratedSlashWindUpTime, serratedSlashAttackClass.serratedSlashRadius);
+		Debug.Log("Serrated Attack Start");
 
 		animatorController.SetBool("IsSlashAttack", true);
 		animatorController.SetBool("IsCharging", true);
@@ -440,19 +443,20 @@ public class KnightAI : GruntAI
 		yield return new WaitForSeconds(serratedSlashAttackClass.serratedSlashWindUpTime);
 
 		animatorController.SetBool("IsCharging", false);
+		Debug.Log("Serrated Slash happening");
 
-
-		float localTimer = 0f;
-		while (localTimer < serratedSlashAttackClass.serratedSlashAttackDuration)
+		for (float i = 0; i < serratedSlashAttackClass.serratedSlashAttackDuration; i += serratedSlashAttackClass.serratedSlashTickLength)
 		{
+			Debug.Log(i);
 			DamageInRadius(serratedSlashAttackClass.serratedSlashRadius, serratedSlashAttackClass.serratedSlashDamage);
 			yield return new WaitForSeconds(serratedSlashAttackClass.serratedSlashTickLength);
-			localTimer += serratedSlashAttackClass.serratedSlashTickLength;
 		}
+		Debug.Log("loop don");
 
 		animatorController.SetBool("IsSlashAttack", false);
 
 		damageRingIndicator.HideRing();
+		Debug.Log("Serrated Attack Finish");
 
 		while (attackAnimationPlaying) yield return null;
 
