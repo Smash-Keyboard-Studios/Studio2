@@ -96,7 +96,7 @@ public class PlayerCheckpointManager : MonoBehaviour
     /// <param name="level">What level did the save occur on.</param>
     public void StorePlayerState(Vector3 playerPosition, bool heavyUnlocked, bool shieldUnlocked, int level)
     {
-        playerLastPosition = playerPosition;
+        playerLastPosition = playerPosition + new Vector3(0, 1, 0);
 
         hasHeavyAttack = heavyUnlocked;
 
