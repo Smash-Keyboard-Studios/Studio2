@@ -9,9 +9,9 @@ public class DamageIndicator : MonoBehaviour
     public float flashTime;
     float blinkTimer;
 
-    SkinnedMeshRenderer skinnedMeshRenderer;
+    public SkinnedMeshRenderer skinnedMeshRenderer;
 
-    void Start()
+    void Awake()
     {
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         skinnedMeshRenderer.material.color = Color.white;
