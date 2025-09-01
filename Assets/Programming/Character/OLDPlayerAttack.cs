@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class PlayerAttack : MonoBehaviour
+[Obsolete] public class OLDPlayerAttack : MonoBehaviour
 {
     [Header("Heavy Attack Unlockable")]
     public bool unlockedHeavyAttack = false;
@@ -73,6 +74,15 @@ public class PlayerAttack : MonoBehaviour
         StartCoroutine(LightAttack());
     }
 
+    public void OnHeavyAttack(InputValue input)
+    {
+        if (lightAttacking || 
+            heavyAttacking || 
+            !unlockedHeavyAttack) return;
+
+        StartCoroutine (HeavyAttack());
+    }
+
     public void OnChargedHeavyAttack(InputValue input)
     {
         if (lightAttacking || 
@@ -101,12 +111,13 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    IEnumerator ChargedHeavyAttack()
+    IEnumerator HeavyAttack()
     {
         if (!stats.isDead)
         {
-            isChargingChargedHeavyAttack = false; //stop charging the attack
-            MyAnim.SetBool("ChargingHeavyAttack", isChargingChargedHeavyAttack);
+            //we arent charging heavy attack
+            isChargingChargedHeavyAttack = false;
+            MyAnim.SetBool("ChargingHeavyAttack", false);
 
             //sets hammer model to active and other vars to true since heavy attacking
             HammerModel.SetActive(true);
@@ -114,16 +125,38 @@ public class PlayerAttack : MonoBehaviour
             MyAnim.SetBool("HeavyAttacking", heavyAttacking);
 
             AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_SwordUse"); //##########################################################TO BE CHANGED to heavy attack sound
-            //damage enemy based on normal heavy radius or charged heavy radius
+            DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AttackType.Heavy);
+
+            yield return new WaitForSeconds(HeavyAttackDelay);
+
+            //charged heavy attack press gets triggered when heavy attack happens
+            //so this is resetting the charging which starts on RMB press
+            ChargedHeavyDmg = 0; //reset charged heavy damage
+
+            //no longer heavy attacking so disable model and set other vars to false
+            HammerModel.SetActive(false);
+            heavyAttacking = false;
+            MyAnim.SetBool("HeavyAttacking", heavyAttacking);
+        }
+    }
+
+    IEnumerator ChargedHeavyAttack()
+    {
+        if (!stats.isDead)
+        {
+            isChargingChargedHeavyAttack = false; //stop charging the attack
+            MyAnim.SetBool("ChargingHeavyAttack", isChargingChargedHeavyAttack);
+
             //set charged heavy dmg to heavy dmg if its too low (equivalent to normal heavy attack)
-            if (ChargedHeavyDmg < HeavyDmg) 
-            { 
-                DamageEnemy(Physics.OverlapSphere(transform.position, heavyAttackRadius), AttackType.Heavy);
-            }
-            else
-            {
-                DamageEnemy(Physics.OverlapSphere(transform.position, chargedHeavyAttackRadius), AttackType.ChargedHeavy);
-            }
+            if (ChargedHeavyDmg < HeavyDmg) { ChargedHeavyDmg = HeavyDmg; }
+
+            //sets hammer model to active and other vars to true since heavy attacking
+            HammerModel.SetActive(true);
+            heavyAttacking = true;
+            MyAnim.SetBool("HeavyAttacking", heavyAttacking);
+
+            AudioManager.Instance.PlayAudio(false, false, audioSource, "Plr_SwordUse"); //##########################################################TO BE CHANGED to heavy attack sound
+            DamageEnemy(Physics.OverlapSphere(transform.position, chargedHeavyAttackRadius), AttackType.ChargedHeavy);
 
             yield return new WaitForSeconds(HeavyAttackDelay);
 
