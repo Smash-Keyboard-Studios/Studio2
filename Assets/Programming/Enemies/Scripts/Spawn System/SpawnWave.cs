@@ -50,4 +50,13 @@ public class SpawnWave : MonoBehaviour
 			AISpawnSystem.instance.SpawnWave(waveData, spawnPoints, timeBetweenSpawn, minSpawnRadius, maxSpawnRadius, sequenceShuffleAmount, effectedRoomTracking);
 	}
 
+	public void StopAllSpawns()
+	{
+        if (AISpawnSystem.instance != null)
+		{
+			//stop spawning stuff
+            AISpawnSystem.instance.StopAllCoroutines();
+        }
+    }
+
 }
