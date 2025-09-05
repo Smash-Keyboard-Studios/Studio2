@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class VolumeSettings : MonoBehaviour
 {
@@ -13,30 +11,29 @@ public class VolumeSettings : MonoBehaviour
     [SerializeField] private Slider MainSlider;
     [SerializeField] private Slider GameplaySlider;
     [SerializeField] private Slider MusicSlider;
+    [SerializeField] private Slider VoiceSlider;
 
     // sets the master volume according to the slider.
-    public void SetMasterVolume()
+    public void SetMasterVolume(float sliderValue)
     {
-        float volume = MainSlider.value;
-
-        audioMixer.SetFloat("MasterMix", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("MasterMix", Mathf.Log10(sliderValue) * 20);
     }
 
     // sets the music volume according to the slider.
-    public void SetMusicVolume()
+    public void SetMusicVolume(float sliderValue)
     {
-        float volume = MainSlider.value;
-
-        audioMixer.SetFloat("MusicMix", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("MusicMix", Mathf.Log10(sliderValue) * 20);
     }
 
     // sets the gameplay volume according to the slider.
-    public void SetGameplayVolume() 
+    public void SetGameplayVolume(float sliderValue) 
     {
-        float volume = MainSlider.value;
-
-        audioMixer.SetFloat("GameplayMix", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("GameplayMix", Mathf.Log10(sliderValue) * 20);
     }
 
+    public void SetVoiceVolume(float sliderValue)
+    {
+        audioMixer.SetFloat("VoiceMix", Mathf.Log10(sliderValue) * 20);
+    }
 
 }
