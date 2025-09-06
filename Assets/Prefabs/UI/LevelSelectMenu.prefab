@@ -174,7 +174,7 @@ MonoBehaviour:
       type: 3}
     m_PressedSprite: {fileID: 21300000, guid: daa47b788d8eec844b96b7769ea72ba5, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 53a1c58a4e0b04e4084b629c8125d09a, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 53a1c58a4e0b04e4084b629c8125d09a, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 59323ffc68bb0ea49adc87c036126c2f, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -562,6 +562,7 @@ GameObject:
   - component: {fileID: 149286733462237454}
   - component: {fileID: 3254349712185476779}
   - component: {fileID: 4164850317064088314}
+  - component: {fileID: 836656398829091131}
   m_Layer: 5
   m_Name: Level 2
   m_TagString: Untagged
@@ -660,7 +661,7 @@ MonoBehaviour:
       type: 3}
     m_PressedSprite: {fileID: 21300000, guid: daa47b788d8eec844b96b7769ea72ba5, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 53a1c58a4e0b04e4084b629c8125d09a, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 53a1c58a4e0b04e4084b629c8125d09a, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 59323ffc68bb0ea49adc87c036126c2f, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -684,6 +685,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &836656398829091131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6666965035216810496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01dab6eaece542542806f49701fff18c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level2Button: {fileID: 4164850317064088314}
 --- !u!1 &7540003334122666548
 GameObject:
   m_ObjectHideFlags: 0
