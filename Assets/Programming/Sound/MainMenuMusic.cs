@@ -12,6 +12,6 @@ public class MainMenuMusic : MonoBehaviour
 
     private void PlayBGMusic()
     {
-        AudioManager.Instance.PlayAudio(true, true, audioSource, "W.O.R Main Menu");
+        AudioManager.Instance.PlayAudio(true, true, audioSource, "MainMenuTheme");
     }
 }
