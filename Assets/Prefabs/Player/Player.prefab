@@ -1270,7 +1270,7 @@ AudioSource:
   m_GameObject: {fileID: 1542462661365463105}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -6036005120850939061, guid: 210cc775a7fc06647a721f30e93ea3a6,
+  OutputAudioMixerGroup: {fileID: 8014899819906223545, guid: 210cc775a7fc06647a721f30e93ea3a6,
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
@@ -3201,6 +3201,7 @@ MonoBehaviour:
   blinkIntensity: 2
   blinkDuration: 0.1
   flashTime: 0.15
+  skinnedMeshRenderer: {fileID: 0}
 --- !u!82 &774508971772862245
 AudioSource:
   m_ObjectHideFlags: 0
