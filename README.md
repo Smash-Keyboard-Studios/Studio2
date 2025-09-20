@@ -4,3 +4,5 @@
 ~~Phantom Siege~~
 
 Wraiths of Retail
+
+Parts of this project contains music and sound effects authored by both **Ben Melton** and **Matthew Hyman**. Their music and sound effects are subject to a license described in [BM_Music_Agreement.pdf](./BM_Music_Agreement.pdf) and [MH_Music_Agreememt.pdf](./MH_Music_Agreememt.pdf)
